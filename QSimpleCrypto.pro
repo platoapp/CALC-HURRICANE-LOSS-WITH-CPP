@@ -24,4 +24,23 @@ SOURCES += \
 
 # Default rules for deployment.
 unix {
-    targ
+    target.path = $$[QT_INSTALL_PLUGINS]/generic
+}
+!isEmpty(target.path): INSTALLS += target
+
+# Include OpenSSL for unix
+linux:!android {
+    unix: LIBS += -L$$PWD/libs/OpenSSL/unix/ -lcrypto
+    unix: LIBS += -L$$PWD/libs/OpenSSL/unix/ -lssl
+
+    INCLUDEPATH += $$PWD/libs/OpenSSL/unix/include
+    DEPENDPATH += $$PWD/libs/OpenSSL/unix/include
+}
+
+# Include OpenSSL for android
+android {
+    INCLUDEPATH += $$PWD/libs/OpenSSL/android/no-asm/static/include/
+    DEPENDPATH += $$PWD/libs/OpenSSL/android/no-asm/static/include/
+
+    android: include($$PWD/libs/OpenSSL/android/openssl.pri)
+}
