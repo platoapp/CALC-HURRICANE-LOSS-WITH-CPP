@@ -883,3 +883,64 @@ typedef struct ASN1_STREAM_ARG_st {
 
 # define IMPLEMENT_ASN1_PRINT_FUNCTION(stname) \
         IMPLEMENT_ASN1_PRINT_FUNCTION_fname(stname, stname, stname)
+
+# define IMPLEMENT_ASN1_PRINT_FUNCTION_fname(stname, itname, fname) \
+        int fname##_print_ctx(BIO *out, stname *x, int indent, \
+                                                const ASN1_PCTX *pctx) \
+        { \
+                return ASN1_item_print(out, (ASN1_VALUE *)x, indent, \
+                        ASN1_ITEM_rptr(itname), pctx); \
+        }
+
+# define IMPLEMENT_ASN1_FUNCTIONS_const(name) \
+                IMPLEMENT_ASN1_FUNCTIONS_const_fname(name, name, name)
+
+# define IMPLEMENT_ASN1_FUNCTIONS_const_fname(stname, itname, fname) \
+        IMPLEMENT_ASN1_ENCODE_FUNCTIONS_const_fname(stname, itname, fname) \
+        IMPLEMENT_ASN1_ALLOC_FUNCTIONS_fname(stname, itname, fname)
+
+/* external definitions for primitive types */
+
+DECLARE_ASN1_ITEM(ASN1_BOOLEAN)
+DECLARE_ASN1_ITEM(ASN1_TBOOLEAN)
+DECLARE_ASN1_ITEM(ASN1_FBOOLEAN)
+DECLARE_ASN1_ITEM(ASN1_SEQUENCE)
+DECLARE_ASN1_ITEM(CBIGNUM)
+DECLARE_ASN1_ITEM(BIGNUM)
+DECLARE_ASN1_ITEM(INT32)
+DECLARE_ASN1_ITEM(ZINT32)
+DECLARE_ASN1_ITEM(UINT32)
+DECLARE_ASN1_ITEM(ZUINT32)
+DECLARE_ASN1_ITEM(INT64)
+DECLARE_ASN1_ITEM(ZINT64)
+DECLARE_ASN1_ITEM(UINT64)
+DECLARE_ASN1_ITEM(ZUINT64)
+
+# if OPENSSL_API_COMPAT < 0x10200000L
+/*
+ * LONG and ZLONG are strongly discouraged for use as stored data, as the
+ * underlying C type (long) differs in size depending on the architecture.
+ * They are designed with 32-bit longs in mind.
+ */
+DECLARE_ASN1_ITEM(LONG)
+DECLARE_ASN1_ITEM(ZLONG)
+# endif
+
+DEFINE_STACK_OF(ASN1_VALUE)
+
+/* Functions used internally by the ASN1 code */
+
+int ASN1_item_ex_new(ASN1_VALUE **pval, const ASN1_ITEM *it);
+void ASN1_item_ex_free(ASN1_VALUE **pval, const ASN1_ITEM *it);
+
+int ASN1_item_ex_d2i(ASN1_VALUE **pval, const unsigned char **in, long len,
+                     const ASN1_ITEM *it, int tag, int aclass, char opt,
+                     ASN1_TLC *ctx);
+
+int ASN1_item_ex_i2d(ASN1_VALUE **pval, unsigned char **out,
+                     const ASN1_ITEM *it, int tag, int aclass);
+
+#ifdef  __cplusplus
+}
+#endif
+#endif
