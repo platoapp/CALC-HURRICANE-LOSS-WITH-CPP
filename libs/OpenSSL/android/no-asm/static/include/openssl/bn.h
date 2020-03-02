@@ -378,4 +378,43 @@ void BN_BLINDING_free(BN_BLINDING *b);
 int BN_BLINDING_update(BN_BLINDING *b, BN_CTX *ctx);
 int BN_BLINDING_convert(BIGNUM *n, BN_BLINDING *b, BN_CTX *ctx);
 int BN_BLINDING_invert(BIGNUM *n, BN_BLINDING *b, BN_CTX *ctx);
-int BN_BLINDING_convert_ex(BIGNUM *n, BIG
+int BN_BLINDING_convert_ex(BIGNUM *n, BIGNUM *r, BN_BLINDING *b, BN_CTX *);
+int BN_BLINDING_invert_ex(BIGNUM *n, const BIGNUM *r, BN_BLINDING *b,
+                          BN_CTX *);
+
+int BN_BLINDING_is_current_thread(BN_BLINDING *b);
+void BN_BLINDING_set_current_thread(BN_BLINDING *b);
+int BN_BLINDING_lock(BN_BLINDING *b);
+int BN_BLINDING_unlock(BN_BLINDING *b);
+
+unsigned long BN_BLINDING_get_flags(const BN_BLINDING *);
+void BN_BLINDING_set_flags(BN_BLINDING *, unsigned long);
+BN_BLINDING *BN_BLINDING_create_param(BN_BLINDING *b,
+                                      const BIGNUM *e, BIGNUM *m, BN_CTX *ctx,
+                                      int (*bn_mod_exp) (BIGNUM *r,
+                                                         const BIGNUM *a,
+                                                         const BIGNUM *p,
+                                                         const BIGNUM *m,
+                                                         BN_CTX *ctx,
+                                                         BN_MONT_CTX *m_ctx),
+                                      BN_MONT_CTX *m_ctx);
+
+DEPRECATEDIN_0_9_8(void BN_set_params(int mul, int high, int low, int mont))
+DEPRECATEDIN_0_9_8(int BN_get_params(int which)) /* 0, mul, 1 high, 2 low, 3
+                                                  * mont */
+
+BN_RECP_CTX *BN_RECP_CTX_new(void);
+void BN_RECP_CTX_free(BN_RECP_CTX *recp);
+int BN_RECP_CTX_set(BN_RECP_CTX *recp, const BIGNUM *rdiv, BN_CTX *ctx);
+int BN_mod_mul_reciprocal(BIGNUM *r, const BIGNUM *x, const BIGNUM *y,
+                          BN_RECP_CTX *recp, BN_CTX *ctx);
+int BN_mod_exp_recp(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
+                    const BIGNUM *m, BN_CTX *ctx);
+int BN_div_recp(BIGNUM *dv, BIGNUM *rem, const BIGNUM *m,
+                BN_RECP_CTX *recp, BN_CTX *ctx);
+
+# ifndef OPENSSL_NO_EC2M
+
+/*
+ * Functions for arithmetic over binary polynomials represented by BIGNUMs.
+ * The BIG
