@@ -65,4 +65,36 @@ int ERR_load_BN_strings(void);
 # define BN_F_BN_MPI2BN                                   112
 # define BN_F_BN_NEW                                      113
 # define BN_F_BN_POOL_GET                                 147
-# d
+# define BN_F_BN_RAND                                     114
+# define BN_F_BN_RAND_RANGE                               122
+# define BN_F_BN_RECP_CTX_NEW                             150
+# define BN_F_BN_RSHIFT                                   146
+# define BN_F_BN_SET_WORDS                                144
+# define BN_F_BN_STACK_PUSH                               148
+# define BN_F_BN_USUB                                     115
+
+/*
+ * BN reason codes.
+ */
+# define BN_R_ARG2_LT_ARG3                                100
+# define BN_R_BAD_RECIPROCAL                              101
+# define BN_R_BIGNUM_TOO_LONG                             114
+# define BN_R_BITS_TOO_SMALL                              118
+# define BN_R_CALLED_WITH_EVEN_MODULUS                    102
+# define BN_R_DIV_BY_ZERO                                 103
+# define BN_R_ENCODING_ERROR                              104
+# define BN_R_EXPAND_ON_STATIC_BIGNUM_DATA                105
+# define BN_R_INPUT_NOT_REDUCED                           110
+# define BN_R_INVALID_LENGTH                              106
+# define BN_R_INVALID_RANGE                               115
+# define BN_R_INVALID_SHIFT                               119
+# define BN_R_NOT_A_SQUARE                                111
+# define BN_R_NOT_INITIALIZED                             107
+# define BN_R_NO_INVERSE                                  108
+# define BN_R_NO_SOLUTION                                 116
+# define BN_R_PRIVATE_KEY_TOO_LARGE                       117
+# define BN_R_P_IS_NOT_PRIME                              112
+# define BN_R_TOO_MANY_ITERATIONS                         113
+# define BN_R_TOO_MANY_TEMPORARY_VARIABLES                109
+
+#endif
