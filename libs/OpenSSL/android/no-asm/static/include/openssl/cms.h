@@ -191,4 +191,43 @@ int CMS_RecipientInfo_set0_password(CMS_RecipientInfo *ri,
 
 CMS_RecipientInfo *CMS_add0_recipient_password(CMS_ContentInfo *cms,
                                                int iter, int wrap_nid,
-                                             
+                                               int pbe_nid,
+                                               unsigned char *pass,
+                                               ossl_ssize_t passlen,
+                                               const EVP_CIPHER *kekciph);
+
+int CMS_RecipientInfo_decrypt(CMS_ContentInfo *cms, CMS_RecipientInfo *ri);
+int CMS_RecipientInfo_encrypt(CMS_ContentInfo *cms, CMS_RecipientInfo *ri);
+
+int CMS_uncompress(CMS_ContentInfo *cms, BIO *dcont, BIO *out,
+                   unsigned int flags);
+CMS_ContentInfo *CMS_compress(BIO *in, int comp_nid, unsigned int flags);
+
+int CMS_set1_eContentType(CMS_ContentInfo *cms, const ASN1_OBJECT *oid);
+const ASN1_OBJECT *CMS_get0_eContentType(CMS_ContentInfo *cms);
+
+CMS_CertificateChoices *CMS_add0_CertificateChoices(CMS_ContentInfo *cms);
+int CMS_add0_cert(CMS_ContentInfo *cms, X509 *cert);
+int CMS_add1_cert(CMS_ContentInfo *cms, X509 *cert);
+STACK_OF(X509) *CMS_get1_certs(CMS_ContentInfo *cms);
+
+CMS_RevocationInfoChoice *CMS_add0_RevocationInfoChoice(CMS_ContentInfo *cms);
+int CMS_add0_crl(CMS_ContentInfo *cms, X509_CRL *crl);
+int CMS_add1_crl(CMS_ContentInfo *cms, X509_CRL *crl);
+STACK_OF(X509_CRL) *CMS_get1_crls(CMS_ContentInfo *cms);
+
+int CMS_SignedData_init(CMS_ContentInfo *cms);
+CMS_SignerInfo *CMS_add1_signer(CMS_ContentInfo *cms,
+                                X509 *signer, EVP_PKEY *pk, const EVP_MD *md,
+                                unsigned int flags);
+EVP_PKEY_CTX *CMS_SignerInfo_get0_pkey_ctx(CMS_SignerInfo *si);
+EVP_MD_CTX *CMS_SignerInfo_get0_md_ctx(CMS_SignerInfo *si);
+STACK_OF(CMS_SignerInfo) *CMS_get0_SignerInfos(CMS_ContentInfo *cms);
+
+void CMS_SignerInfo_set1_signer_cert(CMS_SignerInfo *si, X509 *signer);
+int CMS_SignerInfo_get0_signer_id(CMS_SignerInfo *si,
+                                  ASN1_OCTET_STRING **keyid,
+                                  X509_NAME **issuer, ASN1_INTEGER **sno);
+int CMS_SignerInfo_cert_cmp(CMS_SignerInfo *si, X509 *cert);
+int CMS_set1_signers_certs(CMS_ContentInfo *cms, STACK_OF(X509) *certs,
+                           unsig
