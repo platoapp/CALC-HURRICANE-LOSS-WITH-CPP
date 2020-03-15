@@ -230,4 +230,39 @@ int CMS_SignerInfo_get0_signer_id(CMS_SignerInfo *si,
                                   X509_NAME **issuer, ASN1_INTEGER **sno);
 int CMS_SignerInfo_cert_cmp(CMS_SignerInfo *si, X509 *cert);
 int CMS_set1_signers_certs(CMS_ContentInfo *cms, STACK_OF(X509) *certs,
-                           unsig
+                           unsigned int flags);
+void CMS_SignerInfo_get0_algs(CMS_SignerInfo *si, EVP_PKEY **pk,
+                              X509 **signer, X509_ALGOR **pdig,
+                              X509_ALGOR **psig);
+ASN1_OCTET_STRING *CMS_SignerInfo_get0_signature(CMS_SignerInfo *si);
+int CMS_SignerInfo_sign(CMS_SignerInfo *si);
+int CMS_SignerInfo_verify(CMS_SignerInfo *si);
+int CMS_SignerInfo_verify_content(CMS_SignerInfo *si, BIO *chain);
+
+int CMS_add_smimecap(CMS_SignerInfo *si, STACK_OF(X509_ALGOR) *algs);
+int CMS_add_simple_smimecap(STACK_OF(X509_ALGOR) **algs,
+                            int algnid, int keysize);
+int CMS_add_standard_smimecap(STACK_OF(X509_ALGOR) **smcap);
+
+int CMS_signed_get_attr_count(const CMS_SignerInfo *si);
+int CMS_signed_get_attr_by_NID(const CMS_SignerInfo *si, int nid,
+                               int lastpos);
+int CMS_signed_get_attr_by_OBJ(const CMS_SignerInfo *si, const ASN1_OBJECT *obj,
+                               int lastpos);
+X509_ATTRIBUTE *CMS_signed_get_attr(const CMS_SignerInfo *si, int loc);
+X509_ATTRIBUTE *CMS_signed_delete_attr(CMS_SignerInfo *si, int loc);
+int CMS_signed_add1_attr(CMS_SignerInfo *si, X509_ATTRIBUTE *attr);
+int CMS_signed_add1_attr_by_OBJ(CMS_SignerInfo *si,
+                                const ASN1_OBJECT *obj, int type,
+                                const void *bytes, int len);
+int CMS_signed_add1_attr_by_NID(CMS_SignerInfo *si,
+                                int nid, int type,
+                                const void *bytes, int len);
+int CMS_signed_add1_attr_by_txt(CMS_SignerInfo *si,
+                                const char *attrname, int type,
+                                const void *bytes, int len);
+void *CMS_signed_get0_data_by_OBJ(CMS_SignerInfo *si, const ASN1_OBJECT *oid,
+                                  int lastpos, int type);
+
+int CMS_unsigned_get_attr_count(const CMS_SignerInfo *si);
+int CMS_unsigned_get_attr_by_NID(const CMS_Signer
