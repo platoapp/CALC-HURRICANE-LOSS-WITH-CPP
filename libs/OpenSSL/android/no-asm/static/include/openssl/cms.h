@@ -154,4 +154,41 @@ int CMS_RecipientInfo_type(CMS_RecipientInfo *ri);
 EVP_PKEY_CTX *CMS_RecipientInfo_get0_pkey_ctx(CMS_RecipientInfo *ri);
 CMS_ContentInfo *CMS_EnvelopedData_create(const EVP_CIPHER *cipher);
 CMS_RecipientInfo *CMS_add1_recipient_cert(CMS_ContentInfo *cms,
-                                           X509 *recip, unsigned int fla
+                                           X509 *recip, unsigned int flags);
+int CMS_RecipientInfo_set0_pkey(CMS_RecipientInfo *ri, EVP_PKEY *pkey);
+int CMS_RecipientInfo_ktri_cert_cmp(CMS_RecipientInfo *ri, X509 *cert);
+int CMS_RecipientInfo_ktri_get0_algs(CMS_RecipientInfo *ri,
+                                     EVP_PKEY **pk, X509 **recip,
+                                     X509_ALGOR **palg);
+int CMS_RecipientInfo_ktri_get0_signer_id(CMS_RecipientInfo *ri,
+                                          ASN1_OCTET_STRING **keyid,
+                                          X509_NAME **issuer,
+                                          ASN1_INTEGER **sno);
+
+CMS_RecipientInfo *CMS_add0_recipient_key(CMS_ContentInfo *cms, int nid,
+                                          unsigned char *key, size_t keylen,
+                                          unsigned char *id, size_t idlen,
+                                          ASN1_GENERALIZEDTIME *date,
+                                          ASN1_OBJECT *otherTypeId,
+                                          ASN1_TYPE *otherType);
+
+int CMS_RecipientInfo_kekri_get0_id(CMS_RecipientInfo *ri,
+                                    X509_ALGOR **palg,
+                                    ASN1_OCTET_STRING **pid,
+                                    ASN1_GENERALIZEDTIME **pdate,
+                                    ASN1_OBJECT **potherid,
+                                    ASN1_TYPE **pothertype);
+
+int CMS_RecipientInfo_set0_key(CMS_RecipientInfo *ri,
+                               unsigned char *key, size_t keylen);
+
+int CMS_RecipientInfo_kekri_id_cmp(CMS_RecipientInfo *ri,
+                                   const unsigned char *id, size_t idlen);
+
+int CMS_RecipientInfo_set0_password(CMS_RecipientInfo *ri,
+                                    unsigned char *pass,
+                                    ossl_ssize_t passlen);
+
+CMS_RecipientInfo *CMS_add0_recipient_password(CMS_ContentInfo *cms,
+                                               int iter, int wrap_nid,
+                                             
