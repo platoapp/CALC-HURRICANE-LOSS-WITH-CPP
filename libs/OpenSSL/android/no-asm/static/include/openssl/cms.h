@@ -70,4 +70,51 @@ DECLARE_ASN1_PRINT_FUNCTION(CMS_ContentInfo)
 # define CMS_PARTIAL                     0x4000
 # define CMS_REUSE_DIGEST                0x8000
 # define CMS_USE_KEYID                   0x10000
-# define CMS_DEBUG_DEC
+# define CMS_DEBUG_DECRYPT               0x20000
+# define CMS_KEY_PARAM                   0x40000
+# define CMS_ASCIICRLF                   0x80000
+
+const ASN1_OBJECT *CMS_get0_type(const CMS_ContentInfo *cms);
+
+BIO *CMS_dataInit(CMS_ContentInfo *cms, BIO *icont);
+int CMS_dataFinal(CMS_ContentInfo *cms, BIO *bio);
+
+ASN1_OCTET_STRING **CMS_get0_content(CMS_ContentInfo *cms);
+int CMS_is_detached(CMS_ContentInfo *cms);
+int CMS_set_detached(CMS_ContentInfo *cms, int detached);
+
+# ifdef HEADER_PEM_H
+DECLARE_PEM_rw_const(CMS, CMS_ContentInfo)
+# endif
+int CMS_stream(unsigned char ***boundary, CMS_ContentInfo *cms);
+CMS_ContentInfo *d2i_CMS_bio(BIO *bp, CMS_ContentInfo **cms);
+int i2d_CMS_bio(BIO *bp, CMS_ContentInfo *cms);
+
+BIO *BIO_new_CMS(BIO *out, CMS_ContentInfo *cms);
+int i2d_CMS_bio_stream(BIO *out, CMS_ContentInfo *cms, BIO *in, int flags);
+int PEM_write_bio_CMS_stream(BIO *out, CMS_ContentInfo *cms, BIO *in,
+                             int flags);
+CMS_ContentInfo *SMIME_read_CMS(BIO *bio, BIO **bcont);
+int SMIME_write_CMS(BIO *bio, CMS_ContentInfo *cms, BIO *data, int flags);
+
+int CMS_final(CMS_ContentInfo *cms, BIO *data, BIO *dcont,
+              unsigned int flags);
+
+CMS_ContentInfo *CMS_sign(X509 *signcert, EVP_PKEY *pkey,
+                          STACK_OF(X509) *certs, BIO *data,
+                          unsigned int flags);
+
+CMS_ContentInfo *CMS_sign_receipt(CMS_SignerInfo *si,
+                                  X509 *signcert, EVP_PKEY *pkey,
+                                  STACK_OF(X509) *certs, unsigned int flags);
+
+int CMS_data(CMS_ContentInfo *cms, BIO *out, unsigned int flags);
+CMS_ContentInfo *CMS_data_create(BIO *in, unsigned int flags);
+
+int CMS_digest_verify(CMS_ContentInfo *cms, BIO *dcont, BIO *out,
+                      unsigned int flags);
+CMS_ContentInfo *CMS_digest_create(BIO *in, const EVP_MD *md,
+                                   unsigned int flags);
+
+int CMS_EncryptedData_decrypt(CMS_ContentInfo *cms,
+                    
