@@ -117,4 +117,41 @@ CMS_ContentInfo *CMS_digest_create(BIO *in, const EVP_MD *md,
                                    unsigned int flags);
 
 int CMS_EncryptedData_decrypt(CMS_ContentInfo *cms,
-                    
+                              const unsigned char *key, size_t keylen,
+                              BIO *dcont, BIO *out, unsigned int flags);
+
+CMS_ContentInfo *CMS_EncryptedData_encrypt(BIO *in, const EVP_CIPHER *cipher,
+                                           const unsigned char *key,
+                                           size_t keylen, unsigned int flags);
+
+int CMS_EncryptedData_set1_key(CMS_ContentInfo *cms, const EVP_CIPHER *ciph,
+                               const unsigned char *key, size_t keylen);
+
+int CMS_verify(CMS_ContentInfo *cms, STACK_OF(X509) *certs,
+               X509_STORE *store, BIO *dcont, BIO *out, unsigned int flags);
+
+int CMS_verify_receipt(CMS_ContentInfo *rcms, CMS_ContentInfo *ocms,
+                       STACK_OF(X509) *certs,
+                       X509_STORE *store, unsigned int flags);
+
+STACK_OF(X509) *CMS_get0_signers(CMS_ContentInfo *cms);
+
+CMS_ContentInfo *CMS_encrypt(STACK_OF(X509) *certs, BIO *in,
+                             const EVP_CIPHER *cipher, unsigned int flags);
+
+int CMS_decrypt(CMS_ContentInfo *cms, EVP_PKEY *pkey, X509 *cert,
+                BIO *dcont, BIO *out, unsigned int flags);
+
+int CMS_decrypt_set1_pkey(CMS_ContentInfo *cms, EVP_PKEY *pk, X509 *cert);
+int CMS_decrypt_set1_key(CMS_ContentInfo *cms,
+                         unsigned char *key, size_t keylen,
+                         const unsigned char *id, size_t idlen);
+int CMS_decrypt_set1_password(CMS_ContentInfo *cms,
+                              unsigned char *pass, ossl_ssize_t passlen);
+
+STACK_OF(CMS_RecipientInfo) *CMS_get0_RecipientInfos(CMS_ContentInfo *cms);
+int CMS_RecipientInfo_type(CMS_RecipientInfo *ri);
+EVP_PKEY_CTX *CMS_RecipientInfo_get0_pkey_ctx(CMS_RecipientInfo *ri);
+CMS_ContentInfo *CMS_EnvelopedData_create(const EVP_CIPHER *cipher);
+CMS_RecipientInfo *CMS_add1_recipient_cert(CMS_ContentInfo *cms,
+                                           X509 *recip, unsigned int fla
