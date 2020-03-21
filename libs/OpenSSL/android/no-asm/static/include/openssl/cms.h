@@ -265,4 +265,35 @@ void *CMS_signed_get0_data_by_OBJ(CMS_SignerInfo *si, const ASN1_OBJECT *oid,
                                   int lastpos, int type);
 
 int CMS_unsigned_get_attr_count(const CMS_SignerInfo *si);
-int CMS_unsigned_get_attr_by_NID(const CMS_Signer
+int CMS_unsigned_get_attr_by_NID(const CMS_SignerInfo *si, int nid,
+                                 int lastpos);
+int CMS_unsigned_get_attr_by_OBJ(const CMS_SignerInfo *si,
+                                 const ASN1_OBJECT *obj, int lastpos);
+X509_ATTRIBUTE *CMS_unsigned_get_attr(const CMS_SignerInfo *si, int loc);
+X509_ATTRIBUTE *CMS_unsigned_delete_attr(CMS_SignerInfo *si, int loc);
+int CMS_unsigned_add1_attr(CMS_SignerInfo *si, X509_ATTRIBUTE *attr);
+int CMS_unsigned_add1_attr_by_OBJ(CMS_SignerInfo *si,
+                                  const ASN1_OBJECT *obj, int type,
+                                  const void *bytes, int len);
+int CMS_unsigned_add1_attr_by_NID(CMS_SignerInfo *si,
+                                  int nid, int type,
+                                  const void *bytes, int len);
+int CMS_unsigned_add1_attr_by_txt(CMS_SignerInfo *si,
+                                  const char *attrname, int type,
+                                  const void *bytes, int len);
+void *CMS_unsigned_get0_data_by_OBJ(CMS_SignerInfo *si, ASN1_OBJECT *oid,
+                                    int lastpos, int type);
+
+int CMS_get1_ReceiptRequest(CMS_SignerInfo *si, CMS_ReceiptRequest **prr);
+CMS_ReceiptRequest *CMS_ReceiptRequest_create0(unsigned char *id, int idlen,
+                                               int allorfirst,
+                                               STACK_OF(GENERAL_NAMES)
+                                               *receiptList, STACK_OF(GENERAL_NAMES)
+                                               *receiptsTo);
+int CMS_add1_ReceiptRequest(CMS_SignerInfo *si, CMS_ReceiptRequest *rr);
+void CMS_ReceiptRequest_get0_values(CMS_ReceiptRequest *rr,
+                                    ASN1_STRING **pcid,
+                                    int *pallorfirst,
+                                    STACK_OF(GENERAL_NAMES) **plist,
+                                    STACK_OF(GENERAL_NAMES) **prto);
+int CMS_RecipientInfo_kari_get0_alg(CMS_Recipi
