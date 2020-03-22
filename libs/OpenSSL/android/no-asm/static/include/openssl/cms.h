@@ -296,4 +296,44 @@ void CMS_ReceiptRequest_get0_values(CMS_ReceiptRequest *rr,
                                     int *pallorfirst,
                                     STACK_OF(GENERAL_NAMES) **plist,
                                     STACK_OF(GENERAL_NAMES) **prto);
-int CMS_RecipientInfo_kari_get0_alg(CMS_Recipi
+int CMS_RecipientInfo_kari_get0_alg(CMS_RecipientInfo *ri,
+                                    X509_ALGOR **palg,
+                                    ASN1_OCTET_STRING **pukm);
+STACK_OF(CMS_RecipientEncryptedKey)
+*CMS_RecipientInfo_kari_get0_reks(CMS_RecipientInfo *ri);
+
+int CMS_RecipientInfo_kari_get0_orig_id(CMS_RecipientInfo *ri,
+                                        X509_ALGOR **pubalg,
+                                        ASN1_BIT_STRING **pubkey,
+                                        ASN1_OCTET_STRING **keyid,
+                                        X509_NAME **issuer,
+                                        ASN1_INTEGER **sno);
+
+int CMS_RecipientInfo_kari_orig_id_cmp(CMS_RecipientInfo *ri, X509 *cert);
+
+int CMS_RecipientEncryptedKey_get0_id(CMS_RecipientEncryptedKey *rek,
+                                      ASN1_OCTET_STRING **keyid,
+                                      ASN1_GENERALIZEDTIME **tm,
+                                      CMS_OtherKeyAttribute **other,
+                                      X509_NAME **issuer, ASN1_INTEGER **sno);
+int CMS_RecipientEncryptedKey_cert_cmp(CMS_RecipientEncryptedKey *rek,
+                                       X509 *cert);
+int CMS_RecipientInfo_kari_set0_pkey(CMS_RecipientInfo *ri, EVP_PKEY *pk);
+EVP_CIPHER_CTX *CMS_RecipientInfo_kari_get0_ctx(CMS_RecipientInfo *ri);
+int CMS_RecipientInfo_kari_decrypt(CMS_ContentInfo *cms,
+                                   CMS_RecipientInfo *ri,
+                                   CMS_RecipientEncryptedKey *rek);
+
+int CMS_SharedInfo_encode(unsigned char **pder, X509_ALGOR *kekalg,
+                          ASN1_OCTET_STRING *ukm, int keylen);
+
+/* Backward compatibility for spelling errors. */
+# define CMS_R_UNKNOWN_DIGEST_ALGORITM CMS_R_UNKNOWN_DIGEST_ALGORITHM
+# define CMS_R_UNSUPPORTED_RECPIENTINFO_TYPE \
+    CMS_R_UNSUPPORTED_RECIPIENTINFO_TYPE
+
+#  ifdef  __cplusplus
+}
+#  endif
+# endif
+#endif
