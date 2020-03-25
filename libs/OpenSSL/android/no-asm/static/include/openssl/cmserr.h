@@ -49,4 +49,35 @@ int ERR_load_CMS_strings(void);
 #  define CMS_F_CMS_DECRYPT_SET1_PKEY                      114
 #  define CMS_F_CMS_DIGESTALGORITHM_FIND_CTX               115
 #  define CMS_F_CMS_DIGESTALGORITHM_INIT_BIO               116
-#  define CMS_F_CMS_DIGESTEDDATA_DO_FINAL        
+#  define CMS_F_CMS_DIGESTEDDATA_DO_FINAL                  117
+#  define CMS_F_CMS_DIGEST_VERIFY                          118
+#  define CMS_F_CMS_ENCODE_RECEIPT                         161
+#  define CMS_F_CMS_ENCRYPT                                119
+#  define CMS_F_CMS_ENCRYPTEDCONTENT_INIT                  179
+#  define CMS_F_CMS_ENCRYPTEDCONTENT_INIT_BIO              120
+#  define CMS_F_CMS_ENCRYPTEDDATA_DECRYPT                  121
+#  define CMS_F_CMS_ENCRYPTEDDATA_ENCRYPT                  122
+#  define CMS_F_CMS_ENCRYPTEDDATA_SET1_KEY                 123
+#  define CMS_F_CMS_ENVELOPEDDATA_CREATE                   124
+#  define CMS_F_CMS_ENVELOPEDDATA_INIT_BIO                 125
+#  define CMS_F_CMS_ENVELOPED_DATA_INIT                    126
+#  define CMS_F_CMS_ENV_ASN1_CTRL                          171
+#  define CMS_F_CMS_FINAL                                  127
+#  define CMS_F_CMS_GET0_CERTIFICATE_CHOICES               128
+#  define CMS_F_CMS_GET0_CONTENT                           129
+#  define CMS_F_CMS_GET0_ECONTENT_TYPE                     130
+#  define CMS_F_CMS_GET0_ENVELOPED                         131
+#  define CMS_F_CMS_GET0_REVOCATION_CHOICES                132
+#  define CMS_F_CMS_GET0_SIGNED                            133
+#  define CMS_F_CMS_MSGSIGDIGEST_ADD1                      162
+#  define CMS_F_CMS_RECEIPTREQUEST_CREATE0                 159
+#  define CMS_F_CMS_RECEIPT_VERIFY                         160
+#  define CMS_F_CMS_RECIPIENTINFO_DECRYPT                  134
+#  define CMS_F_CMS_RECIPIENTINFO_ENCRYPT                  169
+#  define CMS_F_CMS_RECIPIENTINFO_KARI_ENCRYPT             178
+#  define CMS_F_CMS_RECIPIENTINFO_KARI_GET0_ALG            175
+#  define CMS_F_CMS_RECIPIENTINFO_KARI_GET0_ORIG_ID        173
+#  define CMS_F_CMS_RECIPIENTINFO_KARI_GET0_REKS           172
+#  define CMS_F_CMS_RECIPIENTINFO_KARI_ORIG_ID_CMP         174
+#  define CMS_F_CMS_RECIPIENTINFO_KEKRI_DECRYPT            135
+#  define CMS_F_CMS_
