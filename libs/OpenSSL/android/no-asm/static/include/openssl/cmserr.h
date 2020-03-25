@@ -80,4 +80,39 @@ int ERR_load_CMS_strings(void);
 #  define CMS_F_CMS_RECIPIENTINFO_KARI_GET0_REKS           172
 #  define CMS_F_CMS_RECIPIENTINFO_KARI_ORIG_ID_CMP         174
 #  define CMS_F_CMS_RECIPIENTINFO_KEKRI_DECRYPT            135
-#  define CMS_F_CMS_
+#  define CMS_F_CMS_RECIPIENTINFO_KEKRI_ENCRYPT            136
+#  define CMS_F_CMS_RECIPIENTINFO_KEKRI_GET0_ID            137
+#  define CMS_F_CMS_RECIPIENTINFO_KEKRI_ID_CMP             138
+#  define CMS_F_CMS_RECIPIENTINFO_KTRI_CERT_CMP            139
+#  define CMS_F_CMS_RECIPIENTINFO_KTRI_DECRYPT             140
+#  define CMS_F_CMS_RECIPIENTINFO_KTRI_ENCRYPT             141
+#  define CMS_F_CMS_RECIPIENTINFO_KTRI_GET0_ALGS           142
+#  define CMS_F_CMS_RECIPIENTINFO_KTRI_GET0_SIGNER_ID      143
+#  define CMS_F_CMS_RECIPIENTINFO_PWRI_CRYPT               167
+#  define CMS_F_CMS_RECIPIENTINFO_SET0_KEY                 144
+#  define CMS_F_CMS_RECIPIENTINFO_SET0_PASSWORD            168
+#  define CMS_F_CMS_RECIPIENTINFO_SET0_PKEY                145
+#  define CMS_F_CMS_SD_ASN1_CTRL                           170
+#  define CMS_F_CMS_SET1_IAS                               176
+#  define CMS_F_CMS_SET1_KEYID                             177
+#  define CMS_F_CMS_SET1_SIGNERIDENTIFIER                  146
+#  define CMS_F_CMS_SET_DETACHED                           147
+#  define CMS_F_CMS_SIGN                                   148
+#  define CMS_F_CMS_SIGNED_DATA_INIT                       149
+#  define CMS_F_CMS_SIGNERINFO_CONTENT_SIGN                150
+#  define CMS_F_CMS_SIGNERINFO_SIGN                        151
+#  define CMS_F_CMS_SIGNERINFO_VERIFY                      152
+#  define CMS_F_CMS_SIGNERINFO_VERIFY_CERT                 153
+#  define CMS_F_CMS_SIGNERINFO_VERIFY_CONTENT              154
+#  define CMS_F_CMS_SIGN_RECEIPT                           163
+#  define CMS_F_CMS_SI_CHECK_ATTRIBUTES                    183
+#  define CMS_F_CMS_STREAM                                 155
+#  define CMS_F_CMS_UNCOMPRESS                             156
+#  define CMS_F_CMS_VERIFY                                 157
+#  define CMS_F_KEK_UNWRAP_KEY                             180
+
+/*
+ * CMS reason codes.
+ */
+#  define CMS_R_ADD_SIGNER_ERROR                           99
+#  define CMS_R_AT
