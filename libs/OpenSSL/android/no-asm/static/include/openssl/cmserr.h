@@ -147,4 +147,35 @@ int ERR_load_CMS_strings(void);
 #  define CMS_R_MSGSIGDIGEST_VERIFICATION_FAILURE          162
 #  define CMS_R_MSGSIGDIGEST_WRONG_LENGTH                  163
 #  define CMS_R_NEED_ONE_SIGNER                            164
-#  define CMS_R_NOT_A_SIGNED_RECEIPT                
+#  define CMS_R_NOT_A_SIGNED_RECEIPT                       165
+#  define CMS_R_NOT_ENCRYPTED_DATA                         122
+#  define CMS_R_NOT_KEK                                    123
+#  define CMS_R_NOT_KEY_AGREEMENT                          181
+#  define CMS_R_NOT_KEY_TRANSPORT                          124
+#  define CMS_R_NOT_PWRI                                   177
+#  define CMS_R_NOT_SUPPORTED_FOR_THIS_KEY_TYPE            125
+#  define CMS_R_NO_CIPHER                                  126
+#  define CMS_R_NO_CONTENT                                 127
+#  define CMS_R_NO_CONTENT_TYPE                            173
+#  define CMS_R_NO_DEFAULT_DIGEST                          128
+#  define CMS_R_NO_DIGEST_SET                              129
+#  define CMS_R_NO_KEY                                     130
+#  define CMS_R_NO_KEY_OR_CERT                             174
+#  define CMS_R_NO_MATCHING_DIGEST                         131
+#  define CMS_R_NO_MATCHING_RECIPIENT                      132
+#  define CMS_R_NO_MATCHING_SIGNATURE                      166
+#  define CMS_R_NO_MSGSIGDIGEST                            167
+#  define CMS_R_NO_PASSWORD                                178
+#  define CMS_R_NO_PRIVATE_KEY                             133
+#  define CMS_R_NO_PUBLIC_KEY                              134
+#  define CMS_R_NO_RECEIPT_REQUEST                         168
+#  define CMS_R_NO_SIGNERS                                 135
+#  define CMS_R_PRIVATE_KEY_DOES_NOT_MATCH_CERTIFICATE     136
+#  define CMS_R_RECEIPT_DECODE_ERROR                       169
+#  define CMS_R_RECIPIENT_ERROR                            137
+#  define CMS_R_SIGNER_CERTIFICATE_NOT_FOUND               138
+#  define CMS_R_SIGNFINAL_ERROR                            139
+#  define CMS_R_SMIME_TEXT_ERROR                           140
+#  define CMS_R_STORE_INIT_ERROR                           141
+#  define CMS_R_TYPE_NOT_COMPRESSED_DATA                   142
+#  define
