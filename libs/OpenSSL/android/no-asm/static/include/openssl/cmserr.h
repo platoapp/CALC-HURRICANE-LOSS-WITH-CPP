@@ -115,4 +115,36 @@ int ERR_load_CMS_strings(void);
  * CMS reason codes.
  */
 #  define CMS_R_ADD_SIGNER_ERROR                           99
-#  define CMS_R_AT
+#  define CMS_R_ATTRIBUTE_ERROR                            161
+#  define CMS_R_CERTIFICATE_ALREADY_PRESENT                175
+#  define CMS_R_CERTIFICATE_HAS_NO_KEYID                   160
+#  define CMS_R_CERTIFICATE_VERIFY_ERROR                   100
+#  define CMS_R_CIPHER_INITIALISATION_ERROR                101
+#  define CMS_R_CIPHER_PARAMETER_INITIALISATION_ERROR      102
+#  define CMS_R_CMS_DATAFINAL_ERROR                        103
+#  define CMS_R_CMS_LIB                                    104
+#  define CMS_R_CONTENTIDENTIFIER_MISMATCH                 170
+#  define CMS_R_CONTENT_NOT_FOUND                          105
+#  define CMS_R_CONTENT_TYPE_MISMATCH                      171
+#  define CMS_R_CONTENT_TYPE_NOT_COMPRESSED_DATA           106
+#  define CMS_R_CONTENT_TYPE_NOT_ENVELOPED_DATA            107
+#  define CMS_R_CONTENT_TYPE_NOT_SIGNED_DATA               108
+#  define CMS_R_CONTENT_VERIFY_ERROR                       109
+#  define CMS_R_CTRL_ERROR                                 110
+#  define CMS_R_CTRL_FAILURE                               111
+#  define CMS_R_DECRYPT_ERROR                              112
+#  define CMS_R_ERROR_GETTING_PUBLIC_KEY                   113
+#  define CMS_R_ERROR_READING_MESSAGEDIGEST_ATTRIBUTE      114
+#  define CMS_R_ERROR_SETTING_KEY                          115
+#  define CMS_R_ERROR_SETTING_RECIPIENTINFO                116
+#  define CMS_R_INVALID_ENCRYPTED_KEY_LENGTH               117
+#  define CMS_R_INVALID_KEY_ENCRYPTION_PARAMETER           176
+#  define CMS_R_INVALID_KEY_LENGTH                         118
+#  define CMS_R_MD_BIO_INIT_ERROR                          119
+#  define CMS_R_MESSAGEDIGEST_ATTRIBUTE_WRONG_LENGTH       120
+#  define CMS_R_MESSAGEDIGEST_WRONG_LENGTH                 121
+#  define CMS_R_MSGSIGDIGEST_ERROR                         172
+#  define CMS_R_MSGSIGDIGEST_VERIFICATION_FAILURE          162
+#  define CMS_R_MSGSIGDIGEST_WRONG_LENGTH                  163
+#  define CMS_R_NEED_ONE_SIGNER                            164
+#  define CMS_R_NOT_A_SIGNED_RECEIPT                
