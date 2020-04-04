@@ -140,4 +140,29 @@ void CONF_modules_finish(void);
 #if OPENSSL_API_COMPAT < 0x10100000L
 # define CONF_modules_free() while(0) continue
 #endif
-int CONF_module_add(const char *name, conf_
+int CONF_module_add(const char *name, conf_init_func *ifunc,
+                    conf_finish_func *ffunc);
+
+const char *CONF_imodule_get_name(const CONF_IMODULE *md);
+const char *CONF_imodule_get_value(const CONF_IMODULE *md);
+void *CONF_imodule_get_usr_data(const CONF_IMODULE *md);
+void CONF_imodule_set_usr_data(CONF_IMODULE *md, void *usr_data);
+CONF_MODULE *CONF_imodule_get_module(const CONF_IMODULE *md);
+unsigned long CONF_imodule_get_flags(const CONF_IMODULE *md);
+void CONF_imodule_set_flags(CONF_IMODULE *md, unsigned long flags);
+void *CONF_module_get_usr_data(CONF_MODULE *pmod);
+void CONF_module_set_usr_data(CONF_MODULE *pmod, void *usr_data);
+
+char *CONF_get1_default_config_file(void);
+
+int CONF_parse_list(const char *list, int sep, int nospc,
+                    int (*list_cb) (const char *elem, int len, void *usr),
+                    void *arg);
+
+void OPENSSL_load_builtin_modules(void);
+
+
+# ifdef  __cplusplus
+}
+# endif
+#endif
