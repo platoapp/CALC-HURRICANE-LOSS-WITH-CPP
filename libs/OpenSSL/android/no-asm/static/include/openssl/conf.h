@@ -80,4 +80,64 @@ STACK_OF(CONF_VALUE) *CONF_get_section(LHASH_OF(CONF_VALUE) *conf,
                                        const char *section);
 char *CONF_get_string(LHASH_OF(CONF_VALUE) *conf, const char *group,
                       const char *name);
-long CONF_get_number(LHASH_OF(CONF_VALUE) *conf, const char *grou
+long CONF_get_number(LHASH_OF(CONF_VALUE) *conf, const char *group,
+                     const char *name);
+void CONF_free(LHASH_OF(CONF_VALUE) *conf);
+#ifndef OPENSSL_NO_STDIO
+int CONF_dump_fp(LHASH_OF(CONF_VALUE) *conf, FILE *out);
+#endif
+int CONF_dump_bio(LHASH_OF(CONF_VALUE) *conf, BIO *out);
+
+DEPRECATEDIN_1_1_0(void OPENSSL_config(const char *config_name))
+
+#if OPENSSL_API_COMPAT < 0x10100000L
+# define OPENSSL_no_config() \
+    OPENSSL_init_crypto(OPENSSL_INIT_NO_LOAD_CONFIG, NULL)
+#endif
+
+/*
+ * New conf code.  The semantics are different from the functions above. If
+ * that wasn't the case, the above functions would have been replaced
+ */
+
+struct conf_st {
+    CONF_METHOD *meth;
+    void *meth_data;
+    LHASH_OF(CONF_VALUE) *data;
+};
+
+CONF *NCONF_new(CONF_METHOD *meth);
+CONF_METHOD *NCONF_default(void);
+CONF_METHOD *NCONF_WIN32(void);
+void NCONF_free(CONF *conf);
+void NCONF_free_data(CONF *conf);
+
+int NCONF_load(CONF *conf, const char *file, long *eline);
+# ifndef OPENSSL_NO_STDIO
+int NCONF_load_fp(CONF *conf, FILE *fp, long *eline);
+# endif
+int NCONF_load_bio(CONF *conf, BIO *bp, long *eline);
+STACK_OF(CONF_VALUE) *NCONF_get_section(const CONF *conf,
+                                        const char *section);
+char *NCONF_get_string(const CONF *conf, const char *group, const char *name);
+int NCONF_get_number_e(const CONF *conf, const char *group, const char *name,
+                       long *result);
+#ifndef OPENSSL_NO_STDIO
+int NCONF_dump_fp(const CONF *conf, FILE *out);
+#endif
+int NCONF_dump_bio(const CONF *conf, BIO *out);
+
+#define NCONF_get_number(c,g,n,r) NCONF_get_number_e(c,g,n,r)
+
+/* Module functions */
+
+int CONF_modules_load(const CONF *cnf, const char *appname,
+                      unsigned long flags);
+int CONF_modules_load_file(const char *filename, const char *appname,
+                           unsigned long flags);
+void CONF_modules_unload(int all);
+void CONF_modules_finish(void);
+#if OPENSSL_API_COMPAT < 0x10100000L
+# define CONF_modules_free() while(0) continue
+#endif
+int CONF_module_add(const char *name, conf_
