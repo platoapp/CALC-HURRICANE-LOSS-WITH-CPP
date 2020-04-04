@@ -27,4 +27,14 @@ STACK_OF(CONF_VALUE) *_CONF_get_section_values(const CONF *conf,
 
 int _CONF_add_string(CONF *conf, CONF_VALUE *section, CONF_VALUE *value);
 char *_CONF_get_string(const CONF *conf, const char *section,
-     
+                       const char *name);
+long _CONF_get_number(const CONF *conf, const char *section,
+                      const char *name);
+
+int _CONF_new_data(CONF *conf);
+void _CONF_free_data(CONF *conf);
+
+#ifdef  __cplusplus
+}
+#endif
+#endif
