@@ -132,4 +132,48 @@ int CRYPTO_mem_ctrl(int mode);
         CRYPTO_strdup(str, OPENSSL_FILE, OPENSSL_LINE)
 # define OPENSSL_strndup(str, n) \
         CRYPTO_strndup(str, n, OPENSSL_FILE, OPENSSL_LINE)
-# define OPE
+# define OPENSSL_secure_malloc(num) \
+        CRYPTO_secure_malloc(num, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_secure_zalloc(num) \
+        CRYPTO_secure_zalloc(num, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_secure_free(addr) \
+        CRYPTO_secure_free(addr, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_secure_clear_free(addr, num) \
+        CRYPTO_secure_clear_free(addr, num, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_secure_actual_size(ptr) \
+        CRYPTO_secure_actual_size(ptr)
+
+size_t OPENSSL_strlcpy(char *dst, const char *src, size_t siz);
+size_t OPENSSL_strlcat(char *dst, const char *src, size_t siz);
+size_t OPENSSL_strnlen(const char *str, size_t maxlen);
+char *OPENSSL_buf2hexstr(const unsigned char *buffer, long len);
+unsigned char *OPENSSL_hexstr2buf(const char *str, long *len);
+int OPENSSL_hexchar2int(unsigned char c);
+
+# define OPENSSL_MALLOC_MAX_NELEMS(type)  (((1U<<(sizeof(int)*8-1))-1)/sizeof(type))
+
+unsigned long OpenSSL_version_num(void);
+const char *OpenSSL_version(int type);
+# define OPENSSL_VERSION          0
+# define OPENSSL_CFLAGS           1
+# define OPENSSL_BUILT_ON         2
+# define OPENSSL_PLATFORM         3
+# define OPENSSL_DIR              4
+# define OPENSSL_ENGINES_DIR      5
+
+int OPENSSL_issetugid(void);
+
+typedef void CRYPTO_EX_new (void *parent, void *ptr, CRYPTO_EX_DATA *ad,
+                           int idx, long argl, void *argp);
+typedef void CRYPTO_EX_free (void *parent, void *ptr, CRYPTO_EX_DATA *ad,
+                             int idx, long argl, void *argp);
+typedef int CRYPTO_EX_dup (CRYPTO_EX_DATA *to, const CRYPTO_EX_DATA *from,
+                           void *from_d, int idx, long argl, void *argp);
+__owur int CRYPTO_get_ex_new_index(int class_index, long argl, void *argp,
+                            CRYPTO_EX_new *new_func, CRYPTO_EX_dup *dup_func,
+                            CRYPTO_EX_free *free_func);
+/* No longer use an index. */
+int CRYPTO_free_ex_index(int class_index, int idx);
+
+/*
+ * Initialise/duplicate/free CRYP
