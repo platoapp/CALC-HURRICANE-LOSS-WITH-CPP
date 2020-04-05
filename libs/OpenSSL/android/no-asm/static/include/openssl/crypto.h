@@ -80,4 +80,56 @@ int CRYPTO_atomic_add(int *val, int amount, int *ret, CRYPTO_RWLOCK *lock);
  */
 # define CRYPTO_MEM_CHECK_OFF     0x0   /* Control only */
 # define CRYPTO_MEM_CHECK_ON      0x1   /* Control and mode bit */
-# define CRYPTO_MEM_CHECK_ENABLE  0x2   /* Control and mo
+# define CRYPTO_MEM_CHECK_ENABLE  0x2   /* Control and mode bit */
+# define CRYPTO_MEM_CHECK_DISABLE 0x3   /* Control only */
+
+struct crypto_ex_data_st {
+    STACK_OF(void) *sk;
+};
+DEFINE_STACK_OF(void)
+
+/*
+ * Per class, we have a STACK of function pointers.
+ */
+# define CRYPTO_EX_INDEX_SSL              0
+# define CRYPTO_EX_INDEX_SSL_CTX          1
+# define CRYPTO_EX_INDEX_SSL_SESSION      2
+# define CRYPTO_EX_INDEX_X509             3
+# define CRYPTO_EX_INDEX_X509_STORE       4
+# define CRYPTO_EX_INDEX_X509_STORE_CTX   5
+# define CRYPTO_EX_INDEX_DH               6
+# define CRYPTO_EX_INDEX_DSA              7
+# define CRYPTO_EX_INDEX_EC_KEY           8
+# define CRYPTO_EX_INDEX_RSA              9
+# define CRYPTO_EX_INDEX_ENGINE          10
+# define CRYPTO_EX_INDEX_UI              11
+# define CRYPTO_EX_INDEX_BIO             12
+# define CRYPTO_EX_INDEX_APP             13
+# define CRYPTO_EX_INDEX_UI_METHOD       14
+# define CRYPTO_EX_INDEX_DRBG            15
+# define CRYPTO_EX_INDEX__COUNT          16
+
+/* No longer needed, so this is a no-op */
+#define OPENSSL_malloc_init() while(0) continue
+
+int CRYPTO_mem_ctrl(int mode);
+
+# define OPENSSL_malloc(num) \
+        CRYPTO_malloc(num, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_zalloc(num) \
+        CRYPTO_zalloc(num, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_realloc(addr, num) \
+        CRYPTO_realloc(addr, num, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_clear_realloc(addr, old_num, num) \
+        CRYPTO_clear_realloc(addr, old_num, num, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_clear_free(addr, num) \
+        CRYPTO_clear_free(addr, num, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_free(addr) \
+        CRYPTO_free(addr, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_memdup(str, s) \
+        CRYPTO_memdup((str), s, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_strdup(str) \
+        CRYPTO_strdup(str, OPENSSL_FILE, OPENSSL_LINE)
+# define OPENSSL_strndup(str, n) \
+        CRYPTO_strndup(str, n, OPENSSL_FILE, OPENSSL_LINE)
+# define OPE
