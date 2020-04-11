@@ -223,4 +223,49 @@ void *CRYPTO_get_ex_data(const CRYPTO_EX_DATA *ad, int idx);
 #  define CRYPTO_LOCK             1
 #  define CRYPTO_UNLOCK           2
 #  define CRYPTO_READ             4
-#  define CRYPTO_WRITE   
+#  define CRYPTO_WRITE            8
+
+/* This structure is no longer used */
+typedef struct crypto_threadid_st {
+    int dummy;
+} CRYPTO_THREADID;
+/* Only use CRYPTO_THREADID_set_[numeric|pointer]() within callbacks */
+#  define CRYPTO_THREADID_set_numeric(id, val)
+#  define CRYPTO_THREADID_set_pointer(id, ptr)
+#  define CRYPTO_THREADID_set_callback(threadid_func)   (0)
+#  define CRYPTO_THREADID_get_callback()                (NULL)
+#  define CRYPTO_THREADID_current(id)
+#  define CRYPTO_THREADID_cmp(a, b)                     (-1)
+#  define CRYPTO_THREADID_cpy(dest, src)
+#  define CRYPTO_THREADID_hash(id)                      (0UL)
+
+#  if OPENSSL_API_COMPAT < 0x10000000L
+#   define CRYPTO_set_id_callback(func)
+#   define CRYPTO_get_id_callback()                     (NULL)
+#   define CRYPTO_thread_id()                           (0UL)
+#  endif /* OPENSSL_API_COMPAT < 0x10000000L */
+
+#  define CRYPTO_set_dynlock_create_callback(dyn_create_function)
+#  define CRYPTO_set_dynlock_lock_callback(dyn_lock_function)
+#  define CRYPTO_set_dynlock_destroy_callback(dyn_destroy_function)
+#  define CRYPTO_get_dynlock_create_callback()          (NULL)
+#  define CRYPTO_get_dynlock_lock_callback()            (NULL)
+#  define CRYPTO_get_dynlock_destroy_callback()         (NULL)
+# endif /* OPENSSL_API_COMPAT < 0x10100000L */
+
+int CRYPTO_set_mem_functions(
+        void *(*m) (size_t, const char *, int),
+        void *(*r) (void *, size_t, const char *, int),
+        void (*f) (void *, const char *, int));
+int CRYPTO_set_mem_debug(int flag);
+void CRYPTO_get_mem_functions(
+        void *(**m) (size_t, const char *, int),
+        void *(**r) (void *, size_t, const char *, int),
+        void (**f) (void *, const char *, int));
+
+void *CRYPTO_malloc(size_t num, const char *file, int line);
+void *CRYPTO_zalloc(size_t num, const char *file, int line);
+void *CRYPTO_memdup(const void *str, size_t siz, const char *file, int line);
+char *CRYPTO_strdup(const char *str, const char *file, int line);
+char *CRYPTO_strndup(const char *str, size_t s, const char *file, int line);
+void CRYP
