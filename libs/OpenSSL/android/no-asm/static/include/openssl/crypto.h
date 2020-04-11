@@ -268,4 +268,48 @@ void *CRYPTO_zalloc(size_t num, const char *file, int line);
 void *CRYPTO_memdup(const void *str, size_t siz, const char *file, int line);
 char *CRYPTO_strdup(const char *str, const char *file, int line);
 char *CRYPTO_strndup(const char *str, size_t s, const char *file, int line);
-void CRYP
+void CRYPTO_free(void *ptr, const char *file, int line);
+void CRYPTO_clear_free(void *ptr, size_t num, const char *file, int line);
+void *CRYPTO_realloc(void *addr, size_t num, const char *file, int line);
+void *CRYPTO_clear_realloc(void *addr, size_t old_num, size_t num,
+                           const char *file, int line);
+
+int CRYPTO_secure_malloc_init(size_t sz, int minsize);
+int CRYPTO_secure_malloc_done(void);
+void *CRYPTO_secure_malloc(size_t num, const char *file, int line);
+void *CRYPTO_secure_zalloc(size_t num, const char *file, int line);
+void CRYPTO_secure_free(void *ptr, const char *file, int line);
+void CRYPTO_secure_clear_free(void *ptr, size_t num,
+                              const char *file, int line);
+int CRYPTO_secure_allocated(const void *ptr);
+int CRYPTO_secure_malloc_initialized(void);
+size_t CRYPTO_secure_actual_size(void *ptr);
+size_t CRYPTO_secure_used(void);
+
+void OPENSSL_cleanse(void *ptr, size_t len);
+
+# ifndef OPENSSL_NO_CRYPTO_MDEBUG
+#  define OPENSSL_mem_debug_push(info) \
+        CRYPTO_mem_debug_push(info, OPENSSL_FILE, OPENSSL_LINE)
+#  define OPENSSL_mem_debug_pop() \
+        CRYPTO_mem_debug_pop()
+int CRYPTO_mem_debug_push(const char *info, const char *file, int line);
+int CRYPTO_mem_debug_pop(void);
+void CRYPTO_get_alloc_counts(int *mcount, int *rcount, int *fcount);
+
+/*-
+ * Debugging functions (enabled by CRYPTO_set_mem_debug(1))
+ * The flag argument has the following significance:
+ *   0:   called before the actual memory allocation has taken place
+ *   1:   called after the actual memory allocation has taken place
+ */
+void CRYPTO_mem_debug_malloc(void *addr, size_t num, int flag,
+        const char *file, int line);
+void CRYPTO_mem_debug_realloc(void *addr1, void *addr2, size_t num, int flag,
+        const char *file, int line);
+void CRYPTO_mem_debug_free(void *addr, int flag,
+        const char *file, int line);
+
+int CRYPTO_mem_leaks_cb(int (*cb) (const char *str, size_t len, void *u),
+                        void *u);
+#  ifndef OPENSSL_NO_STDIO
