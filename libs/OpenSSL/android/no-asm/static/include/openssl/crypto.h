@@ -313,3 +313,55 @@ void CRYPTO_mem_debug_free(void *addr, int flag,
 int CRYPTO_mem_leaks_cb(int (*cb) (const char *str, size_t len, void *u),
                         void *u);
 #  ifndef OPENSSL_NO_STDIO
+int CRYPTO_mem_leaks_fp(FILE *);
+#  endif
+int CRYPTO_mem_leaks(BIO *bio);
+# endif
+
+/* die if we have to */
+ossl_noreturn void OPENSSL_die(const char *assertion, const char *file, int line);
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define OpenSSLDie(f,l,a) OPENSSL_die((a),(f),(l))
+# endif
+# define OPENSSL_assert(e) \
+    (void)((e) ? 0 : (OPENSSL_die("assertion failed: " #e, OPENSSL_FILE, OPENSSL_LINE), 1))
+
+int OPENSSL_isservice(void);
+
+int FIPS_mode(void);
+int FIPS_mode_set(int r);
+
+void OPENSSL_init(void);
+# ifdef OPENSSL_SYS_UNIX
+void OPENSSL_fork_prepare(void);
+void OPENSSL_fork_parent(void);
+void OPENSSL_fork_child(void);
+# endif
+
+struct tm *OPENSSL_gmtime(const time_t *timer, struct tm *result);
+int OPENSSL_gmtime_adj(struct tm *tm, int offset_day, long offset_sec);
+int OPENSSL_gmtime_diff(int *pday, int *psec,
+                        const struct tm *from, const struct tm *to);
+
+/*
+ * CRYPTO_memcmp returns zero iff the |len| bytes at |a| and |b| are equal.
+ * It takes an amount of time dependent on |len|, but independent of the
+ * contents of |a| and |b|. Unlike memcmp, it cannot be used to put elements
+ * into a defined order as the return value when a != b is undefined, other
+ * than to be non-zero.
+ */
+int CRYPTO_memcmp(const void * in_a, const void * in_b, size_t len);
+
+/* Standard initialisation options */
+# define OPENSSL_INIT_NO_LOAD_CRYPTO_STRINGS 0x00000001L
+# define OPENSSL_INIT_LOAD_CRYPTO_STRINGS    0x00000002L
+# define OPENSSL_INIT_ADD_ALL_CIPHERS        0x00000004L
+# define OPENSSL_INIT_ADD_ALL_DIGESTS        0x00000008L
+# define OPENSSL_INIT_NO_ADD_ALL_CIPHERS     0x00000010L
+# define OPENSSL_INIT_NO_ADD_ALL_DIGESTS     0x00000020L
+# define OPENSSL_INIT_LOAD_CONFIG            0x00000040L
+# define OPENSSL_INIT_NO_LOAD_CONFIG         0x00000080L
+# define OPENSSL_INIT_ASYNC                  0x00000100L
+# define OPENSSL_INIT_ENGINE_RDRAND          0x00000200L
+# define OPENSSL_INIT_ENGINE_DYNAMIC         0x00000400L
+# define OPENSSL_INIT_ENGINE_OPENS
