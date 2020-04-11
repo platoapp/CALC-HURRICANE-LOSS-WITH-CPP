@@ -176,4 +176,51 @@ __owur int CRYPTO_get_ex_new_index(int class_index, long argl, void *argp,
 int CRYPTO_free_ex_index(int class_index, int idx);
 
 /*
- * Initialise/duplicate/free CRYP
+ * Initialise/duplicate/free CRYPTO_EX_DATA variables corresponding to a
+ * given class (invokes whatever per-class callbacks are applicable)
+ */
+int CRYPTO_new_ex_data(int class_index, void *obj, CRYPTO_EX_DATA *ad);
+int CRYPTO_dup_ex_data(int class_index, CRYPTO_EX_DATA *to,
+                       const CRYPTO_EX_DATA *from);
+
+void CRYPTO_free_ex_data(int class_index, void *obj, CRYPTO_EX_DATA *ad);
+
+/*
+ * Get/set data in a CRYPTO_EX_DATA variable corresponding to a particular
+ * index (relative to the class type involved)
+ */
+int CRYPTO_set_ex_data(CRYPTO_EX_DATA *ad, int idx, void *val);
+void *CRYPTO_get_ex_data(const CRYPTO_EX_DATA *ad, int idx);
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+/*
+ * This function cleans up all "ex_data" state. It mustn't be called under
+ * potential race-conditions.
+ */
+# define CRYPTO_cleanup_all_ex_data() while(0) continue
+
+/*
+ * The old locking functions have been removed completely without compatibility
+ * macros. This is because the old functions either could not properly report
+ * errors, or the returned error values were not clearly documented.
+ * Replacing the locking functions with no-ops would cause race condition
+ * issues in the affected applications. It is far better for them to fail at
+ * compile time.
+ * On the other hand, the locking callbacks are no longer used.  Consequently,
+ * the callback management functions can be safely replaced with no-op macros.
+ */
+#  define CRYPTO_num_locks()            (1)
+#  define CRYPTO_set_locking_callback(func)
+#  define CRYPTO_get_locking_callback()         (NULL)
+#  define CRYPTO_set_add_lock_callback(func)
+#  define CRYPTO_get_add_lock_callback()        (NULL)
+
+/*
+ * These defines where used in combination with the old locking callbacks,
+ * they are not called anymore, but old code that's not called might still
+ * use them.
+ */
+#  define CRYPTO_LOCK             1
+#  define CRYPTO_UNLOCK           2
+#  define CRYPTO_READ             4
+#  define CRYPTO_WRITE   
