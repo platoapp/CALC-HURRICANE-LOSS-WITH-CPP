@@ -364,4 +364,49 @@ int CRYPTO_memcmp(const void * in_a, const void * in_b, size_t len);
 # define OPENSSL_INIT_ASYNC                  0x00000100L
 # define OPENSSL_INIT_ENGINE_RDRAND          0x00000200L
 # define OPENSSL_INIT_ENGINE_DYNAMIC         0x00000400L
-# define OPENSSL_INIT_ENGINE_OPENS
+# define OPENSSL_INIT_ENGINE_OPENSSL         0x00000800L
+# define OPENSSL_INIT_ENGINE_CRYPTODEV       0x00001000L
+# define OPENSSL_INIT_ENGINE_CAPI            0x00002000L
+# define OPENSSL_INIT_ENGINE_PADLOCK         0x00004000L
+# define OPENSSL_INIT_ENGINE_AFALG           0x00008000L
+/* OPENSSL_INIT_ZLIB                         0x00010000L */
+# define OPENSSL_INIT_ATFORK                 0x00020000L
+/* OPENSSL_INIT_BASE_ONLY                    0x00040000L */
+# define OPENSSL_INIT_NO_ATEXIT              0x00080000L
+/* OPENSSL_INIT flag range 0xfff00000 reserved for OPENSSL_init_ssl() */
+/* Max OPENSSL_INIT flag value is 0x80000000 */
+
+/* openssl and dasync not counted as builtin */
+# define OPENSSL_INIT_ENGINE_ALL_BUILTIN \
+    (OPENSSL_INIT_ENGINE_RDRAND | OPENSSL_INIT_ENGINE_DYNAMIC \
+    | OPENSSL_INIT_ENGINE_CRYPTODEV | OPENSSL_INIT_ENGINE_CAPI | \
+    OPENSSL_INIT_ENGINE_PADLOCK)
+
+
+/* Library initialisation functions */
+void OPENSSL_cleanup(void);
+int OPENSSL_init_crypto(uint64_t opts, const OPENSSL_INIT_SETTINGS *settings);
+int OPENSSL_atexit(void (*handler)(void));
+void OPENSSL_thread_stop(void);
+
+/* Low-level control of initialization */
+OPENSSL_INIT_SETTINGS *OPENSSL_INIT_new(void);
+# ifndef OPENSSL_NO_STDIO
+int OPENSSL_INIT_set_config_filename(OPENSSL_INIT_SETTINGS *settings,
+                                     const char *config_filename);
+void OPENSSL_INIT_set_config_file_flags(OPENSSL_INIT_SETTINGS *settings,
+                                        unsigned long flags);
+int OPENSSL_INIT_set_config_appname(OPENSSL_INIT_SETTINGS *settings,
+                                    const char *config_appname);
+# endif
+void OPENSSL_INIT_free(OPENSSL_INIT_SETTINGS *settings);
+
+# if defined(OPENSSL_THREADS) && !defined(CRYPTO_TDEBUG)
+#  if defined(_WIN32)
+#   if defined(BASETYPES) || defined(_WINDEF_H)
+/* application has to include <windows.h> in order to use this */
+typedef DWORD CRYPTO_THREAD_LOCAL;
+typedef DWORD CRYPTO_THREAD_ID;
+
+typedef LONG CRYPTO_ONCE;
+# 
