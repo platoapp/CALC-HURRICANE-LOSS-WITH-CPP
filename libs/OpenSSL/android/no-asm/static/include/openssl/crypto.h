@@ -409,4 +409,37 @@ typedef DWORD CRYPTO_THREAD_LOCAL;
 typedef DWORD CRYPTO_THREAD_ID;
 
 typedef LONG CRYPTO_ONCE;
-# 
+#    define CRYPTO_ONCE_STATIC_INIT 0
+#   endif
+#  else
+#   include <pthread.h>
+typedef pthread_once_t CRYPTO_ONCE;
+typedef pthread_key_t CRYPTO_THREAD_LOCAL;
+typedef pthread_t CRYPTO_THREAD_ID;
+
+#   define CRYPTO_ONCE_STATIC_INIT PTHREAD_ONCE_INIT
+#  endif
+# endif
+
+# if !defined(CRYPTO_ONCE_STATIC_INIT)
+typedef unsigned int CRYPTO_ONCE;
+typedef unsigned int CRYPTO_THREAD_LOCAL;
+typedef unsigned int CRYPTO_THREAD_ID;
+#  define CRYPTO_ONCE_STATIC_INIT 0
+# endif
+
+int CRYPTO_THREAD_run_once(CRYPTO_ONCE *once, void (*init)(void));
+
+int CRYPTO_THREAD_init_local(CRYPTO_THREAD_LOCAL *key, void (*cleanup)(void *));
+void *CRYPTO_THREAD_get_local(CRYPTO_THREAD_LOCAL *key);
+int CRYPTO_THREAD_set_local(CRYPTO_THREAD_LOCAL *key, void *val);
+int CRYPTO_THREAD_cleanup_local(CRYPTO_THREAD_LOCAL *key);
+
+CRYPTO_THREAD_ID CRYPTO_THREAD_get_current_id(void);
+int CRYPTO_THREAD_compare_id(CRYPTO_THREAD_ID a, CRYPTO_THREAD_ID b);
+
+
+# ifdef  __cplusplus
+}
+# endif
+#endif
