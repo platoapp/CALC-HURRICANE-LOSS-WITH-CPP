@@ -93,4 +93,63 @@ X509* CT_POLICY_EVAL_CTX_get0_issuer(const CT_POLICY_EVAL_CTX *ctx);
 int CT_POLICY_EVAL_CTX_set1_issuer(CT_POLICY_EVAL_CTX *ctx, X509 *issuer);
 
 /* Gets the CT logs that are trusted sources of SCTs */
-const CTLOG_STORE *CT_POLICY_EVAL_CTX_get0_log_
+const CTLOG_STORE *CT_POLICY_EVAL_CTX_get0_log_store(const CT_POLICY_EVAL_CTX *ctx);
+
+/* Sets the log store that is in use. It must outlive the CT_POLICY_EVAL_CTX. */
+void CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE(CT_POLICY_EVAL_CTX *ctx,
+                                               CTLOG_STORE *log_store);
+
+/*
+ * Gets the time, in milliseconds since the Unix epoch, that will be used as the
+ * current time when checking whether an SCT was issued in the future.
+ * Such SCTs will fail validation, as required by RFC6962.
+ */
+uint64_t CT_POLICY_EVAL_CTX_get_time(const CT_POLICY_EVAL_CTX *ctx);
+
+/*
+ * Sets the time to evaluate SCTs against, in milliseconds since the Unix epoch.
+ * If an SCT's timestamp is after this time, it will be interpreted as having
+ * been issued in the future. RFC6962 states that "TLS clients MUST reject SCTs
+ * whose timestamp is in the future", so an SCT will not validate in this case.
+ */
+void CT_POLICY_EVAL_CTX_set_time(CT_POLICY_EVAL_CTX *ctx, uint64_t time_in_ms);
+
+/*****************
+ * SCT functions *
+ *****************/
+
+/*
+ * Creates a new, blank SCT.
+ * The caller is responsible for calling SCT_free when finished with the SCT.
+ */
+SCT *SCT_new(void);
+
+/*
+ * Creates a new SCT from some base64-encoded strings.
+ * The caller is responsible for calling SCT_free when finished with the SCT.
+ */
+SCT *SCT_new_from_base64(unsigned char version,
+                         const char *logid_base64,
+                         ct_log_entry_type_t entry_type,
+                         uint64_t timestamp,
+                         const char *extensions_base64,
+                         const char *signature_base64);
+
+/*
+ * Frees the SCT and the underlying data structures.
+ */
+void SCT_free(SCT *sct);
+
+/*
+ * Free a stack of SCTs, and the underlying SCTs themselves.
+ * Intended to be compatible with X509V3_EXT_FREE.
+ */
+void SCT_LIST_free(STACK_OF(SCT) *a);
+
+/*
+ * Returns the version of the SCT.
+ */
+sct_version_t SCT_get_version(const SCT *sct);
+
+/*
+ * Set t
