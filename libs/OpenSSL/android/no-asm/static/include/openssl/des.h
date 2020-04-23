@@ -79,4 +79,39 @@ void DES_cbc_encrypt(const unsigned char *input, unsigned char *output,
                      DES_cblock *ivec, int enc);
 void DES_ncbc_encrypt(const unsigned char *input, unsigned char *output,
                       long length, DES_key_schedule *schedule,
-      
+                      DES_cblock *ivec, int enc);
+void DES_xcbc_encrypt(const unsigned char *input, unsigned char *output,
+                      long length, DES_key_schedule *schedule,
+                      DES_cblock *ivec, const_DES_cblock *inw,
+                      const_DES_cblock *outw, int enc);
+void DES_cfb_encrypt(const unsigned char *in, unsigned char *out, int numbits,
+                     long length, DES_key_schedule *schedule,
+                     DES_cblock *ivec, int enc);
+void DES_ecb_encrypt(const_DES_cblock *input, DES_cblock *output,
+                     DES_key_schedule *ks, int enc);
+
+/*
+ * This is the DES encryption function that gets called by just about every
+ * other DES routine in the library.  You should not use this function except
+ * to implement 'modes' of DES.  I say this because the functions that call
+ * this routine do the conversion from 'char *' to long, and this needs to be
+ * done to make sure 'non-aligned' memory access do not occur.  The
+ * characters are loaded 'little endian'. Data is a pointer to 2 unsigned
+ * long's and ks is the DES_key_schedule to use.  enc, is non zero specifies
+ * encryption, zero if decryption.
+ */
+void DES_encrypt1(DES_LONG *data, DES_key_schedule *ks, int enc);
+
+/*
+ * This functions is the same as DES_encrypt1() except that the DES initial
+ * permutation (IP) and final permutation (FP) have been left out.  As for
+ * DES_encrypt1(), you should not use this function. It is used by the
+ * routines in the library that implement triple DES. IP() DES_encrypt2()
+ * DES_encrypt2() DES_encrypt2() FP() is the same as DES_encrypt1()
+ * DES_encrypt1() DES_encrypt1() except faster :-).
+ */
+void DES_encrypt2(DES_LONG *data, DES_key_schedule *ks, int enc);
+
+void DES_encrypt3(DES_LONG *data, DES_key_schedule *ks1,
+                  DES_key_schedule *ks2, DES_key_schedule *ks3);
+void DES_decrypt3(DES_LONG *data, DES_key_schedule *
