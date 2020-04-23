@@ -376,4 +376,55 @@ STACK_OF(SCT) *d2i_SCT_LIST(STACK_OF(SCT) **a, const unsigned char **pp,
 
 /*
  * Serialize (to TLS format) an |sct| and write it to |out|.
- * If |out| is null, no SCT will be output but the length will still be returne
+ * If |out| is null, no SCT will be output but the length will still be returned.
+ * If |out| points to a null pointer, a string will be allocated to hold the
+ * TLS-format SCT. It is the responsibility of the caller to free it.
+ * If |out| points to an allocated string, the TLS-format SCT will be written
+ * to it.
+ * The length of the SCT in TLS format will be returned.
+ */
+__owur int i2o_SCT(const SCT *sct, unsigned char **out);
+
+/*
+ * Parses an SCT in TLS format and returns it.
+ * If |psct| is not null, it will end up pointing to the parsed SCT. If it
+ * already points to a non-null pointer, the pointer will be free'd.
+ * |in| should be a pointer to a string containing the TLS-format SCT.
+ * |in| will be advanced to the end of the SCT if parsing succeeds.
+ * |len| should be the length of the SCT in |in|.
+ * Returns NULL if an error occurs.
+ * If the SCT is an unsupported version, only the SCT's 'sct' and 'sct_len'
+ * fields will be populated (with |in| and |len| respectively).
+ */
+SCT *o2i_SCT(SCT **psct, const unsigned char **in, size_t len);
+
+/********************
+ * CT log functions *
+ ********************/
+
+/*
+ * Creates a new CT log instance with the given |public_key| and |name|.
+ * Takes ownership of |public_key| but copies |name|.
+ * Returns NULL if malloc fails or if |public_key| cannot be converted to DER.
+ * Should be deleted by the caller using CTLOG_free when no longer needed.
+ */
+CTLOG *CTLOG_new(EVP_PKEY *public_key, const char *name);
+
+/*
+ * Creates a new CTLOG instance with the base64-encoded SubjectPublicKeyInfo DER
+ * in |pkey_base64|. The |name| is a string to help users identify this log.
+ * Returns 1 on success, 0 on failure.
+ * Should be deleted by the caller using CTLOG_free when no longer needed.
+ */
+int CTLOG_new_from_base64(CTLOG ** ct_log,
+                          const char *pkey_base64, const char *name);
+
+/*
+ * Deletes a CT log instance and its fields.
+ */
+void CTLOG_free(CTLOG *log);
+
+/* Gets the name of the CT log */
+const char *CTLOG_get0_name(const CTLOG *log);
+/* Gets the ID of the CT log */
+void CTLOG_get0_log_id(const CTLOG *log
