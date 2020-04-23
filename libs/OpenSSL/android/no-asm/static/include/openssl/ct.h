@@ -330,4 +330,50 @@ __owur int SCT_LIST_validate(const STACK_OF(SCT) *scts,
  * If "pp" is NULL and "*pp" is not NULL, caller is responsible for ensuring
  * that "*pp" is large enough to accept all of the serialized data.
  * Returns < 0 on error, >= 0 indicating bytes written (or would have been)
- *
+ * on success.
+ */
+__owur int i2o_SCT_LIST(const STACK_OF(SCT) *a, unsigned char **pp);
+
+/*
+ * Convert TLS format SCT list to a stack of SCTs.
+ * If "a" or "*a" is NULL, a new stack will be created that the caller is
+ * responsible for freeing (by calling SCT_LIST_free).
+ * "**pp" and "*pp" must not be NULL.
+ * Upon success, "*pp" will point to after the last bytes read, and a stack
+ * will be returned.
+ * Upon failure, a NULL pointer will be returned, and the position of "*pp" is
+ * not defined.
+ */
+STACK_OF(SCT) *o2i_SCT_LIST(STACK_OF(SCT) **a, const unsigned char **pp,
+                            size_t len);
+
+/*
+ * Serialize (to DER format) a stack of SCTs and return the length.
+ * "a" must not be NULL.
+ * If "pp" is NULL, just returns the length of what would have been serialized.
+ * If "pp" is not NULL and "*pp" is null, function will allocate a new pointer
+ * for data that caller is responsible for freeing (only if function returns
+ * successfully).
+ * If "pp" is NULL and "*pp" is not NULL, caller is responsible for ensuring
+ * that "*pp" is large enough to accept all of the serialized data.
+ * Returns < 0 on error, >= 0 indicating bytes written (or would have been)
+ * on success.
+ */
+__owur int i2d_SCT_LIST(const STACK_OF(SCT) *a, unsigned char **pp);
+
+/*
+ * Parses an SCT list in DER format and returns it.
+ * If "a" or "*a" is NULL, a new stack will be created that the caller is
+ * responsible for freeing (by calling SCT_LIST_free).
+ * "**pp" and "*pp" must not be NULL.
+ * Upon success, "*pp" will point to after the last bytes read, and a stack
+ * will be returned.
+ * Upon failure, a NULL pointer will be returned, and the position of "*pp" is
+ * not defined.
+ */
+STACK_OF(SCT) *d2i_SCT_LIST(STACK_OF(SCT) **a, const unsigned char **pp,
+                            long len);
+
+/*
+ * Serialize (to TLS format) an |sct| and write it to |out|.
+ * If |out| is null, no SCT will be output but the length will still be returne
