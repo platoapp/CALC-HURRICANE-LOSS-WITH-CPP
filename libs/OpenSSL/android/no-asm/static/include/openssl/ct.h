@@ -218,4 +218,68 @@ __owur int SCT_set_signature_nid(SCT *sct, int nid);
 /*
  * Set *ext to point to the extension data for the SCT. ext must not be NULL.
  * The SCT retains ownership of this pointer.
- * Returns length of the dat
+ * Returns length of the data pointed to.
+ */
+size_t SCT_get0_extensions(const SCT *sct, unsigned char **ext);
+
+/*
+ * Set the extensions of an SCT to point directly to the *ext specified.
+ * The SCT takes ownership of the specified pointer.
+ */
+void SCT_set0_extensions(SCT *sct, unsigned char *ext, size_t ext_len);
+
+/*
+ * Set the extensions of an SCT.
+ * This takes a copy of the ext.
+ * Returns 1 on success, 0 otherwise.
+ */
+__owur int SCT_set1_extensions(SCT *sct, const unsigned char *ext,
+                               size_t ext_len);
+
+/*
+ * Set *sig to point to the signature for the SCT. sig must not be NULL.
+ * The SCT retains ownership of this pointer.
+ * Returns length of the data pointed to.
+ */
+size_t SCT_get0_signature(const SCT *sct, unsigned char **sig);
+
+/*
+ * Set the signature of an SCT to point directly to the *sig specified.
+ * The SCT takes ownership of the specified pointer.
+ */
+void SCT_set0_signature(SCT *sct, unsigned char *sig, size_t sig_len);
+
+/*
+ * Set the signature of an SCT to be a copy of the *sig specified.
+ * Returns 1 on success, 0 otherwise.
+ */
+__owur int SCT_set1_signature(SCT *sct, const unsigned char *sig,
+                              size_t sig_len);
+
+/*
+ * The origin of this SCT, e.g. TLS extension, OCSP response, etc.
+ */
+sct_source_t SCT_get_source(const SCT *sct);
+
+/*
+ * Set the origin of this SCT, e.g. TLS extension, OCSP response, etc.
+ * Returns 1 on success, 0 otherwise.
+ */
+__owur int SCT_set_source(SCT *sct, sct_source_t source);
+
+/*
+ * Returns a text string describing the validation status of |sct|.
+ */
+const char *SCT_validation_status_string(const SCT *sct);
+
+/*
+ * Pretty-prints an |sct| to |out|.
+ * It will be indented by the number of spaces specified by |indent|.
+ * If |logs| is not NULL, it will be used to lookup the CT log that the SCT came
+ * from, so that the log name can be printed.
+ */
+void SCT_print(const SCT *sct, BIO *out, int indent, const CTLOG_STORE *logs);
+
+/*
+ * Pretty-prints an |sct_list| to |out|.
+ * It will be indented by t
