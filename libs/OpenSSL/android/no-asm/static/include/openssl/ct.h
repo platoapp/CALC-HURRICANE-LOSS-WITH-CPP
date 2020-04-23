@@ -427,4 +427,48 @@ void CTLOG_free(CTLOG *log);
 /* Gets the name of the CT log */
 const char *CTLOG_get0_name(const CTLOG *log);
 /* Gets the ID of the CT log */
-void CTLOG_get0_log_id(const CTLOG *log
+void CTLOG_get0_log_id(const CTLOG *log, const uint8_t **log_id,
+                       size_t *log_id_len);
+/* Gets the public key of the CT log */
+EVP_PKEY *CTLOG_get0_public_key(const CTLOG *log);
+
+/**************************
+ * CT log store functions *
+ **************************/
+
+/*
+ * Creates a new CT log store.
+ * Should be deleted by the caller using CTLOG_STORE_free when no longer needed.
+ */
+CTLOG_STORE *CTLOG_STORE_new(void);
+
+/*
+ * Deletes a CT log store and all of the CT log instances held within.
+ */
+void CTLOG_STORE_free(CTLOG_STORE *store);
+
+/*
+ * Finds a CT log in the store based on its log ID.
+ * Returns the CT log, or NULL if no match is found.
+ */
+const CTLOG *CTLOG_STORE_get0_log_by_id(const CTLOG_STORE *store,
+                                        const uint8_t *log_id,
+                                        size_t log_id_len);
+
+/*
+ * Loads a CT log list into a |store| from a |file|.
+ * Returns 1 if loading is successful, or 0 otherwise.
+ */
+__owur int CTLOG_STORE_load_file(CTLOG_STORE *store, const char *file);
+
+/*
+ * Loads the default CT log list into a |store|.
+ * Returns 1 if loading is successful, or 0 otherwise.
+ */
+__owur int CTLOG_STORE_load_default_file(CTLOG_STORE *store);
+
+#  ifdef  __cplusplus
+}
+#  endif
+# endif
+#endif
