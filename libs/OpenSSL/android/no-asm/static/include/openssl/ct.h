@@ -282,4 +282,52 @@ void SCT_print(const SCT *sct, BIO *out, int indent, const CTLOG_STORE *logs);
 
 /*
  * Pretty-prints an |sct_list| to |out|.
- * It will be indented by t
+ * It will be indented by the number of spaces specified by |indent|.
+ * SCTs will be delimited by |separator|.
+ * If |logs| is not NULL, it will be used to lookup the CT log that each SCT
+ * came from, so that the log names can be printed.
+ */
+void SCT_LIST_print(const STACK_OF(SCT) *sct_list, BIO *out, int indent,
+                    const char *separator, const CTLOG_STORE *logs);
+
+/*
+ * Gets the last result of validating this SCT.
+ * If it has not been validated yet, returns SCT_VALIDATION_STATUS_NOT_SET.
+ */
+sct_validation_status_t SCT_get_validation_status(const SCT *sct);
+
+/*
+ * Validates the given SCT with the provided context.
+ * Sets the "validation_status" field of the SCT.
+ * Returns 1 if the SCT is valid and the signature verifies.
+ * Returns 0 if the SCT is invalid or could not be verified.
+ * Returns -1 if an error occurs.
+ */
+__owur int SCT_validate(SCT *sct, const CT_POLICY_EVAL_CTX *ctx);
+
+/*
+ * Validates the given list of SCTs with the provided context.
+ * Sets the "validation_status" field of each SCT.
+ * Returns 1 if there are no invalid SCTs and all signatures verify.
+ * Returns 0 if at least one SCT is invalid or could not be verified.
+ * Returns a negative integer if an error occurs.
+ */
+__owur int SCT_LIST_validate(const STACK_OF(SCT) *scts,
+                             CT_POLICY_EVAL_CTX *ctx);
+
+
+/*********************************
+ * SCT parsing and serialisation *
+ *********************************/
+
+/*
+ * Serialize (to TLS format) a stack of SCTs and return the length.
+ * "a" must not be NULL.
+ * If "pp" is NULL, just return the length of what would have been serialized.
+ * If "pp" is not NULL and "*pp" is null, function will allocate a new pointer
+ * for data that caller is responsible for freeing (only if function returns
+ * successfully).
+ * If "pp" is NULL and "*pp" is not NULL, caller is responsible for ensuring
+ * that "*pp" is large enough to accept all of the serialized data.
+ * Returns < 0 on error, >= 0 indicating bytes written (or would have been)
+ *
