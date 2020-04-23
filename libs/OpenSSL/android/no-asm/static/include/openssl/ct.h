@@ -152,4 +152,70 @@ void SCT_LIST_free(STACK_OF(SCT) *a);
 sct_version_t SCT_get_version(const SCT *sct);
 
 /*
- * Set t
+ * Set the version of an SCT.
+ * Returns 1 on success, 0 if the version is unrecognized.
+ */
+__owur int SCT_set_version(SCT *sct, sct_version_t version);
+
+/*
+ * Returns the log entry type of the SCT.
+ */
+ct_log_entry_type_t SCT_get_log_entry_type(const SCT *sct);
+
+/*
+ * Set the log entry type of an SCT.
+ * Returns 1 on success, 0 otherwise.
+ */
+__owur int SCT_set_log_entry_type(SCT *sct, ct_log_entry_type_t entry_type);
+
+/*
+ * Gets the ID of the log that an SCT came from.
+ * Ownership of the log ID remains with the SCT.
+ * Returns the length of the log ID.
+ */
+size_t SCT_get0_log_id(const SCT *sct, unsigned char **log_id);
+
+/*
+ * Set the log ID of an SCT to point directly to the *log_id specified.
+ * The SCT takes ownership of the specified pointer.
+ * Returns 1 on success, 0 otherwise.
+ */
+__owur int SCT_set0_log_id(SCT *sct, unsigned char *log_id, size_t log_id_len);
+
+/*
+ * Set the log ID of an SCT.
+ * This makes a copy of the log_id.
+ * Returns 1 on success, 0 otherwise.
+ */
+__owur int SCT_set1_log_id(SCT *sct, const unsigned char *log_id,
+                           size_t log_id_len);
+
+/*
+ * Returns the timestamp for the SCT (epoch time in milliseconds).
+ */
+uint64_t SCT_get_timestamp(const SCT *sct);
+
+/*
+ * Set the timestamp of an SCT (epoch time in milliseconds).
+ */
+void SCT_set_timestamp(SCT *sct, uint64_t timestamp);
+
+/*
+ * Return the NID for the signature used by the SCT.
+ * For CT v1, this will be either NID_sha256WithRSAEncryption or
+ * NID_ecdsa_with_SHA256 (or NID_undef if incorrect/unset).
+ */
+int SCT_get_signature_nid(const SCT *sct);
+
+/*
+ * Set the signature type of an SCT
+ * For CT v1, this should be either NID_sha256WithRSAEncryption or
+ * NID_ecdsa_with_SHA256.
+ * Returns 1 on success, 0 otherwise.
+ */
+__owur int SCT_set_signature_nid(SCT *sct, int nid);
+
+/*
+ * Set *ext to point to the extension data for the SCT. ext must not be NULL.
+ * The SCT retains ownership of this pointer.
+ * Returns length of the dat
