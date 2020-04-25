@@ -34,4 +34,22 @@ extern "C" {
 
 # define DTLS1_RT_HEADER_LENGTH                  13
 
-# define DTLS1_HM_HEADER_LENGTH    
+# define DTLS1_HM_HEADER_LENGTH                  12
+
+# define DTLS1_HM_BAD_FRAGMENT                   -2
+# define DTLS1_HM_FRAGMENT_RETRY                 -3
+
+# define DTLS1_CCS_HEADER_LENGTH                  1
+
+# define DTLS1_AL_HEADER_LENGTH                   2
+
+/* Timeout multipliers */
+# define DTLS1_TMO_READ_COUNT                      2
+# define DTLS1_TMO_WRITE_COUNT                     2
+
+# define DTLS1_TMO_ALERT_COUNT                     12
+
+#ifdef  __cplusplus
+}
+#endif
+#endif
