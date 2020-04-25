@@ -101,4 +101,36 @@ int ERR_load_EC_strings(void);
 #  define EC_F_EC_GFP_SIMPLE_GROUP_CHECK_DISCRIMINANT      165
 #  define EC_F_EC_GFP_SIMPLE_GROUP_SET_CURVE               166
 #  define EC_F_EC_GFP_SIMPLE_MAKE_AFFINE                   102
-#  define EC_F_EC_GFP_SIMPLE
+#  define EC_F_EC_GFP_SIMPLE_OCT2POINT                     103
+#  define EC_F_EC_GFP_SIMPLE_POINT2OCT                     104
+#  define EC_F_EC_GFP_SIMPLE_POINTS_MAKE_AFFINE            137
+#  define EC_F_EC_GFP_SIMPLE_POINT_GET_AFFINE_COORDINATES  167
+#  define EC_F_EC_GFP_SIMPLE_POINT_SET_AFFINE_COORDINATES  168
+#  define EC_F_EC_GFP_SIMPLE_SET_COMPRESSED_COORDINATES    169
+#  define EC_F_EC_GROUP_CHECK                              170
+#  define EC_F_EC_GROUP_CHECK_DISCRIMINANT                 171
+#  define EC_F_EC_GROUP_COPY                               106
+#  define EC_F_EC_GROUP_GET_CURVE                          291
+#  define EC_F_EC_GROUP_GET_CURVE_GF2M                     172
+#  define EC_F_EC_GROUP_GET_CURVE_GFP                      130
+#  define EC_F_EC_GROUP_GET_DEGREE                         173
+#  define EC_F_EC_GROUP_GET_ECPARAMETERS                   261
+#  define EC_F_EC_GROUP_GET_ECPKPARAMETERS                 262
+#  define EC_F_EC_GROUP_GET_PENTANOMIAL_BASIS              193
+#  define EC_F_EC_GROUP_GET_TRINOMIAL_BASIS                194
+#  define EC_F_EC_GROUP_NEW                                108
+#  define EC_F_EC_GROUP_NEW_BY_CURVE_NAME                  174
+#  define EC_F_EC_GROUP_NEW_FROM_DATA                      175
+#  define EC_F_EC_GROUP_NEW_FROM_ECPARAMETERS              263
+#  define EC_F_EC_GROUP_NEW_FROM_ECPKPARAMETERS            264
+#  define EC_F_EC_GROUP_SET_CURVE                          292
+#  define EC_F_EC_GROUP_SET_CURVE_GF2M                     176
+#  define EC_F_EC_GROUP_SET_CURVE_GFP                      109
+#  define EC_F_EC_GROUP_SET_GENERATOR                      111
+#  define EC_F_EC_GROUP_SET_SEED                           286
+#  define EC_F_EC_KEY_CHECK_KEY                            177
+#  define EC_F_EC_KEY_COPY                                 178
+#  define EC_F_EC_KEY_GENERATE_KEY                         179
+#  define EC_F_EC_KEY_NEW                                  182
+#  define EC_F_EC_KEY_NEW_METHOD                           245
+#  define EC_F_EC_K
