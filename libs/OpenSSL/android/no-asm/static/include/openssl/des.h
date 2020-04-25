@@ -145,4 +145,30 @@ DES_LONG DES_quad_cksum(const unsigned char *input, DES_cblock output[],
 int DES_random_key(DES_cblock *ret);
 void DES_set_odd_parity(DES_cblock *key);
 int DES_check_key_parity(const_DES_cblock *key);
-int DES_is_weak_key(const_DES_cblock
+int DES_is_weak_key(const_DES_cblock *key);
+/*
+ * DES_set_key (= set_key = DES_key_sched = key_sched) calls
+ * DES_set_key_checked if global variable DES_check_key is set,
+ * DES_set_key_unchecked otherwise.
+ */
+int DES_set_key(const_DES_cblock *key, DES_key_schedule *schedule);
+int DES_key_sched(const_DES_cblock *key, DES_key_schedule *schedule);
+int DES_set_key_checked(const_DES_cblock *key, DES_key_schedule *schedule);
+void DES_set_key_unchecked(const_DES_cblock *key, DES_key_schedule *schedule);
+void DES_string_to_key(const char *str, DES_cblock *key);
+void DES_string_to_2keys(const char *str, DES_cblock *key1, DES_cblock *key2);
+void DES_cfb64_encrypt(const unsigned char *in, unsigned char *out,
+                       long length, DES_key_schedule *schedule,
+                       DES_cblock *ivec, int *num, int enc);
+void DES_ofb64_encrypt(const unsigned char *in, unsigned char *out,
+                       long length, DES_key_schedule *schedule,
+                       DES_cblock *ivec, int *num);
+
+# define DES_fixup_key_parity DES_set_odd_parity
+
+# ifdef  __cplusplus
+}
+# endif
+# endif
+
+#endif
