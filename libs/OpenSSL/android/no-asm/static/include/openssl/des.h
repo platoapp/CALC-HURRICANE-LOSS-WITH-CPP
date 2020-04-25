@@ -114,4 +114,35 @@ void DES_encrypt2(DES_LONG *data, DES_key_schedule *ks, int enc);
 
 void DES_encrypt3(DES_LONG *data, DES_key_schedule *ks1,
                   DES_key_schedule *ks2, DES_key_schedule *ks3);
-void DES_decrypt3(DES_LONG *data, DES_key_schedule *
+void DES_decrypt3(DES_LONG *data, DES_key_schedule *ks1,
+                  DES_key_schedule *ks2, DES_key_schedule *ks3);
+void DES_ede3_cbc_encrypt(const unsigned char *input, unsigned char *output,
+                          long length,
+                          DES_key_schedule *ks1, DES_key_schedule *ks2,
+                          DES_key_schedule *ks3, DES_cblock *ivec, int enc);
+void DES_ede3_cfb64_encrypt(const unsigned char *in, unsigned char *out,
+                            long length, DES_key_schedule *ks1,
+                            DES_key_schedule *ks2, DES_key_schedule *ks3,
+                            DES_cblock *ivec, int *num, int enc);
+void DES_ede3_cfb_encrypt(const unsigned char *in, unsigned char *out,
+                          int numbits, long length, DES_key_schedule *ks1,
+                          DES_key_schedule *ks2, DES_key_schedule *ks3,
+                          DES_cblock *ivec, int enc);
+void DES_ede3_ofb64_encrypt(const unsigned char *in, unsigned char *out,
+                            long length, DES_key_schedule *ks1,
+                            DES_key_schedule *ks2, DES_key_schedule *ks3,
+                            DES_cblock *ivec, int *num);
+char *DES_fcrypt(const char *buf, const char *salt, char *ret);
+char *DES_crypt(const char *buf, const char *salt);
+void DES_ofb_encrypt(const unsigned char *in, unsigned char *out, int numbits,
+                     long length, DES_key_schedule *schedule,
+                     DES_cblock *ivec);
+void DES_pcbc_encrypt(const unsigned char *input, unsigned char *output,
+                      long length, DES_key_schedule *schedule,
+                      DES_cblock *ivec, int enc);
+DES_LONG DES_quad_cksum(const unsigned char *input, DES_cblock output[],
+                        long length, int out_count, DES_cblock *seed);
+int DES_random_key(DES_cblock *ret);
+void DES_set_odd_parity(DES_cblock *key);
+int DES_check_key_parity(const_DES_cblock *key);
+int DES_is_weak_key(const_DES_cblock
