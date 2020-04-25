@@ -1204,3 +1204,277 @@ ECDSA_SIG *ECDSA_do_sign_ex(const unsigned char *dgst, int dgstlen,
 /** Verifies that the supplied signature is a valid ECDSA
  *  signature of the supplied hash value using the supplied public key.
  *  \param  dgst      pointer to the hash value
+ *  \param  dgst_len  length of the hash value
+ *  \param  sig       ECDSA_SIG structure
+ *  \param  eckey     EC_KEY object containing a public EC key
+ *  \return 1 if the signature is valid, 0 if the signature is invalid
+ *          and -1 on error
+ */
+int ECDSA_do_verify(const unsigned char *dgst, int dgst_len,
+                    const ECDSA_SIG *sig, EC_KEY *eckey);
+
+/** Precompute parts of the signing operation
+ *  \param  eckey  EC_KEY object containing a private EC key
+ *  \param  ctx    BN_CTX object (optional)
+ *  \param  kinv   BIGNUM pointer for the inverse of k
+ *  \param  rp     BIGNUM pointer for x coordinate of k * generator
+ *  \return 1 on success and 0 otherwise
+ */
+int ECDSA_sign_setup(EC_KEY *eckey, BN_CTX *ctx, BIGNUM **kinv, BIGNUM **rp);
+
+/** Computes ECDSA signature of a given hash value using the supplied
+ *  private key (note: sig must point to ECDSA_size(eckey) bytes of memory).
+ *  \param  type     this parameter is ignored
+ *  \param  dgst     pointer to the hash value to sign
+ *  \param  dgstlen  length of the hash value
+ *  \param  sig      memory for the DER encoded created signature
+ *  \param  siglen   pointer to the length of the returned signature
+ *  \param  eckey    EC_KEY object containing a private EC key
+ *  \return 1 on success and 0 otherwise
+ */
+int ECDSA_sign(int type, const unsigned char *dgst, int dgstlen,
+               unsigned char *sig, unsigned int *siglen, EC_KEY *eckey);
+
+/** Computes ECDSA signature of a given hash value using the supplied
+ *  private key (note: sig must point to ECDSA_size(eckey) bytes of memory).
+ *  \param  type     this parameter is ignored
+ *  \param  dgst     pointer to the hash value to sign
+ *  \param  dgstlen  length of the hash value
+ *  \param  sig      buffer to hold the DER encoded signature
+ *  \param  siglen   pointer to the length of the returned signature
+ *  \param  kinv     BIGNUM with a pre-computed inverse k (optional)
+ *  \param  rp       BIGNUM with a pre-computed rp value (optional),
+ *                   see ECDSA_sign_setup
+ *  \param  eckey    EC_KEY object containing a private EC key
+ *  \return 1 on success and 0 otherwise
+ */
+int ECDSA_sign_ex(int type, const unsigned char *dgst, int dgstlen,
+                  unsigned char *sig, unsigned int *siglen,
+                  const BIGNUM *kinv, const BIGNUM *rp, EC_KEY *eckey);
+
+/** Verifies that the given signature is valid ECDSA signature
+ *  of the supplied hash value using the specified public key.
+ *  \param  type     this parameter is ignored
+ *  \param  dgst     pointer to the hash value
+ *  \param  dgstlen  length of the hash value
+ *  \param  sig      pointer to the DER encoded signature
+ *  \param  siglen   length of the DER encoded signature
+ *  \param  eckey    EC_KEY object containing a public EC key
+ *  \return 1 if the signature is valid, 0 if the signature is invalid
+ *          and -1 on error
+ */
+int ECDSA_verify(int type, const unsigned char *dgst, int dgstlen,
+                 const unsigned char *sig, int siglen, EC_KEY *eckey);
+
+/** Returns the maximum length of the DER encoded signature
+ *  \param  eckey  EC_KEY object
+ *  \return numbers of bytes required for the DER encoded signature
+ */
+int ECDSA_size(const EC_KEY *eckey);
+
+/********************************************************************/
+/*  EC_KEY_METHOD constructors, destructors, writers and accessors  */
+/********************************************************************/
+
+EC_KEY_METHOD *EC_KEY_METHOD_new(const EC_KEY_METHOD *meth);
+void EC_KEY_METHOD_free(EC_KEY_METHOD *meth);
+void EC_KEY_METHOD_set_init(EC_KEY_METHOD *meth,
+                            int (*init)(EC_KEY *key),
+                            void (*finish)(EC_KEY *key),
+                            int (*copy)(EC_KEY *dest, const EC_KEY *src),
+                            int (*set_group)(EC_KEY *key, const EC_GROUP *grp),
+                            int (*set_private)(EC_KEY *key,
+                                               const BIGNUM *priv_key),
+                            int (*set_public)(EC_KEY *key,
+                                              const EC_POINT *pub_key));
+
+void EC_KEY_METHOD_set_keygen(EC_KEY_METHOD *meth,
+                              int (*keygen)(EC_KEY *key));
+
+void EC_KEY_METHOD_set_compute_key(EC_KEY_METHOD *meth,
+                                   int (*ckey)(unsigned char **psec,
+                                               size_t *pseclen,
+                                               const EC_POINT *pub_key,
+                                               const EC_KEY *ecdh));
+
+void EC_KEY_METHOD_set_sign(EC_KEY_METHOD *meth,
+                            int (*sign)(int type, const unsigned char *dgst,
+                                        int dlen, unsigned char *sig,
+                                        unsigned int *siglen,
+                                        const BIGNUM *kinv, const BIGNUM *r,
+                                        EC_KEY *eckey),
+                            int (*sign_setup)(EC_KEY *eckey, BN_CTX *ctx_in,
+                                              BIGNUM **kinvp, BIGNUM **rp),
+                            ECDSA_SIG *(*sign_sig)(const unsigned char *dgst,
+                                                   int dgst_len,
+                                                   const BIGNUM *in_kinv,
+                                                   const BIGNUM *in_r,
+                                                   EC_KEY *eckey));
+
+void EC_KEY_METHOD_set_verify(EC_KEY_METHOD *meth,
+                              int (*verify)(int type, const unsigned
+                                            char *dgst, int dgst_len,
+                                            const unsigned char *sigbuf,
+                                            int sig_len, EC_KEY *eckey),
+                              int (*verify_sig)(const unsigned char *dgst,
+                                                int dgst_len,
+                                                const ECDSA_SIG *sig,
+                                                EC_KEY *eckey));
+
+void EC_KEY_METHOD_get_init(const EC_KEY_METHOD *meth,
+                            int (**pinit)(EC_KEY *key),
+                            void (**pfinish)(EC_KEY *key),
+                            int (**pcopy)(EC_KEY *dest, const EC_KEY *src),
+                            int (**pset_group)(EC_KEY *key,
+                                               const EC_GROUP *grp),
+                            int (**pset_private)(EC_KEY *key,
+                                                 const BIGNUM *priv_key),
+                            int (**pset_public)(EC_KEY *key,
+                                                const EC_POINT *pub_key));
+
+void EC_KEY_METHOD_get_keygen(const EC_KEY_METHOD *meth,
+                              int (**pkeygen)(EC_KEY *key));
+
+void EC_KEY_METHOD_get_compute_key(const EC_KEY_METHOD *meth,
+                                   int (**pck)(unsigned char **psec,
+                                               size_t *pseclen,
+                                               const EC_POINT *pub_key,
+                                               const EC_KEY *ecdh));
+
+void EC_KEY_METHOD_get_sign(const EC_KEY_METHOD *meth,
+                            int (**psign)(int type, const unsigned char *dgst,
+                                          int dlen, unsigned char *sig,
+                                          unsigned int *siglen,
+                                          const BIGNUM *kinv, const BIGNUM *r,
+                                          EC_KEY *eckey),
+                            int (**psign_setup)(EC_KEY *eckey, BN_CTX *ctx_in,
+                                                BIGNUM **kinvp, BIGNUM **rp),
+                            ECDSA_SIG *(**psign_sig)(const unsigned char *dgst,
+                                                     int dgst_len,
+                                                     const BIGNUM *in_kinv,
+                                                     const BIGNUM *in_r,
+                                                     EC_KEY *eckey));
+
+void EC_KEY_METHOD_get_verify(const EC_KEY_METHOD *meth,
+                              int (**pverify)(int type, const unsigned
+                                              char *dgst, int dgst_len,
+                                              const unsigned char *sigbuf,
+                                              int sig_len, EC_KEY *eckey),
+                              int (**pverify_sig)(const unsigned char *dgst,
+                                                  int dgst_len,
+                                                  const ECDSA_SIG *sig,
+                                                  EC_KEY *eckey));
+
+# define ECParameters_dup(x) ASN1_dup_of(EC_KEY,i2d_ECParameters,d2i_ECParameters,x)
+
+# ifndef __cplusplus
+#  if defined(__SUNPRO_C)
+#   if __SUNPRO_C >= 0x520
+#    pragma error_messages (default,E_ARRAY_OF_INCOMPLETE_NONAME,E_ARRAY_OF_INCOMPLETE)
+#   endif
+#  endif
+# endif
+
+# define EVP_PKEY_CTX_set_ec_paramgen_curve_nid(ctx, nid) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_PARAMGEN|EVP_PKEY_OP_KEYGEN, \
+                                EVP_PKEY_CTRL_EC_PARAMGEN_CURVE_NID, nid, NULL)
+
+# define EVP_PKEY_CTX_set_ec_param_enc(ctx, flag) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_PARAMGEN|EVP_PKEY_OP_KEYGEN, \
+                                EVP_PKEY_CTRL_EC_PARAM_ENC, flag, NULL)
+
+# define EVP_PKEY_CTX_set_ecdh_cofactor_mode(ctx, flag) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_EC_ECDH_COFACTOR, flag, NULL)
+
+# define EVP_PKEY_CTX_get_ecdh_cofactor_mode(ctx) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_EC_ECDH_COFACTOR, -2, NULL)
+
+# define EVP_PKEY_CTX_set_ecdh_kdf_type(ctx, kdf) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_EC_KDF_TYPE, kdf, NULL)
+
+# define EVP_PKEY_CTX_get_ecdh_kdf_type(ctx) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_EC_KDF_TYPE, -2, NULL)
+
+# define EVP_PKEY_CTX_set_ecdh_kdf_md(ctx, md) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_EC_KDF_MD, 0, (void *)(md))
+
+# define EVP_PKEY_CTX_get_ecdh_kdf_md(ctx, pmd) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_GET_EC_KDF_MD, 0, (void *)(pmd))
+
+# define EVP_PKEY_CTX_set_ecdh_kdf_outlen(ctx, len) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_EC_KDF_OUTLEN, len, NULL)
+
+# define EVP_PKEY_CTX_get_ecdh_kdf_outlen(ctx, plen) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_GET_EC_KDF_OUTLEN, 0, \
+                                (void *)(plen))
+
+# define EVP_PKEY_CTX_set0_ecdh_kdf_ukm(ctx, p, plen) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_EC_KDF_UKM, plen, (void *)(p))
+
+# define EVP_PKEY_CTX_get0_ecdh_kdf_ukm(ctx, p) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, \
+                                EVP_PKEY_OP_DERIVE, \
+                                EVP_PKEY_CTRL_GET_EC_KDF_UKM, 0, (void *)(p))
+
+/* SM2 will skip the operation check so no need to pass operation here */
+# define EVP_PKEY_CTX_set1_id(ctx, id, id_len) \
+        EVP_PKEY_CTX_ctrl(ctx, -1, -1, \
+                                EVP_PKEY_CTRL_SET1_ID, (int)id_len, (void*)(id))
+
+# define EVP_PKEY_CTX_get1_id(ctx, id) \
+        EVP_PKEY_CTX_ctrl(ctx, -1, -1, \
+                                EVP_PKEY_CTRL_GET1_ID, 0, (void*)(id))
+
+# define EVP_PKEY_CTX_get1_id_len(ctx, id_len) \
+        EVP_PKEY_CTX_ctrl(ctx, -1, -1, \
+                                EVP_PKEY_CTRL_GET1_ID_LEN, 0, (void*)(id_len))
+
+# define EVP_PKEY_CTRL_EC_PARAMGEN_CURVE_NID             (EVP_PKEY_ALG_CTRL + 1)
+# define EVP_PKEY_CTRL_EC_PARAM_ENC                      (EVP_PKEY_ALG_CTRL + 2)
+# define EVP_PKEY_CTRL_EC_ECDH_COFACTOR                  (EVP_PKEY_ALG_CTRL + 3)
+# define EVP_PKEY_CTRL_EC_KDF_TYPE                       (EVP_PKEY_ALG_CTRL + 4)
+# define EVP_PKEY_CTRL_EC_KDF_MD                         (EVP_PKEY_ALG_CTRL + 5)
+# define EVP_PKEY_CTRL_GET_EC_KDF_MD                     (EVP_PKEY_ALG_CTRL + 6)
+# define EVP_PKEY_CTRL_EC_KDF_OUTLEN                     (EVP_PKEY_ALG_CTRL + 7)
+# define EVP_PKEY_CTRL_GET_EC_KDF_OUTLEN                 (EVP_PKEY_ALG_CTRL + 8)
+# define EVP_PKEY_CTRL_EC_KDF_UKM                        (EVP_PKEY_ALG_CTRL + 9)
+# define EVP_PKEY_CTRL_GET_EC_KDF_UKM                    (EVP_PKEY_ALG_CTRL + 10)
+# define EVP_PKEY_CTRL_SET1_ID                           (EVP_PKEY_ALG_CTRL + 11)
+# define EVP_PKEY_CTRL_GET1_ID                           (EVP_PKEY_ALG_CTRL + 12)
+# define EVP_PKEY_CTRL_GET1_ID_LEN                       (EVP_PKEY_ALG_CTRL + 13)
+/* KDF types */
+# define EVP_PKEY_ECDH_KDF_NONE                          1
+# define EVP_PKEY_ECDH_KDF_X9_63                         2
+/** The old name for EVP_PKEY_ECDH_KDF_X9_63
+ *  The ECDH KDF specification has been mistakingly attributed to ANSI X9.62,
+ *  it is actually specified in ANSI X9.63.
+ *  This identifier is retained for backwards compatibility
+ */
+# define EVP_PKEY_ECDH_KDF_X9_62   EVP_PKEY_ECDH_KDF_X9_63
+
+
+#  ifdef  __cplusplus
+}
+#  endif
+# endif
+#endif
