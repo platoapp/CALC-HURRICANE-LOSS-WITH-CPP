@@ -133,4 +133,35 @@ int ERR_load_EC_strings(void);
 #  define EC_F_EC_KEY_GENERATE_KEY                         179
 #  define EC_F_EC_KEY_NEW                                  182
 #  define EC_F_EC_KEY_NEW_METHOD                           245
-#  define EC_F_EC_K
+#  define EC_F_EC_KEY_OCT2PRIV                             255
+#  define EC_F_EC_KEY_PRINT                                180
+#  define EC_F_EC_KEY_PRINT_FP                             181
+#  define EC_F_EC_KEY_PRIV2BUF                             279
+#  define EC_F_EC_KEY_PRIV2OCT                             256
+#  define EC_F_EC_KEY_SET_PUBLIC_KEY_AFFINE_COORDINATES    229
+#  define EC_F_EC_KEY_SIMPLE_CHECK_KEY                     258
+#  define EC_F_EC_KEY_SIMPLE_OCT2PRIV                      259
+#  define EC_F_EC_KEY_SIMPLE_PRIV2OCT                      260
+#  define EC_F_EC_PKEY_CHECK                               273
+#  define EC_F_EC_PKEY_PARAM_CHECK                         274
+#  define EC_F_EC_POINTS_MAKE_AFFINE                       136
+#  define EC_F_EC_POINTS_MUL                               290
+#  define EC_F_EC_POINT_ADD                                112
+#  define EC_F_EC_POINT_BN2POINT                           280
+#  define EC_F_EC_POINT_CMP                                113
+#  define EC_F_EC_POINT_COPY                               114
+#  define EC_F_EC_POINT_DBL                                115
+#  define EC_F_EC_POINT_GET_AFFINE_COORDINATES             293
+#  define EC_F_EC_POINT_GET_AFFINE_COORDINATES_GF2M        183
+#  define EC_F_EC_POINT_GET_AFFINE_COORDINATES_GFP         116
+#  define EC_F_EC_POINT_GET_JPROJECTIVE_COORDINATES_GFP    117
+#  define EC_F_EC_POINT_INVERT                             210
+#  define EC_F_EC_POINT_IS_AT_INFINITY                     118
+#  define EC_F_EC_POINT_IS_ON_CURVE                        119
+#  define EC_F_EC_POINT_MAKE_AFFINE                        120
+#  define EC_F_EC_POINT_NEW                                121
+#  define EC_F_EC_POINT_OCT2POINT                          122
+#  define EC_F_EC_POINT_POINT2BUF                          281
+#  define EC_F_EC_POINT_POINT2OCT                          123
+#  define EC_F_EC_POINT_SET_AFFINE_COORDINATES             294
+#  define EC_F_EC_POINT_SET_AFFINE_COORDINATES_G
