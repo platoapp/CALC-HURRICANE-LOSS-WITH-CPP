@@ -197,4 +197,38 @@ int ERR_load_EC_strings(void);
 #  define EC_F_PKEY_EC_DERIVE                              217
 #  define EC_F_PKEY_EC_INIT                                282
 #  define EC_F_PKEY_EC_KDF_DERIVE                          283
-#  define E
+#  define EC_F_PKEY_EC_KEYGEN                              199
+#  define EC_F_PKEY_EC_PARAMGEN                            219
+#  define EC_F_PKEY_EC_SIGN                                218
+#  define EC_F_VALIDATE_ECX_DERIVE                         278
+
+/*
+ * EC reason codes.
+ */
+#  define EC_R_ASN1_ERROR                                  115
+#  define EC_R_BAD_SIGNATURE                               156
+#  define EC_R_BIGNUM_OUT_OF_RANGE                         144
+#  define EC_R_BUFFER_TOO_SMALL                            100
+#  define EC_R_CANNOT_INVERT                               165
+#  define EC_R_COORDINATES_OUT_OF_RANGE                    146
+#  define EC_R_CURVE_DOES_NOT_SUPPORT_ECDH                 160
+#  define EC_R_CURVE_DOES_NOT_SUPPORT_SIGNING              159
+#  define EC_R_D2I_ECPKPARAMETERS_FAILURE                  117
+#  define EC_R_DECODE_ERROR                                142
+#  define EC_R_DISCRIMINANT_IS_ZERO                        118
+#  define EC_R_EC_GROUP_NEW_BY_NAME_FAILURE                119
+#  define EC_R_FIELD_TOO_LARGE                             143
+#  define EC_R_GF2M_NOT_SUPPORTED                          147
+#  define EC_R_GROUP2PKPARAMETERS_FAILURE                  120
+#  define EC_R_I2D_ECPKPARAMETERS_FAILURE                  121
+#  define EC_R_INCOMPATIBLE_OBJECTS                        101
+#  define EC_R_INVALID_ARGUMENT                            112
+#  define EC_R_INVALID_COMPRESSED_POINT                    110
+#  define EC_R_INVALID_COMPRESSION_BIT                     109
+#  define EC_R_INVALID_CURVE                               141
+#  define EC_R_INVALID_DIGEST                              151
+#  define EC_R_INVALID_DIGEST_TYPE                         138
+#  define EC_R_INVALID_ENCODING                            102
+#  define EC_R_INVALID_FIELD                               103
+#  define EC_R_INVALID_FORM                                104
+#  define EC_R_INVALID_GROUP_ORDER                 
