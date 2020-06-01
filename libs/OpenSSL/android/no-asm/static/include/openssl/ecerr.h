@@ -263,4 +263,13 @@ int ERR_load_EC_strings(void);
 #  define EC_R_SHARED_INFO_ERROR                           150
 #  define EC_R_SLOT_FULL                                   108
 #  define EC_R_UNDEFINED_GENERATOR                         113
-#  define EC_R_UNDEFINED_ORDER   
+#  define EC_R_UNDEFINED_ORDER                             128
+#  define EC_R_UNKNOWN_COFACTOR                            164
+#  define EC_R_UNKNOWN_GROUP                               129
+#  define EC_R_UNKNOWN_ORDER                               114
+#  define EC_R_UNSUPPORTED_FIELD                           131
+#  define EC_R_WRONG_CURVE_PARAMETERS                      145
+#  define EC_R_WRONG_ORDER                                 130
+
+# endif
+#endif
