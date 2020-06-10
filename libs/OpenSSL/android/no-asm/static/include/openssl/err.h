@@ -152,4 +152,51 @@ typedef struct err_state_st {
 # define SYS_F_IOCTLSOCKET       5
 # define SYS_F_BIND              6
 # define SYS_F_LISTEN            7
-# def
+# define SYS_F_ACCEPT            8
+# define SYS_F_WSASTARTUP        9/* Winsock stuff */
+# define SYS_F_OPENDIR           10
+# define SYS_F_FREAD             11
+# define SYS_F_GETADDRINFO       12
+# define SYS_F_GETNAMEINFO       13
+# define SYS_F_SETSOCKOPT        14
+# define SYS_F_GETSOCKOPT        15
+# define SYS_F_GETSOCKNAME       16
+# define SYS_F_GETHOSTBYNAME     17
+# define SYS_F_FFLUSH            18
+# define SYS_F_OPEN              19
+# define SYS_F_CLOSE             20
+# define SYS_F_IOCTL             21
+# define SYS_F_STAT              22
+# define SYS_F_FCNTL             23
+# define SYS_F_FSTAT             24
+
+/* reasons */
+# define ERR_R_SYS_LIB   ERR_LIB_SYS/* 2 */
+# define ERR_R_BN_LIB    ERR_LIB_BN/* 3 */
+# define ERR_R_RSA_LIB   ERR_LIB_RSA/* 4 */
+# define ERR_R_DH_LIB    ERR_LIB_DH/* 5 */
+# define ERR_R_EVP_LIB   ERR_LIB_EVP/* 6 */
+# define ERR_R_BUF_LIB   ERR_LIB_BUF/* 7 */
+# define ERR_R_OBJ_LIB   ERR_LIB_OBJ/* 8 */
+# define ERR_R_PEM_LIB   ERR_LIB_PEM/* 9 */
+# define ERR_R_DSA_LIB   ERR_LIB_DSA/* 10 */
+# define ERR_R_X509_LIB  ERR_LIB_X509/* 11 */
+# define ERR_R_ASN1_LIB  ERR_LIB_ASN1/* 13 */
+# define ERR_R_EC_LIB    ERR_LIB_EC/* 16 */
+# define ERR_R_BIO_LIB   ERR_LIB_BIO/* 32 */
+# define ERR_R_PKCS7_LIB ERR_LIB_PKCS7/* 33 */
+# define ERR_R_X509V3_LIB ERR_LIB_X509V3/* 34 */
+# define ERR_R_ENGINE_LIB ERR_LIB_ENGINE/* 38 */
+# define ERR_R_UI_LIB    ERR_LIB_UI/* 40 */
+# define ERR_R_ECDSA_LIB ERR_LIB_ECDSA/* 42 */
+# define ERR_R_OSSL_STORE_LIB ERR_LIB_OSSL_STORE/* 44 */
+
+# define ERR_R_NESTED_ASN1_ERROR                 58
+# define ERR_R_MISSING_ASN1_EOS                  63
+
+/* fatal error */
+# define ERR_R_FATAL                             64
+# define ERR_R_MALLOC_FAILURE                    (1|ERR_R_FATAL)
+# define ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED       (2|ERR_R_FATAL)
+# define ERR_R_PASSED_NULL_PARAMETER             (3|ERR_R_FATAL)
+# define ERR_
