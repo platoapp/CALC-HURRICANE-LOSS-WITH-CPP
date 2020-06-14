@@ -199,4 +199,50 @@ typedef struct err_state_st {
 # define ERR_R_MALLOC_FAILURE                    (1|ERR_R_FATAL)
 # define ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED       (2|ERR_R_FATAL)
 # define ERR_R_PASSED_NULL_PARAMETER             (3|ERR_R_FATAL)
-# define ERR_
+# define ERR_R_INTERNAL_ERROR                    (4|ERR_R_FATAL)
+# define ERR_R_DISABLED                          (5|ERR_R_FATAL)
+# define ERR_R_INIT_FAIL                         (6|ERR_R_FATAL)
+# define ERR_R_PASSED_INVALID_ARGUMENT           (7)
+# define ERR_R_OPERATION_FAIL                    (8|ERR_R_FATAL)
+
+/*
+ * 99 is the maximum possible ERR_R_... code, higher values are reserved for
+ * the individual libraries
+ */
+
+typedef struct ERR_string_data_st {
+    unsigned long error;
+    const char *string;
+} ERR_STRING_DATA;
+
+DEFINE_LHASH_OF(ERR_STRING_DATA);
+
+void ERR_put_error(int lib, int func, int reason, const char *file, int line);
+void ERR_set_error_data(char *data, int flags);
+
+unsigned long ERR_get_error(void);
+unsigned long ERR_get_error_line(const char **file, int *line);
+unsigned long ERR_get_error_line_data(const char **file, int *line,
+                                      const char **data, int *flags);
+unsigned long ERR_peek_error(void);
+unsigned long ERR_peek_error_line(const char **file, int *line);
+unsigned long ERR_peek_error_line_data(const char **file, int *line,
+                                       const char **data, int *flags);
+unsigned long ERR_peek_last_error(void);
+unsigned long ERR_peek_last_error_line(const char **file, int *line);
+unsigned long ERR_peek_last_error_line_data(const char **file, int *line,
+                                            const char **data, int *flags);
+void ERR_clear_error(void);
+char *ERR_error_string(unsigned long e, char *buf);
+void ERR_error_string_n(unsigned long e, char *buf, size_t len);
+const char *ERR_lib_error_string(unsigned long e);
+const char *ERR_func_error_string(unsigned long e);
+const char *ERR_reason_error_string(unsigned long e);
+void ERR_print_errors_cb(int (*cb) (const char *str, size_t len, void *u),
+                         void *u);
+# ifndef OPENSSL_NO_STDIO
+void ERR_print_errors_fp(FILE *fp);
+# endif
+void ERR_print_errors(BIO *bp);
+void ERR_add_error_data(int num, ...);
+void ERR_add_error_vdata(int num, va_list ar
