@@ -245,4 +245,30 @@ void ERR_print_errors_fp(FILE *fp);
 # endif
 void ERR_print_errors(BIO *bp);
 void ERR_add_error_data(int num, ...);
-void ERR_add_error_vdata(int num, va_list ar
+void ERR_add_error_vdata(int num, va_list args);
+int ERR_load_strings(int lib, ERR_STRING_DATA *str);
+int ERR_load_strings_const(const ERR_STRING_DATA *str);
+int ERR_unload_strings(int lib, ERR_STRING_DATA *str);
+int ERR_load_ERR_strings(void);
+
+#if OPENSSL_API_COMPAT < 0x10100000L
+# define ERR_load_crypto_strings() \
+    OPENSSL_init_crypto(OPENSSL_INIT_LOAD_CRYPTO_STRINGS, NULL)
+# define ERR_free_strings() while(0) continue
+#endif
+
+DEPRECATEDIN_1_1_0(void ERR_remove_thread_state(void *))
+DEPRECATEDIN_1_0_0(void ERR_remove_state(unsigned long pid))
+ERR_STATE *ERR_get_state(void);
+
+int ERR_get_next_error_library(void);
+
+int ERR_set_mark(void);
+int ERR_pop_to_mark(void);
+int ERR_clear_last_mark(void);
+
+#ifdef  __cplusplus
+}
+#endif
+
+#endif
