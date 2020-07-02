@@ -88,4 +88,52 @@ int EVP_MD_meth_set_update(EVP_MD *md, int (*update)(EVP_MD_CTX *ctx,
 int EVP_MD_meth_set_final(EVP_MD *md, int (*final)(EVP_MD_CTX *ctx,
                                                    unsigned char *md));
 int EVP_MD_meth_set_copy(EVP_MD *md, int (*copy)(EVP_MD_CTX *to,
-    
+                                                 const EVP_MD_CTX *from));
+int EVP_MD_meth_set_cleanup(EVP_MD *md, int (*cleanup)(EVP_MD_CTX *ctx));
+int EVP_MD_meth_set_ctrl(EVP_MD *md, int (*ctrl)(EVP_MD_CTX *ctx, int cmd,
+                                                 int p1, void *p2));
+
+int EVP_MD_meth_get_input_blocksize(const EVP_MD *md);
+int EVP_MD_meth_get_result_size(const EVP_MD *md);
+int EVP_MD_meth_get_app_datasize(const EVP_MD *md);
+unsigned long EVP_MD_meth_get_flags(const EVP_MD *md);
+int (*EVP_MD_meth_get_init(const EVP_MD *md))(EVP_MD_CTX *ctx);
+int (*EVP_MD_meth_get_update(const EVP_MD *md))(EVP_MD_CTX *ctx,
+                                                const void *data,
+                                                size_t count);
+int (*EVP_MD_meth_get_final(const EVP_MD *md))(EVP_MD_CTX *ctx,
+                                               unsigned char *md);
+int (*EVP_MD_meth_get_copy(const EVP_MD *md))(EVP_MD_CTX *to,
+                                              const EVP_MD_CTX *from);
+int (*EVP_MD_meth_get_cleanup(const EVP_MD *md))(EVP_MD_CTX *ctx);
+int (*EVP_MD_meth_get_ctrl(const EVP_MD *md))(EVP_MD_CTX *ctx, int cmd,
+                                              int p1, void *p2);
+
+/* digest can only handle a single block */
+#  define EVP_MD_FLAG_ONESHOT     0x0001
+
+/* digest is extensible-output function, XOF */
+#  define EVP_MD_FLAG_XOF         0x0002
+
+/* DigestAlgorithmIdentifier flags... */
+
+#  define EVP_MD_FLAG_DIGALGID_MASK               0x0018
+
+/* NULL or absent parameter accepted. Use NULL */
+
+#  define EVP_MD_FLAG_DIGALGID_NULL               0x0000
+
+/* NULL or absent parameter accepted. Use NULL for PKCS#1 otherwise absent */
+
+#  define EVP_MD_FLAG_DIGALGID_ABSENT             0x0008
+
+/* Custom handling via ctrl */
+
+#  define EVP_MD_FLAG_DIGALGID_CUSTOM             0x0018
+
+/* Note if suitable for use in FIPS mode */
+#  define EVP_MD_FLAG_FIPS        0x0400
+
+/* Digest ctrls */
+
+#  define EVP_MD_CTRL_DIGALGID 
