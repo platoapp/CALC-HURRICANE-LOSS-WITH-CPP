@@ -136,4 +136,50 @@ int (*EVP_MD_meth_get_ctrl(const EVP_MD *md))(EVP_MD_CTX *ctx, int cmd,
 
 /* Digest ctrls */
 
-#  define EVP_MD_CTRL_DIGALGID 
+#  define EVP_MD_CTRL_DIGALGID                    0x1
+#  define EVP_MD_CTRL_MICALG                      0x2
+#  define EVP_MD_CTRL_XOF_LEN                     0x3
+
+/* Minimum Algorithm specific ctrl value */
+
+#  define EVP_MD_CTRL_ALG_CTRL                    0x1000
+
+# endif                         /* !EVP_MD */
+
+/* values for EVP_MD_CTX flags */
+
+# define EVP_MD_CTX_FLAG_ONESHOT         0x0001/* digest update will be
+                                                * called once only */
+# define EVP_MD_CTX_FLAG_CLEANED         0x0002/* context has already been
+                                                * cleaned */
+# define EVP_MD_CTX_FLAG_REUSE           0x0004/* Don't free up ctx->md_data
+                                                * in EVP_MD_CTX_reset */
+/*
+ * FIPS and pad options are ignored in 1.0.0, definitions are here so we
+ * don't accidentally reuse the values for other purposes.
+ */
+
+# define EVP_MD_CTX_FLAG_NON_FIPS_ALLOW  0x0008/* Allow use of non FIPS
+                                                * digest in FIPS mode */
+
+/*
+ * The following PAD options are also currently ignored in 1.0.0, digest
+ * parameters are handled through EVP_DigestSign*() and EVP_DigestVerify*()
+ * instead.
+ */
+# define EVP_MD_CTX_FLAG_PAD_MASK        0xF0/* RSA mode to use */
+# define EVP_MD_CTX_FLAG_PAD_PKCS1       0x00/* PKCS#1 v1.5 mode */
+# define EVP_MD_CTX_FLAG_PAD_X931        0x10/* X9.31 mode */
+# define EVP_MD_CTX_FLAG_PAD_PSS         0x20/* PSS mode */
+
+# define EVP_MD_CTX_FLAG_NO_INIT         0x0100/* Don't initialize md_data */
+/*
+ * Some functions such as EVP_DigestSign only finalise copies of internal
+ * contexts so additional data can be included after the finalisation call.
+ * This is inefficient if this functionality is not required: it is disabled
+ * if the following flag is set.
+ */
+# define EVP_MD_CTX_FLAG_FINALISE        0x0200
+/* NOTE: 0x0400 is reserved for internal usage */
+
+EVP_CIPHER *EVP_CIPHER_meth_new(int cipher_type, int b
