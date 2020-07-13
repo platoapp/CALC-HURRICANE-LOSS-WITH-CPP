@@ -247,4 +247,50 @@ int (*EVP_CIPHER_meth_get_ctrl(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *,
 /* Set if variable length cipher */
 # define         EVP_CIPH_VARIABLE_LENGTH        0x8
 /* Set if the iv handling should be done by the cipher itself */
-# define         EVP_CIPH
+# define         EVP_CIPH_CUSTOM_IV              0x10
+/* Set if the cipher's init() function should be called if key is NULL */
+# define         EVP_CIPH_ALWAYS_CALL_INIT       0x20
+/* Call ctrl() to init cipher parameters */
+# define         EVP_CIPH_CTRL_INIT              0x40
+/* Don't use standard key length function */
+# define         EVP_CIPH_CUSTOM_KEY_LENGTH      0x80
+/* Don't use standard block padding */
+# define         EVP_CIPH_NO_PADDING             0x100
+/* cipher handles random key generation */
+# define         EVP_CIPH_RAND_KEY               0x200
+/* cipher has its own additional copying logic */
+# define         EVP_CIPH_CUSTOM_COPY            0x400
+/* Don't use standard iv length function */
+# define         EVP_CIPH_CUSTOM_IV_LENGTH       0x800
+/* Allow use default ASN1 get/set iv */
+# define         EVP_CIPH_FLAG_DEFAULT_ASN1      0x1000
+/* Buffer length in bits not bytes: CFB1 mode only */
+# define         EVP_CIPH_FLAG_LENGTH_BITS       0x2000
+/* Note if suitable for use in FIPS mode */
+# define         EVP_CIPH_FLAG_FIPS              0x4000
+/* Allow non FIPS cipher in FIPS mode */
+# define         EVP_CIPH_FLAG_NON_FIPS_ALLOW    0x8000
+/*
+ * Cipher handles any and all padding logic as well as finalisation.
+ */
+# define         EVP_CIPH_FLAG_CUSTOM_CIPHER     0x100000
+# define         EVP_CIPH_FLAG_AEAD_CIPHER       0x200000
+# define         EVP_CIPH_FLAG_TLS1_1_MULTIBLOCK 0x400000
+/* Cipher can handle pipeline operations */
+# define         EVP_CIPH_FLAG_PIPELINE          0X800000
+
+/*
+ * Cipher context flag to indicate we can handle wrap mode: if allowed in
+ * older applications it could overflow buffers.
+ */
+
+# define         EVP_CIPHER_CTX_FLAG_WRAP_ALLOW  0x1
+
+/* ctrl() values */
+
+# define         EVP_CTRL_INIT                   0x0
+# define         EVP_CTRL_SET_KEY_LENGTH         0x1
+# define         EVP_CTRL_GET_RC2_KEY_BITS       0x2
+# define         EVP_CTRL_SET_RC2_KEY_BITS       0x3
+# define         EVP_CTRL_GET_RC5_ROUNDS         0x4
+# define         EVP_CTRL_SET_RC5_ROUN
