@@ -213,4 +213,38 @@ int EVP_CIPHER_meth_set_ctrl(EVP_CIPHER *cipher,
 
 int (*EVP_CIPHER_meth_get_init(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *ctx,
                                                           const unsigned char *key,
-                             
+                                                          const unsigned char *iv,
+                                                          int enc);
+int (*EVP_CIPHER_meth_get_do_cipher(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *ctx,
+                                                               unsigned char *out,
+                                                               const unsigned char *in,
+                                                               size_t inl);
+int (*EVP_CIPHER_meth_get_cleanup(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *);
+int (*EVP_CIPHER_meth_get_set_asn1_params(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *,
+                                                                     ASN1_TYPE *);
+int (*EVP_CIPHER_meth_get_get_asn1_params(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *,
+                                                               ASN1_TYPE *);
+int (*EVP_CIPHER_meth_get_ctrl(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *,
+                                                          int type, int arg,
+                                                          void *ptr);
+
+/* Values for cipher flags */
+
+/* Modes for ciphers */
+
+# define         EVP_CIPH_STREAM_CIPHER          0x0
+# define         EVP_CIPH_ECB_MODE               0x1
+# define         EVP_CIPH_CBC_MODE               0x2
+# define         EVP_CIPH_CFB_MODE               0x3
+# define         EVP_CIPH_OFB_MODE               0x4
+# define         EVP_CIPH_CTR_MODE               0x5
+# define         EVP_CIPH_GCM_MODE               0x6
+# define         EVP_CIPH_CCM_MODE               0x7
+# define         EVP_CIPH_XTS_MODE               0x10001
+# define         EVP_CIPH_WRAP_MODE              0x10002
+# define         EVP_CIPH_OCB_MODE               0x10003
+# define         EVP_CIPH_MODE                   0xF0007
+/* Set if variable length cipher */
+# define         EVP_CIPH_VARIABLE_LENGTH        0x8
+/* Set if the iv handling should be done by the cipher itself */
+# define         EVP_CIPH
