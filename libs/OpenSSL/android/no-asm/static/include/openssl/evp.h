@@ -438,4 +438,42 @@ typedef int (EVP_PBE_KEYGEN) (EVP_CIPHER_CTX *ctx, const char *pass,
 # define EVP_get_digestbynid(a) EVP_get_digestbyname(OBJ_nid2sn(a))
 # define EVP_get_digestbyobj(a) EVP_get_digestbynid(OBJ_obj2nid(a))
 # define EVP_get_cipherbynid(a) EVP_get_cipherbyname(OBJ_nid2sn(a))
-# define EVP_get_cipherbyobj(a) 
+# define EVP_get_cipherbyobj(a) EVP_get_cipherbynid(OBJ_obj2nid(a))
+
+int EVP_MD_type(const EVP_MD *md);
+# define EVP_MD_nid(e)                   EVP_MD_type(e)
+# define EVP_MD_name(e)                  OBJ_nid2sn(EVP_MD_nid(e))
+int EVP_MD_pkey_type(const EVP_MD *md);
+int EVP_MD_size(const EVP_MD *md);
+int EVP_MD_block_size(const EVP_MD *md);
+unsigned long EVP_MD_flags(const EVP_MD *md);
+
+const EVP_MD *EVP_MD_CTX_md(const EVP_MD_CTX *ctx);
+int (*EVP_MD_CTX_update_fn(EVP_MD_CTX *ctx))(EVP_MD_CTX *ctx,
+                                             const void *data, size_t count);
+void EVP_MD_CTX_set_update_fn(EVP_MD_CTX *ctx,
+                              int (*update) (EVP_MD_CTX *ctx,
+                                             const void *data, size_t count));
+# define EVP_MD_CTX_size(e)              EVP_MD_size(EVP_MD_CTX_md(e))
+# define EVP_MD_CTX_block_size(e)        EVP_MD_block_size(EVP_MD_CTX_md(e))
+# define EVP_MD_CTX_type(e)              EVP_MD_type(EVP_MD_CTX_md(e))
+EVP_PKEY_CTX *EVP_MD_CTX_pkey_ctx(const EVP_MD_CTX *ctx);
+void EVP_MD_CTX_set_pkey_ctx(EVP_MD_CTX *ctx, EVP_PKEY_CTX *pctx);
+void *EVP_MD_CTX_md_data(const EVP_MD_CTX *ctx);
+
+int EVP_CIPHER_nid(const EVP_CIPHER *cipher);
+# define EVP_CIPHER_name(e)              OBJ_nid2sn(EVP_CIPHER_nid(e))
+int EVP_CIPHER_block_size(const EVP_CIPHER *cipher);
+int EVP_CIPHER_impl_ctx_size(const EVP_CIPHER *cipher);
+int EVP_CIPHER_key_length(const EVP_CIPHER *cipher);
+int EVP_CIPHER_iv_length(const EVP_CIPHER *cipher);
+unsigned long EVP_CIPHER_flags(const EVP_CIPHER *cipher);
+# define EVP_CIPHER_mode(e)              (EVP_CIPHER_flags(e) & EVP_CIPH_MODE)
+
+const EVP_CIPHER *EVP_CIPHER_CTX_cipher(const EVP_CIPHER_CTX *ctx);
+int EVP_CIPHER_CTX_encrypting(const EVP_CIPHER_CTX *ctx);
+int EVP_CIPHER_CTX_nid(const EVP_CIPHER_CTX *ctx);
+int EVP_CIPHER_CTX_block_size(const EVP_CIPHER_CTX *ctx);
+int EVP_CIPHER_CTX_key_length(const EVP_CIPHER_CTX *ctx);
+int EVP_CIPHER_CTX_iv_length(const EVP_CIPHER_CTX *ctx);
+co
