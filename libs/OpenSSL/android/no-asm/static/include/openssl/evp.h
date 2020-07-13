@@ -293,4 +293,42 @@ int (*EVP_CIPHER_meth_get_ctrl(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *,
 # define         EVP_CTRL_GET_RC2_KEY_BITS       0x2
 # define         EVP_CTRL_SET_RC2_KEY_BITS       0x3
 # define         EVP_CTRL_GET_RC5_ROUNDS         0x4
-# define         EVP_CTRL_SET_RC5_ROUN
+# define         EVP_CTRL_SET_RC5_ROUNDS         0x5
+# define         EVP_CTRL_RAND_KEY               0x6
+# define         EVP_CTRL_PBE_PRF_NID            0x7
+# define         EVP_CTRL_COPY                   0x8
+# define         EVP_CTRL_AEAD_SET_IVLEN         0x9
+# define         EVP_CTRL_AEAD_GET_TAG           0x10
+# define         EVP_CTRL_AEAD_SET_TAG           0x11
+# define         EVP_CTRL_AEAD_SET_IV_FIXED      0x12
+# define         EVP_CTRL_GCM_SET_IVLEN          EVP_CTRL_AEAD_SET_IVLEN
+# define         EVP_CTRL_GCM_GET_TAG            EVP_CTRL_AEAD_GET_TAG
+# define         EVP_CTRL_GCM_SET_TAG            EVP_CTRL_AEAD_SET_TAG
+# define         EVP_CTRL_GCM_SET_IV_FIXED       EVP_CTRL_AEAD_SET_IV_FIXED
+# define         EVP_CTRL_GCM_IV_GEN             0x13
+# define         EVP_CTRL_CCM_SET_IVLEN          EVP_CTRL_AEAD_SET_IVLEN
+# define         EVP_CTRL_CCM_GET_TAG            EVP_CTRL_AEAD_GET_TAG
+# define         EVP_CTRL_CCM_SET_TAG            EVP_CTRL_AEAD_SET_TAG
+# define         EVP_CTRL_CCM_SET_IV_FIXED       EVP_CTRL_AEAD_SET_IV_FIXED
+# define         EVP_CTRL_CCM_SET_L              0x14
+# define         EVP_CTRL_CCM_SET_MSGLEN         0x15
+/*
+ * AEAD cipher deduces payload length and returns number of bytes required to
+ * store MAC and eventual padding. Subsequent call to EVP_Cipher even
+ * appends/verifies MAC.
+ */
+# define         EVP_CTRL_AEAD_TLS1_AAD          0x16
+/* Used by composite AEAD ciphers, no-op in GCM, CCM... */
+# define         EVP_CTRL_AEAD_SET_MAC_KEY       0x17
+/* Set the GCM invocation field, decrypt only */
+# define         EVP_CTRL_GCM_SET_IV_INV         0x18
+
+# define         EVP_CTRL_TLS1_1_MULTIBLOCK_AAD  0x19
+# define         EVP_CTRL_TLS1_1_MULTIBLOCK_ENCRYPT      0x1a
+# define         EVP_CTRL_TLS1_1_MULTIBLOCK_DECRYPT      0x1b
+# define         EVP_CTRL_TLS1_1_MULTIBLOCK_MAX_BUFSIZE  0x1c
+
+# define         EVP_CTRL_SSL3_MASTER_SECRET             0x1d
+
+/* EVP_CTRL_SET_SBOX takes the char * specifying S-boxes */
+# define         EVP_C
