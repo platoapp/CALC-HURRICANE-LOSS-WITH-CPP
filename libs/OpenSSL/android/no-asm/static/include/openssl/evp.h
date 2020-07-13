@@ -331,4 +331,57 @@ int (*EVP_CIPHER_meth_get_ctrl(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *,
 # define         EVP_CTRL_SSL3_MASTER_SECRET             0x1d
 
 /* EVP_CTRL_SET_SBOX takes the char * specifying S-boxes */
-# define         EVP_C
+# define         EVP_CTRL_SET_SBOX                       0x1e
+/*
+ * EVP_CTRL_SBOX_USED takes a 'size_t' and 'char *', pointing at a
+ * pre-allocated buffer with specified size
+ */
+# define         EVP_CTRL_SBOX_USED                      0x1f
+/* EVP_CTRL_KEY_MESH takes 'size_t' number of bytes to mesh the key after,
+ * 0 switches meshing off
+ */
+# define         EVP_CTRL_KEY_MESH                       0x20
+/* EVP_CTRL_BLOCK_PADDING_MODE takes the padding mode */
+# define         EVP_CTRL_BLOCK_PADDING_MODE             0x21
+
+/* Set the output buffers to use for a pipelined operation */
+# define         EVP_CTRL_SET_PIPELINE_OUTPUT_BUFS       0x22
+/* Set the input buffers to use for a pipelined operation */
+# define         EVP_CTRL_SET_PIPELINE_INPUT_BUFS        0x23
+/* Set the input buffer lengths to use for a pipelined operation */
+# define         EVP_CTRL_SET_PIPELINE_INPUT_LENS        0x24
+
+# define         EVP_CTRL_GET_IVLEN                      0x25
+
+/* Padding modes */
+#define EVP_PADDING_PKCS7       1
+#define EVP_PADDING_ISO7816_4   2
+#define EVP_PADDING_ANSI923     3
+#define EVP_PADDING_ISO10126    4
+#define EVP_PADDING_ZERO        5
+
+/* RFC 5246 defines additional data to be 13 bytes in length */
+# define         EVP_AEAD_TLS1_AAD_LEN           13
+
+typedef struct {
+    unsigned char *out;
+    const unsigned char *inp;
+    size_t len;
+    unsigned int interleave;
+} EVP_CTRL_TLS1_1_MULTIBLOCK_PARAM;
+
+/* GCM TLS constants */
+/* Length of fixed part of IV derived from PRF */
+# define EVP_GCM_TLS_FIXED_IV_LEN                        4
+/* Length of explicit part of IV part of TLS records */
+# define EVP_GCM_TLS_EXPLICIT_IV_LEN                     8
+/* Length of tag for TLS */
+# define EVP_GCM_TLS_TAG_LEN                             16
+
+/* CCM TLS constants */
+/* Length of fixed part of IV derived from PRF */
+# define EVP_CCM_TLS_FIXED_IV_LEN                        4
+/* Length of explicit part of IV part of TLS records */
+# define EVP_CCM_TLS_EXPLICIT_IV_LEN                     8
+/* Total length of CCM IV length for TLS */
+# define EVP_CCM_TLS_IV_LEN                       
