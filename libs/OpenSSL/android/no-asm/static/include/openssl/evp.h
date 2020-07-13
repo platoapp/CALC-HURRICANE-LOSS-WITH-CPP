@@ -384,4 +384,58 @@ typedef struct {
 /* Length of explicit part of IV part of TLS records */
 # define EVP_CCM_TLS_EXPLICIT_IV_LEN                     8
 /* Total length of CCM IV length for TLS */
-# define EVP_CCM_TLS_IV_LEN                       
+# define EVP_CCM_TLS_IV_LEN                              12
+/* Length of tag for TLS */
+# define EVP_CCM_TLS_TAG_LEN                             16
+/* Length of CCM8 tag for TLS */
+# define EVP_CCM8_TLS_TAG_LEN                            8
+
+/* Length of tag for TLS */
+# define EVP_CHACHAPOLY_TLS_TAG_LEN                      16
+
+typedef struct evp_cipher_info_st {
+    const EVP_CIPHER *cipher;
+    unsigned char iv[EVP_MAX_IV_LENGTH];
+} EVP_CIPHER_INFO;
+
+
+/* Password based encryption function */
+typedef int (EVP_PBE_KEYGEN) (EVP_CIPHER_CTX *ctx, const char *pass,
+                              int passlen, ASN1_TYPE *param,
+                              const EVP_CIPHER *cipher, const EVP_MD *md,
+                              int en_de);
+
+# ifndef OPENSSL_NO_RSA
+#  define EVP_PKEY_assign_RSA(pkey,rsa) EVP_PKEY_assign((pkey),EVP_PKEY_RSA,\
+                                        (char *)(rsa))
+# endif
+
+# ifndef OPENSSL_NO_DSA
+#  define EVP_PKEY_assign_DSA(pkey,dsa) EVP_PKEY_assign((pkey),EVP_PKEY_DSA,\
+                                        (char *)(dsa))
+# endif
+
+# ifndef OPENSSL_NO_DH
+#  define EVP_PKEY_assign_DH(pkey,dh) EVP_PKEY_assign((pkey),EVP_PKEY_DH,\
+                                        (char *)(dh))
+# endif
+
+# ifndef OPENSSL_NO_EC
+#  define EVP_PKEY_assign_EC_KEY(pkey,eckey) EVP_PKEY_assign((pkey),EVP_PKEY_EC,\
+                                        (char *)(eckey))
+# endif
+# ifndef OPENSSL_NO_SIPHASH
+#  define EVP_PKEY_assign_SIPHASH(pkey,shkey) EVP_PKEY_assign((pkey),EVP_PKEY_SIPHASH,\
+                                        (char *)(shkey))
+# endif
+
+# ifndef OPENSSL_NO_POLY1305
+#  define EVP_PKEY_assign_POLY1305(pkey,polykey) EVP_PKEY_assign((pkey),EVP_PKEY_POLY1305,\
+                                        (char *)(polykey))
+# endif
+
+/* Add some extra combinations */
+# define EVP_get_digestbynid(a) EVP_get_digestbyname(OBJ_nid2sn(a))
+# define EVP_get_digestbyobj(a) EVP_get_digestbynid(OBJ_obj2nid(a))
+# define EVP_get_cipherbynid(a) EVP_get_cipherbyname(OBJ_nid2sn(a))
+# define EVP_get_cipherbyobj(a) 
