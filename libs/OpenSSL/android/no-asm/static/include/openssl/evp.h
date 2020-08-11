@@ -549,4 +549,41 @@ __owur int EVP_DigestInit_ex(EVP_MD_CTX *ctx, const EVP_MD *type,
                                  ENGINE *impl);
 __owur int EVP_DigestUpdate(EVP_MD_CTX *ctx, const void *d,
                                 size_t cnt);
-__owur int EVP_DigestFinal_ex(EVP_MD_CTX *ctx, unsigned c
+__owur int EVP_DigestFinal_ex(EVP_MD_CTX *ctx, unsigned char *md,
+                                  unsigned int *s);
+__owur int EVP_Digest(const void *data, size_t count,
+                          unsigned char *md, unsigned int *size,
+                          const EVP_MD *type, ENGINE *impl);
+
+__owur int EVP_MD_CTX_copy(EVP_MD_CTX *out, const EVP_MD_CTX *in);
+__owur int EVP_DigestInit(EVP_MD_CTX *ctx, const EVP_MD *type);
+__owur int EVP_DigestFinal(EVP_MD_CTX *ctx, unsigned char *md,
+                           unsigned int *s);
+__owur int EVP_DigestFinalXOF(EVP_MD_CTX *ctx, unsigned char *md,
+                              size_t len);
+
+int EVP_read_pw_string(char *buf, int length, const char *prompt, int verify);
+int EVP_read_pw_string_min(char *buf, int minlen, int maxlen,
+                           const char *prompt, int verify);
+void EVP_set_pw_prompt(const char *prompt);
+char *EVP_get_pw_prompt(void);
+
+__owur int EVP_BytesToKey(const EVP_CIPHER *type, const EVP_MD *md,
+                          const unsigned char *salt,
+                          const unsigned char *data, int datal, int count,
+                          unsigned char *key, unsigned char *iv);
+
+void EVP_CIPHER_CTX_set_flags(EVP_CIPHER_CTX *ctx, int flags);
+void EVP_CIPHER_CTX_clear_flags(EVP_CIPHER_CTX *ctx, int flags);
+int EVP_CIPHER_CTX_test_flags(const EVP_CIPHER_CTX *ctx, int flags);
+
+__owur int EVP_EncryptInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *cipher,
+                           const unsigned char *key, const unsigned char *iv);
+/*__owur*/ int EVP_EncryptInit_ex(EVP_CIPHER_CTX *ctx,
+                                  const EVP_CIPHER *cipher, ENGINE *impl,
+                                  const unsigned char *key,
+                                  const unsigned char *iv);
+/*__owur*/ int EVP_EncryptUpdate(EVP_CIPHER_CTX *ctx, unsigned char *out,
+                                 int *outl, const unsigned char *in, int inl);
+/*__owur*/ int EVP_EncryptFinal_ex(EVP_CIPHER_CTX *ctx, unsigned char *out,
+                                   int *outl);
