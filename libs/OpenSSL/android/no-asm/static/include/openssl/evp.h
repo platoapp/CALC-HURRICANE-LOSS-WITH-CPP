@@ -512,4 +512,41 @@ void BIO_set_md(BIO *, const EVP_MD *md);
 # else
 #  define BIO_set_md(b,md)          BIO_ctrl(b,BIO_C_SET_MD,0,(char *)(md))
 # endif
-# define BIO_get
+# define BIO_get_md(b,mdp)          BIO_ctrl(b,BIO_C_GET_MD,0,(char *)(mdp))
+# define BIO_get_md_ctx(b,mdcp)     BIO_ctrl(b,BIO_C_GET_MD_CTX,0, \
+                                             (char *)(mdcp))
+# define BIO_set_md_ctx(b,mdcp)     BIO_ctrl(b,BIO_C_SET_MD_CTX,0, \
+                                             (char *)(mdcp))
+# define BIO_get_cipher_status(b)   BIO_ctrl(b,BIO_C_GET_CIPHER_STATUS,0,NULL)
+# define BIO_get_cipher_ctx(b,c_pp) BIO_ctrl(b,BIO_C_GET_CIPHER_CTX,0, \
+                                             (char *)(c_pp))
+
+/*__owur*/ int EVP_Cipher(EVP_CIPHER_CTX *c,
+                          unsigned char *out,
+                          const unsigned char *in, unsigned int inl);
+
+# define EVP_add_cipher_alias(n,alias) \
+        OBJ_NAME_add((alias),OBJ_NAME_TYPE_CIPHER_METH|OBJ_NAME_ALIAS,(n))
+# define EVP_add_digest_alias(n,alias) \
+        OBJ_NAME_add((alias),OBJ_NAME_TYPE_MD_METH|OBJ_NAME_ALIAS,(n))
+# define EVP_delete_cipher_alias(alias) \
+        OBJ_NAME_remove(alias,OBJ_NAME_TYPE_CIPHER_METH|OBJ_NAME_ALIAS);
+# define EVP_delete_digest_alias(alias) \
+        OBJ_NAME_remove(alias,OBJ_NAME_TYPE_MD_METH|OBJ_NAME_ALIAS);
+
+int EVP_MD_CTX_ctrl(EVP_MD_CTX *ctx, int cmd, int p1, void *p2);
+EVP_MD_CTX *EVP_MD_CTX_new(void);
+int EVP_MD_CTX_reset(EVP_MD_CTX *ctx);
+void EVP_MD_CTX_free(EVP_MD_CTX *ctx);
+# define EVP_MD_CTX_create()     EVP_MD_CTX_new()
+# define EVP_MD_CTX_init(ctx)    EVP_MD_CTX_reset((ctx))
+# define EVP_MD_CTX_destroy(ctx) EVP_MD_CTX_free((ctx))
+__owur int EVP_MD_CTX_copy_ex(EVP_MD_CTX *out, const EVP_MD_CTX *in);
+void EVP_MD_CTX_set_flags(EVP_MD_CTX *ctx, int flags);
+void EVP_MD_CTX_clear_flags(EVP_MD_CTX *ctx, int flags);
+int EVP_MD_CTX_test_flags(const EVP_MD_CTX *ctx, int flags);
+__owur int EVP_DigestInit_ex(EVP_MD_CTX *ctx, const EVP_MD *type,
+                                 ENGINE *impl);
+__owur int EVP_DigestUpdate(EVP_MD_CTX *ctx, const void *d,
+                                size_t cnt);
+__owur int EVP_DigestFinal_ex(EVP_MD_CTX *ctx, unsigned c
