@@ -476,4 +476,40 @@ int EVP_CIPHER_CTX_nid(const EVP_CIPHER_CTX *ctx);
 int EVP_CIPHER_CTX_block_size(const EVP_CIPHER_CTX *ctx);
 int EVP_CIPHER_CTX_key_length(const EVP_CIPHER_CTX *ctx);
 int EVP_CIPHER_CTX_iv_length(const EVP_CIPHER_CTX *ctx);
-co
+const unsigned char *EVP_CIPHER_CTX_iv(const EVP_CIPHER_CTX *ctx);
+const unsigned char *EVP_CIPHER_CTX_original_iv(const EVP_CIPHER_CTX *ctx);
+unsigned char *EVP_CIPHER_CTX_iv_noconst(EVP_CIPHER_CTX *ctx);
+unsigned char *EVP_CIPHER_CTX_buf_noconst(EVP_CIPHER_CTX *ctx);
+int EVP_CIPHER_CTX_num(const EVP_CIPHER_CTX *ctx);
+void EVP_CIPHER_CTX_set_num(EVP_CIPHER_CTX *ctx, int num);
+int EVP_CIPHER_CTX_copy(EVP_CIPHER_CTX *out, const EVP_CIPHER_CTX *in);
+void *EVP_CIPHER_CTX_get_app_data(const EVP_CIPHER_CTX *ctx);
+void EVP_CIPHER_CTX_set_app_data(EVP_CIPHER_CTX *ctx, void *data);
+void *EVP_CIPHER_CTX_get_cipher_data(const EVP_CIPHER_CTX *ctx);
+void *EVP_CIPHER_CTX_set_cipher_data(EVP_CIPHER_CTX *ctx, void *cipher_data);
+# define EVP_CIPHER_CTX_type(c)         EVP_CIPHER_type(EVP_CIPHER_CTX_cipher(c))
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define EVP_CIPHER_CTX_flags(c)       EVP_CIPHER_flags(EVP_CIPHER_CTX_cipher(c))
+# endif
+# define EVP_CIPHER_CTX_mode(c)         EVP_CIPHER_mode(EVP_CIPHER_CTX_cipher(c))
+
+# define EVP_ENCODE_LENGTH(l)    ((((l)+2)/3*4)+((l)/48+1)*2+80)
+# define EVP_DECODE_LENGTH(l)    (((l)+3)/4*3+80)
+
+# define EVP_SignInit_ex(a,b,c)          EVP_DigestInit_ex(a,b,c)
+# define EVP_SignInit(a,b)               EVP_DigestInit(a,b)
+# define EVP_SignUpdate(a,b,c)           EVP_DigestUpdate(a,b,c)
+# define EVP_VerifyInit_ex(a,b,c)        EVP_DigestInit_ex(a,b,c)
+# define EVP_VerifyInit(a,b)             EVP_DigestInit(a,b)
+# define EVP_VerifyUpdate(a,b,c)         EVP_DigestUpdate(a,b,c)
+# define EVP_OpenUpdate(a,b,c,d,e)       EVP_DecryptUpdate(a,b,c,d,e)
+# define EVP_SealUpdate(a,b,c,d,e)       EVP_EncryptUpdate(a,b,c,d,e)
+# define EVP_DigestSignUpdate(a,b,c)     EVP_DigestUpdate(a,b,c)
+# define EVP_DigestVerifyUpdate(a,b,c)   EVP_DigestUpdate(a,b,c)
+
+# ifdef CONST_STRICT
+void BIO_set_md(BIO *, const EVP_MD *md);
+# else
+#  define BIO_set_md(b,md)          BIO_ctrl(b,BIO_C_SET_MD,0,(char *)(md))
+# endif
+# define BIO_get
