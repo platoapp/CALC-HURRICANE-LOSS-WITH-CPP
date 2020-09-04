@@ -621,4 +621,45 @@ __owur int EVP_SignFinal(EVP_MD_CTX *ctx, unsigned char *md, unsigned int *s,
                          EVP_PKEY *pkey);
 
 __owur int EVP_DigestSign(EVP_MD_CTX *ctx, unsigned char *sigret,
-                  
+                          size_t *siglen, const unsigned char *tbs,
+                          size_t tbslen);
+
+__owur int EVP_VerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sigbuf,
+                           unsigned int siglen, EVP_PKEY *pkey);
+
+__owur int EVP_DigestVerify(EVP_MD_CTX *ctx, const unsigned char *sigret,
+                            size_t siglen, const unsigned char *tbs,
+                            size_t tbslen);
+
+/*__owur*/ int EVP_DigestSignInit(EVP_MD_CTX *ctx, EVP_PKEY_CTX **pctx,
+                                  const EVP_MD *type, ENGINE *e,
+                                  EVP_PKEY *pkey);
+__owur int EVP_DigestSignFinal(EVP_MD_CTX *ctx, unsigned char *sigret,
+                               size_t *siglen);
+
+__owur int EVP_DigestVerifyInit(EVP_MD_CTX *ctx, EVP_PKEY_CTX **pctx,
+                                const EVP_MD *type, ENGINE *e,
+                                EVP_PKEY *pkey);
+__owur int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sig,
+                                 size_t siglen);
+
+# ifndef OPENSSL_NO_RSA
+__owur int EVP_OpenInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,
+                        const unsigned char *ek, int ekl,
+                        const unsigned char *iv, EVP_PKEY *priv);
+__owur int EVP_OpenFinal(EVP_CIPHER_CTX *ctx, unsigned char *out, int *outl);
+
+__owur int EVP_SealInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,
+                        unsigned char **ek, int *ekl, unsigned char *iv,
+                        EVP_PKEY **pubk, int npubk);
+__owur int EVP_SealFinal(EVP_CIPHER_CTX *ctx, unsigned char *out, int *outl);
+# endif
+
+EVP_ENCODE_CTX *EVP_ENCODE_CTX_new(void);
+void EVP_ENCODE_CTX_free(EVP_ENCODE_CTX *ctx);
+int EVP_ENCODE_CTX_copy(EVP_ENCODE_CTX *dctx, EVP_ENCODE_CTX *sctx);
+int EVP_ENCODE_CTX_num(EVP_ENCODE_CTX *ctx);
+void EVP_EncodeInit(EVP_ENCODE_CTX *ctx);
+int EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx, unsigned char *out, int *outl,
+                     const unsigned char *in, int inl);
+void EVP_EncodeFinal(EVP_ENCODE_C
