@@ -717,4 +717,62 @@ const EVP_MD *EVP_sha3_224(void);
 const EVP_MD *EVP_sha3_256(void);
 const EVP_MD *EVP_sha3_384(void);
 const EVP_MD *EVP_sha3_512(void);
-const EVP_MD *EVP_shake12
+const EVP_MD *EVP_shake128(void);
+const EVP_MD *EVP_shake256(void);
+# ifndef OPENSSL_NO_MDC2
+const EVP_MD *EVP_mdc2(void);
+# endif
+# ifndef OPENSSL_NO_RMD160
+const EVP_MD *EVP_ripemd160(void);
+# endif
+# ifndef OPENSSL_NO_WHIRLPOOL
+const EVP_MD *EVP_whirlpool(void);
+# endif
+# ifndef OPENSSL_NO_SM3
+const EVP_MD *EVP_sm3(void);
+# endif
+const EVP_CIPHER *EVP_enc_null(void); /* does nothing :-) */
+# ifndef OPENSSL_NO_DES
+const EVP_CIPHER *EVP_des_ecb(void);
+const EVP_CIPHER *EVP_des_ede(void);
+const EVP_CIPHER *EVP_des_ede3(void);
+const EVP_CIPHER *EVP_des_ede_ecb(void);
+const EVP_CIPHER *EVP_des_ede3_ecb(void);
+const EVP_CIPHER *EVP_des_cfb64(void);
+#  define EVP_des_cfb EVP_des_cfb64
+const EVP_CIPHER *EVP_des_cfb1(void);
+const EVP_CIPHER *EVP_des_cfb8(void);
+const EVP_CIPHER *EVP_des_ede_cfb64(void);
+#  define EVP_des_ede_cfb EVP_des_ede_cfb64
+const EVP_CIPHER *EVP_des_ede3_cfb64(void);
+#  define EVP_des_ede3_cfb EVP_des_ede3_cfb64
+const EVP_CIPHER *EVP_des_ede3_cfb1(void);
+const EVP_CIPHER *EVP_des_ede3_cfb8(void);
+const EVP_CIPHER *EVP_des_ofb(void);
+const EVP_CIPHER *EVP_des_ede_ofb(void);
+const EVP_CIPHER *EVP_des_ede3_ofb(void);
+const EVP_CIPHER *EVP_des_cbc(void);
+const EVP_CIPHER *EVP_des_ede_cbc(void);
+const EVP_CIPHER *EVP_des_ede3_cbc(void);
+const EVP_CIPHER *EVP_desx_cbc(void);
+const EVP_CIPHER *EVP_des_ede3_wrap(void);
+/*
+ * This should now be supported through the dev_crypto ENGINE. But also, why
+ * are rc4 and md5 declarations made here inside a "NO_DES" precompiler
+ * branch?
+ */
+# endif
+# ifndef OPENSSL_NO_RC4
+const EVP_CIPHER *EVP_rc4(void);
+const EVP_CIPHER *EVP_rc4_40(void);
+#  ifndef OPENSSL_NO_MD5
+const EVP_CIPHER *EVP_rc4_hmac_md5(void);
+#  endif
+# endif
+# ifndef OPENSSL_NO_IDEA
+const EVP_CIPHER *EVP_idea_ecb(void);
+const EVP_CIPHER *EVP_idea_cfb64(void);
+#  define EVP_idea_cfb EVP_idea_cfb64
+const EVP_CIPHER *EVP_idea_ofb(void);
+const EVP_CIPHER *EVP_idea_cbc(void);
+# end
