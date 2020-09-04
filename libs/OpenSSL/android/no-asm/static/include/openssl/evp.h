@@ -662,4 +662,59 @@ int EVP_ENCODE_CTX_num(EVP_ENCODE_CTX *ctx);
 void EVP_EncodeInit(EVP_ENCODE_CTX *ctx);
 int EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx, unsigned char *out, int *outl,
                      const unsigned char *in, int inl);
-void EVP_EncodeFinal(EVP_ENCODE_C
+void EVP_EncodeFinal(EVP_ENCODE_CTX *ctx, unsigned char *out, int *outl);
+int EVP_EncodeBlock(unsigned char *t, const unsigned char *f, int n);
+
+void EVP_DecodeInit(EVP_ENCODE_CTX *ctx);
+int EVP_DecodeUpdate(EVP_ENCODE_CTX *ctx, unsigned char *out, int *outl,
+                     const unsigned char *in, int inl);
+int EVP_DecodeFinal(EVP_ENCODE_CTX *ctx, unsigned
+                    char *out, int *outl);
+int EVP_DecodeBlock(unsigned char *t, const unsigned char *f, int n);
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define EVP_CIPHER_CTX_init(c)      EVP_CIPHER_CTX_reset(c)
+#  define EVP_CIPHER_CTX_cleanup(c)   EVP_CIPHER_CTX_reset(c)
+# endif
+EVP_CIPHER_CTX *EVP_CIPHER_CTX_new(void);
+int EVP_CIPHER_CTX_reset(EVP_CIPHER_CTX *c);
+void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *c);
+int EVP_CIPHER_CTX_set_key_length(EVP_CIPHER_CTX *x, int keylen);
+int EVP_CIPHER_CTX_set_padding(EVP_CIPHER_CTX *c, int pad);
+int EVP_CIPHER_CTX_ctrl(EVP_CIPHER_CTX *ctx, int type, int arg, void *ptr);
+int EVP_CIPHER_CTX_rand_key(EVP_CIPHER_CTX *ctx, unsigned char *key);
+
+const BIO_METHOD *BIO_f_md(void);
+const BIO_METHOD *BIO_f_base64(void);
+const BIO_METHOD *BIO_f_cipher(void);
+const BIO_METHOD *BIO_f_reliable(void);
+__owur int BIO_set_cipher(BIO *b, const EVP_CIPHER *c, const unsigned char *k,
+                          const unsigned char *i, int enc);
+
+const EVP_MD *EVP_md_null(void);
+# ifndef OPENSSL_NO_MD2
+const EVP_MD *EVP_md2(void);
+# endif
+# ifndef OPENSSL_NO_MD4
+const EVP_MD *EVP_md4(void);
+# endif
+# ifndef OPENSSL_NO_MD5
+const EVP_MD *EVP_md5(void);
+const EVP_MD *EVP_md5_sha1(void);
+# endif
+# ifndef OPENSSL_NO_BLAKE2
+const EVP_MD *EVP_blake2b512(void);
+const EVP_MD *EVP_blake2s256(void);
+# endif
+const EVP_MD *EVP_sha1(void);
+const EVP_MD *EVP_sha224(void);
+const EVP_MD *EVP_sha256(void);
+const EVP_MD *EVP_sha384(void);
+const EVP_MD *EVP_sha512(void);
+const EVP_MD *EVP_sha512_224(void);
+const EVP_MD *EVP_sha512_256(void);
+const EVP_MD *EVP_sha3_224(void);
+const EVP_MD *EVP_sha3_256(void);
+const EVP_MD *EVP_sha3_384(void);
+const EVP_MD *EVP_sha3_512(void);
+const EVP_MD *EVP_shake12
