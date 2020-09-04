@@ -775,4 +775,60 @@ const EVP_CIPHER *EVP_idea_cfb64(void);
 #  define EVP_idea_cfb EVP_idea_cfb64
 const EVP_CIPHER *EVP_idea_ofb(void);
 const EVP_CIPHER *EVP_idea_cbc(void);
-# end
+# endif
+# ifndef OPENSSL_NO_RC2
+const EVP_CIPHER *EVP_rc2_ecb(void);
+const EVP_CIPHER *EVP_rc2_cbc(void);
+const EVP_CIPHER *EVP_rc2_40_cbc(void);
+const EVP_CIPHER *EVP_rc2_64_cbc(void);
+const EVP_CIPHER *EVP_rc2_cfb64(void);
+#  define EVP_rc2_cfb EVP_rc2_cfb64
+const EVP_CIPHER *EVP_rc2_ofb(void);
+# endif
+# ifndef OPENSSL_NO_BF
+const EVP_CIPHER *EVP_bf_ecb(void);
+const EVP_CIPHER *EVP_bf_cbc(void);
+const EVP_CIPHER *EVP_bf_cfb64(void);
+#  define EVP_bf_cfb EVP_bf_cfb64
+const EVP_CIPHER *EVP_bf_ofb(void);
+# endif
+# ifndef OPENSSL_NO_CAST
+const EVP_CIPHER *EVP_cast5_ecb(void);
+const EVP_CIPHER *EVP_cast5_cbc(void);
+const EVP_CIPHER *EVP_cast5_cfb64(void);
+#  define EVP_cast5_cfb EVP_cast5_cfb64
+const EVP_CIPHER *EVP_cast5_ofb(void);
+# endif
+# ifndef OPENSSL_NO_RC5
+const EVP_CIPHER *EVP_rc5_32_12_16_cbc(void);
+const EVP_CIPHER *EVP_rc5_32_12_16_ecb(void);
+const EVP_CIPHER *EVP_rc5_32_12_16_cfb64(void);
+#  define EVP_rc5_32_12_16_cfb EVP_rc5_32_12_16_cfb64
+const EVP_CIPHER *EVP_rc5_32_12_16_ofb(void);
+# endif
+const EVP_CIPHER *EVP_aes_128_ecb(void);
+const EVP_CIPHER *EVP_aes_128_cbc(void);
+const EVP_CIPHER *EVP_aes_128_cfb1(void);
+const EVP_CIPHER *EVP_aes_128_cfb8(void);
+const EVP_CIPHER *EVP_aes_128_cfb128(void);
+# define EVP_aes_128_cfb EVP_aes_128_cfb128
+const EVP_CIPHER *EVP_aes_128_ofb(void);
+const EVP_CIPHER *EVP_aes_128_ctr(void);
+const EVP_CIPHER *EVP_aes_128_ccm(void);
+const EVP_CIPHER *EVP_aes_128_gcm(void);
+const EVP_CIPHER *EVP_aes_128_xts(void);
+const EVP_CIPHER *EVP_aes_128_wrap(void);
+const EVP_CIPHER *EVP_aes_128_wrap_pad(void);
+# ifndef OPENSSL_NO_OCB
+const EVP_CIPHER *EVP_aes_128_ocb(void);
+# endif
+const EVP_CIPHER *EVP_aes_192_ecb(void);
+const EVP_CIPHER *EVP_aes_192_cbc(void);
+const EVP_CIPHER *EVP_aes_192_cfb1(void);
+const EVP_CIPHER *EVP_aes_192_cfb8(void);
+const EVP_CIPHER *EVP_aes_192_cfb128(void);
+# define EVP_aes_192_cfb EVP_aes_192_cfb128
+const EVP_CIPHER *EVP_aes_192_ofb(void);
+const EVP_CIPHER *EVP_aes_192_ctr(void);
+const EVP_CIPHER *EVP_aes_192_ccm(void);
+const EVP_CIPHER *EVP_aes_192_gcm
