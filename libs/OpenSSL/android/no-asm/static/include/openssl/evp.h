@@ -932,4 +932,52 @@ const EVP_CIPHER *EVP_seed_ofb(void);
 
 # ifndef OPENSSL_NO_SM4
 const EVP_CIPHER *EVP_sm4_ecb(void);
-const EVP_C
+const EVP_CIPHER *EVP_sm4_cbc(void);
+const EVP_CIPHER *EVP_sm4_cfb128(void);
+#  define EVP_sm4_cfb EVP_sm4_cfb128
+const EVP_CIPHER *EVP_sm4_ofb(void);
+const EVP_CIPHER *EVP_sm4_ctr(void);
+# endif
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define OPENSSL_add_all_algorithms_conf() \
+    OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS \
+                        | OPENSSL_INIT_ADD_ALL_DIGESTS \
+                        | OPENSSL_INIT_LOAD_CONFIG, NULL)
+#  define OPENSSL_add_all_algorithms_noconf() \
+    OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS \
+                        | OPENSSL_INIT_ADD_ALL_DIGESTS, NULL)
+
+#  ifdef OPENSSL_LOAD_CONF
+#   define OpenSSL_add_all_algorithms() OPENSSL_add_all_algorithms_conf()
+#  else
+#   define OpenSSL_add_all_algorithms() OPENSSL_add_all_algorithms_noconf()
+#  endif
+
+#  define OpenSSL_add_all_ciphers() \
+    OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS, NULL)
+#  define OpenSSL_add_all_digests() \
+    OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_DIGESTS, NULL)
+
+#  define EVP_cleanup() while(0) continue
+# endif
+
+int EVP_add_cipher(const EVP_CIPHER *cipher);
+int EVP_add_digest(const EVP_MD *digest);
+
+const EVP_CIPHER *EVP_get_cipherbyname(const char *name);
+const EVP_MD *EVP_get_digestbyname(const char *name);
+
+void EVP_CIPHER_do_all(void (*fn) (const EVP_CIPHER *ciph,
+                                   const char *from, const char *to, void *x),
+                       void *arg);
+void EVP_CIPHER_do_all_sorted(void (*fn)
+                               (const EVP_CIPHER *ciph, const char *from,
+                                const char *to, void *x), void *arg);
+
+void EVP_MD_do_all(void (*fn) (const EVP_MD *ciph,
+                               const char *from, const char *to, void *x),
+                   void *arg);
+void EVP_MD_do_all_sorted(void (*fn)
+                           (const EVP_MD *ciph, const char *from,
+                    
