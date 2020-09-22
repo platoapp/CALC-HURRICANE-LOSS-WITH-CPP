@@ -980,4 +980,55 @@ void EVP_MD_do_all(void (*fn) (const EVP_MD *ciph,
                    void *arg);
 void EVP_MD_do_all_sorted(void (*fn)
                            (const EVP_MD *ciph, const char *from,
-                    
+                            const char *to, void *x), void *arg);
+
+int EVP_PKEY_decrypt_old(unsigned char *dec_key,
+                         const unsigned char *enc_key, int enc_key_len,
+                         EVP_PKEY *private_key);
+int EVP_PKEY_encrypt_old(unsigned char *enc_key,
+                         const unsigned char *key, int key_len,
+                         EVP_PKEY *pub_key);
+int EVP_PKEY_type(int type);
+int EVP_PKEY_id(const EVP_PKEY *pkey);
+int EVP_PKEY_base_id(const EVP_PKEY *pkey);
+int EVP_PKEY_bits(const EVP_PKEY *pkey);
+int EVP_PKEY_security_bits(const EVP_PKEY *pkey);
+int EVP_PKEY_size(const EVP_PKEY *pkey);
+int EVP_PKEY_set_type(EVP_PKEY *pkey, int type);
+int EVP_PKEY_set_type_str(EVP_PKEY *pkey, const char *str, int len);
+int EVP_PKEY_set_alias_type(EVP_PKEY *pkey, int type);
+# ifndef OPENSSL_NO_ENGINE
+int EVP_PKEY_set1_engine(EVP_PKEY *pkey, ENGINE *e);
+ENGINE *EVP_PKEY_get0_engine(const EVP_PKEY *pkey);
+# endif
+int EVP_PKEY_assign(EVP_PKEY *pkey, int type, void *key);
+void *EVP_PKEY_get0(const EVP_PKEY *pkey);
+const unsigned char *EVP_PKEY_get0_hmac(const EVP_PKEY *pkey, size_t *len);
+# ifndef OPENSSL_NO_POLY1305
+const unsigned char *EVP_PKEY_get0_poly1305(const EVP_PKEY *pkey, size_t *len);
+# endif
+# ifndef OPENSSL_NO_SIPHASH
+const unsigned char *EVP_PKEY_get0_siphash(const EVP_PKEY *pkey, size_t *len);
+# endif
+
+# ifndef OPENSSL_NO_RSA
+struct rsa_st;
+int EVP_PKEY_set1_RSA(EVP_PKEY *pkey, struct rsa_st *key);
+struct rsa_st *EVP_PKEY_get0_RSA(EVP_PKEY *pkey);
+struct rsa_st *EVP_PKEY_get1_RSA(EVP_PKEY *pkey);
+# endif
+# ifndef OPENSSL_NO_DSA
+struct dsa_st;
+int EVP_PKEY_set1_DSA(EVP_PKEY *pkey, struct dsa_st *key);
+struct dsa_st *EVP_PKEY_get0_DSA(EVP_PKEY *pkey);
+struct dsa_st *EVP_PKEY_get1_DSA(EVP_PKEY *pkey);
+# endif
+# ifndef OPENSSL_NO_DH
+struct dh_st;
+int EVP_PKEY_set1_DH(EVP_PKEY *pkey, struct dh_st *key);
+struct dh_st *EVP_PKEY_get0_DH(EVP_PKEY *pkey);
+struct dh_st *EVP_PKEY_get1_DH(EVP_PKEY *pkey);
+# endif
+# ifndef OPENSSL_NO_EC
+struct ec_key_st;
+int EVP_PKEY_s
