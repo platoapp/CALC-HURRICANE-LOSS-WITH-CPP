@@ -1031,4 +1031,53 @@ struct dh_st *EVP_PKEY_get1_DH(EVP_PKEY *pkey);
 # endif
 # ifndef OPENSSL_NO_EC
 struct ec_key_st;
-int EVP_PKEY_s
+int EVP_PKEY_set1_EC_KEY(EVP_PKEY *pkey, struct ec_key_st *key);
+struct ec_key_st *EVP_PKEY_get0_EC_KEY(EVP_PKEY *pkey);
+struct ec_key_st *EVP_PKEY_get1_EC_KEY(EVP_PKEY *pkey);
+# endif
+
+EVP_PKEY *EVP_PKEY_new(void);
+int EVP_PKEY_up_ref(EVP_PKEY *pkey);
+void EVP_PKEY_free(EVP_PKEY *pkey);
+
+EVP_PKEY *d2i_PublicKey(int type, EVP_PKEY **a, const unsigned char **pp,
+                        long length);
+int i2d_PublicKey(EVP_PKEY *a, unsigned char **pp);
+
+EVP_PKEY *d2i_PrivateKey(int type, EVP_PKEY **a, const unsigned char **pp,
+                         long length);
+EVP_PKEY *d2i_AutoPrivateKey(EVP_PKEY **a, const unsigned char **pp,
+                             long length);
+int i2d_PrivateKey(EVP_PKEY *a, unsigned char **pp);
+
+int EVP_PKEY_copy_parameters(EVP_PKEY *to, const EVP_PKEY *from);
+int EVP_PKEY_missing_parameters(const EVP_PKEY *pkey);
+int EVP_PKEY_save_parameters(EVP_PKEY *pkey, int mode);
+int EVP_PKEY_cmp_parameters(const EVP_PKEY *a, const EVP_PKEY *b);
+
+int EVP_PKEY_cmp(const EVP_PKEY *a, const EVP_PKEY *b);
+
+int EVP_PKEY_print_public(BIO *out, const EVP_PKEY *pkey,
+                          int indent, ASN1_PCTX *pctx);
+int EVP_PKEY_print_private(BIO *out, const EVP_PKEY *pkey,
+                           int indent, ASN1_PCTX *pctx);
+int EVP_PKEY_print_params(BIO *out, const EVP_PKEY *pkey,
+                          int indent, ASN1_PCTX *pctx);
+
+int EVP_PKEY_get_default_digest_nid(EVP_PKEY *pkey, int *pnid);
+
+int EVP_PKEY_set1_tls_encodedpoint(EVP_PKEY *pkey,
+                                   const unsigned char *pt, size_t ptlen);
+size_t EVP_PKEY_get1_tls_encodedpoint(EVP_PKEY *pkey, unsigned char **ppt);
+
+int EVP_CIPHER_type(const EVP_CIPHER *ctx);
+
+/* calls methods */
+int EVP_CIPHER_param_to_asn1(EVP_CIPHER_CTX *c, ASN1_TYPE *type);
+int EVP_CIPHER_asn1_to_param(EVP_CIPHER_CTX *c, ASN1_TYPE *type);
+
+/* These are used by EVP_CIPHER methods */
+int EVP_CIPHER_set_asn1_iv(EVP_CIPHER_CTX *c, ASN1_TYPE *type);
+int EVP_CIPHER_get_asn1_iv(EVP_CIPHER_CTX *c, ASN1_TYPE *type);
+
+/* PKCS5
