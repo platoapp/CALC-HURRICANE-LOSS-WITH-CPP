@@ -1080,4 +1080,46 @@ int EVP_CIPHER_asn1_to_param(EVP_CIPHER_CTX *c, ASN1_TYPE *type);
 int EVP_CIPHER_set_asn1_iv(EVP_CIPHER_CTX *c, ASN1_TYPE *type);
 int EVP_CIPHER_get_asn1_iv(EVP_CIPHER_CTX *c, ASN1_TYPE *type);
 
-/* PKCS5
+/* PKCS5 password based encryption */
+int PKCS5_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
+                       ASN1_TYPE *param, const EVP_CIPHER *cipher,
+                       const EVP_MD *md, int en_de);
+int PKCS5_PBKDF2_HMAC_SHA1(const char *pass, int passlen,
+                           const unsigned char *salt, int saltlen, int iter,
+                           int keylen, unsigned char *out);
+int PKCS5_PBKDF2_HMAC(const char *pass, int passlen,
+                      const unsigned char *salt, int saltlen, int iter,
+                      const EVP_MD *digest, int keylen, unsigned char *out);
+int PKCS5_v2_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
+                          ASN1_TYPE *param, const EVP_CIPHER *cipher,
+                          const EVP_MD *md, int en_de);
+
+#ifndef OPENSSL_NO_SCRYPT
+int EVP_PBE_scrypt(const char *pass, size_t passlen,
+                   const unsigned char *salt, size_t saltlen,
+                   uint64_t N, uint64_t r, uint64_t p, uint64_t maxmem,
+                   unsigned char *key, size_t keylen);
+
+int PKCS5_v2_scrypt_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass,
+                             int passlen, ASN1_TYPE *param,
+                             const EVP_CIPHER *c, const EVP_MD *md, int en_de);
+#endif
+
+void PKCS5_PBE_add(void);
+
+int EVP_PBE_CipherInit(ASN1_OBJECT *pbe_obj, const char *pass, int passlen,
+                       ASN1_TYPE *param, EVP_CIPHER_CTX *ctx, int en_de);
+
+/* PBE type */
+
+/* Can appear as the outermost AlgorithmIdentifier */
+# define EVP_PBE_TYPE_OUTER      0x0
+/* Is an PRF type OID */
+# define EVP_PBE_TYPE_PRF        0x1
+/* Is a PKCS#5 v2.0 KDF */
+# define EVP_PBE_TYPE_KDF        0x2
+
+int EVP_PBE_alg_add_type(int pbe_type, int pbe_nid, int cipher_nid,
+                         int md_nid, EVP_PBE_KEYGEN *keygen);
+int EVP_PBE_alg_add(int nid, const EVP_CIPHER *cipher, const EVP_MD *md,
+                    EVP_PBE_KEYGEN 
