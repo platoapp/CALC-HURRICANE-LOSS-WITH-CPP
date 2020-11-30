@@ -1193,4 +1193,38 @@ void EVP_PKEY_asn1_set_param(EVP_PKEY_ASN1_METHOD *ameth,
                              int (*param_copy) (EVP_PKEY *to,
                                                 const EVP_PKEY *from),
                              int (*param_cmp) (const EVP_PKEY *a,
-      
+                                               const EVP_PKEY *b),
+                             int (*param_print) (BIO *out,
+                                                 const EVP_PKEY *pkey,
+                                                 int indent,
+                                                 ASN1_PCTX *pctx));
+
+void EVP_PKEY_asn1_set_free(EVP_PKEY_ASN1_METHOD *ameth,
+                            void (*pkey_free) (EVP_PKEY *pkey));
+void EVP_PKEY_asn1_set_ctrl(EVP_PKEY_ASN1_METHOD *ameth,
+                            int (*pkey_ctrl) (EVP_PKEY *pkey, int op,
+                                              long arg1, void *arg2));
+void EVP_PKEY_asn1_set_item(EVP_PKEY_ASN1_METHOD *ameth,
+                            int (*item_verify) (EVP_MD_CTX *ctx,
+                                                const ASN1_ITEM *it,
+                                                void *asn,
+                                                X509_ALGOR *a,
+                                                ASN1_BIT_STRING *sig,
+                                                EVP_PKEY *pkey),
+                            int (*item_sign) (EVP_MD_CTX *ctx,
+                                              const ASN1_ITEM *it,
+                                              void *asn,
+                                              X509_ALGOR *alg1,
+                                              X509_ALGOR *alg2,
+                                              ASN1_BIT_STRING *sig));
+
+void EVP_PKEY_asn1_set_siginf(EVP_PKEY_ASN1_METHOD *ameth,
+                              int (*siginf_set) (X509_SIG_INFO *siginf,
+                                                 const X509_ALGOR *alg,
+                                                 const ASN1_STRING *sig));
+
+void EVP_PKEY_asn1_set_check(EVP_PKEY_ASN1_METHOD *ameth,
+                             int (*pkey_check) (const EVP_PKEY *pk));
+
+void EVP_PKEY_asn1_set_public_check(EVP_PKEY_ASN1_METHOD *ameth,
+                                    int (*pkey_pub
