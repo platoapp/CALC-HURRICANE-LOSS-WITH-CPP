@@ -1122,4 +1122,46 @@ int EVP_PBE_CipherInit(ASN1_OBJECT *pbe_obj, const char *pass, int passlen,
 int EVP_PBE_alg_add_type(int pbe_type, int pbe_nid, int cipher_nid,
                          int md_nid, EVP_PBE_KEYGEN *keygen);
 int EVP_PBE_alg_add(int nid, const EVP_CIPHER *cipher, const EVP_MD *md,
-                    EVP_PBE_KEYGEN 
+                    EVP_PBE_KEYGEN *keygen);
+int EVP_PBE_find(int type, int pbe_nid, int *pcnid, int *pmnid,
+                 EVP_PBE_KEYGEN **pkeygen);
+void EVP_PBE_cleanup(void);
+int EVP_PBE_get(int *ptype, int *ppbe_nid, size_t num);
+
+# define ASN1_PKEY_ALIAS         0x1
+# define ASN1_PKEY_DYNAMIC       0x2
+# define ASN1_PKEY_SIGPARAM_NULL 0x4
+
+# define ASN1_PKEY_CTRL_PKCS7_SIGN       0x1
+# define ASN1_PKEY_CTRL_PKCS7_ENCRYPT    0x2
+# define ASN1_PKEY_CTRL_DEFAULT_MD_NID   0x3
+# define ASN1_PKEY_CTRL_CMS_SIGN         0x5
+# define ASN1_PKEY_CTRL_CMS_ENVELOPE     0x7
+# define ASN1_PKEY_CTRL_CMS_RI_TYPE      0x8
+
+# define ASN1_PKEY_CTRL_SET1_TLS_ENCPT   0x9
+# define ASN1_PKEY_CTRL_GET1_TLS_ENCPT   0xa
+
+int EVP_PKEY_asn1_get_count(void);
+const EVP_PKEY_ASN1_METHOD *EVP_PKEY_asn1_get0(int idx);
+const EVP_PKEY_ASN1_METHOD *EVP_PKEY_asn1_find(ENGINE **pe, int type);
+const EVP_PKEY_ASN1_METHOD *EVP_PKEY_asn1_find_str(ENGINE **pe,
+                                                   const char *str, int len);
+int EVP_PKEY_asn1_add0(const EVP_PKEY_ASN1_METHOD *ameth);
+int EVP_PKEY_asn1_add_alias(int to, int from);
+int EVP_PKEY_asn1_get0_info(int *ppkey_id, int *pkey_base_id,
+                            int *ppkey_flags, const char **pinfo,
+                            const char **ppem_str,
+                            const EVP_PKEY_ASN1_METHOD *ameth);
+
+const EVP_PKEY_ASN1_METHOD *EVP_PKEY_get0_asn1(const EVP_PKEY *pkey);
+EVP_PKEY_ASN1_METHOD *EVP_PKEY_asn1_new(int id, int flags,
+                                        const char *pem_str,
+                                        const char *info);
+void EVP_PKEY_asn1_copy(EVP_PKEY_ASN1_METHOD *dst,
+                        const EVP_PKEY_ASN1_METHOD *src);
+void EVP_PKEY_asn1_free(EVP_PKEY_ASN1_METHOD *ameth);
+void EVP_PKEY_asn1_set_public(EVP_PKEY_ASN1_METHOD *ameth,
+                              int (*pub_decode) (EVP_PKEY *pk,
+                                                 X509_PUBKEY *pub),
+                              int (*pub
