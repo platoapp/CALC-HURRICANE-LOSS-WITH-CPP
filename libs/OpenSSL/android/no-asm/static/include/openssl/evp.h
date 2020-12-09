@@ -1405,4 +1405,47 @@ int EVP_PKEY_derive_init(EVP_PKEY_CTX *ctx);
 int EVP_PKEY_derive_set_peer(EVP_PKEY_CTX *ctx, EVP_PKEY *peer);
 int EVP_PKEY_derive(EVP_PKEY_CTX *ctx, unsigned char *key, size_t *keylen);
 
-typedef int EVP_P
+typedef int EVP_PKEY_gen_cb(EVP_PKEY_CTX *ctx);
+
+int EVP_PKEY_paramgen_init(EVP_PKEY_CTX *ctx);
+int EVP_PKEY_paramgen(EVP_PKEY_CTX *ctx, EVP_PKEY **ppkey);
+int EVP_PKEY_keygen_init(EVP_PKEY_CTX *ctx);
+int EVP_PKEY_keygen(EVP_PKEY_CTX *ctx, EVP_PKEY **ppkey);
+int EVP_PKEY_check(EVP_PKEY_CTX *ctx);
+int EVP_PKEY_public_check(EVP_PKEY_CTX *ctx);
+int EVP_PKEY_param_check(EVP_PKEY_CTX *ctx);
+
+void EVP_PKEY_CTX_set_cb(EVP_PKEY_CTX *ctx, EVP_PKEY_gen_cb *cb);
+EVP_PKEY_gen_cb *EVP_PKEY_CTX_get_cb(EVP_PKEY_CTX *ctx);
+
+int EVP_PKEY_CTX_get_keygen_info(EVP_PKEY_CTX *ctx, int idx);
+
+void EVP_PKEY_meth_set_init(EVP_PKEY_METHOD *pmeth,
+                            int (*init) (EVP_PKEY_CTX *ctx));
+
+void EVP_PKEY_meth_set_copy(EVP_PKEY_METHOD *pmeth,
+                            int (*copy) (EVP_PKEY_CTX *dst,
+                                         EVP_PKEY_CTX *src));
+
+void EVP_PKEY_meth_set_cleanup(EVP_PKEY_METHOD *pmeth,
+                               void (*cleanup) (EVP_PKEY_CTX *ctx));
+
+void EVP_PKEY_meth_set_paramgen(EVP_PKEY_METHOD *pmeth,
+                                int (*paramgen_init) (EVP_PKEY_CTX *ctx),
+                                int (*paramgen) (EVP_PKEY_CTX *ctx,
+                                                 EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_set_keygen(EVP_PKEY_METHOD *pmeth,
+                              int (*keygen_init) (EVP_PKEY_CTX *ctx),
+                              int (*keygen) (EVP_PKEY_CTX *ctx,
+                                             EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_set_sign(EVP_PKEY_METHOD *pmeth,
+                            int (*sign_init) (EVP_PKEY_CTX *ctx),
+                            int (*sign) (EVP_PKEY_CTX *ctx,
+                                         unsigned char *sig, size_t *siglen,
+                                         const unsigned char *tbs,
+                                         size_t tbslen));
+
+void EVP_PKEY_meth_set_verify(EVP_PKEY_METHOD *pmeth,
+                    
