@@ -1448,4 +1448,35 @@ void EVP_PKEY_meth_set_sign(EVP_PKEY_METHOD *pmeth,
                                          size_t tbslen));
 
 void EVP_PKEY_meth_set_verify(EVP_PKEY_METHOD *pmeth,
-                    
+                              int (*verify_init) (EVP_PKEY_CTX *ctx),
+                              int (*verify) (EVP_PKEY_CTX *ctx,
+                                             const unsigned char *sig,
+                                             size_t siglen,
+                                             const unsigned char *tbs,
+                                             size_t tbslen));
+
+void EVP_PKEY_meth_set_verify_recover(EVP_PKEY_METHOD *pmeth,
+                                      int (*verify_recover_init) (EVP_PKEY_CTX
+                                                                  *ctx),
+                                      int (*verify_recover) (EVP_PKEY_CTX
+                                                             *ctx,
+                                                             unsigned char
+                                                             *sig,
+                                                             size_t *siglen,
+                                                             const unsigned
+                                                             char *tbs,
+                                                             size_t tbslen));
+
+void EVP_PKEY_meth_set_signctx(EVP_PKEY_METHOD *pmeth,
+                               int (*signctx_init) (EVP_PKEY_CTX *ctx,
+                                                    EVP_MD_CTX *mctx),
+                               int (*signctx) (EVP_PKEY_CTX *ctx,
+                                               unsigned char *sig,
+                                               size_t *siglen,
+                                               EVP_MD_CTX *mctx));
+
+void EVP_PKEY_meth_set_verifyctx(EVP_PKEY_METHOD *pmeth,
+                                 int (*verifyctx_init) (EVP_PKEY_CTX *ctx,
+                                                        EVP_MD_CTX *mctx),
+                                 int (*verifyctx) (EVP_PKEY_CTX *ctx,
+                                                   const unsigned char *
