@@ -1318,4 +1318,47 @@ void EVP_PKEY_asn1_set_security_bits(EVP_PKEY_ASN1_METHOD *ameth,
 
 # define EVP_PKEY_ALG_CTRL               0x1000
 
-# define EVP_P
+# define EVP_PKEY_FLAG_AUTOARGLEN        2
+/*
+ * Method handles all operations: don't assume any digest related defaults.
+ */
+# define EVP_PKEY_FLAG_SIGCTX_CUSTOM     4
+
+const EVP_PKEY_METHOD *EVP_PKEY_meth_find(int type);
+EVP_PKEY_METHOD *EVP_PKEY_meth_new(int id, int flags);
+void EVP_PKEY_meth_get0_info(int *ppkey_id, int *pflags,
+                             const EVP_PKEY_METHOD *meth);
+void EVP_PKEY_meth_copy(EVP_PKEY_METHOD *dst, const EVP_PKEY_METHOD *src);
+void EVP_PKEY_meth_free(EVP_PKEY_METHOD *pmeth);
+int EVP_PKEY_meth_add0(const EVP_PKEY_METHOD *pmeth);
+int EVP_PKEY_meth_remove(const EVP_PKEY_METHOD *pmeth);
+size_t EVP_PKEY_meth_get_count(void);
+const EVP_PKEY_METHOD *EVP_PKEY_meth_get0(size_t idx);
+
+EVP_PKEY_CTX *EVP_PKEY_CTX_new(EVP_PKEY *pkey, ENGINE *e);
+EVP_PKEY_CTX *EVP_PKEY_CTX_new_id(int id, ENGINE *e);
+EVP_PKEY_CTX *EVP_PKEY_CTX_dup(EVP_PKEY_CTX *ctx);
+void EVP_PKEY_CTX_free(EVP_PKEY_CTX *ctx);
+
+int EVP_PKEY_CTX_ctrl(EVP_PKEY_CTX *ctx, int keytype, int optype,
+                      int cmd, int p1, void *p2);
+int EVP_PKEY_CTX_ctrl_str(EVP_PKEY_CTX *ctx, const char *type,
+                          const char *value);
+int EVP_PKEY_CTX_ctrl_uint64(EVP_PKEY_CTX *ctx, int keytype, int optype,
+                             int cmd, uint64_t value);
+
+int EVP_PKEY_CTX_str2ctrl(EVP_PKEY_CTX *ctx, int cmd, const char *str);
+int EVP_PKEY_CTX_hex2ctrl(EVP_PKEY_CTX *ctx, int cmd, const char *hex);
+
+int EVP_PKEY_CTX_md(EVP_PKEY_CTX *ctx, int optype, int cmd, const char *md);
+
+int EVP_PKEY_CTX_get_operation(EVP_PKEY_CTX *ctx);
+void EVP_PKEY_CTX_set0_keygen_info(EVP_PKEY_CTX *ctx, int *dat, int datlen);
+
+EVP_PKEY *EVP_PKEY_new_mac_key(int type, ENGINE *e,
+                               const unsigned char *key, int keylen);
+EVP_PKEY *EVP_PKEY_new_raw_private_key(int type, ENGINE *e,
+                                       const unsigned char *priv,
+                                       size_t len);
+EVP_PKEY *EVP_PKEY_new_raw_public_key(int type, ENGINE *e,
+               
