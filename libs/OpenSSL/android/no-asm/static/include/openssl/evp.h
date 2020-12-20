@@ -1479,4 +1479,41 @@ void EVP_PKEY_meth_set_verifyctx(EVP_PKEY_METHOD *pmeth,
                                  int (*verifyctx_init) (EVP_PKEY_CTX *ctx,
                                                         EVP_MD_CTX *mctx),
                                  int (*verifyctx) (EVP_PKEY_CTX *ctx,
-                                                   const unsigned char *
+                                                   const unsigned char *sig,
+                                                   int siglen,
+                                                   EVP_MD_CTX *mctx));
+
+void EVP_PKEY_meth_set_encrypt(EVP_PKEY_METHOD *pmeth,
+                               int (*encrypt_init) (EVP_PKEY_CTX *ctx),
+                               int (*encryptfn) (EVP_PKEY_CTX *ctx,
+                                                 unsigned char *out,
+                                                 size_t *outlen,
+                                                 const unsigned char *in,
+                                                 size_t inlen));
+
+void EVP_PKEY_meth_set_decrypt(EVP_PKEY_METHOD *pmeth,
+                               int (*decrypt_init) (EVP_PKEY_CTX *ctx),
+                               int (*decrypt) (EVP_PKEY_CTX *ctx,
+                                               unsigned char *out,
+                                               size_t *outlen,
+                                               const unsigned char *in,
+                                               size_t inlen));
+
+void EVP_PKEY_meth_set_derive(EVP_PKEY_METHOD *pmeth,
+                              int (*derive_init) (EVP_PKEY_CTX *ctx),
+                              int (*derive) (EVP_PKEY_CTX *ctx,
+                                             unsigned char *key,
+                                             size_t *keylen));
+
+void EVP_PKEY_meth_set_ctrl(EVP_PKEY_METHOD *pmeth,
+                            int (*ctrl) (EVP_PKEY_CTX *ctx, int type, int p1,
+                                         void *p2),
+                            int (*ctrl_str) (EVP_PKEY_CTX *ctx,
+                                             const char *type,
+                                             const char *value));
+
+void EVP_PKEY_meth_set_digestsign(EVP_PKEY_METHOD *pmeth,
+                                  int (*digestsign) (EVP_MD_CTX *ctx,
+                                                     unsigned char *sig,
+                                                     size_t *siglen,
+                
