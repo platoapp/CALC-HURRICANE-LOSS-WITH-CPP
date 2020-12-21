@@ -1516,4 +1516,42 @@ void EVP_PKEY_meth_set_digestsign(EVP_PKEY_METHOD *pmeth,
                                   int (*digestsign) (EVP_MD_CTX *ctx,
                                                      unsigned char *sig,
                                                      size_t *siglen,
-                
+                                                     const unsigned char *tbs,
+                                                     size_t tbslen));
+
+void EVP_PKEY_meth_set_digestverify(EVP_PKEY_METHOD *pmeth,
+                                    int (*digestverify) (EVP_MD_CTX *ctx,
+                                                         const unsigned char *sig,
+                                                         size_t siglen,
+                                                         const unsigned char *tbs,
+                                                         size_t tbslen));
+
+void EVP_PKEY_meth_set_check(EVP_PKEY_METHOD *pmeth,
+                             int (*check) (EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_set_public_check(EVP_PKEY_METHOD *pmeth,
+                                    int (*check) (EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_set_param_check(EVP_PKEY_METHOD *pmeth,
+                                   int (*check) (EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_set_digest_custom(EVP_PKEY_METHOD *pmeth,
+                                     int (*digest_custom) (EVP_PKEY_CTX *ctx,
+                                                           EVP_MD_CTX *mctx));
+
+void EVP_PKEY_meth_get_init(const EVP_PKEY_METHOD *pmeth,
+                            int (**pinit) (EVP_PKEY_CTX *ctx));
+
+void EVP_PKEY_meth_get_copy(const EVP_PKEY_METHOD *pmeth,
+                            int (**pcopy) (EVP_PKEY_CTX *dst,
+                                           EVP_PKEY_CTX *src));
+
+void EVP_PKEY_meth_get_cleanup(const EVP_PKEY_METHOD *pmeth,
+                               void (**pcleanup) (EVP_PKEY_CTX *ctx));
+
+void EVP_PKEY_meth_get_paramgen(const EVP_PKEY_METHOD *pmeth,
+                                int (**pparamgen_init) (EVP_PKEY_CTX *ctx),
+                                int (**pparamgen) (EVP_PKEY_CTX *ctx,
+                                                   EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_get_keyge
