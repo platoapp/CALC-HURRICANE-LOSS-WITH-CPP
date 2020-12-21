@@ -1554,4 +1554,36 @@ void EVP_PKEY_meth_get_paramgen(const EVP_PKEY_METHOD *pmeth,
                                 int (**pparamgen) (EVP_PKEY_CTX *ctx,
                                                    EVP_PKEY *pkey));
 
-void EVP_PKEY_meth_get_keyge
+void EVP_PKEY_meth_get_keygen(const EVP_PKEY_METHOD *pmeth,
+                              int (**pkeygen_init) (EVP_PKEY_CTX *ctx),
+                              int (**pkeygen) (EVP_PKEY_CTX *ctx,
+                                               EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_get_sign(const EVP_PKEY_METHOD *pmeth,
+                            int (**psign_init) (EVP_PKEY_CTX *ctx),
+                            int (**psign) (EVP_PKEY_CTX *ctx,
+                                           unsigned char *sig, size_t *siglen,
+                                           const unsigned char *tbs,
+                                           size_t tbslen));
+
+void EVP_PKEY_meth_get_verify(const EVP_PKEY_METHOD *pmeth,
+                              int (**pverify_init) (EVP_PKEY_CTX *ctx),
+                              int (**pverify) (EVP_PKEY_CTX *ctx,
+                                               const unsigned char *sig,
+                                               size_t siglen,
+                                               const unsigned char *tbs,
+                                               size_t tbslen));
+
+void EVP_PKEY_meth_get_verify_recover(const EVP_PKEY_METHOD *pmeth,
+                                      int (**pverify_recover_init) (EVP_PKEY_CTX
+                                                                    *ctx),
+                                      int (**pverify_recover) (EVP_PKEY_CTX
+                                                               *ctx,
+                                                               unsigned char
+                                                               *sig,
+                                                               size_t *siglen,
+                                                               const unsigned
+                                                               char *tbs,
+                                                               size_t tbslen));
+
+void EVP_PKEY_m
