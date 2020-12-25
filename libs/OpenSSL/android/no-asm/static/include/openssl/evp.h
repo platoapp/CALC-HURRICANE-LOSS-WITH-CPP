@@ -1586,4 +1586,36 @@ void EVP_PKEY_meth_get_verify_recover(const EVP_PKEY_METHOD *pmeth,
                                                                char *tbs,
                                                                size_t tbslen));
 
-void EVP_PKEY_m
+void EVP_PKEY_meth_get_signctx(const EVP_PKEY_METHOD *pmeth,
+                               int (**psignctx_init) (EVP_PKEY_CTX *ctx,
+                                                      EVP_MD_CTX *mctx),
+                               int (**psignctx) (EVP_PKEY_CTX *ctx,
+                                                 unsigned char *sig,
+                                                 size_t *siglen,
+                                                 EVP_MD_CTX *mctx));
+
+void EVP_PKEY_meth_get_verifyctx(const EVP_PKEY_METHOD *pmeth,
+                                 int (**pverifyctx_init) (EVP_PKEY_CTX *ctx,
+                                                          EVP_MD_CTX *mctx),
+                                 int (**pverifyctx) (EVP_PKEY_CTX *ctx,
+                                                     const unsigned char *sig,
+                                                     int siglen,
+                                                     EVP_MD_CTX *mctx));
+
+void EVP_PKEY_meth_get_encrypt(const EVP_PKEY_METHOD *pmeth,
+                               int (**pencrypt_init) (EVP_PKEY_CTX *ctx),
+                               int (**pencryptfn) (EVP_PKEY_CTX *ctx,
+                                                   unsigned char *out,
+                                                   size_t *outlen,
+                                                   const unsigned char *in,
+                                                   size_t inlen));
+
+void EVP_PKEY_meth_get_decrypt(const EVP_PKEY_METHOD *pmeth,
+                               int (**pdecrypt_init) (EVP_PKEY_CTX *ctx),
+                               int (**pdecrypt) (EVP_PKEY_CTX *ctx,
+                                                 unsigned char *out,
+                                                 size_t *outlen,
+                                                 const unsigned char *in,
+                                                 size_t inlen));
+
+void EVP_PKEY_meth_get_derive(const 
