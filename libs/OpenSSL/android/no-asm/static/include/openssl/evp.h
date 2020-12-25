@@ -1618,4 +1618,40 @@ void EVP_PKEY_meth_get_decrypt(const EVP_PKEY_METHOD *pmeth,
                                                  const unsigned char *in,
                                                  size_t inlen));
 
-void EVP_PKEY_meth_get_derive(const 
+void EVP_PKEY_meth_get_derive(const EVP_PKEY_METHOD *pmeth,
+                              int (**pderive_init) (EVP_PKEY_CTX *ctx),
+                              int (**pderive) (EVP_PKEY_CTX *ctx,
+                                               unsigned char *key,
+                                               size_t *keylen));
+
+void EVP_PKEY_meth_get_ctrl(const EVP_PKEY_METHOD *pmeth,
+                            int (**pctrl) (EVP_PKEY_CTX *ctx, int type, int p1,
+                                           void *p2),
+                            int (**pctrl_str) (EVP_PKEY_CTX *ctx,
+                                               const char *type,
+                                               const char *value));
+
+void EVP_PKEY_meth_get_digestsign(EVP_PKEY_METHOD *pmeth,
+                                  int (**digestsign) (EVP_MD_CTX *ctx,
+                                                      unsigned char *sig,
+                                                      size_t *siglen,
+                                                      const unsigned char *tbs,
+                                                      size_t tbslen));
+
+void EVP_PKEY_meth_get_digestverify(EVP_PKEY_METHOD *pmeth,
+                                    int (**digestverify) (EVP_MD_CTX *ctx,
+                                                          const unsigned char *sig,
+                                                          size_t siglen,
+                                                          const unsigned char *tbs,
+                                                          size_t tbslen));
+
+void EVP_PKEY_meth_get_check(const EVP_PKEY_METHOD *pmeth,
+                             int (**pcheck) (EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_get_public_check(const EVP_PKEY_METHOD *pmeth,
+                                    int (**pcheck) (EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_get_param_check(const EVP_PKEY_METHOD *pmeth,
+                                   int (**pcheck) (EVP_PKEY *pkey));
+
+void EVP_PKEY_meth_get_digest_custom(EVP_PKEY_METHOD *pmeth
