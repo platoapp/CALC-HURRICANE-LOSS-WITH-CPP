@@ -1654,4 +1654,13 @@ void EVP_PKEY_meth_get_public_check(const EVP_PKEY_METHOD *pmeth,
 void EVP_PKEY_meth_get_param_check(const EVP_PKEY_METHOD *pmeth,
                                    int (**pcheck) (EVP_PKEY *pkey));
 
-void EVP_PKEY_meth_get_digest_custom(EVP_PKEY_METHOD *pmeth
+void EVP_PKEY_meth_get_digest_custom(EVP_PKEY_METHOD *pmeth,
+                                     int (**pdigest_custom) (EVP_PKEY_CTX *ctx,
+                                                             EVP_MD_CTX *mctx));
+void EVP_add_alg_module(void);
+
+
+# ifdef  __cplusplus
+}
+# endif
+#endif
