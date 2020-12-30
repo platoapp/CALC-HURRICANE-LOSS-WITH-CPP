@@ -174,4 +174,32 @@ int ERR_load_EVP_strings(void);
 # define EVP_R_NO_CIPHER_SET                              131
 # define EVP_R_NO_DEFAULT_DIGEST                          158
 # define EVP_R_NO_DIGEST_SET                              139
-# define EVP_R_NO_KEY_SET                 
+# define EVP_R_NO_KEY_SET                                 154
+# define EVP_R_NO_OPERATION_SET                           149
+# define EVP_R_ONLY_ONESHOT_SUPPORTED                     177
+# define EVP_R_OPERATION_NOT_SUPPORTED_FOR_THIS_KEYTYPE   150
+# define EVP_R_OPERATON_NOT_INITIALIZED                   151
+# define EVP_R_PARTIALLY_OVERLAPPING                      162
+# define EVP_R_PBKDF2_ERROR                               181
+# define EVP_R_PKEY_APPLICATION_ASN1_METHOD_ALREADY_REGISTERED 179
+# define EVP_R_PRIVATE_KEY_DECODE_ERROR                   145
+# define EVP_R_PRIVATE_KEY_ENCODE_ERROR                   146
+# define EVP_R_PUBLIC_KEY_NOT_RSA                         106
+# define EVP_R_UNKNOWN_CIPHER                             160
+# define EVP_R_UNKNOWN_DIGEST                             161
+# define EVP_R_UNKNOWN_OPTION                             169
+# define EVP_R_UNKNOWN_PBE_ALGORITHM                      121
+# define EVP_R_UNSUPPORTED_ALGORITHM                      156
+# define EVP_R_UNSUPPORTED_CIPHER                         107
+# define EVP_R_UNSUPPORTED_KEYLENGTH                      123
+# define EVP_R_UNSUPPORTED_KEY_DERIVATION_FUNCTION        124
+# define EVP_R_UNSUPPORTED_KEY_SIZE                       108
+# define EVP_R_UNSUPPORTED_NUMBER_OF_ROUNDS               135
+# define EVP_R_UNSUPPORTED_PRF                            125
+# define EVP_R_UNSUPPORTED_PRIVATE_KEY_ALGORITHM          118
+# define EVP_R_UNSUPPORTED_SALT_TYPE                      126
+# define EVP_R_WRAP_MODE_NOT_ALLOWED                      170
+# define EVP_R_WRONG_FINAL_BLOCK_LENGTH                   109
+# define EVP_R_XTS_DUPLICATED_KEYS                        183
+
+#endif
