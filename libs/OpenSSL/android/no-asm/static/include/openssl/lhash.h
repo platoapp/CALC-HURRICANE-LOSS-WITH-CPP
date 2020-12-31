@@ -62,4 +62,52 @@ typedef struct lhash_st OPENSSL_LHASH;
 # define IMPLEMENT_LHASH_DOALL_ARG_FN(name, o_type, a_type) \
         void name##_LHASH_DOALL_ARG(void *arg1, void *arg2) { \
                 o_type *a = arg1; \
-     
+                a_type *b = arg2; \
+                name##_doall_arg(a, b); }
+# define LHASH_DOALL_ARG_FN(name) name##_LHASH_DOALL_ARG
+
+
+# define LH_LOAD_MULT    256
+
+int OPENSSL_LH_error(OPENSSL_LHASH *lh);
+OPENSSL_LHASH *OPENSSL_LH_new(OPENSSL_LH_HASHFUNC h, OPENSSL_LH_COMPFUNC c);
+void OPENSSL_LH_free(OPENSSL_LHASH *lh);
+void *OPENSSL_LH_insert(OPENSSL_LHASH *lh, void *data);
+void *OPENSSL_LH_delete(OPENSSL_LHASH *lh, const void *data);
+void *OPENSSL_LH_retrieve(OPENSSL_LHASH *lh, const void *data);
+void OPENSSL_LH_doall(OPENSSL_LHASH *lh, OPENSSL_LH_DOALL_FUNC func);
+void OPENSSL_LH_doall_arg(OPENSSL_LHASH *lh, OPENSSL_LH_DOALL_FUNCARG func, void *arg);
+unsigned long OPENSSL_LH_strhash(const char *c);
+unsigned long OPENSSL_LH_num_items(const OPENSSL_LHASH *lh);
+unsigned long OPENSSL_LH_get_down_load(const OPENSSL_LHASH *lh);
+void OPENSSL_LH_set_down_load(OPENSSL_LHASH *lh, unsigned long down_load);
+
+# ifndef OPENSSL_NO_STDIO
+void OPENSSL_LH_stats(const OPENSSL_LHASH *lh, FILE *fp);
+void OPENSSL_LH_node_stats(const OPENSSL_LHASH *lh, FILE *fp);
+void OPENSSL_LH_node_usage_stats(const OPENSSL_LHASH *lh, FILE *fp);
+# endif
+void OPENSSL_LH_stats_bio(const OPENSSL_LHASH *lh, BIO *out);
+void OPENSSL_LH_node_stats_bio(const OPENSSL_LHASH *lh, BIO *out);
+void OPENSSL_LH_node_usage_stats_bio(const OPENSSL_LHASH *lh, BIO *out);
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define _LHASH OPENSSL_LHASH
+#  define LHASH_NODE OPENSSL_LH_NODE
+#  define lh_error OPENSSL_LH_error
+#  define lh_new OPENSSL_LH_new
+#  define lh_free OPENSSL_LH_free
+#  define lh_insert OPENSSL_LH_insert
+#  define lh_delete OPENSSL_LH_delete
+#  define lh_retrieve OPENSSL_LH_retrieve
+#  define lh_doall OPENSSL_LH_doall
+#  define lh_doall_arg OPENSSL_LH_doall_arg
+#  define lh_strhash OPENSSL_LH_strhash
+#  define lh_num_items OPENSSL_LH_num_items
+#  ifndef OPENSSL_NO_STDIO
+#   define lh_stats OPENSSL_LH_stats
+#   define lh_node_stats OPENSSL_LH_node_stats
+#   define lh_node_usage_stats OPENSSL_LH_node_usage_stats
+#  endif
+#  define lh_stats_bio OPENSSL_LH_stats_bio
+#  define lh_node_
