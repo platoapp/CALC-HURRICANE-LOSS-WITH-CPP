@@ -110,4 +110,48 @@ void OPENSSL_LH_node_usage_stats_bio(const OPENSSL_LHASH *lh, BIO *out);
 #   define lh_node_usage_stats OPENSSL_LH_node_usage_stats
 #  endif
 #  define lh_stats_bio OPENSSL_LH_stats_bio
-#  define lh_node_
+#  define lh_node_stats_bio OPENSSL_LH_node_stats_bio
+#  define lh_node_usage_stats_bio OPENSSL_LH_node_usage_stats_bio
+# endif
+
+/* Type checking... */
+
+# define LHASH_OF(type) struct lhash_st_##type
+
+# define DEFINE_LHASH_OF(type) \
+    LHASH_OF(type) { union lh_##type##_dummy { void* d1; unsigned long d2; int d3; } dummy; }; \
+    static ossl_unused ossl_inline LHASH_OF(type) *lh_##type##_new(unsigned long (*hfn)(const type *), \
+                                                                   int (*cfn)(const type *, const type *)) \
+    { \
+        return (LHASH_OF(type) *) \
+            OPENSSL_LH_new((OPENSSL_LH_HASHFUNC)hfn, (OPENSSL_LH_COMPFUNC)cfn); \
+    } \
+    static ossl_unused ossl_inline void lh_##type##_free(LHASH_OF(type) *lh) \
+    { \
+        OPENSSL_LH_free((OPENSSL_LHASH *)lh); \
+    } \
+    static ossl_unused ossl_inline type *lh_##type##_insert(LHASH_OF(type) *lh, type *d) \
+    { \
+        return (type *)OPENSSL_LH_insert((OPENSSL_LHASH *)lh, d); \
+    } \
+    static ossl_unused ossl_inline type *lh_##type##_delete(LHASH_OF(type) *lh, const type *d) \
+    { \
+        return (type *)OPENSSL_LH_delete((OPENSSL_LHASH *)lh, d); \
+    } \
+    static ossl_unused ossl_inline type *lh_##type##_retrieve(LHASH_OF(type) *lh, const type *d) \
+    { \
+        return (type *)OPENSSL_LH_retrieve((OPENSSL_LHASH *)lh, d); \
+    } \
+    static ossl_unused ossl_inline int lh_##type##_error(LHASH_OF(type) *lh) \
+    { \
+        return OPENSSL_LH_error((OPENSSL_LHASH *)lh); \
+    } \
+    static ossl_unused ossl_inline unsigned long lh_##type##_num_items(LHASH_OF(type) *lh) \
+    { \
+        return OPENSSL_LH_num_items((OPENSSL_LHASH *)lh); \
+    } \
+    static ossl_unused ossl_inline void lh_##type##_node_stats_bio(const LHASH_OF(type) *lh, BIO *out) \
+    { \
+        OPENSSL_LH_node_stats_bio((const OPENSSL_LHASH *)lh, out); \
+    } \
+    static ossl_unused ossl_inline void lh_##type##_node_usag
