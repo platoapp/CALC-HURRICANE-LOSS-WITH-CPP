@@ -59,4 +59,20 @@ int ERR_load_OCSP_strings(void);
 #  define OCSP_R_NO_RESPONSE_DATA                          108
 #  define OCSP_R_NO_REVOKED_TIME                           109
 #  define OCSP_R_NO_SIGNER_KEY                             130
-#  define OCSP_R_PRIVATE_KEY_DOES_NOT_MATCH_CER
+#  define OCSP_R_PRIVATE_KEY_DOES_NOT_MATCH_CERTIFICATE    110
+#  define OCSP_R_REQUEST_NOT_SIGNED                        128
+#  define OCSP_R_RESPONSE_CONTAINS_NO_REVOCATION_DATA      111
+#  define OCSP_R_ROOT_CA_NOT_TRUSTED                       112
+#  define OCSP_R_SERVER_RESPONSE_ERROR                     114
+#  define OCSP_R_SERVER_RESPONSE_PARSE_ERROR               115
+#  define OCSP_R_SIGNATURE_FAILURE                         117
+#  define OCSP_R_SIGNER_CERTIFICATE_NOT_FOUND              118
+#  define OCSP_R_STATUS_EXPIRED                            125
+#  define OCSP_R_STATUS_NOT_YET_VALID                      126
+#  define OCSP_R_STATUS_TOO_OLD                            127
+#  define OCSP_R_UNKNOWN_MESSAGE_DIGEST                    119
+#  define OCSP_R_UNKNOWN_NID                               120
+#  define OCSP_R_UNSUPPORTED_REQUESTORNAME_TYPE            129
+
+# endif
+#endif
