@@ -106,4 +106,50 @@ extern "C" {
 #if OPENSSL_VERSION_NUMBER < 0x10200000L
 # define DEPRECATEDIN_1_2_0(f)   f;
 #elif OPENSSL_API_COMPAT < 0x10200000L
-# define DEPRECATEDIN_1_2_0(f)  
+# define DEPRECATEDIN_1_2_0(f)   DECLARE_DEPRECATED(f)
+#else
+# define DEPRECATEDIN_1_2_0(f)
+#endif
+
+#if OPENSSL_API_COMPAT < 0x10100000L
+# define DEPRECATEDIN_1_1_0(f)   DECLARE_DEPRECATED(f)
+#else
+# define DEPRECATEDIN_1_1_0(f)
+#endif
+
+#if OPENSSL_API_COMPAT < 0x10000000L
+# define DEPRECATEDIN_1_0_0(f)   DECLARE_DEPRECATED(f)
+#else
+# define DEPRECATEDIN_1_0_0(f)
+#endif
+
+#if OPENSSL_API_COMPAT < 0x00908000L
+# define DEPRECATEDIN_0_9_8(f)   DECLARE_DEPRECATED(f)
+#else
+# define DEPRECATEDIN_0_9_8(f)
+#endif
+
+/* Generate 80386 code? */
+{- $config{processor} eq "386" ? "#define" : "#undef" -} I386_ONLY
+
+#undef OPENSSL_UNISTD
+#define OPENSSL_UNISTD {- $target{unistd} -}
+
+{- $config{export_var_as_fn} ? "#define" : "#undef" -} OPENSSL_EXPORT_VAR_AS_FUNCTION
+
+/*
+ * The following are cipher-specific, but are part of the public API.
+ */
+#if !defined(OPENSSL_SYS_UEFI)
+{- $config{bn_ll} ? "# define" : "# undef" -} BN_LLONG
+/* Only one for the following should be defined */
+{- $config{b64l} ? "# define" : "# undef" -} SIXTY_FOUR_BIT_LONG
+{- $config{b64}  ? "# define" : "# undef" -} SIXTY_FOUR_BIT
+{- $config{b32}  ? "# define" : "# undef" -} THIRTY_TWO_BIT
+#endif
+
+#define RC4_INT {- $config{rc4_int} -}
+
+#ifdef  __cplusplus
+}
+#endif
