@@ -64,4 +64,38 @@ extern "C" {
  * matched at run time.  When the application is run, a check is done to
  * see if the library version stored in the application matches any of the
  * versions in the version string of the library itself.
- * This version string can be constructed in any way, depending on wha
+ * This version string can be constructed in any way, depending on what
+ * kind of matching is desired.  However, to implement the same scheme as
+ * the one used in the other unixen, all compatible versions, from lowest
+ * to highest, should be part of the string.  Consecutive builds would
+ * give the following versions strings:
+ *
+ *      3.0
+ *      3.0:3.1
+ *      3.0:3.1:3.2
+ *      4.0
+ *      4.0:4.1
+ *
+ * Notice how version 4 is completely incompatible with version, and
+ * therefore give the breach you can see.
+ *
+ * There may be other schemes as well that I haven't yet discovered.
+ *
+ * So, here's the way it works here: first of all, the library version
+ * number doesn't need at all to match the overall OpenSSL version.
+ * However, it's nice and more understandable if it actually does.
+ * The current library version is stored in the macro SHLIB_VERSION_NUMBER,
+ * which is just a piece of text in the format "M.m.e" (Major, minor, edit).
+ * For the sake of Tru64, IRIX, and any other OS that behaves in similar ways,
+ * we need to keep a history of version numbers, which is done in the
+ * macro SHLIB_VERSION_HISTORY.  The numbers are separated by colons and
+ * should only keep the versions that are binary compatible with the current.
+ */
+# define SHLIB_VERSION_HISTORY ""
+# define SHLIB_VERSION_NUMBER "1.1"
+
+
+#ifdef  __cplusplus
+}
+#endif
+#endif                          /* HEADER_OPENSSLV_H */
