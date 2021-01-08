@@ -144,4 +144,54 @@ typedef struct ossl_init_settings_st OPENSSL_INIT_SETTINGS;
 typedef struct ui_st UI;
 typedef struct ui_method_st UI_METHOD;
 
-typedef struct engine
+typedef struct engine_st ENGINE;
+typedef struct ssl_st SSL;
+typedef struct ssl_ctx_st SSL_CTX;
+
+typedef struct comp_ctx_st COMP_CTX;
+typedef struct comp_method_st COMP_METHOD;
+
+typedef struct X509_POLICY_NODE_st X509_POLICY_NODE;
+typedef struct X509_POLICY_LEVEL_st X509_POLICY_LEVEL;
+typedef struct X509_POLICY_TREE_st X509_POLICY_TREE;
+typedef struct X509_POLICY_CACHE_st X509_POLICY_CACHE;
+
+typedef struct AUTHORITY_KEYID_st AUTHORITY_KEYID;
+typedef struct DIST_POINT_st DIST_POINT;
+typedef struct ISSUING_DIST_POINT_st ISSUING_DIST_POINT;
+typedef struct NAME_CONSTRAINTS_st NAME_CONSTRAINTS;
+
+typedef struct crypto_ex_data_st CRYPTO_EX_DATA;
+
+typedef struct ocsp_req_ctx_st OCSP_REQ_CTX;
+typedef struct ocsp_response_st OCSP_RESPONSE;
+typedef struct ocsp_responder_id_st OCSP_RESPID;
+
+typedef struct sct_st SCT;
+typedef struct sct_ctx_st SCT_CTX;
+typedef struct ctlog_st CTLOG;
+typedef struct ctlog_store_st CTLOG_STORE;
+typedef struct ct_policy_eval_ctx_st CT_POLICY_EVAL_CTX;
+
+typedef struct ossl_store_info_st OSSL_STORE_INFO;
+typedef struct ossl_store_search_st OSSL_STORE_SEARCH;
+
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L && \
+    defined(INTMAX_MAX) && defined(UINTMAX_MAX)
+typedef intmax_t ossl_intmax_t;
+typedef uintmax_t ossl_uintmax_t;
+#else
+/*
+ * Not long long, because the C-library can only be expected to provide
+ * strtoll(), strtoull() at the same time as intmax_t and strtoimax(),
+ * strtoumax().  Since we use these for parsing arguments, we need the
+ * conversion functions, not just the sizes.
+ */
+typedef long ossl_intmax_t;
+typedef unsigned long ossl_uintmax_t;
+#endif
+
+#ifdef  __cplusplus
+}
+#endif
+#endif                          /* def HEADER_OPENSSL_TYPES_H */
