@@ -159,4 +159,57 @@ int PEM_write_bio_##name(BIO *bp, type *x, const EVP_CIPHER *enc, \
 
 # define IMPLEMENT_PEM_rw(name, type, str, asn1) \
         IMPLEMENT_PEM_read(name, type, str, asn1) \
-        IMPLEM
+        IMPLEMENT_PEM_write(name, type, str, asn1)
+
+# define IMPLEMENT_PEM_rw_const(name, type, str, asn1) \
+        IMPLEMENT_PEM_read(name, type, str, asn1) \
+        IMPLEMENT_PEM_write_const(name, type, str, asn1)
+
+# define IMPLEMENT_PEM_rw_cb(name, type, str, asn1) \
+        IMPLEMENT_PEM_read(name, type, str, asn1) \
+        IMPLEMENT_PEM_write_cb(name, type, str, asn1)
+
+/* These are the same except they are for the declarations */
+
+# if defined(OPENSSL_NO_STDIO)
+
+#  define DECLARE_PEM_read_fp(name, type) /**/
+#  define DECLARE_PEM_write_fp(name, type) /**/
+#  define DECLARE_PEM_write_fp_const(name, type) /**/
+#  define DECLARE_PEM_write_cb_fp(name, type) /**/
+# else
+
+#  define DECLARE_PEM_read_fp(name, type) \
+        type *PEM_read_##name(FILE *fp, type **x, pem_password_cb *cb, void *u);
+
+#  define DECLARE_PEM_write_fp(name, type) \
+        int PEM_write_##name(FILE *fp, type *x);
+
+#  define DECLARE_PEM_write_fp_const(name, type) \
+        int PEM_write_##name(FILE *fp, const type *x);
+
+#  define DECLARE_PEM_write_cb_fp(name, type) \
+        int PEM_write_##name(FILE *fp, type *x, const EVP_CIPHER *enc, \
+             unsigned char *kstr, int klen, pem_password_cb *cb, void *u);
+
+# endif
+
+#  define DECLARE_PEM_read_bio(name, type) \
+        type *PEM_read_bio_##name(BIO *bp, type **x, pem_password_cb *cb, void *u);
+
+#  define DECLARE_PEM_write_bio(name, type) \
+        int PEM_write_bio_##name(BIO *bp, type *x);
+
+#  define DECLARE_PEM_write_bio_const(name, type) \
+        int PEM_write_bio_##name(BIO *bp, const type *x);
+
+#  define DECLARE_PEM_write_cb_bio(name, type) \
+        int PEM_write_bio_##name(BIO *bp, type *x, const EVP_CIPHER *enc, \
+             unsigned char *kstr, int klen, pem_password_cb *cb, void *u);
+
+# define DECLARE_PEM_write(name, type) \
+        DECLARE_PEM_write_bio(name, type) \
+        DECLARE_PEM_write_fp(name, type)
+# define DECLARE_PEM_write_const(name, type) \
+        DECLARE_PEM_write_bio_const(name, type) \
+       
