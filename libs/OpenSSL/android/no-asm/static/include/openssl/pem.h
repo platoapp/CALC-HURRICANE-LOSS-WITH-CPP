@@ -293,4 +293,50 @@ DECLARE_PEM_rw(X509_REQ, X509_REQ)
 DECLARE_PEM_write(X509_REQ_NEW, X509_REQ)
 DECLARE_PEM_rw(X509_CRL, X509_CRL)
 DECLARE_PEM_rw(PKCS7, PKCS7)
-DECLARE_PEM_rw(NETSCAPE_CERT_SEQUENCE, NETSCAPE_CERT_SEQUEN
+DECLARE_PEM_rw(NETSCAPE_CERT_SEQUENCE, NETSCAPE_CERT_SEQUENCE)
+DECLARE_PEM_rw(PKCS8, X509_SIG)
+DECLARE_PEM_rw(PKCS8_PRIV_KEY_INFO, PKCS8_PRIV_KEY_INFO)
+# ifndef OPENSSL_NO_RSA
+DECLARE_PEM_rw_cb(RSAPrivateKey, RSA)
+DECLARE_PEM_rw_const(RSAPublicKey, RSA)
+DECLARE_PEM_rw(RSA_PUBKEY, RSA)
+# endif
+# ifndef OPENSSL_NO_DSA
+DECLARE_PEM_rw_cb(DSAPrivateKey, DSA)
+DECLARE_PEM_rw(DSA_PUBKEY, DSA)
+DECLARE_PEM_rw_const(DSAparams, DSA)
+# endif
+# ifndef OPENSSL_NO_EC
+DECLARE_PEM_rw_const(ECPKParameters, EC_GROUP)
+DECLARE_PEM_rw_cb(ECPrivateKey, EC_KEY)
+DECLARE_PEM_rw(EC_PUBKEY, EC_KEY)
+# endif
+# ifndef OPENSSL_NO_DH
+DECLARE_PEM_rw_const(DHparams, DH)
+DECLARE_PEM_write_const(DHxparams, DH)
+# endif
+DECLARE_PEM_rw_cb(PrivateKey, EVP_PKEY)
+DECLARE_PEM_rw(PUBKEY, EVP_PKEY)
+
+int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
+                                         const EVP_CIPHER *enc,
+                                         unsigned char *kstr, int klen,
+                                         pem_password_cb *cb, void *u);
+
+int PEM_write_bio_PKCS8PrivateKey_nid(BIO *bp, EVP_PKEY *x, int nid,
+                                      char *kstr, int klen,
+                                      pem_password_cb *cb, void *u);
+int PEM_write_bio_PKCS8PrivateKey(BIO *, EVP_PKEY *, const EVP_CIPHER *,
+                                  char *, int, pem_password_cb *, void *);
+int i2d_PKCS8PrivateKey_bio(BIO *bp, EVP_PKEY *x, const EVP_CIPHER *enc,
+                            char *kstr, int klen,
+                            pem_password_cb *cb, void *u);
+int i2d_PKCS8PrivateKey_nid_bio(BIO *bp, EVP_PKEY *x, int nid,
+                                char *kstr, int klen,
+                                pem_password_cb *cb, void *u);
+EVP_PKEY *d2i_PKCS8PrivateKey_bio(BIO *bp, EVP_PKEY **x, pem_password_cb *cb,
+                                  void *u);
+
+# ifndef OPENSSL_NO_STDIO
+int i2d_PKCS8PrivateKey_fp(FILE *fp, EVP_PKEY *x, const EVP_CIPHER *enc,
+                           cha
