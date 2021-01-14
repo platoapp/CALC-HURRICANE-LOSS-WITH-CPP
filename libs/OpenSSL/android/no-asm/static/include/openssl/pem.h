@@ -212,4 +212,43 @@ int PEM_write_bio_##name(BIO *bp, type *x, const EVP_CIPHER *enc, \
         DECLARE_PEM_write_fp(name, type)
 # define DECLARE_PEM_write_const(name, type) \
         DECLARE_PEM_write_bio_const(name, type) \
-       
+        DECLARE_PEM_write_fp_const(name, type)
+# define DECLARE_PEM_write_cb(name, type) \
+        DECLARE_PEM_write_cb_bio(name, type) \
+        DECLARE_PEM_write_cb_fp(name, type)
+# define DECLARE_PEM_read(name, type) \
+        DECLARE_PEM_read_bio(name, type) \
+        DECLARE_PEM_read_fp(name, type)
+# define DECLARE_PEM_rw(name, type) \
+        DECLARE_PEM_read(name, type) \
+        DECLARE_PEM_write(name, type)
+# define DECLARE_PEM_rw_const(name, type) \
+        DECLARE_PEM_read(name, type) \
+        DECLARE_PEM_write_const(name, type)
+# define DECLARE_PEM_rw_cb(name, type) \
+        DECLARE_PEM_read(name, type) \
+        DECLARE_PEM_write_cb(name, type)
+typedef int pem_password_cb (char *buf, int size, int rwflag, void *userdata);
+
+int PEM_get_EVP_CIPHER_INFO(char *header, EVP_CIPHER_INFO *cipher);
+int PEM_do_header(EVP_CIPHER_INFO *cipher, unsigned char *data, long *len,
+                  pem_password_cb *callback, void *u);
+
+int PEM_read_bio(BIO *bp, char **name, char **header,
+                 unsigned char **data, long *len);
+#   define PEM_FLAG_SECURE             0x1
+#   define PEM_FLAG_EAY_COMPATIBLE     0x2
+#   define PEM_FLAG_ONLY_B64           0x4
+int PEM_read_bio_ex(BIO *bp, char **name, char **header,
+                    unsigned char **data, long *len, unsigned int flags);
+int PEM_bytes_read_bio_secmem(unsigned char **pdata, long *plen, char **pnm,
+                              const char *name, BIO *bp, pem_password_cb *cb,
+                              void *u);
+int PEM_write_bio(BIO *bp, const char *name, const char *hdr,
+                  const unsigned char *data, long len);
+int PEM_bytes_read_bio(unsigned char **pdata, long *plen, char **pnm,
+                       const char *name, BIO *bp, pem_password_cb *cb,
+                       void *u);
+void *PEM_ASN1_read_bio(d2i_of_void *d2i, const char *name, BIO *bp, void **x,
+                        pem_password_cb *cb, void *u);
+int PEM_ASN1_write_bio(i2d_of_void *
