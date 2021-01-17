@@ -146,4 +146,51 @@ typedef struct pkcs7_st {
 DEFINE_STACK_OF(PKCS7)
 
 # define PKCS7_OP_SET_DETACHED_SIGNATURE 1
-# define PKCS7_OP_GE
+# define PKCS7_OP_GET_DETACHED_SIGNATURE 2
+
+# define PKCS7_get_signed_attributes(si) ((si)->auth_attr)
+# define PKCS7_get_attributes(si)        ((si)->unauth_attr)
+
+# define PKCS7_type_is_signed(a) (OBJ_obj2nid((a)->type) == NID_pkcs7_signed)
+# define PKCS7_type_is_encrypted(a) (OBJ_obj2nid((a)->type) == NID_pkcs7_encrypted)
+# define PKCS7_type_is_enveloped(a) (OBJ_obj2nid((a)->type) == NID_pkcs7_enveloped)
+# define PKCS7_type_is_signedAndEnveloped(a) \
+                (OBJ_obj2nid((a)->type) == NID_pkcs7_signedAndEnveloped)
+# define PKCS7_type_is_data(a)   (OBJ_obj2nid((a)->type) == NID_pkcs7_data)
+# define PKCS7_type_is_digest(a)   (OBJ_obj2nid((a)->type) == NID_pkcs7_digest)
+
+# define PKCS7_set_detached(p,v) \
+                PKCS7_ctrl(p,PKCS7_OP_SET_DETACHED_SIGNATURE,v,NULL)
+# define PKCS7_get_detached(p) \
+                PKCS7_ctrl(p,PKCS7_OP_GET_DETACHED_SIGNATURE,0,NULL)
+
+# define PKCS7_is_detached(p7) (PKCS7_type_is_signed(p7) && PKCS7_get_detached(p7))
+
+/* S/MIME related flags */
+
+# define PKCS7_TEXT              0x1
+# define PKCS7_NOCERTS           0x2
+# define PKCS7_NOSIGS            0x4
+# define PKCS7_NOCHAIN           0x8
+# define PKCS7_NOINTERN          0x10
+# define PKCS7_NOVERIFY          0x20
+# define PKCS7_DETACHED          0x40
+# define PKCS7_BINARY            0x80
+# define PKCS7_NOATTR            0x100
+# define PKCS7_NOSMIMECAP        0x200
+# define PKCS7_NOOLDMIMETYPE     0x400
+# define PKCS7_CRLFEOL           0x800
+# define PKCS7_STREAM            0x1000
+# define PKCS7_NOCRL             0x2000
+# define PKCS7_PARTIAL           0x4000
+# define PKCS7_REUSE_DIGEST      0x8000
+# define PKCS7_NO_DUAL_CONTENT   0x10000
+
+/* Flags: for compatibility with older code */
+
+# define SMIME_TEXT      PKCS7_TEXT
+# define SMIME_NOCERTS   PKCS7_NOCERTS
+# define SMIME_NOSIGS    PKCS7_NOSIGS
+# define SMIME_NOCHAIN   PKCS7_NOCHAIN
+# define SMIME_NOINTERN  PKCS7_NOINTERN
+# define SMIME_NOVERIFY  PKCS7_NOVERIFY
