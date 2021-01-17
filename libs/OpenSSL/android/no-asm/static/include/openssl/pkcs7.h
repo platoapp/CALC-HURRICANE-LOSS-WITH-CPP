@@ -80,4 +80,70 @@ typedef struct pkcs7_enc_content_st {
 
 typedef struct pkcs7_enveloped_st {
     ASN1_INTEGER *version;      /* version 0 */
-    STACK_OF(PKCS7
+    STACK_OF(PKCS7_RECIP_INFO) *recipientinfo;
+    PKCS7_ENC_CONTENT *enc_data;
+} PKCS7_ENVELOPE;
+
+typedef struct pkcs7_signedandenveloped_st {
+    ASN1_INTEGER *version;      /* version 1 */
+    STACK_OF(X509_ALGOR) *md_algs; /* md used */
+    STACK_OF(X509) *cert;       /* [ 0 ] */
+    STACK_OF(X509_CRL) *crl;    /* [ 1 ] */
+    STACK_OF(PKCS7_SIGNER_INFO) *signer_info;
+    PKCS7_ENC_CONTENT *enc_data;
+    STACK_OF(PKCS7_RECIP_INFO) *recipientinfo;
+} PKCS7_SIGN_ENVELOPE;
+
+typedef struct pkcs7_digest_st {
+    ASN1_INTEGER *version;      /* version 0 */
+    X509_ALGOR *md;             /* md used */
+    struct pkcs7_st *contents;
+    ASN1_OCTET_STRING *digest;
+} PKCS7_DIGEST;
+
+typedef struct pkcs7_encrypted_st {
+    ASN1_INTEGER *version;      /* version 0 */
+    PKCS7_ENC_CONTENT *enc_data;
+} PKCS7_ENCRYPT;
+
+typedef struct pkcs7_st {
+    /*
+     * The following is non NULL if it contains ASN1 encoding of this
+     * structure
+     */
+    unsigned char *asn1;
+    long length;
+# define PKCS7_S_HEADER  0
+# define PKCS7_S_BODY    1
+# define PKCS7_S_TAIL    2
+    int state;                  /* used during processing */
+    int detached;
+    ASN1_OBJECT *type;
+    /* content as defined by the type */
+    /*
+     * all encryption/message digests are applied to the 'contents', leaving
+     * out the 'type' field.
+     */
+    union {
+        char *ptr;
+        /* NID_pkcs7_data */
+        ASN1_OCTET_STRING *data;
+        /* NID_pkcs7_signed */
+        PKCS7_SIGNED *sign;
+        /* NID_pkcs7_enveloped */
+        PKCS7_ENVELOPE *enveloped;
+        /* NID_pkcs7_signedAndEnveloped */
+        PKCS7_SIGN_ENVELOPE *signed_and_enveloped;
+        /* NID_pkcs7_digest */
+        PKCS7_DIGEST *digest;
+        /* NID_pkcs7_encrypted */
+        PKCS7_ENCRYPT *encrypted;
+        /* Anything else */
+        ASN1_TYPE *other;
+    } d;
+} PKCS7;
+
+DEFINE_STACK_OF(PKCS7)
+
+# define PKCS7_OP_SET_DETACHED_SIGNATURE 1
+# define PKCS7_OP_GE
