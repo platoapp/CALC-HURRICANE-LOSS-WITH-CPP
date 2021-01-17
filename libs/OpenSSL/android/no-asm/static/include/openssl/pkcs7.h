@@ -245,4 +245,44 @@ int PKCS7_add_certificate(PKCS7 *p7, X509 *x509);
 int PKCS7_add_crl(PKCS7 *p7, X509_CRL *x509);
 int PKCS7_content_new(PKCS7 *p7, int nid);
 int PKCS7_dataVerify(X509_STORE *cert_store, X509_STORE_CTX *ctx,
-                     B
+                     BIO *bio, PKCS7 *p7, PKCS7_SIGNER_INFO *si);
+int PKCS7_signatureVerify(BIO *bio, PKCS7 *p7, PKCS7_SIGNER_INFO *si,
+                          X509 *x509);
+
+BIO *PKCS7_dataInit(PKCS7 *p7, BIO *bio);
+int PKCS7_dataFinal(PKCS7 *p7, BIO *bio);
+BIO *PKCS7_dataDecode(PKCS7 *p7, EVP_PKEY *pkey, BIO *in_bio, X509 *pcert);
+
+PKCS7_SIGNER_INFO *PKCS7_add_signature(PKCS7 *p7, X509 *x509,
+                                       EVP_PKEY *pkey, const EVP_MD *dgst);
+X509 *PKCS7_cert_from_signer_info(PKCS7 *p7, PKCS7_SIGNER_INFO *si);
+int PKCS7_set_digest(PKCS7 *p7, const EVP_MD *md);
+STACK_OF(PKCS7_SIGNER_INFO) *PKCS7_get_signer_info(PKCS7 *p7);
+
+PKCS7_RECIP_INFO *PKCS7_add_recipient(PKCS7 *p7, X509 *x509);
+void PKCS7_SIGNER_INFO_get0_algs(PKCS7_SIGNER_INFO *si, EVP_PKEY **pk,
+                                 X509_ALGOR **pdig, X509_ALGOR **psig);
+void PKCS7_RECIP_INFO_get0_alg(PKCS7_RECIP_INFO *ri, X509_ALGOR **penc);
+int PKCS7_add_recipient_info(PKCS7 *p7, PKCS7_RECIP_INFO *ri);
+int PKCS7_RECIP_INFO_set(PKCS7_RECIP_INFO *p7i, X509 *x509);
+int PKCS7_set_cipher(PKCS7 *p7, const EVP_CIPHER *cipher);
+int PKCS7_stream(unsigned char ***boundary, PKCS7 *p7);
+
+PKCS7_ISSUER_AND_SERIAL *PKCS7_get_issuer_and_serial(PKCS7 *p7, int idx);
+ASN1_OCTET_STRING *PKCS7_digest_from_attributes(STACK_OF(X509_ATTRIBUTE) *sk);
+int PKCS7_add_signed_attribute(PKCS7_SIGNER_INFO *p7si, int nid, int type,
+                               void *data);
+int PKCS7_add_attribute(PKCS7_SIGNER_INFO *p7si, int nid, int atrtype,
+                        void *value);
+ASN1_TYPE *PKCS7_get_attribute(PKCS7_SIGNER_INFO *si, int nid);
+ASN1_TYPE *PKCS7_get_signed_attribute(PKCS7_SIGNER_INFO *si, int nid);
+int PKCS7_set_signed_attributes(PKCS7_SIGNER_INFO *p7si,
+                                STACK_OF(X509_ATTRIBUTE) *sk);
+int PKCS7_set_attributes(PKCS7_SIGNER_INFO *p7si,
+                         STACK_OF(X509_ATTRIBUTE) *sk);
+
+PKCS7 *PKCS7_sign(X509 *signcert, EVP_PKEY *pkey, STACK_OF(X509) *certs,
+                  BIO *data, int flags);
+
+PKCS7_SIGNER_INFO *PKCS7_sign_add_signer(PKCS7 *p7,
+             
