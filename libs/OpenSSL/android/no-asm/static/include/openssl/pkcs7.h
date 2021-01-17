@@ -194,3 +194,55 @@ DEFINE_STACK_OF(PKCS7)
 # define SMIME_NOCHAIN   PKCS7_NOCHAIN
 # define SMIME_NOINTERN  PKCS7_NOINTERN
 # define SMIME_NOVERIFY  PKCS7_NOVERIFY
+# define SMIME_DETACHED  PKCS7_DETACHED
+# define SMIME_BINARY    PKCS7_BINARY
+# define SMIME_NOATTR    PKCS7_NOATTR
+
+/* CRLF ASCII canonicalisation */
+# define SMIME_ASCIICRLF         0x80000
+
+DECLARE_ASN1_FUNCTIONS(PKCS7_ISSUER_AND_SERIAL)
+
+int PKCS7_ISSUER_AND_SERIAL_digest(PKCS7_ISSUER_AND_SERIAL *data,
+                                   const EVP_MD *type, unsigned char *md,
+                                   unsigned int *len);
+# ifndef OPENSSL_NO_STDIO
+PKCS7 *d2i_PKCS7_fp(FILE *fp, PKCS7 **p7);
+int i2d_PKCS7_fp(FILE *fp, PKCS7 *p7);
+# endif
+PKCS7 *PKCS7_dup(PKCS7 *p7);
+PKCS7 *d2i_PKCS7_bio(BIO *bp, PKCS7 **p7);
+int i2d_PKCS7_bio(BIO *bp, PKCS7 *p7);
+int i2d_PKCS7_bio_stream(BIO *out, PKCS7 *p7, BIO *in, int flags);
+int PEM_write_bio_PKCS7_stream(BIO *out, PKCS7 *p7, BIO *in, int flags);
+
+DECLARE_ASN1_FUNCTIONS(PKCS7_SIGNER_INFO)
+DECLARE_ASN1_FUNCTIONS(PKCS7_RECIP_INFO)
+DECLARE_ASN1_FUNCTIONS(PKCS7_SIGNED)
+DECLARE_ASN1_FUNCTIONS(PKCS7_ENC_CONTENT)
+DECLARE_ASN1_FUNCTIONS(PKCS7_ENVELOPE)
+DECLARE_ASN1_FUNCTIONS(PKCS7_SIGN_ENVELOPE)
+DECLARE_ASN1_FUNCTIONS(PKCS7_DIGEST)
+DECLARE_ASN1_FUNCTIONS(PKCS7_ENCRYPT)
+DECLARE_ASN1_FUNCTIONS(PKCS7)
+
+DECLARE_ASN1_ITEM(PKCS7_ATTR_SIGN)
+DECLARE_ASN1_ITEM(PKCS7_ATTR_VERIFY)
+
+DECLARE_ASN1_NDEF_FUNCTION(PKCS7)
+DECLARE_ASN1_PRINT_FUNCTION(PKCS7)
+
+long PKCS7_ctrl(PKCS7 *p7, int cmd, long larg, char *parg);
+
+int PKCS7_set_type(PKCS7 *p7, int type);
+int PKCS7_set0_type_other(PKCS7 *p7, int type, ASN1_TYPE *other);
+int PKCS7_set_content(PKCS7 *p7, PKCS7 *p7_data);
+int PKCS7_SIGNER_INFO_set(PKCS7_SIGNER_INFO *p7i, X509 *x509, EVP_PKEY *pkey,
+                          const EVP_MD *dgst);
+int PKCS7_SIGNER_INFO_sign(PKCS7_SIGNER_INFO *si);
+int PKCS7_add_signer(PKCS7 *p7, PKCS7_SIGNER_INFO *p7i);
+int PKCS7_add_certificate(PKCS7 *p7, X509 *x509);
+int PKCS7_add_crl(PKCS7 *p7, X509_CRL *x509);
+int PKCS7_content_new(PKCS7 *p7, int nid);
+int PKCS7_dataVerify(X509_STORE *cert_store, X509_STORE_CTX *ctx,
+                     B
