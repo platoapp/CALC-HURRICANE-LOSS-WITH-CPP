@@ -285,4 +285,35 @@ PKCS7 *PKCS7_sign(X509 *signcert, EVP_PKEY *pkey, STACK_OF(X509) *certs,
                   BIO *data, int flags);
 
 PKCS7_SIGNER_INFO *PKCS7_sign_add_signer(PKCS7 *p7,
-             
+                                         X509 *signcert, EVP_PKEY *pkey,
+                                         const EVP_MD *md, int flags);
+
+int PKCS7_final(PKCS7 *p7, BIO *data, int flags);
+int PKCS7_verify(PKCS7 *p7, STACK_OF(X509) *certs, X509_STORE *store,
+                 BIO *indata, BIO *out, int flags);
+STACK_OF(X509) *PKCS7_get0_signers(PKCS7 *p7, STACK_OF(X509) *certs,
+                                   int flags);
+PKCS7 *PKCS7_encrypt(STACK_OF(X509) *certs, BIO *in, const EVP_CIPHER *cipher,
+                     int flags);
+int PKCS7_decrypt(PKCS7 *p7, EVP_PKEY *pkey, X509 *cert, BIO *data,
+                  int flags);
+
+int PKCS7_add_attrib_smimecap(PKCS7_SIGNER_INFO *si,
+                              STACK_OF(X509_ALGOR) *cap);
+STACK_OF(X509_ALGOR) *PKCS7_get_smimecap(PKCS7_SIGNER_INFO *si);
+int PKCS7_simple_smimecap(STACK_OF(X509_ALGOR) *sk, int nid, int arg);
+
+int PKCS7_add_attrib_content_type(PKCS7_SIGNER_INFO *si, ASN1_OBJECT *coid);
+int PKCS7_add0_attrib_signing_time(PKCS7_SIGNER_INFO *si, ASN1_TIME *t);
+int PKCS7_add1_attrib_digest(PKCS7_SIGNER_INFO *si,
+                             const unsigned char *md, int mdlen);
+
+int SMIME_write_PKCS7(BIO *bio, PKCS7 *p7, BIO *data, int flags);
+PKCS7 *SMIME_read_PKCS7(BIO *bio, BIO **bcont);
+
+BIO *BIO_new_PKCS7(BIO *out, PKCS7 *p7);
+
+# ifdef  __cplusplus
+}
+# endif
+#endif
