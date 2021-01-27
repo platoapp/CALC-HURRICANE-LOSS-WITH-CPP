@@ -78,4 +78,39 @@ int ERR_load_RSA_strings(void);
 # define RSA_F_RSA_PRIV_ENCODE                            138
 # define RSA_F_RSA_PSS_GET_PARAM                          151
 # define RSA_F_RSA_PSS_TO_CTX                             155
-# d
+# define RSA_F_RSA_PUB_DECODE                             139
+# define RSA_F_RSA_SETUP_BLINDING                         136
+# define RSA_F_RSA_SIGN                                   117
+# define RSA_F_RSA_SIGN_ASN1_OCTET_STRING                 118
+# define RSA_F_RSA_VERIFY                                 119
+# define RSA_F_RSA_VERIFY_ASN1_OCTET_STRING               120
+# define RSA_F_RSA_VERIFY_PKCS1_PSS_MGF1                  126
+# define RSA_F_SETUP_TBUF                                 167
+
+/*
+ * RSA reason codes.
+ */
+# define RSA_R_ALGORITHM_MISMATCH                         100
+# define RSA_R_BAD_E_VALUE                                101
+# define RSA_R_BAD_FIXED_HEADER_DECRYPT                   102
+# define RSA_R_BAD_PAD_BYTE_COUNT                         103
+# define RSA_R_BAD_SIGNATURE                              104
+# define RSA_R_BLOCK_TYPE_IS_NOT_01                       106
+# define RSA_R_BLOCK_TYPE_IS_NOT_02                       107
+# define RSA_R_DATA_GREATER_THAN_MOD_LEN                  108
+# define RSA_R_DATA_TOO_LARGE                             109
+# define RSA_R_DATA_TOO_LARGE_FOR_KEY_SIZE                110
+# define RSA_R_DATA_TOO_LARGE_FOR_MODULUS                 132
+# define RSA_R_DATA_TOO_SMALL                             111
+# define RSA_R_DATA_TOO_SMALL_FOR_KEY_SIZE                122
+# define RSA_R_DIGEST_DOES_NOT_MATCH                      158
+# define RSA_R_DIGEST_NOT_ALLOWED                         145
+# define RSA_R_DIGEST_TOO_BIG_FOR_RSA_KEY                 112
+# define RSA_R_DMP1_NOT_CONGRUENT_TO_D                    124
+# define RSA_R_DMQ1_NOT_CONGRUENT_TO_D                    125
+# define RSA_R_D_E_NOT_CONGRUENT_TO_1                     123
+# define RSA_R_FIRST_OCTET_INVALID                        133
+# define RSA_R_ILLEGAL_OR_UNSUPPORTED_PADDING_MODE        144
+# define RSA_R_INVALID_DIGEST                             157
+# define RSA_R_INVALID_DIGEST_LENGTH                      143
+# define RSA_R_INVALID_HEA
