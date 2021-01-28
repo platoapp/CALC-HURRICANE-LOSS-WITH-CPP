@@ -144,4 +144,24 @@ int ERR_load_RSA_strings(void);
 # define RSA_R_OPERATION_NOT_SUPPORTED_FOR_THIS_KEYTYPE   148
 # define RSA_R_PADDING_CHECK_FAILED                       114
 # define RSA_R_PKCS_DECODING_ERROR                        159
-# define RSA_R_PSS_SALTLEN_TOO_SMALL                  
+# define RSA_R_PSS_SALTLEN_TOO_SMALL                      164
+# define RSA_R_P_NOT_PRIME                                128
+# define RSA_R_Q_NOT_PRIME                                129
+# define RSA_R_RSA_OPERATIONS_NOT_SUPPORTED               130
+# define RSA_R_SLEN_CHECK_FAILED                          136
+# define RSA_R_SLEN_RECOVERY_FAILED                       135
+# define RSA_R_SSLV3_ROLLBACK_ATTACK                      115
+# define RSA_R_THE_ASN1_OBJECT_IDENTIFIER_IS_NOT_KNOWN_FOR_THIS_MD 116
+# define RSA_R_UNKNOWN_ALGORITHM_TYPE                     117
+# define RSA_R_UNKNOWN_DIGEST                             166
+# define RSA_R_UNKNOWN_MASK_DIGEST                        151
+# define RSA_R_UNKNOWN_PADDING_TYPE                       118
+# define RSA_R_UNSUPPORTED_ENCRYPTION_TYPE                162
+# define RSA_R_UNSUPPORTED_LABEL_SOURCE                   163
+# define RSA_R_UNSUPPORTED_MASK_ALGORITHM                 153
+# define RSA_R_UNSUPPORTED_MASK_PARAMETER                 154
+# define RSA_R_UNSUPPORTED_SIGNATURE_TYPE                 155
+# define RSA_R_VALUE_MISSING                              147
+# define RSA_R_WRONG_SIGNATURE_LENGTH                     119
+
+#endif
