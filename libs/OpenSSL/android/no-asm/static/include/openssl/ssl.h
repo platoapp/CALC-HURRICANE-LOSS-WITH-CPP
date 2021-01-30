@@ -174,4 +174,60 @@ extern "C" {
 /* This is the default set of TLSv1.3 ciphersuites */
 # if !defined(OPENSSL_NO_CHACHA) && !defined(OPENSSL_NO_POLY1305)
 #  define TLS_DEFAULT_CIPHERSUITES "TLS_AES_256_GCM_SHA384:" \
-          
+                                   "TLS_CHACHA20_POLY1305_SHA256:" \
+                                   "TLS_AES_128_GCM_SHA256"
+# else
+#  define TLS_DEFAULT_CIPHERSUITES "TLS_AES_256_GCM_SHA384:" \
+                                   "TLS_AES_128_GCM_SHA256"
+#endif
+/*
+ * As of OpenSSL 1.0.0, ssl_create_cipher_list() in ssl/ssl_ciph.c always
+ * starts with a reasonable order, and all we have to do for DEFAULT is
+ * throwing out anonymous and unencrypted ciphersuites! (The latter are not
+ * actually enabled by ALL, but "ALL:RSA" would enable some of them.)
+ */
+
+/* Used in SSL_set_shutdown()/SSL_get_shutdown(); */
+# define SSL_SENT_SHUTDOWN       1
+# define SSL_RECEIVED_SHUTDOWN   2
+
+#ifdef __cplusplus
+}
+#endif
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+# define SSL_FILETYPE_ASN1       X509_FILETYPE_ASN1
+# define SSL_FILETYPE_PEM        X509_FILETYPE_PEM
+
+/*
+ * This is needed to stop compilers complaining about the 'struct ssl_st *'
+ * function parameters used to prototype callbacks in SSL_CTX.
+ */
+typedef struct ssl_st *ssl_crock_st;
+typedef struct tls_session_ticket_ext_st TLS_SESSION_TICKET_EXT;
+typedef struct ssl_method_st SSL_METHOD;
+typedef struct ssl_cipher_st SSL_CIPHER;
+typedef struct ssl_session_st SSL_SESSION;
+typedef struct tls_sigalgs_st TLS_SIGALGS;
+typedef struct ssl_conf_ctx_st SSL_CONF_CTX;
+typedef struct ssl_comp_st SSL_COMP;
+
+STACK_OF(SSL_CIPHER);
+STACK_OF(SSL_COMP);
+
+/* SRTP protection profiles for use with the use_srtp extension (RFC 5764)*/
+typedef struct srtp_protection_profile_st {
+    const char *name;
+    unsigned long id;
+} SRTP_PROTECTION_PROFILE;
+
+DEFINE_STACK_OF(SRTP_PROTECTION_PROFILE)
+
+typedef int (*tls_session_ticket_ext_cb_fn)(SSL *s, const unsigned char *data,
+                                            int len, void *arg);
+typedef int (*tls_session_secret_cb_fn)(SSL *s, void *secret, int *secret_len,
+                                        STACK_OF(SSL_CIPHER) *peer_ciphers,
+                                        const SSL_CIPHER **cipher, void *arg);
