@@ -83,4 +83,48 @@ extern "C" {
 # define SSL_TXT_kGOST           "kGOST"
 # define SSL_TXT_kSRP            "kSRP"
 
-# de
+# define SSL_TXT_aRSA            "aRSA"
+# define SSL_TXT_aDSS            "aDSS"
+# define SSL_TXT_aDH             "aDH"/* this cipher class has been removed */
+# define SSL_TXT_aECDH           "aECDH"/* this cipher class has been removed */
+# define SSL_TXT_aECDSA          "aECDSA"
+# define SSL_TXT_aPSK            "aPSK"
+# define SSL_TXT_aGOST94         "aGOST94"
+# define SSL_TXT_aGOST01         "aGOST01"
+# define SSL_TXT_aGOST12         "aGOST12"
+# define SSL_TXT_aGOST           "aGOST"
+# define SSL_TXT_aSRP            "aSRP"
+
+# define SSL_TXT_DSS             "DSS"
+# define SSL_TXT_DH              "DH"
+# define SSL_TXT_DHE             "DHE"/* same as "kDHE:-ADH" */
+# define SSL_TXT_EDH             "EDH"/* alias for DHE */
+# define SSL_TXT_ADH             "ADH"
+# define SSL_TXT_RSA             "RSA"
+# define SSL_TXT_ECDH            "ECDH"
+# define SSL_TXT_EECDH           "EECDH"/* alias for ECDHE" */
+# define SSL_TXT_ECDHE           "ECDHE"/* same as "kECDHE:-AECDH" */
+# define SSL_TXT_AECDH           "AECDH"
+# define SSL_TXT_ECDSA           "ECDSA"
+# define SSL_TXT_PSK             "PSK"
+# define SSL_TXT_SRP             "SRP"
+
+# define SSL_TXT_DES             "DES"
+# define SSL_TXT_3DES            "3DES"
+# define SSL_TXT_RC4             "RC4"
+# define SSL_TXT_RC2             "RC2"
+# define SSL_TXT_IDEA            "IDEA"
+# define SSL_TXT_SEED            "SEED"
+# define SSL_TXT_AES128          "AES128"
+# define SSL_TXT_AES256          "AES256"
+# define SSL_TXT_AES             "AES"
+# define SSL_TXT_AES_GCM         "AESGCM"
+# define SSL_TXT_AES_CCM         "AESCCM"
+# define SSL_TXT_AES_CCM_8       "AESCCM8"
+# define SSL_TXT_CAMELLIA128     "CAMELLIA128"
+# define SSL_TXT_CAMELLIA256     "CAMELLIA256"
+# define SSL_TXT_CAMELLIA        "CAMELLIA"
+# define SSL_TXT_CHACHA20        "CHACHA20"
+# define SSL_TXT_GOST            "GOST89"
+# define SSL_TXT_ARIA            "ARIA"
+# define SSL_TXT_ARIA_GCM  
