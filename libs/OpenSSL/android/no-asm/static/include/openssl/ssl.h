@@ -127,4 +127,51 @@ extern "C" {
 # define SSL_TXT_CHACHA20        "CHACHA20"
 # define SSL_TXT_GOST            "GOST89"
 # define SSL_TXT_ARIA            "ARIA"
-# define SSL_TXT_ARIA_GCM  
+# define SSL_TXT_ARIA_GCM        "ARIAGCM"
+# define SSL_TXT_ARIA128         "ARIA128"
+# define SSL_TXT_ARIA256         "ARIA256"
+
+# define SSL_TXT_MD5             "MD5"
+# define SSL_TXT_SHA1            "SHA1"
+# define SSL_TXT_SHA             "SHA"/* same as "SHA1" */
+# define SSL_TXT_GOST94          "GOST94"
+# define SSL_TXT_GOST89MAC       "GOST89MAC"
+# define SSL_TXT_GOST12          "GOST12"
+# define SSL_TXT_GOST89MAC12     "GOST89MAC12"
+# define SSL_TXT_SHA256          "SHA256"
+# define SSL_TXT_SHA384          "SHA384"
+
+# define SSL_TXT_SSLV3           "SSLv3"
+# define SSL_TXT_TLSV1           "TLSv1"
+# define SSL_TXT_TLSV1_1         "TLSv1.1"
+# define SSL_TXT_TLSV1_2         "TLSv1.2"
+
+# define SSL_TXT_ALL             "ALL"
+
+/*-
+ * COMPLEMENTOF* definitions. These identifiers are used to (de-select)
+ * ciphers normally not being used.
+ * Example: "RC4" will activate all ciphers using RC4 including ciphers
+ * without authentication, which would normally disabled by DEFAULT (due
+ * the "!ADH" being part of default). Therefore "RC4:!COMPLEMENTOFDEFAULT"
+ * will make sure that it is also disabled in the specific selection.
+ * COMPLEMENTOF* identifiers are portable between version, as adjustments
+ * to the default cipher setup will also be included here.
+ *
+ * COMPLEMENTOFDEFAULT does not experience the same special treatment that
+ * DEFAULT gets, as only selection is being done and no sorting as needed
+ * for DEFAULT.
+ */
+# define SSL_TXT_CMPALL          "COMPLEMENTOFALL"
+# define SSL_TXT_CMPDEF          "COMPLEMENTOFDEFAULT"
+
+/*
+ * The following cipher list is used by default. It also is substituted when
+ * an application-defined cipher list string starts with 'DEFAULT'.
+ * This applies to ciphersuites for TLSv1.2 and below.
+ */
+# define SSL_DEFAULT_CIPHER_LIST "ALL:!COMPLEMENTOFDEFAULT:!eNULL"
+/* This is the default set of TLSv1.3 ciphersuites */
+# if !defined(OPENSSL_NO_CHACHA) && !defined(OPENSSL_NO_POLY1305)
+#  define TLS_DEFAULT_CIPHERSUITES "TLS_AES_256_GCM_SHA384:" \
+          
