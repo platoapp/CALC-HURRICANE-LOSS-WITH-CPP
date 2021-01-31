@@ -272,4 +272,42 @@ typedef int (*custom_ext_parse_cb)(SSL *s, unsigned int ext_type,
 
 
 typedef int (*SSL_custom_ext_add_cb_ex)(SSL *s, unsigned int ext_type,
-                                        un
+                                        unsigned int context,
+                                        const unsigned char **out,
+                                        size_t *outlen, X509 *x,
+                                        size_t chainidx,
+                                        int *al, void *add_arg);
+
+typedef void (*SSL_custom_ext_free_cb_ex)(SSL *s, unsigned int ext_type,
+                                          unsigned int context,
+                                          const unsigned char *out,
+                                          void *add_arg);
+
+typedef int (*SSL_custom_ext_parse_cb_ex)(SSL *s, unsigned int ext_type,
+                                          unsigned int context,
+                                          const unsigned char *in,
+                                          size_t inlen, X509 *x,
+                                          size_t chainidx,
+                                          int *al, void *parse_arg);
+
+/* Typedef for verification callback */
+typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
+
+/*
+ * Some values are reserved until OpenSSL 1.2.0 because they were previously
+ * included in SSL_OP_ALL in a 1.1.x release.
+ *
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000001U
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000002U
+ */
+/* Allow initial connection to servers that don't support RI */
+# define SSL_OP_LEGACY_SERVER_CONNECT                    0x00000004U
+
+/* Reserved value (until OpenSSL 1.2.0)                  0x00000008U */
+# define SSL_OP_TLSEXT_PADDING                           0x00000010U
+/* Reserved value (until OpenSSL 1.2.0)                  0x00000020U */
+# define SSL_OP_SAFARI_ECDHE_ECDSA_BUG                   0x00000040U
+/*
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000080U
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000100U
+ * Reserved va
