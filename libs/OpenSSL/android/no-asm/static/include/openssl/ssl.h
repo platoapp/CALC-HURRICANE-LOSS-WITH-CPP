@@ -310,4 +310,51 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
 /*
  * Reserved value (until OpenSSL 1.2.0)                  0x00000080U
  * Reserved value (until OpenSSL 1.2.0)                  0x00000100U
- * Reserved va
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000200U
+ */
+
+/* In TLSv1.3 allow a non-(ec)dhe based kex_mode */
+# define SSL_OP_ALLOW_NO_DHE_KEX                         0x00000400U
+
+/*
+ * Disable SSL 3.0/TLS 1.0 CBC vulnerability workaround that was added in
+ * OpenSSL 0.9.6d.  Usually (depending on the application protocol) the
+ * workaround is not needed.  Unfortunately some broken SSL/TLS
+ * implementations cannot handle it at all, which is why we include it in
+ * SSL_OP_ALL. Added in 0.9.6e
+ */
+# define SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS              0x00000800U
+
+/* DTLS options */
+# define SSL_OP_NO_QUERY_MTU                             0x00001000U
+/* Turn on Cookie Exchange (on relevant for servers) */
+# define SSL_OP_COOKIE_EXCHANGE                          0x00002000U
+/* Don't use RFC4507 ticket extension */
+# define SSL_OP_NO_TICKET                                0x00004000U
+# ifndef OPENSSL_NO_DTLS1_METHOD
+/* Use Cisco's "speshul" version of DTLS_BAD_VER
+ * (only with deprecated DTLSv1_client_method())  */
+#  define SSL_OP_CISCO_ANYCONNECT                        0x00008000U
+# endif
+
+/* As server, disallow session resumption on renegotiation */
+# define SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION   0x00010000U
+/* Don't use compression even if supported */
+# define SSL_OP_NO_COMPRESSION                           0x00020000U
+/* Permit unsafe legacy renegotiation */
+# define SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION        0x00040000U
+/* Disable encrypt-then-mac */
+# define SSL_OP_NO_ENCRYPT_THEN_MAC                      0x00080000U
+
+/*
+ * Enable TLSv1.3 Compatibility mode. This is on by default. A future version
+ * of OpenSSL may have this disabled by default.
+ */
+# define SSL_OP_ENABLE_MIDDLEBOX_COMPAT                  0x00100000U
+
+/* Prioritize Chacha20Poly1305 when client does.
+ * Modifies SSL_OP_CIPHER_SERVER_PREFERENCE */
+# define SSL_OP_PRIORITIZE_CHACHA                        0x00200000U
+
+/*
+ * Set on servers to choose the 
