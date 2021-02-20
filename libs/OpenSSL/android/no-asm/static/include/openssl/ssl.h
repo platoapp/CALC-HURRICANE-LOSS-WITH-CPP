@@ -443,4 +443,56 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
 # define SSL_OP_NO_SSLv2                                 0x0
 /* Removed from OpenSSL 1.0.1. Was 0x08000000L */
 # define SSL_OP_PKCS1_CHECK_1                            0x0
-/* Removed from OpenSSL 1.0.1.
+/* Removed from OpenSSL 1.0.1. Was 0x10000000L */
+# define SSL_OP_PKCS1_CHECK_2                            0x0
+/* Removed from OpenSSL 1.1.0. Was 0x20000000L */
+# define SSL_OP_NETSCAPE_CA_DN_BUG                       0x0
+/* Removed from OpenSSL 1.1.0. Was 0x40000000L */
+# define SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG          0x0
+
+/*
+ * Allow SSL_write(..., n) to return r with 0 < r < n (i.e. report success
+ * when just a single record has been written):
+ */
+# define SSL_MODE_ENABLE_PARTIAL_WRITE       0x00000001U
+/*
+ * Make it possible to retry SSL_write() with changed buffer location (buffer
+ * contents must stay the same!); this is not the default to avoid the
+ * misconception that non-blocking SSL_write() behaves like non-blocking
+ * write():
+ */
+# define SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER 0x00000002U
+/*
+ * Never bother the application with retries if the transport is blocking:
+ */
+# define SSL_MODE_AUTO_RETRY 0x00000004U
+/* Don't attempt to automatically build certificate chain */
+# define SSL_MODE_NO_AUTO_CHAIN 0x00000008U
+/*
+ * Save RAM by releasing read and write buffers when they're empty. (SSL3 and
+ * TLS only.) Released buffers are freed.
+ */
+# define SSL_MODE_RELEASE_BUFFERS 0x00000010U
+/*
+ * Send the current time in the Random fields of the ClientHello and
+ * ServerHello records for compatibility with hypothetical implementations
+ * that require it.
+ */
+# define SSL_MODE_SEND_CLIENTHELLO_TIME 0x00000020U
+# define SSL_MODE_SEND_SERVERHELLO_TIME 0x00000040U
+/*
+ * Send TLS_FALLBACK_SCSV in the ClientHello. To be set only by applications
+ * that reconnect with a downgraded protocol version; see
+ * draft-ietf-tls-downgrade-scsv-00 for details. DO NOT ENABLE THIS if your
+ * application attempts a normal handshake. Only use this in explicit
+ * fallback retries, following the guidance in
+ * draft-ietf-tls-downgrade-scsv-00.
+ */
+# define SSL_MODE_SEND_FALLBACK_SCSV 0x00000080U
+/*
+ * Support Asynchronous operation
+ */
+# define SSL_MODE_ASYNC 0x00000100U
+
+/*
+ * When using DTLS
