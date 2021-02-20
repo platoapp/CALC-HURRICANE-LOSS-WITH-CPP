@@ -357,4 +357,50 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
 # define SSL_OP_PRIORITIZE_CHACHA                        0x00200000U
 
 /*
- * Set on servers to choose the 
+ * Set on servers to choose the cipher according to the server's preferences
+ */
+# define SSL_OP_CIPHER_SERVER_PREFERENCE                 0x00400000U
+/*
+ * If set, a server will allow a client to issue a SSLv3.0 version number as
+ * latest version supported in the premaster secret, even when TLSv1.0
+ * (version 3.1) was announced in the client hello. Normally this is
+ * forbidden to prevent version rollback attacks.
+ */
+# define SSL_OP_TLS_ROLLBACK_BUG                         0x00800000U
+
+/*
+ * Switches off automatic TLSv1.3 anti-replay protection for early data. This
+ * is a server-side option only (no effect on the client).
+ */
+# define SSL_OP_NO_ANTI_REPLAY                           0x01000000U
+
+# define SSL_OP_NO_SSLv3                                 0x02000000U
+# define SSL_OP_NO_TLSv1                                 0x04000000U
+# define SSL_OP_NO_TLSv1_2                               0x08000000U
+# define SSL_OP_NO_TLSv1_1                               0x10000000U
+# define SSL_OP_NO_TLSv1_3                               0x20000000U
+
+# define SSL_OP_NO_DTLSv1                                0x04000000U
+# define SSL_OP_NO_DTLSv1_2                              0x08000000U
+
+# define SSL_OP_NO_SSL_MASK (SSL_OP_NO_SSLv3|\
+        SSL_OP_NO_TLSv1|SSL_OP_NO_TLSv1_1|SSL_OP_NO_TLSv1_2|SSL_OP_NO_TLSv1_3)
+# define SSL_OP_NO_DTLS_MASK (SSL_OP_NO_DTLSv1|SSL_OP_NO_DTLSv1_2)
+
+/* Disallow all renegotiation */
+# define SSL_OP_NO_RENEGOTIATION                         0x40000000U
+
+/*
+ * Make server add server-hello extension from early version of cryptopro
+ * draft, when GOST ciphersuite is negotiated. Required for interoperability
+ * with CryptoPro CSP 3.x
+ */
+# define SSL_OP_CRYPTOPRO_TLSEXT_BUG                     0x80000000U
+
+/*
+ * SSL_OP_ALL: various bug workarounds that should be rather harmless.
+ * This used to be 0x000FFFFFL before 0.9.7.
+ * This used to be 0x80000BFFU before 1.1.1.
+ */
+# define SSL_OP_ALL        (SSL_OP_CRYPTOPRO_TLSEXT_BUG|\
+                            SSL_OP_DONT_INSERT_EMPTY_FRAG
