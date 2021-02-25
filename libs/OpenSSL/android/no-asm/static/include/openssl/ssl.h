@@ -541,4 +541,53 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
 # define CERT_PKEY_VALID         0x1
 /* Certificate can also be used for signing */
 # define CERT_PKEY_SIGN          0x2
-/* EE certificate signing al
+/* EE certificate signing algorithm OK */
+# define CERT_PKEY_EE_SIGNATURE  0x10
+/* CA signature algorithms OK */
+# define CERT_PKEY_CA_SIGNATURE  0x20
+/* EE certificate parameters OK */
+# define CERT_PKEY_EE_PARAM      0x40
+/* CA certificate parameters OK */
+# define CERT_PKEY_CA_PARAM      0x80
+/* Signing explicitly allowed as opposed to SHA1 fallback */
+# define CERT_PKEY_EXPLICIT_SIGN 0x100
+/* Client CA issuer names match (always set for server cert) */
+# define CERT_PKEY_ISSUER_NAME   0x200
+/* Cert type matches client types (always set for server cert) */
+# define CERT_PKEY_CERT_TYPE     0x400
+/* Cert chain suitable to Suite B */
+# define CERT_PKEY_SUITEB        0x800
+
+# define SSL_CONF_FLAG_CMDLINE           0x1
+# define SSL_CONF_FLAG_FILE              0x2
+# define SSL_CONF_FLAG_CLIENT            0x4
+# define SSL_CONF_FLAG_SERVER            0x8
+# define SSL_CONF_FLAG_SHOW_ERRORS       0x10
+# define SSL_CONF_FLAG_CERTIFICATE       0x20
+# define SSL_CONF_FLAG_REQUIRE_PRIVATE   0x40
+/* Configuration value types */
+# define SSL_CONF_TYPE_UNKNOWN           0x0
+# define SSL_CONF_TYPE_STRING            0x1
+# define SSL_CONF_TYPE_FILE              0x2
+# define SSL_CONF_TYPE_DIR               0x3
+# define SSL_CONF_TYPE_NONE              0x4
+
+/* Maximum length of the application-controlled segment of a a TLSv1.3 cookie */
+# define SSL_COOKIE_LENGTH                       4096
+
+/*
+ * Note: SSL[_CTX]_set_{options,mode} use |= op on the previous value, they
+ * cannot be used to clear bits.
+ */
+
+unsigned long SSL_CTX_get_options(const SSL_CTX *ctx);
+unsigned long SSL_get_options(const SSL *s);
+unsigned long SSL_CTX_clear_options(SSL_CTX *ctx, unsigned long op);
+unsigned long SSL_clear_options(SSL *s, unsigned long op);
+unsigned long SSL_CTX_set_options(SSL_CTX *ctx, unsigned long op);
+unsigned long SSL_set_options(SSL *s, unsigned long op);
+
+# define SSL_CTX_set_mode(ctx,op) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
+# define SSL_CTX_clear_mode(ctx,op) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEA
