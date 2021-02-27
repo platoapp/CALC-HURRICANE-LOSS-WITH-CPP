@@ -634,4 +634,48 @@ void SSL_set_msg_callback(SSL *ssl,
 # define SSL_CTX_set_msg_callback_arg(ctx, arg) SSL_CTX_ctrl((ctx), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
 # define SSL_set_msg_callback_arg(ssl, arg) SSL_ctrl((ssl), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
 
-# define SSL_get_
+# define SSL_get_extms_support(s) \
+        SSL_ctrl((s),SSL_CTRL_GET_EXTMS_SUPPORT,0,NULL)
+
+# ifndef OPENSSL_NO_SRP
+
+/* see tls_srp.c */
+__owur int SSL_SRP_CTX_init(SSL *s);
+__owur int SSL_CTX_SRP_CTX_init(SSL_CTX *ctx);
+int SSL_SRP_CTX_free(SSL *ctx);
+int SSL_CTX_SRP_CTX_free(SSL_CTX *ctx);
+__owur int SSL_srp_server_param_with_username(SSL *s, int *ad);
+__owur int SRP_Calc_A_param(SSL *s);
+
+# endif
+
+/* 100k max cert list */
+# define SSL_MAX_CERT_LIST_DEFAULT 1024*100
+
+# define SSL_SESSION_CACHE_MAX_SIZE_DEFAULT      (1024*20)
+
+/*
+ * This callback type is used inside SSL_CTX, SSL, and in the functions that
+ * set them. It is used to override the generation of SSL/TLS session IDs in
+ * a server. Return value should be zero on an error, non-zero to proceed.
+ * Also, callbacks should themselves check if the id they generate is unique
+ * otherwise the SSL handshake will fail with an error - callbacks can do
+ * this using the 'ssl' value they're passed by;
+ * SSL_has_matching_session_id(ssl, id, *id_len) The length value passed in
+ * is set at the maximum size the session ID can be. In SSLv3/TLSv1 it is 32
+ * bytes. The callback can alter this length to be less if desired. It is
+ * also an error for the callback to set the size to zero.
+ */
+typedef int (*GEN_SESSION_CB) (SSL *ssl, unsigned char *id,
+                               unsigned int *id_len);
+
+# define SSL_SESS_CACHE_OFF                      0x0000
+# define SSL_SESS_CACHE_CLIENT                   0x0001
+# define SSL_SESS_CACHE_SERVER                   0x0002
+# define SSL_SESS_CACHE_BOTH     (SSL_SESS_CACHE_CLIENT|SSL_SESS_CACHE_SERVER)
+# define SSL_SESS_CACHE_NO_AUTO_CLEAR            0x0080
+/* enough comments already ... see SSL_CTX_set_session_cache_mode(3) */
+# define SSL_SESS_CACHE_NO_INTERNAL_LOOKUP       0x0100
+# define SSL_SESS_CACHE_NO_INTERNAL_STORE        0x0200
+# define SSL_SESS_CACHE_NO_INTERNAL \
+        (SSL_SESS_CACHE_NO_INTERN
