@@ -746,4 +746,42 @@ void SSL_CTX_set_cookie_generate_cb(SSL_CTX *ctx,
                                                               *cookie_len));
 void SSL_CTX_set_cookie_verify_cb(SSL_CTX *ctx,
                                   int (*app_verify_cookie_cb) (SSL *ssl,
-                                                               const uns
+                                                               const unsigned
+                                                               char *cookie,
+                                                               unsigned int
+                                                               cookie_len));
+
+void SSL_CTX_set_stateless_cookie_generate_cb(
+    SSL_CTX *ctx,
+    int (*gen_stateless_cookie_cb) (SSL *ssl,
+                                    unsigned char *cookie,
+                                    size_t *cookie_len));
+void SSL_CTX_set_stateless_cookie_verify_cb(
+    SSL_CTX *ctx,
+    int (*verify_stateless_cookie_cb) (SSL *ssl,
+                                       const unsigned char *cookie,
+                                       size_t cookie_len));
+# ifndef OPENSSL_NO_NEXTPROTONEG
+
+typedef int (*SSL_CTX_npn_advertised_cb_func)(SSL *ssl,
+                                              const unsigned char **out,
+                                              unsigned int *outlen,
+                                              void *arg);
+void SSL_CTX_set_next_protos_advertised_cb(SSL_CTX *s,
+                                           SSL_CTX_npn_advertised_cb_func cb,
+                                           void *arg);
+#  define SSL_CTX_set_npn_advertised_cb SSL_CTX_set_next_protos_advertised_cb
+
+typedef int (*SSL_CTX_npn_select_cb_func)(SSL *s,
+                                          unsigned char **out,
+                                          unsigned char *outlen,
+                                          const unsigned char *in,
+                                          unsigned int inlen,
+                                          void *arg);
+void SSL_CTX_set_next_proto_select_cb(SSL_CTX *s,
+                                      SSL_CTX_npn_select_cb_func cb,
+                                      void *arg);
+#  define SSL_CTX_set_npn_select_cb SSL_CTX_set_next_proto_select_cb
+
+void SSL_get0_next_proto_negotiated(const SSL *s, const unsigned char **data,
+           
