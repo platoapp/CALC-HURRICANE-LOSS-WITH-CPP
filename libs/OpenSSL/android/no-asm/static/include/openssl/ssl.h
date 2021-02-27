@@ -678,4 +678,42 @@ typedef int (*GEN_SESSION_CB) (SSL *ssl, unsigned char *id,
 # define SSL_SESS_CACHE_NO_INTERNAL_LOOKUP       0x0100
 # define SSL_SESS_CACHE_NO_INTERNAL_STORE        0x0200
 # define SSL_SESS_CACHE_NO_INTERNAL \
-        (SSL_SESS_CACHE_NO_INTERN
+        (SSL_SESS_CACHE_NO_INTERNAL_LOOKUP|SSL_SESS_CACHE_NO_INTERNAL_STORE)
+
+LHASH_OF(SSL_SESSION) *SSL_CTX_sessions(SSL_CTX *ctx);
+# define SSL_CTX_sess_number(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_NUMBER,0,NULL)
+# define SSL_CTX_sess_connect(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT,0,NULL)
+# define SSL_CTX_sess_connect_good(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_GOOD,0,NULL)
+# define SSL_CTX_sess_connect_renegotiate(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_RENEGOTIATE,0,NULL)
+# define SSL_CTX_sess_accept(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT,0,NULL)
+# define SSL_CTX_sess_accept_renegotiate(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_RENEGOTIATE,0,NULL)
+# define SSL_CTX_sess_accept_good(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_GOOD,0,NULL)
+# define SSL_CTX_sess_hits(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_HIT,0,NULL)
+# define SSL_CTX_sess_cb_hits(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CB_HIT,0,NULL)
+# define SSL_CTX_sess_misses(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_MISSES,0,NULL)
+# define SSL_CTX_sess_timeouts(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_TIMEOUTS,0,NULL)
+# define SSL_CTX_sess_cache_full(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CACHE_FULL,0,NULL)
+
+void SSL_CTX_sess_set_new_cb(SSL_CTX *ctx,
+                             int (*new_session_cb) (struct ssl_st *ssl,
+                                                    SSL_SESSION *sess));
+int (*SSL_CTX_sess_get_new_cb(SSL_CTX *ctx)) (struct ssl_st *ssl,
+                                              SSL_SESSION *sess);
+void SSL_CTX_sess_set_remove_cb(SSL_CTX *ctx,
+                                void (*remove_session_cb) (struct ssl_ctx_st
+                                                           *ctx,
+                                                           SSL_SESSION *sess));
+void (*SSL_CTX_sess_get_remove_cb(SSL_CTX *ctx)) (struct ssl_ctx_st *ctx,
+                                          
