@@ -590,4 +590,48 @@ unsigned long SSL_set_options(SSL *s, unsigned long op);
 # define SSL_CTX_set_mode(ctx,op) \
         SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
 # define SSL_CTX_clear_mode(ctx,op) \
-        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEA
+        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
+# define SSL_CTX_get_mode(ctx) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,0,NULL)
+# define SSL_clear_mode(ssl,op) \
+        SSL_ctrl((ssl),SSL_CTRL_CLEAR_MODE,(op),NULL)
+# define SSL_set_mode(ssl,op) \
+        SSL_ctrl((ssl),SSL_CTRL_MODE,(op),NULL)
+# define SSL_get_mode(ssl) \
+        SSL_ctrl((ssl),SSL_CTRL_MODE,0,NULL)
+# define SSL_set_mtu(ssl, mtu) \
+        SSL_ctrl((ssl),SSL_CTRL_SET_MTU,(mtu),NULL)
+# define DTLS_set_link_mtu(ssl, mtu) \
+        SSL_ctrl((ssl),DTLS_CTRL_SET_LINK_MTU,(mtu),NULL)
+# define DTLS_get_link_min_mtu(ssl) \
+        SSL_ctrl((ssl),DTLS_CTRL_GET_LINK_MIN_MTU,0,NULL)
+
+# define SSL_get_secure_renegotiation_support(ssl) \
+        SSL_ctrl((ssl), SSL_CTRL_GET_RI_SUPPORT, 0, NULL)
+
+# ifndef OPENSSL_NO_HEARTBEATS
+#  define SSL_heartbeat(ssl) \
+        SSL_ctrl((ssl),SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT,0,NULL)
+# endif
+
+# define SSL_CTX_set_cert_flags(ctx,op) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_CERT_FLAGS,(op),NULL)
+# define SSL_set_cert_flags(s,op) \
+        SSL_ctrl((s),SSL_CTRL_CERT_FLAGS,(op),NULL)
+# define SSL_CTX_clear_cert_flags(ctx,op) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
+# define SSL_clear_cert_flags(s,op) \
+        SSL_ctrl((s),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
+
+void SSL_CTX_set_msg_callback(SSL_CTX *ctx,
+                              void (*cb) (int write_p, int version,
+                                          int content_type, const void *buf,
+                                          size_t len, SSL *ssl, void *arg));
+void SSL_set_msg_callback(SSL *ssl,
+                          void (*cb) (int write_p, int version,
+                                      int content_type, const void *buf,
+                                      size_t len, SSL *ssl, void *arg));
+# define SSL_CTX_set_msg_callback_arg(ctx, arg) SSL_CTX_ctrl((ctx), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
+# define SSL_set_msg_callback_arg(ssl, arg) SSL_ctrl((ssl), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
+
+# define SSL_get_
