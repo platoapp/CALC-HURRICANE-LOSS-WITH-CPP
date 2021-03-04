@@ -901,4 +901,62 @@ __owur int SSL_extension_supported(unsigned int ext_type);
 # define SSL_want_nothing(s)         (SSL_want(s) == SSL_NOTHING)
 # define SSL_want_read(s)            (SSL_want(s) == SSL_READING)
 # define SSL_want_write(s)           (SSL_want(s) == SSL_WRITING)
-# define SSL_want_x509_lookup(s)     (SSL_want(s
+# define SSL_want_x509_lookup(s)     (SSL_want(s) == SSL_X509_LOOKUP)
+# define SSL_want_async(s)           (SSL_want(s) == SSL_ASYNC_PAUSED)
+# define SSL_want_async_job(s)       (SSL_want(s) == SSL_ASYNC_NO_JOBS)
+# define SSL_want_client_hello_cb(s) (SSL_want(s) == SSL_CLIENT_HELLO_CB)
+
+# define SSL_MAC_FLAG_READ_MAC_STREAM 1
+# define SSL_MAC_FLAG_WRITE_MAC_STREAM 2
+
+/*
+ * A callback for logging out TLS key material. This callback should log out
+ * |line| followed by a newline.
+ */
+typedef void (*SSL_CTX_keylog_cb_func)(const SSL *ssl, const char *line);
+
+/*
+ * SSL_CTX_set_keylog_callback configures a callback to log key material. This
+ * is intended for debugging use with tools like Wireshark. The cb function
+ * should log line followed by a newline.
+ */
+void SSL_CTX_set_keylog_callback(SSL_CTX *ctx, SSL_CTX_keylog_cb_func cb);
+
+/*
+ * SSL_CTX_get_keylog_callback returns the callback configured by
+ * SSL_CTX_set_keylog_callback.
+ */
+SSL_CTX_keylog_cb_func SSL_CTX_get_keylog_callback(const SSL_CTX *ctx);
+
+int SSL_CTX_set_max_early_data(SSL_CTX *ctx, uint32_t max_early_data);
+uint32_t SSL_CTX_get_max_early_data(const SSL_CTX *ctx);
+int SSL_set_max_early_data(SSL *s, uint32_t max_early_data);
+uint32_t SSL_get_max_early_data(const SSL *s);
+int SSL_CTX_set_recv_max_early_data(SSL_CTX *ctx, uint32_t recv_max_early_data);
+uint32_t SSL_CTX_get_recv_max_early_data(const SSL_CTX *ctx);
+int SSL_set_recv_max_early_data(SSL *s, uint32_t recv_max_early_data);
+uint32_t SSL_get_recv_max_early_data(const SSL *s);
+
+#ifdef __cplusplus
+}
+#endif
+
+# include <openssl/ssl2.h>
+# include <openssl/ssl3.h>
+# include <openssl/tls1.h>      /* This is mostly sslv3 with a few tweaks */
+# include <openssl/dtls1.h>     /* Datagram TLS */
+# include <openssl/srtp.h>      /* Support for the use_srtp extension */
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+/*
+ * These need to be after the above set of includes due to a compiler bug
+ * in VisualStudio 2015
+ */
+DEFINE_STACK_OF_CONST(SSL_CIPHER)
+DEFINE_STACK_OF(SSL_COMP)
+
+/* compatibility */
+# define SSL_set_ap
