@@ -1066,4 +1066,57 @@ typedef enum {
 # define SSL_CB_CONNECT_LOOP             (SSL_ST_CONNECT|SSL_CB_LOOP)
 # define SSL_CB_CONNECT_EXIT             (SSL_ST_CONNECT|SSL_CB_EXIT)
 # define SSL_CB_HANDSHAKE_START          0x10
-# define SSL_CB_HANDSHAKE_DONE         
+# define SSL_CB_HANDSHAKE_DONE           0x20
+
+/* Is the SSL_connection established? */
+# define SSL_in_connect_init(a)          (SSL_in_init(a) && !SSL_is_server(a))
+# define SSL_in_accept_init(a)           (SSL_in_init(a) && SSL_is_server(a))
+int SSL_in_init(const SSL *s);
+int SSL_in_before(const SSL *s);
+int SSL_is_init_finished(const SSL *s);
+
+/*
+ * The following 3 states are kept in ssl->rlayer.rstate when reads fail, you
+ * should not need these
+ */
+# define SSL_ST_READ_HEADER                      0xF0
+# define SSL_ST_READ_BODY                        0xF1
+# define SSL_ST_READ_DONE                        0xF2
+
+/*-
+ * Obtain latest Finished message
+ *   -- that we sent (SSL_get_finished)
+ *   -- that we expected from peer (SSL_get_peer_finished).
+ * Returns length (0 == no Finished so far), copies up to 'count' bytes.
+ */
+size_t SSL_get_finished(const SSL *s, void *buf, size_t count);
+size_t SSL_get_peer_finished(const SSL *s, void *buf, size_t count);
+
+/*
+ * use either SSL_VERIFY_NONE or SSL_VERIFY_PEER, the last 3 options are
+ * 'ored' with SSL_VERIFY_PEER if they are desired
+ */
+# define SSL_VERIFY_NONE                 0x00
+# define SSL_VERIFY_PEER                 0x01
+# define SSL_VERIFY_FAIL_IF_NO_PEER_CERT 0x02
+# define SSL_VERIFY_CLIENT_ONCE          0x04
+# define SSL_VERIFY_POST_HANDSHAKE       0x08
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define OpenSSL_add_ssl_algorithms()   SSL_library_init()
+#  define SSLeay_add_ssl_algorithms()    SSL_library_init()
+# endif
+
+/* More backward compatibility */
+# define SSL_get_cipher(s) \
+                SSL_CIPHER_get_name(SSL_get_current_cipher(s))
+# define SSL_get_cipher_bits(s,np) \
+                SSL_CIPHER_get_bits(SSL_get_current_cipher(s),np)
+# define SSL_get_cipher_version(s) \
+                SSL_CIPHER_get_version(SSL_get_current_cipher(s))
+# define SSL_get_cipher_name(s) \
+                SSL_CIPHER_get_name(SSL_get_current_cipher(s))
+# define SSL_get_time(a)         SSL_SESSION_get_time(a)
+# define SSL_set_time(a,b)       SSL_SESSION_set_time((a),(b))
+# define SSL_get_timeout(a)      SSL_SESSION_get_timeout(a)
+# 
