@@ -1274,4 +1274,43 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 # define SSL_CTRL_GET_SHARED_GROUP               93
 # define SSL_CTRL_SET_SIGALGS                    97
 # define SSL_CTRL_SET_SIGALGS_LIST               98
-# define SSL_CTRL_CERT_FLAGS           
+# define SSL_CTRL_CERT_FLAGS                     99
+# define SSL_CTRL_CLEAR_CERT_FLAGS               100
+# define SSL_CTRL_SET_CLIENT_SIGALGS             101
+# define SSL_CTRL_SET_CLIENT_SIGALGS_LIST        102
+# define SSL_CTRL_GET_CLIENT_CERT_TYPES          103
+# define SSL_CTRL_SET_CLIENT_CERT_TYPES          104
+# define SSL_CTRL_BUILD_CERT_CHAIN               105
+# define SSL_CTRL_SET_VERIFY_CERT_STORE          106
+# define SSL_CTRL_SET_CHAIN_CERT_STORE           107
+# define SSL_CTRL_GET_PEER_SIGNATURE_NID         108
+# define SSL_CTRL_GET_PEER_TMP_KEY               109
+# define SSL_CTRL_GET_RAW_CIPHERLIST             110
+# define SSL_CTRL_GET_EC_POINT_FORMATS           111
+# define SSL_CTRL_GET_CHAIN_CERTS                115
+# define SSL_CTRL_SELECT_CURRENT_CERT            116
+# define SSL_CTRL_SET_CURRENT_CERT               117
+# define SSL_CTRL_SET_DH_AUTO                    118
+# define DTLS_CTRL_SET_LINK_MTU                  120
+# define DTLS_CTRL_GET_LINK_MIN_MTU              121
+# define SSL_CTRL_GET_EXTMS_SUPPORT              122
+# define SSL_CTRL_SET_MIN_PROTO_VERSION          123
+# define SSL_CTRL_SET_MAX_PROTO_VERSION          124
+# define SSL_CTRL_SET_SPLIT_SEND_FRAGMENT        125
+# define SSL_CTRL_SET_MAX_PIPELINES              126
+# define SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE     127
+# define SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB       128
+# define SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB_ARG   129
+# define SSL_CTRL_GET_MIN_PROTO_VERSION          130
+# define SSL_CTRL_GET_MAX_PROTO_VERSION          131
+# define SSL_CTRL_GET_SIGNATURE_NID              132
+# define SSL_CTRL_GET_TMP_KEY                    133
+# define SSL_CERT_SET_FIRST                      1
+# define SSL_CERT_SET_NEXT                       2
+# define SSL_CERT_SET_SERVER                     3
+# define DTLSv1_get_timeout(ssl, arg) \
+        SSL_ctrl(ssl,DTLS_CTRL_GET_TIMEOUT,0, (void *)(arg))
+# define DTLSv1_handle_timeout(ssl) \
+        SSL_ctrl(ssl,DTLS_CTRL_HANDLE_TIMEOUT,0, NULL)
+# define SSL_num_renegotiations(ssl) \
+        SSL_ctrl((ssl),SSL_CTRL_GET_NUM_RENEGOT
