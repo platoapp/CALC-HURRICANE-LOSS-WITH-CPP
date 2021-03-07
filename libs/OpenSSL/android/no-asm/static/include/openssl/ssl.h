@@ -1119,4 +1119,45 @@ size_t SSL_get_peer_finished(const SSL *s, void *buf, size_t count);
 # define SSL_get_time(a)         SSL_SESSION_get_time(a)
 # define SSL_set_time(a,b)       SSL_SESSION_set_time((a),(b))
 # define SSL_get_timeout(a)      SSL_SESSION_get_timeout(a)
-# 
+# define SSL_set_timeout(a,b)    SSL_SESSION_set_timeout((a),(b))
+
+# define d2i_SSL_SESSION_bio(bp,s_id) ASN1_d2i_bio_of(SSL_SESSION,SSL_SESSION_new,d2i_SSL_SESSION,bp,s_id)
+# define i2d_SSL_SESSION_bio(bp,s_id) ASN1_i2d_bio_of(SSL_SESSION,i2d_SSL_SESSION,bp,s_id)
+
+DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
+# define SSL_AD_REASON_OFFSET            1000/* offset to get SSL_R_... value
+                                              * from SSL_AD_... */
+/* These alert types are for SSLv3 and TLSv1 */
+# define SSL_AD_CLOSE_NOTIFY             SSL3_AD_CLOSE_NOTIFY
+/* fatal */
+# define SSL_AD_UNEXPECTED_MESSAGE       SSL3_AD_UNEXPECTED_MESSAGE
+/* fatal */
+# define SSL_AD_BAD_RECORD_MAC           SSL3_AD_BAD_RECORD_MAC
+# define SSL_AD_DECRYPTION_FAILED        TLS1_AD_DECRYPTION_FAILED
+# define SSL_AD_RECORD_OVERFLOW          TLS1_AD_RECORD_OVERFLOW
+/* fatal */
+# define SSL_AD_DECOMPRESSION_FAILURE    SSL3_AD_DECOMPRESSION_FAILURE
+/* fatal */
+# define SSL_AD_HANDSHAKE_FAILURE        SSL3_AD_HANDSHAKE_FAILURE
+/* Not for TLS */
+# define SSL_AD_NO_CERTIFICATE           SSL3_AD_NO_CERTIFICATE
+# define SSL_AD_BAD_CERTIFICATE          SSL3_AD_BAD_CERTIFICATE
+# define SSL_AD_UNSUPPORTED_CERTIFICATE  SSL3_AD_UNSUPPORTED_CERTIFICATE
+# define SSL_AD_CERTIFICATE_REVOKED      SSL3_AD_CERTIFICATE_REVOKED
+# define SSL_AD_CERTIFICATE_EXPIRED      SSL3_AD_CERTIFICATE_EXPIRED
+# define SSL_AD_CERTIFICATE_UNKNOWN      SSL3_AD_CERTIFICATE_UNKNOWN
+/* fatal */
+# define SSL_AD_ILLEGAL_PARAMETER        SSL3_AD_ILLEGAL_PARAMETER
+/* fatal */
+# define SSL_AD_UNKNOWN_CA               TLS1_AD_UNKNOWN_CA
+/* fatal */
+# define SSL_AD_ACCESS_DENIED            TLS1_AD_ACCESS_DENIED
+/* fatal */
+# define SSL_AD_DECODE_ERROR             TLS1_AD_DECODE_ERROR
+# define SSL_AD_DECRYPT_ERROR            TLS1_AD_DECRYPT_ERROR
+/* fatal */
+# define SSL_AD_EXPORT_RESTRICTION       TLS1_AD_EXPORT_RESTRICTION
+/* fatal */
+# define SSL_AD_PROTOCOL_VERSION         TLS1_AD_PROTOCOL_VERSION
+/* fatal */
+# de
