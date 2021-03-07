@@ -1236,4 +1236,42 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 # define SSL_CTRL_SET_TLSEXT_TICKET_KEYS         59
 /*# define SSL_CTRL_SET_TLSEXT_OPAQUE_PRF_INPUT    60 */
 /*# define SSL_CTRL_SET_TLSEXT_OPAQUE_PRF_INPUT_CB 61 */
-/*# define SSL_CTRL_SET_TLSEXT
+/*# define SSL_CTRL_SET_TLSEXT_OPAQUE_PRF_INPUT_CB_ARG 62 */
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB       63
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB_ARG   64
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE     65
+# define SSL_CTRL_GET_TLSEXT_STATUS_REQ_EXTS     66
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_EXTS     67
+# define SSL_CTRL_GET_TLSEXT_STATUS_REQ_IDS      68
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_IDS      69
+# define SSL_CTRL_GET_TLSEXT_STATUS_REQ_OCSP_RESP        70
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP        71
+# define SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB       72
+# define SSL_CTRL_SET_TLS_EXT_SRP_USERNAME_CB    75
+# define SSL_CTRL_SET_SRP_VERIFY_PARAM_CB                76
+# define SSL_CTRL_SET_SRP_GIVE_CLIENT_PWD_CB             77
+# define SSL_CTRL_SET_SRP_ARG            78
+# define SSL_CTRL_SET_TLS_EXT_SRP_USERNAME               79
+# define SSL_CTRL_SET_TLS_EXT_SRP_STRENGTH               80
+# define SSL_CTRL_SET_TLS_EXT_SRP_PASSWORD               81
+# ifndef OPENSSL_NO_HEARTBEATS
+#  define SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT               85
+#  define SSL_CTRL_GET_DTLS_EXT_HEARTBEAT_PENDING        86
+#  define SSL_CTRL_SET_DTLS_EXT_HEARTBEAT_NO_REQUESTS    87
+# endif
+# define DTLS_CTRL_GET_TIMEOUT           73
+# define DTLS_CTRL_HANDLE_TIMEOUT        74
+# define SSL_CTRL_GET_RI_SUPPORT                 76
+# define SSL_CTRL_CLEAR_MODE                     78
+# define SSL_CTRL_SET_NOT_RESUMABLE_SESS_CB      79
+# define SSL_CTRL_GET_EXTRA_CHAIN_CERTS          82
+# define SSL_CTRL_CLEAR_EXTRA_CHAIN_CERTS        83
+# define SSL_CTRL_CHAIN                          88
+# define SSL_CTRL_CHAIN_CERT                     89
+# define SSL_CTRL_GET_GROUPS                     90
+# define SSL_CTRL_SET_GROUPS                     91
+# define SSL_CTRL_SET_GROUPS_LIST                92
+# define SSL_CTRL_GET_SHARED_GROUP               93
+# define SSL_CTRL_SET_SIGALGS                    97
+# define SSL_CTRL_SET_SIGALGS_LIST               98
+# define SSL_CTRL_CERT_FLAGS           
