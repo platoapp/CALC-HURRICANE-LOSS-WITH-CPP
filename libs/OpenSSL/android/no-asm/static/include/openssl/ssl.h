@@ -1313,4 +1313,42 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 # define DTLSv1_handle_timeout(ssl) \
         SSL_ctrl(ssl,DTLS_CTRL_HANDLE_TIMEOUT,0, NULL)
 # define SSL_num_renegotiations(ssl) \
-        SSL_ctrl((ssl),SSL_CTRL_GET_NUM_RENEGOT
+        SSL_ctrl((ssl),SSL_CTRL_GET_NUM_RENEGOTIATIONS,0,NULL)
+# define SSL_clear_num_renegotiations(ssl) \
+        SSL_ctrl((ssl),SSL_CTRL_CLEAR_NUM_RENEGOTIATIONS,0,NULL)
+# define SSL_total_renegotiations(ssl) \
+        SSL_ctrl((ssl),SSL_CTRL_GET_TOTAL_RENEGOTIATIONS,0,NULL)
+# define SSL_CTX_set_tmp_dh(ctx,dh) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TMP_DH,0,(char *)(dh))
+# define SSL_CTX_set_tmp_ecdh(ctx,ecdh) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TMP_ECDH,0,(char *)(ecdh))
+# define SSL_CTX_set_dh_auto(ctx, onoff) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_DH_AUTO,onoff,NULL)
+# define SSL_set_dh_auto(s, onoff) \
+        SSL_ctrl(s,SSL_CTRL_SET_DH_AUTO,onoff,NULL)
+# define SSL_set_tmp_dh(ssl,dh) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_TMP_DH,0,(char *)(dh))
+# define SSL_set_tmp_ecdh(ssl,ecdh) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_TMP_ECDH,0,(char *)(ecdh))
+# define SSL_CTX_add_extra_chain_cert(ctx,x509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_EXTRA_CHAIN_CERT,0,(char *)(x509))
+# define SSL_CTX_get_extra_chain_certs(ctx,px509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_EXTRA_CHAIN_CERTS,0,px509)
+# define SSL_CTX_get_extra_chain_certs_only(ctx,px509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_EXTRA_CHAIN_CERTS,1,px509)
+# define SSL_CTX_clear_extra_chain_certs(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CLEAR_EXTRA_CHAIN_CERTS,0,NULL)
+# define SSL_CTX_set0_chain(ctx,sk) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CHAIN,0,(char *)(sk))
+# define SSL_CTX_set1_chain(ctx,sk) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CHAIN,1,(char *)(sk))
+# define SSL_CTX_add0_chain_cert(ctx,x509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CHAIN_CERT,0,(char *)(x509))
+# define SSL_CTX_add1_chain_cert(ctx,x509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CHAIN_CERT,1,(char *)(x509))
+# define SSL_CTX_get0_chain_certs(ctx,px509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_CHAIN_CERTS,0,px509)
+# define SSL_CTX_clear_chain_certs(ctx) \
+        SSL_CTX_set0_chain(ctx,NULL)
+# define SSL_CTX_build_cert_chain(ctx, flags) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_BUILD_CERT_CH
