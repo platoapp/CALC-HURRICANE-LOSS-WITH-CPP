@@ -1551,4 +1551,47 @@ __owur int SSL_set_ciphersuites(SSL *s, const char *str);
 void SSL_set_read_ahead(SSL *s, int yes);
 __owur int SSL_get_verify_mode(const SSL *s);
 __owur int SSL_get_verify_depth(const SSL *s);
-__owur SSL_verify_cb SSL_get_verify_callback(const S
+__owur SSL_verify_cb SSL_get_verify_callback(const SSL *s);
+void SSL_set_verify(SSL *s, int mode, SSL_verify_cb callback);
+void SSL_set_verify_depth(SSL *s, int depth);
+void SSL_set_cert_cb(SSL *s, int (*cb) (SSL *ssl, void *arg), void *arg);
+# ifndef OPENSSL_NO_RSA
+__owur int SSL_use_RSAPrivateKey(SSL *ssl, RSA *rsa);
+__owur int SSL_use_RSAPrivateKey_ASN1(SSL *ssl, const unsigned char *d,
+                                      long len);
+# endif
+__owur int SSL_use_PrivateKey(SSL *ssl, EVP_PKEY *pkey);
+__owur int SSL_use_PrivateKey_ASN1(int pk, SSL *ssl, const unsigned char *d,
+                                   long len);
+__owur int SSL_use_certificate(SSL *ssl, X509 *x);
+__owur int SSL_use_certificate_ASN1(SSL *ssl, const unsigned char *d, int len);
+__owur int SSL_use_cert_and_key(SSL *ssl, X509 *x509, EVP_PKEY *privatekey,
+                                STACK_OF(X509) *chain, int override);
+
+
+/* serverinfo file format versions */
+# define SSL_SERVERINFOV1   1
+# define SSL_SERVERINFOV2   2
+
+/* Set serverinfo data for the current active cert. */
+__owur int SSL_CTX_use_serverinfo(SSL_CTX *ctx, const unsigned char *serverinfo,
+                                  size_t serverinfo_length);
+__owur int SSL_CTX_use_serverinfo_ex(SSL_CTX *ctx, unsigned int version,
+                                     const unsigned char *serverinfo,
+                                     size_t serverinfo_length);
+__owur int SSL_CTX_use_serverinfo_file(SSL_CTX *ctx, const char *file);
+
+#ifndef OPENSSL_NO_RSA
+__owur int SSL_use_RSAPrivateKey_file(SSL *ssl, const char *file, int type);
+#endif
+
+__owur int SSL_use_PrivateKey_file(SSL *ssl, const char *file, int type);
+__owur int SSL_use_certificate_file(SSL *ssl, const char *file, int type);
+
+#ifndef OPENSSL_NO_RSA
+__owur int SSL_CTX_use_RSAPrivateKey_file(SSL_CTX *ctx, const char *file,
+                                          int type);
+#endif
+__owur int SSL_CTX_use_PrivateKey_file(SSL_CTX *ctx, const char *file,
+                                       int type);
+__owur int S
