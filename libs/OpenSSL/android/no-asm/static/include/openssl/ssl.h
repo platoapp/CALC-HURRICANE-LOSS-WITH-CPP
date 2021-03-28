@@ -1594,4 +1594,40 @@ __owur int SSL_CTX_use_RSAPrivateKey_file(SSL_CTX *ctx, const char *file,
 #endif
 __owur int SSL_CTX_use_PrivateKey_file(SSL_CTX *ctx, const char *file,
                                        int type);
-__owur int S
+__owur int SSL_CTX_use_certificate_file(SSL_CTX *ctx, const char *file,
+                                        int type);
+/* PEM type */
+__owur int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);
+__owur int SSL_use_certificate_chain_file(SSL *ssl, const char *file);
+__owur STACK_OF(X509_NAME) *SSL_load_client_CA_file(const char *file);
+__owur int SSL_add_file_cert_subjects_to_stack(STACK_OF(X509_NAME) *stackCAs,
+                                               const char *file);
+int SSL_add_dir_cert_subjects_to_stack(STACK_OF(X509_NAME) *stackCAs,
+                                       const char *dir);
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define SSL_load_error_strings() \
+    OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS \
+                     | OPENSSL_INIT_LOAD_CRYPTO_STRINGS, NULL)
+# endif
+
+__owur const char *SSL_state_string(const SSL *s);
+__owur const char *SSL_rstate_string(const SSL *s);
+__owur const char *SSL_state_string_long(const SSL *s);
+__owur const char *SSL_rstate_string_long(const SSL *s);
+__owur long SSL_SESSION_get_time(const SSL_SESSION *s);
+__owur long SSL_SESSION_set_time(SSL_SESSION *s, long t);
+__owur long SSL_SESSION_get_timeout(const SSL_SESSION *s);
+__owur long SSL_SESSION_set_timeout(SSL_SESSION *s, long t);
+__owur int SSL_SESSION_get_protocol_version(const SSL_SESSION *s);
+__owur int SSL_SESSION_set_protocol_version(SSL_SESSION *s, int version);
+
+__owur const char *SSL_SESSION_get0_hostname(const SSL_SESSION *s);
+__owur int SSL_SESSION_set1_hostname(SSL_SESSION *s, const char *hostname);
+void SSL_SESSION_get0_alpn_selected(const SSL_SESSION *s,
+                                    const unsigned char **alpn,
+                                    size_t *len);
+__owur int SSL_SESSION_set1_alpn_selected(SSL_SESSION *s,
+                                          const unsigned char *alpn,
+                                          size_t len);
+__owur const SSL_CIPHER *SSL_SESSION_ge
