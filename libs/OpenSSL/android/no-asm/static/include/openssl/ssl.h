@@ -1630,4 +1630,39 @@ void SSL_SESSION_get0_alpn_selected(const SSL_SESSION *s,
 __owur int SSL_SESSION_set1_alpn_selected(SSL_SESSION *s,
                                           const unsigned char *alpn,
                                           size_t len);
-__owur const SSL_CIPHER *SSL_SESSION_ge
+__owur const SSL_CIPHER *SSL_SESSION_get0_cipher(const SSL_SESSION *s);
+__owur int SSL_SESSION_set_cipher(SSL_SESSION *s, const SSL_CIPHER *cipher);
+__owur int SSL_SESSION_has_ticket(const SSL_SESSION *s);
+__owur unsigned long SSL_SESSION_get_ticket_lifetime_hint(const SSL_SESSION *s);
+void SSL_SESSION_get0_ticket(const SSL_SESSION *s, const unsigned char **tick,
+                             size_t *len);
+__owur uint32_t SSL_SESSION_get_max_early_data(const SSL_SESSION *s);
+__owur int SSL_SESSION_set_max_early_data(SSL_SESSION *s,
+                                          uint32_t max_early_data);
+__owur int SSL_copy_session_id(SSL *to, const SSL *from);
+__owur X509 *SSL_SESSION_get0_peer(SSL_SESSION *s);
+__owur int SSL_SESSION_set1_id_context(SSL_SESSION *s,
+                                       const unsigned char *sid_ctx,
+                                       unsigned int sid_ctx_len);
+__owur int SSL_SESSION_set1_id(SSL_SESSION *s, const unsigned char *sid,
+                               unsigned int sid_len);
+__owur int SSL_SESSION_is_resumable(const SSL_SESSION *s);
+
+__owur SSL_SESSION *SSL_SESSION_new(void);
+__owur SSL_SESSION *SSL_SESSION_dup(SSL_SESSION *src);
+const unsigned char *SSL_SESSION_get_id(const SSL_SESSION *s,
+                                        unsigned int *len);
+const unsigned char *SSL_SESSION_get0_id_context(const SSL_SESSION *s,
+                                                 unsigned int *len);
+__owur unsigned int SSL_SESSION_get_compress_id(const SSL_SESSION *s);
+# ifndef OPENSSL_NO_STDIO
+int SSL_SESSION_print_fp(FILE *fp, const SSL_SESSION *ses);
+# endif
+int SSL_SESSION_print(BIO *fp, const SSL_SESSION *ses);
+int SSL_SESSION_print_keylog(BIO *bp, const SSL_SESSION *x);
+int SSL_SESSION_up_ref(SSL_SESSION *ses);
+void SSL_SESSION_free(SSL_SESSION *ses);
+__owur int i2d_SSL_SESSION(SSL_SESSION *in, unsigned char **pp);
+__owur int SSL_set_session(SSL *to, SSL_SESSION *session);
+int SSL_CTX_add_session(SSL_CTX *ctx, SSL_SESSION *session);
+int SSL_CTX_remove_session(SSL_CTX *ctx, SSL_SESSION *se
