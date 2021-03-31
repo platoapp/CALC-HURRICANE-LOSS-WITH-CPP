@@ -1705,4 +1705,43 @@ __owur int SSL_CTX_use_cert_and_key(SSL_CTX *ctx, X509 *x509, EVP_PKEY *privatek
                                     STACK_OF(X509) *chain, int override);
 
 void SSL_CTX_set_default_passwd_cb(SSL_CTX *ctx, pem_password_cb *cb);
-void SSL_CTX_set_
+void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);
+pem_password_cb *SSL_CTX_get_default_passwd_cb(SSL_CTX *ctx);
+void *SSL_CTX_get_default_passwd_cb_userdata(SSL_CTX *ctx);
+void SSL_set_default_passwd_cb(SSL *s, pem_password_cb *cb);
+void SSL_set_default_passwd_cb_userdata(SSL *s, void *u);
+pem_password_cb *SSL_get_default_passwd_cb(SSL *s);
+void *SSL_get_default_passwd_cb_userdata(SSL *s);
+
+__owur int SSL_CTX_check_private_key(const SSL_CTX *ctx);
+__owur int SSL_check_private_key(const SSL *ctx);
+
+__owur int SSL_CTX_set_session_id_context(SSL_CTX *ctx,
+                                          const unsigned char *sid_ctx,
+                                          unsigned int sid_ctx_len);
+
+SSL *SSL_new(SSL_CTX *ctx);
+int SSL_up_ref(SSL *s);
+int SSL_is_dtls(const SSL *s);
+__owur int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,
+                                      unsigned int sid_ctx_len);
+
+__owur int SSL_CTX_set_purpose(SSL_CTX *ctx, int purpose);
+__owur int SSL_set_purpose(SSL *ssl, int purpose);
+__owur int SSL_CTX_set_trust(SSL_CTX *ctx, int trust);
+__owur int SSL_set_trust(SSL *ssl, int trust);
+
+__owur int SSL_set1_host(SSL *s, const char *hostname);
+__owur int SSL_add1_host(SSL *s, const char *hostname);
+__owur const char *SSL_get0_peername(SSL *s);
+void SSL_set_hostflags(SSL *s, unsigned int flags);
+
+__owur int SSL_CTX_dane_enable(SSL_CTX *ctx);
+__owur int SSL_CTX_dane_mtype_set(SSL_CTX *ctx, const EVP_MD *md,
+                                  uint8_t mtype, uint8_t ord);
+__owur int SSL_dane_enable(SSL *s, const char *basedomain);
+__owur int SSL_dane_tlsa_add(SSL *s, uint8_t usage, uint8_t selector,
+                             uint8_t mtype, unsigned const char *data, size_t dlen);
+__owur int SSL_get0_dane_authority(SSL *s, X509 **mcert, EVP_PKEY **mspki);
+__owur int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
+                     
