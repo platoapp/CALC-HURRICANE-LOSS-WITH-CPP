@@ -1837,4 +1837,52 @@ __owur int SSL_read_early_data(SSL *s, void *buf, size_t num,
                                size_t *readbytes);
 __owur int SSL_peek(SSL *ssl, void *buf, int num);
 __owur int SSL_peek_ex(SSL *ssl, void *buf, size_t num, size_t *readbytes);
-__owur int SSL_write(SSL *ssl, con
+__owur int SSL_write(SSL *ssl, const void *buf, int num);
+__owur int SSL_write_ex(SSL *s, const void *buf, size_t num, size_t *written);
+__owur int SSL_write_early_data(SSL *s, const void *buf, size_t num,
+                                size_t *written);
+long SSL_ctrl(SSL *ssl, int cmd, long larg, void *parg);
+long SSL_callback_ctrl(SSL *, int, void (*)(void));
+long SSL_CTX_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg);
+long SSL_CTX_callback_ctrl(SSL_CTX *, int, void (*)(void));
+
+# define SSL_EARLY_DATA_NOT_SENT    0
+# define SSL_EARLY_DATA_REJECTED    1
+# define SSL_EARLY_DATA_ACCEPTED    2
+
+__owur int SSL_get_early_data_status(const SSL *s);
+
+__owur int SSL_get_error(const SSL *s, int ret_code);
+__owur const char *SSL_get_version(const SSL *s);
+
+/* This sets the 'default' SSL version that SSL_new() will create */
+__owur int SSL_CTX_set_ssl_version(SSL_CTX *ctx, const SSL_METHOD *meth);
+
+# ifndef OPENSSL_NO_SSL3_METHOD
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *SSLv3_method(void)) /* SSLv3 */
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *SSLv3_server_method(void))
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *SSLv3_client_method(void))
+# endif
+
+#define SSLv23_method           TLS_method
+#define SSLv23_server_method    TLS_server_method
+#define SSLv23_client_method    TLS_client_method
+
+/* Negotiate highest available SSL/TLS version */
+__owur const SSL_METHOD *TLS_method(void);
+__owur const SSL_METHOD *TLS_server_method(void);
+__owur const SSL_METHOD *TLS_client_method(void);
+
+# ifndef OPENSSL_NO_TLS1_METHOD
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_method(void)) /* TLSv1.0 */
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_server_method(void))
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_client_method(void))
+# endif
+
+# ifndef OPENSSL_NO_TLS1_1_METHOD
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_1_method(void)) /* TLSv1.1 */
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_1_server_method(void))
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_1_client_method(void))
+# endif
+
+# ifndef OPENSSL_NO_TLS1_2_M
