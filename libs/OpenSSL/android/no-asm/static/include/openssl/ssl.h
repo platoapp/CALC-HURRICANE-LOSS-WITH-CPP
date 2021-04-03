@@ -1885,4 +1885,47 @@ DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_1_server_method(void))
 DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_1_client_method(void))
 # endif
 
-# ifndef OPENSSL_NO_TLS1_2_M
+# ifndef OPENSSL_NO_TLS1_2_METHOD
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_2_method(void)) /* TLSv1.2 */
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_2_server_method(void))
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_2_client_method(void))
+# endif
+
+# ifndef OPENSSL_NO_DTLS1_METHOD
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *DTLSv1_method(void)) /* DTLSv1.0 */
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *DTLSv1_server_method(void))
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *DTLSv1_client_method(void))
+# endif
+
+# ifndef OPENSSL_NO_DTLS1_2_METHOD
+/* DTLSv1.2 */
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *DTLSv1_2_method(void))
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *DTLSv1_2_server_method(void))
+DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *DTLSv1_2_client_method(void))
+# endif
+
+__owur const SSL_METHOD *DTLS_method(void); /* DTLS 1.0 and 1.2 */
+__owur const SSL_METHOD *DTLS_server_method(void); /* DTLS 1.0 and 1.2 */
+__owur const SSL_METHOD *DTLS_client_method(void); /* DTLS 1.0 and 1.2 */
+
+__owur size_t DTLS_get_data_mtu(const SSL *s);
+
+__owur STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const SSL *s);
+__owur STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const SSL_CTX *ctx);
+__owur STACK_OF(SSL_CIPHER) *SSL_get_client_ciphers(const SSL *s);
+__owur STACK_OF(SSL_CIPHER) *SSL_get1_supported_ciphers(SSL *s);
+
+__owur int SSL_do_handshake(SSL *s);
+int SSL_key_update(SSL *s, int updatetype);
+int SSL_get_key_update_type(const SSL *s);
+int SSL_renegotiate(SSL *s);
+int SSL_renegotiate_abbreviated(SSL *s);
+__owur int SSL_renegotiate_pending(const SSL *s);
+int SSL_shutdown(SSL *s);
+__owur int SSL_verify_client_post_handshake(SSL *s);
+void SSL_CTX_set_post_handshake_auth(SSL_CTX *ctx, int val);
+void SSL_set_post_handshake_auth(SSL *s, int val);
+
+__owur const SSL_METHOD *SSL_CTX_get_ssl_method(const SSL_CTX *ctx);
+__owur const SSL_METHOD *SSL_get_ssl_method(const SSL *s);
+__owur int SSL_set_ssl_method(SSL *s, c
