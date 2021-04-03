@@ -1744,4 +1744,54 @@ __owur int SSL_dane_tlsa_add(SSL *s, uint8_t usage, uint8_t selector,
                              uint8_t mtype, unsigned const char *data, size_t dlen);
 __owur int SSL_get0_dane_authority(SSL *s, X509 **mcert, EVP_PKEY **mspki);
 __owur int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
-                     
+                              uint8_t *mtype, unsigned const char **data,
+                              size_t *dlen);
+/*
+ * Bridge opacity barrier between libcrypt and libssl, also needed to support
+ * offline testing in test/danetest.c
+ */
+SSL_DANE *SSL_get0_dane(SSL *ssl);
+/*
+ * DANE flags
+ */
+unsigned long SSL_CTX_dane_set_flags(SSL_CTX *ctx, unsigned long flags);
+unsigned long SSL_CTX_dane_clear_flags(SSL_CTX *ctx, unsigned long flags);
+unsigned long SSL_dane_set_flags(SSL *ssl, unsigned long flags);
+unsigned long SSL_dane_clear_flags(SSL *ssl, unsigned long flags);
+
+__owur int SSL_CTX_set1_param(SSL_CTX *ctx, X509_VERIFY_PARAM *vpm);
+__owur int SSL_set1_param(SSL *ssl, X509_VERIFY_PARAM *vpm);
+
+__owur X509_VERIFY_PARAM *SSL_CTX_get0_param(SSL_CTX *ctx);
+__owur X509_VERIFY_PARAM *SSL_get0_param(SSL *ssl);
+
+# ifndef OPENSSL_NO_SRP
+int SSL_CTX_set_srp_username(SSL_CTX *ctx, char *name);
+int SSL_CTX_set_srp_password(SSL_CTX *ctx, char *password);
+int SSL_CTX_set_srp_strength(SSL_CTX *ctx, int strength);
+int SSL_CTX_set_srp_client_pwd_callback(SSL_CTX *ctx,
+                                        char *(*cb) (SSL *, void *));
+int SSL_CTX_set_srp_verify_param_callback(SSL_CTX *ctx,
+                                          int (*cb) (SSL *, void *));
+int SSL_CTX_set_srp_username_callback(SSL_CTX *ctx,
+                                      int (*cb) (SSL *, int *, void *));
+int SSL_CTX_set_srp_cb_arg(SSL_CTX *ctx, void *arg);
+
+int SSL_set_srp_server_param(SSL *s, const BIGNUM *N, const BIGNUM *g,
+                             BIGNUM *sa, BIGNUM *v, char *info);
+int SSL_set_srp_server_param_pw(SSL *s, const char *user, const char *pass,
+                                const char *grp);
+
+__owur BIGNUM *SSL_get_srp_g(SSL *s);
+__owur BIGNUM *SSL_get_srp_N(SSL *s);
+
+__owur char *SSL_get_srp_username(SSL *s);
+__owur char *SSL_get_srp_userinfo(SSL *s);
+# endif
+
+/*
+ * ClientHello callback and helpers.
+ */
+
+# define SSL_CLIENT_HELLO_SUCCESS 1
+# define SSL_CLIENT_HELLO
