@@ -2051,4 +2051,44 @@ __owur int SSL_get_ex_data_X509_STORE_CTX_idx(void);
 
 # define SSL_CTX_set_max_send_fragment(ctx,m) \
         SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
-# define SSL_set_max_se
+# define SSL_set_max_send_fragment(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
+# define SSL_CTX_set_split_send_fragment(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)
+# define SSL_set_split_send_fragment(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)
+# define SSL_CTX_set_max_pipelines(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
+# define SSL_set_max_pipelines(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
+
+void SSL_CTX_set_default_read_buffer_len(SSL_CTX *ctx, size_t len);
+void SSL_set_default_read_buffer_len(SSL *s, size_t len);
+
+# ifndef OPENSSL_NO_DH
+/* NB: the |keylength| is only applicable when is_export is true */
+void SSL_CTX_set_tmp_dh_callback(SSL_CTX *ctx,
+                                 DH *(*dh) (SSL *ssl, int is_export,
+                                            int keylength));
+void SSL_set_tmp_dh_callback(SSL *ssl,
+                             DH *(*dh) (SSL *ssl, int is_export,
+                                        int keylength));
+# endif
+
+__owur const COMP_METHOD *SSL_get_current_compression(const SSL *s);
+__owur const COMP_METHOD *SSL_get_current_expansion(const SSL *s);
+__owur const char *SSL_COMP_get_name(const COMP_METHOD *comp);
+__owur const char *SSL_COMP_get0_name(const SSL_COMP *comp);
+__owur int SSL_COMP_get_id(const SSL_COMP *comp);
+STACK_OF(SSL_COMP) *SSL_COMP_get_compression_methods(void);
+__owur STACK_OF(SSL_COMP) *SSL_COMP_set0_compression_methods(STACK_OF(SSL_COMP)
+                                                             *meths);
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define SSL_COMP_free_compression_methods() while(0) continue
+# endif
+__owur int SSL_COMP_add_compression_method(int id, COMP_METHOD *cm);
+
+const SSL_CIPHER *SSL_CIPHER_find(SSL *ssl, const unsigned char *ptr);
+int SSL_CIPHER_get_cipher_nid(const SSL_CIPHER *c);
+int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);
+int SSL_bytes_to_cipher_list(SSL *s, const unsign
