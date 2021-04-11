@@ -2091,4 +2091,44 @@ __owur int SSL_COMP_add_compression_method(int id, COMP_METHOD *cm);
 const SSL_CIPHER *SSL_CIPHER_find(SSL *ssl, const unsigned char *ptr);
 int SSL_CIPHER_get_cipher_nid(const SSL_CIPHER *c);
 int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);
-int SSL_bytes_to_cipher_list(SSL *s, const unsign
+int SSL_bytes_to_cipher_list(SSL *s, const unsigned char *bytes, size_t len,
+                             int isv2format, STACK_OF(SSL_CIPHER) **sk,
+                             STACK_OF(SSL_CIPHER) **scsvs);
+
+/* TLS extensions functions */
+__owur int SSL_set_session_ticket_ext(SSL *s, void *ext_data, int ext_len);
+
+__owur int SSL_set_session_ticket_ext_cb(SSL *s,
+                                         tls_session_ticket_ext_cb_fn cb,
+                                         void *arg);
+
+/* Pre-shared secret session resumption functions */
+__owur int SSL_set_session_secret_cb(SSL *s,
+                                     tls_session_secret_cb_fn session_secret_cb,
+                                     void *arg);
+
+void SSL_CTX_set_not_resumable_session_callback(SSL_CTX *ctx,
+                                                int (*cb) (SSL *ssl,
+                                                           int
+                                                           is_forward_secure));
+
+void SSL_set_not_resumable_session_callback(SSL *ssl,
+                                            int (*cb) (SSL *ssl,
+                                                       int is_forward_secure));
+
+void SSL_CTX_set_record_padding_callback(SSL_CTX *ctx,
+                                         size_t (*cb) (SSL *ssl, int type,
+                                                       size_t len, void *arg));
+void SSL_CTX_set_record_padding_callback_arg(SSL_CTX *ctx, void *arg);
+void *SSL_CTX_get_record_padding_callback_arg(const SSL_CTX *ctx);
+int SSL_CTX_set_block_padding(SSL_CTX *ctx, size_t block_size);
+
+void SSL_set_record_padding_callback(SSL *ssl,
+                                    size_t (*cb) (SSL *ssl, int type,
+                                                  size_t len, void *arg));
+void SSL_set_record_padding_callback_arg(SSL *ssl, void *arg);
+void *SSL_get_record_padding_callback_arg(const SSL *ssl);
+int SSL_set_block_padding(SSL *ssl, size_t block_size);
+
+int SSL_set_num_tickets(SSL *s, size_t num_tickets);
+size_t SS
