@@ -2230,4 +2230,61 @@ int SSL_CTX_enable_ct(SSL_CTX *ctx, int validation_mode);
 int SSL_ct_is_enabled(const SSL *s);
 int SSL_CTX_ct_is_enabled(const SSL_CTX *ctx);
 
-/* Gets the SCTs receive
+/* Gets the SCTs received from a connection */
+const STACK_OF(SCT) *SSL_get0_peer_scts(SSL *s);
+
+/*
+ * Loads the CT log list from the default location.
+ * If a CTLOG_STORE has previously been set using SSL_CTX_set_ctlog_store,
+ * the log information loaded from this file will be appended to the
+ * CTLOG_STORE.
+ * Returns 1 on success, 0 otherwise.
+ */
+int SSL_CTX_set_default_ctlog_list_file(SSL_CTX *ctx);
+
+/*
+ * Loads the CT log list from the specified file path.
+ * If a CTLOG_STORE has previously been set using SSL_CTX_set_ctlog_store,
+ * the log information loaded from this file will be appended to the
+ * CTLOG_STORE.
+ * Returns 1 on success, 0 otherwise.
+ */
+int SSL_CTX_set_ctlog_list_file(SSL_CTX *ctx, const char *path);
+
+/*
+ * Sets the CT log list used by all SSL connections created from this SSL_CTX.
+ * Ownership of the CTLOG_STORE is transferred to the SSL_CTX.
+ */
+void SSL_CTX_set0_ctlog_store(SSL_CTX *ctx, CTLOG_STORE *logs);
+
+/*
+ * Gets the CT log list used by all SSL connections created from this SSL_CTX.
+ * This will be NULL unless one of the following functions has been called:
+ * - SSL_CTX_set_default_ctlog_list_file
+ * - SSL_CTX_set_ctlog_list_file
+ * - SSL_CTX_set_ctlog_store
+ */
+const CTLOG_STORE *SSL_CTX_get0_ctlog_store(const SSL_CTX *ctx);
+
+# endif /* OPENSSL_NO_CT */
+
+/* What the "other" parameter contains in security callback */
+/* Mask for type */
+# define SSL_SECOP_OTHER_TYPE    0xffff0000
+# define SSL_SECOP_OTHER_NONE    0
+# define SSL_SECOP_OTHER_CIPHER  (1 << 16)
+# define SSL_SECOP_OTHER_CURVE   (2 << 16)
+# define SSL_SECOP_OTHER_DH      (3 << 16)
+# define SSL_SECOP_OTHER_PKEY    (4 << 16)
+# define SSL_SECOP_OTHER_SIGALG  (5 << 16)
+# define SSL_SECOP_OTHER_CERT    (6 << 16)
+
+/* Indicated operation refers to peer key or certificate */
+# define SSL_SECOP_PEER          0x1000
+
+/* Values for "op" parameter in security callback */
+
+/* Called to filter ciphers */
+/* Ciphers client supports */
+# define SSL_SECOP_CIPHER_SUPPORTED      (1 | SSL_SECOP_OTHER_CIPHER)
+/* Cipher 
