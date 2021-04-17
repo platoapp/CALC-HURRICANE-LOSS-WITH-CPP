@@ -2323,4 +2323,39 @@ const CTLOG_STORE *SSL_CTX_get0_ctlog_store(const SSL_CTX *ctx);
 # define SSL_SECOP_PEER_EE_KEY           (SSL_SECOP_EE_KEY | SSL_SECOP_PEER)
 /* Peer CA key in certificate */
 # define SSL_SECOP_PEER_CA_KEY           (SSL_SECOP_CA_KEY | SSL_SECOP_PEER)
-/* Peer CA digest alg
+/* Peer CA digest algorithm in certificate */
+# define SSL_SECOP_PEER_CA_MD            (SSL_SECOP_CA_MD | SSL_SECOP_PEER)
+
+void SSL_set_security_level(SSL *s, int level);
+__owur int SSL_get_security_level(const SSL *s);
+void SSL_set_security_callback(SSL *s,
+                               int (*cb) (const SSL *s, const SSL_CTX *ctx,
+                                          int op, int bits, int nid,
+                                          void *other, void *ex));
+int (*SSL_get_security_callback(const SSL *s)) (const SSL *s,
+                                                const SSL_CTX *ctx, int op,
+                                                int bits, int nid, void *other,
+                                                void *ex);
+void SSL_set0_security_ex_data(SSL *s, void *ex);
+__owur void *SSL_get0_security_ex_data(const SSL *s);
+
+void SSL_CTX_set_security_level(SSL_CTX *ctx, int level);
+__owur int SSL_CTX_get_security_level(const SSL_CTX *ctx);
+void SSL_CTX_set_security_callback(SSL_CTX *ctx,
+                                   int (*cb) (const SSL *s, const SSL_CTX *ctx,
+                                              int op, int bits, int nid,
+                                              void *other, void *ex));
+int (*SSL_CTX_get_security_callback(const SSL_CTX *ctx)) (const SSL *s,
+                                                          const SSL_CTX *ctx,
+                                                          int op, int bits,
+                                                          int nid,
+                                                          void *other,
+                                                          void *ex);
+void SSL_CTX_set0_security_ex_data(SSL_CTX *ctx, void *ex);
+__owur void *SSL_CTX_get0_security_ex_data(const SSL_CTX *ctx);
+
+/* OPENSSL_INIT flag 0x010000 reserved for internal use */
+# define OPENSSL_INIT_NO_LOAD_SSL_STRINGS    0x00100000L
+# define OPENSSL_INIT_LOAD_SSL_STRINGS       0x00200000L
+
+# define OPENSSL_INIT_SSL_DEF
