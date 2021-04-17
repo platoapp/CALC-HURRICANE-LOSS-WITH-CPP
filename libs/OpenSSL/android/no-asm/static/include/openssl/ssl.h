@@ -2405,4 +2405,34 @@ typedef int SSL_TICKET_RETURN;
 #define SSL_TICKET_RETURN_USE_RENEW         4
 
 typedef int (*SSL_CTX_generate_session_ticket_fn)(SSL *s, void *arg);
-typedef SSL_TICKET_RETURN (*SSL_CTX_decrypt_session_ticket_fn)(SSL *s, SSL_SESSION *ss
+typedef SSL_TICKET_RETURN (*SSL_CTX_decrypt_session_ticket_fn)(SSL *s, SSL_SESSION *ss,
+                                                               const unsigned char *keyname,
+                                                               size_t keyname_length,
+                                                               SSL_TICKET_STATUS status,
+                                                               void *arg);
+int SSL_CTX_set_session_ticket_cb(SSL_CTX *ctx,
+                                  SSL_CTX_generate_session_ticket_fn gen_cb,
+                                  SSL_CTX_decrypt_session_ticket_fn dec_cb,
+                                  void *arg);
+int SSL_SESSION_set1_ticket_appdata(SSL_SESSION *ss, const void *data, size_t len);
+int SSL_SESSION_get0_ticket_appdata(SSL_SESSION *ss, void **data, size_t *len);
+
+extern const char SSL_version_str[];
+
+typedef unsigned int (*DTLS_timer_cb)(SSL *s, unsigned int timer_us);
+
+void DTLS_set_timer_cb(SSL *s, DTLS_timer_cb cb);
+
+
+typedef int (*SSL_allow_early_data_cb_fn)(SSL *s, void *arg);
+void SSL_CTX_set_allow_early_data_cb(SSL_CTX *ctx,
+                                     SSL_allow_early_data_cb_fn cb,
+                                     void *arg);
+void SSL_set_allow_early_data_cb(SSL *s,
+                                 SSL_allow_early_data_cb_fn cb,
+                                 void *arg);
+
+# ifdef  __cplusplus
+}
+# endif
+#endif
