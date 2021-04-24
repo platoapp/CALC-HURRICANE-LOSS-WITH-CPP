@@ -141,4 +141,50 @@ EVP_PKEY *OSSL_STORE_INFO_get0_PKEY(const OSSL_STORE_INFO *info);
 EVP_PKEY *OSSL_STORE_INFO_get1_PKEY(const OSSL_STORE_INFO *info);
 X509 *OSSL_STORE_INFO_get0_CERT(const OSSL_STORE_INFO *info);
 X509 *OSSL_STORE_INFO_get1_CERT(const OSSL_STORE_INFO *info);
-X509_CRL *OSSL_STORE_
+X509_CRL *OSSL_STORE_INFO_get0_CRL(const OSSL_STORE_INFO *info);
+X509_CRL *OSSL_STORE_INFO_get1_CRL(const OSSL_STORE_INFO *info);
+
+const char *OSSL_STORE_INFO_type_string(int type);
+
+/*
+ * Free the OSSL_STORE_INFO
+ */
+void OSSL_STORE_INFO_free(OSSL_STORE_INFO *info);
+
+
+/*-
+ *  Functions to construct a search URI from a base URI and search criteria
+ *  -----------------------------------------------------------------------
+ */
+
+/* OSSL_STORE search types */
+# define OSSL_STORE_SEARCH_BY_NAME              1 /* subject in certs, issuer in CRLs */
+# define OSSL_STORE_SEARCH_BY_ISSUER_SERIAL     2
+# define OSSL_STORE_SEARCH_BY_KEY_FINGERPRINT   3
+# define OSSL_STORE_SEARCH_BY_ALIAS             4
+
+/* To check what search types the scheme handler supports */
+int OSSL_STORE_supports_search(OSSL_STORE_CTX *ctx, int search_type);
+
+/* Search term constructors */
+/*
+ * The input is considered to be owned by the caller, and must therefore
+ * remain present throughout the lifetime of the returned OSSL_STORE_SEARCH
+ */
+OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_name(X509_NAME *name);
+OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_issuer_serial(X509_NAME *name,
+                                                      const ASN1_INTEGER
+                                                      *serial);
+OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_key_fingerprint(const EVP_MD *digest,
+                                                        const unsigned char
+                                                        *bytes, size_t len);
+OSSL_STORE_SEARCH *OSSL_STORE_SEARCH_by_alias(const char *alias);
+
+/* Search term destructor */
+void OSSL_STORE_SEARCH_free(OSSL_STORE_SEARCH *search);
+
+/* Search term accessors */
+int OSSL_STORE_SEARCH_get_type(const OSSL_STORE_SEARCH *criterion);
+X509_NAME *OSSL_STORE_SEARCH_get0_name(OSSL_STORE_SEARCH *criterion);
+const ASN1_INTEGER *OSSL_STORE_SEARCH_get0_serial(const OSSL_STORE_SEARCH
+                                                  *cr
