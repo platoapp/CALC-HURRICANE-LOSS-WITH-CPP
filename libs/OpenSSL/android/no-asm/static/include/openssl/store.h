@@ -104,4 +104,41 @@ int OSSL_STORE_close(OSSL_STORE_CTX *ctx);
 
 /*
  * Types of data that can be ossl_stored in a OSSL_STORE_INFO.
- * OSSL_STORE_INFO_NAME is typically 
+ * OSSL_STORE_INFO_NAME is typically found when getting a listing of
+ * available "files" / "tokens" / what have you.
+ */
+# define OSSL_STORE_INFO_NAME           1   /* char * */
+# define OSSL_STORE_INFO_PARAMS         2   /* EVP_PKEY * */
+# define OSSL_STORE_INFO_PKEY           3   /* EVP_PKEY * */
+# define OSSL_STORE_INFO_CERT           4   /* X509 * */
+# define OSSL_STORE_INFO_CRL            5   /* X509_CRL * */
+
+/*
+ * Functions to generate OSSL_STORE_INFOs, one function for each type we
+ * support having in them, as well as a generic constructor.
+ *
+ * In all cases, ownership of the object is transferred to the OSSL_STORE_INFO
+ * and will therefore be freed when the OSSL_STORE_INFO is freed.
+ */
+OSSL_STORE_INFO *OSSL_STORE_INFO_new_NAME(char *name);
+int OSSL_STORE_INFO_set0_NAME_description(OSSL_STORE_INFO *info, char *desc);
+OSSL_STORE_INFO *OSSL_STORE_INFO_new_PARAMS(EVP_PKEY *params);
+OSSL_STORE_INFO *OSSL_STORE_INFO_new_PKEY(EVP_PKEY *pkey);
+OSSL_STORE_INFO *OSSL_STORE_INFO_new_CERT(X509 *x509);
+OSSL_STORE_INFO *OSSL_STORE_INFO_new_CRL(X509_CRL *crl);
+
+/*
+ * Functions to try to extract data from a OSSL_STORE_INFO.
+ */
+int OSSL_STORE_INFO_get_type(const OSSL_STORE_INFO *info);
+const char *OSSL_STORE_INFO_get0_NAME(const OSSL_STORE_INFO *info);
+char *OSSL_STORE_INFO_get1_NAME(const OSSL_STORE_INFO *info);
+const char *OSSL_STORE_INFO_get0_NAME_description(const OSSL_STORE_INFO *info);
+char *OSSL_STORE_INFO_get1_NAME_description(const OSSL_STORE_INFO *info);
+EVP_PKEY *OSSL_STORE_INFO_get0_PARAMS(const OSSL_STORE_INFO *info);
+EVP_PKEY *OSSL_STORE_INFO_get1_PARAMS(const OSSL_STORE_INFO *info);
+EVP_PKEY *OSSL_STORE_INFO_get0_PKEY(const OSSL_STORE_INFO *info);
+EVP_PKEY *OSSL_STORE_INFO_get1_PKEY(const OSSL_STORE_INFO *info);
+X509 *OSSL_STORE_INFO_get0_CERT(const OSSL_STORE_INFO *info);
+X509 *OSSL_STORE_INFO_get1_CERT(const OSSL_STORE_INFO *info);
+X509_CRL *OSSL_STORE_
