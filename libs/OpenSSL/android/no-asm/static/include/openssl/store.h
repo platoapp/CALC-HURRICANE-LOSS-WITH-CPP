@@ -187,4 +187,43 @@ void OSSL_STORE_SEARCH_free(OSSL_STORE_SEARCH *search);
 int OSSL_STORE_SEARCH_get_type(const OSSL_STORE_SEARCH *criterion);
 X509_NAME *OSSL_STORE_SEARCH_get0_name(OSSL_STORE_SEARCH *criterion);
 const ASN1_INTEGER *OSSL_STORE_SEARCH_get0_serial(const OSSL_STORE_SEARCH
-                                                  *cr
+                                                  *criterion);
+const unsigned char *OSSL_STORE_SEARCH_get0_bytes(const OSSL_STORE_SEARCH
+                                                  *criterion, size_t *length);
+const char *OSSL_STORE_SEARCH_get0_string(const OSSL_STORE_SEARCH *criterion);
+const EVP_MD *OSSL_STORE_SEARCH_get0_digest(const OSSL_STORE_SEARCH *criterion);
+
+/*
+ * Add search criterion and expected return type (which can be unspecified)
+ * to the loading channel.  This MUST happen before the first OSSL_STORE_load().
+ */
+int OSSL_STORE_expect(OSSL_STORE_CTX *ctx, int expected_type);
+int OSSL_STORE_find(OSSL_STORE_CTX *ctx, OSSL_STORE_SEARCH *search);
+
+
+/*-
+ *  Function to register a loader for the given URI scheme.
+ *  -------------------------------------------------------
+ *
+ *  The loader receives all the main components of an URI except for the
+ *  scheme.
+ */
+
+typedef struct ossl_store_loader_st OSSL_STORE_LOADER;
+OSSL_STORE_LOADER *OSSL_STORE_LOADER_new(ENGINE *e, const char *scheme);
+const ENGINE *OSSL_STORE_LOADER_get0_engine(const OSSL_STORE_LOADER *loader);
+const char *OSSL_STORE_LOADER_get0_scheme(const OSSL_STORE_LOADER *loader);
+/* struct ossl_store_loader_ctx_st is defined differently by each loader */
+typedef struct ossl_store_loader_ctx_st OSSL_STORE_LOADER_CTX;
+typedef OSSL_STORE_LOADER_CTX *(*OSSL_STORE_open_fn)(const OSSL_STORE_LOADER
+                                                     *loader,
+                                                     const char *uri,
+                                                     const UI_METHOD *ui_method,
+                                                     void *ui_data);
+int OSSL_STORE_LOADER_set_open(OSSL_STORE_LOADER *loader,
+                               OSSL_STORE_open_fn open_function);
+typedef int (*OSSL_STORE_ctrl_fn)(OSSL_STORE_LOADER_CTX *ctx, int cmd,
+                                  va_list args);
+int OSSL_STORE_LOADER_set_ctrl(OSSL_STORE_LOADER *loader,
+                               OSSL_STORE_ctrl_fn ctrl_function);
+typedef int (*OSSL_STORE_expect_fn)(OSSL_S
