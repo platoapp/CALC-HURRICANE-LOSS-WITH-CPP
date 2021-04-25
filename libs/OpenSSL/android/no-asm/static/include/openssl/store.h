@@ -226,4 +226,41 @@ typedef int (*OSSL_STORE_ctrl_fn)(OSSL_STORE_LOADER_CTX *ctx, int cmd,
                                   va_list args);
 int OSSL_STORE_LOADER_set_ctrl(OSSL_STORE_LOADER *loader,
                                OSSL_STORE_ctrl_fn ctrl_function);
-typedef int (*OSSL_STORE_expect_fn)(OSSL_S
+typedef int (*OSSL_STORE_expect_fn)(OSSL_STORE_LOADER_CTX *ctx, int expected);
+int OSSL_STORE_LOADER_set_expect(OSSL_STORE_LOADER *loader,
+                                 OSSL_STORE_expect_fn expect_function);
+typedef int (*OSSL_STORE_find_fn)(OSSL_STORE_LOADER_CTX *ctx,
+                                  OSSL_STORE_SEARCH *criteria);
+int OSSL_STORE_LOADER_set_find(OSSL_STORE_LOADER *loader,
+                               OSSL_STORE_find_fn find_function);
+typedef OSSL_STORE_INFO *(*OSSL_STORE_load_fn)(OSSL_STORE_LOADER_CTX *ctx,
+                                               const UI_METHOD *ui_method,
+                                               void *ui_data);
+int OSSL_STORE_LOADER_set_load(OSSL_STORE_LOADER *loader,
+                               OSSL_STORE_load_fn load_function);
+typedef int (*OSSL_STORE_eof_fn)(OSSL_STORE_LOADER_CTX *ctx);
+int OSSL_STORE_LOADER_set_eof(OSSL_STORE_LOADER *loader,
+                              OSSL_STORE_eof_fn eof_function);
+typedef int (*OSSL_STORE_error_fn)(OSSL_STORE_LOADER_CTX *ctx);
+int OSSL_STORE_LOADER_set_error(OSSL_STORE_LOADER *loader,
+                                OSSL_STORE_error_fn error_function);
+typedef int (*OSSL_STORE_close_fn)(OSSL_STORE_LOADER_CTX *ctx);
+int OSSL_STORE_LOADER_set_close(OSSL_STORE_LOADER *loader,
+                                OSSL_STORE_close_fn close_function);
+void OSSL_STORE_LOADER_free(OSSL_STORE_LOADER *loader);
+
+int OSSL_STORE_register_loader(OSSL_STORE_LOADER *loader);
+OSSL_STORE_LOADER *OSSL_STORE_unregister_loader(const char *scheme);
+
+/*-
+ *  Functions to list STORE loaders
+ *  -------------------------------
+ */
+int OSSL_STORE_do_all_loaders(void (*do_function) (const OSSL_STORE_LOADER
+                                                   *loader, void *do_arg),
+                              void *do_arg);
+
+# ifdef  __cplusplus
+}
+# endif
+#endif
