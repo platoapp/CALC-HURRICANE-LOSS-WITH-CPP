@@ -71,4 +71,65 @@ extern "C" {
 # define TLS1_AD_BAD_CERTIFICATE_STATUS_RESPONSE 113
 # define TLS1_AD_BAD_CERTIFICATE_HASH_VALUE 114
 # define TLS1_AD_UNKNOWN_PSK_IDENTITY    115/* fatal */
-# define TLS1_AD_NO_APPLIC
+# define TLS1_AD_NO_APPLICATION_PROTOCOL 120 /* fatal */
+
+/* ExtensionType values from RFC3546 / RFC4366 / RFC6066 */
+# define TLSEXT_TYPE_server_name                 0
+# define TLSEXT_TYPE_max_fragment_length         1
+# define TLSEXT_TYPE_client_certificate_url      2
+# define TLSEXT_TYPE_trusted_ca_keys             3
+# define TLSEXT_TYPE_truncated_hmac              4
+# define TLSEXT_TYPE_status_request              5
+/* ExtensionType values from RFC4681 */
+# define TLSEXT_TYPE_user_mapping                6
+/* ExtensionType values from RFC5878 */
+# define TLSEXT_TYPE_client_authz                7
+# define TLSEXT_TYPE_server_authz                8
+/* ExtensionType values from RFC6091 */
+# define TLSEXT_TYPE_cert_type           9
+
+/* ExtensionType values from RFC4492 */
+/*
+ * Prior to TLSv1.3 the supported_groups extension was known as
+ * elliptic_curves
+ */
+# define TLSEXT_TYPE_supported_groups            10
+# define TLSEXT_TYPE_elliptic_curves             TLSEXT_TYPE_supported_groups
+# define TLSEXT_TYPE_ec_point_formats            11
+
+
+/* ExtensionType value from RFC5054 */
+# define TLSEXT_TYPE_srp                         12
+
+/* ExtensionType values from RFC5246 */
+# define TLSEXT_TYPE_signature_algorithms        13
+
+/* ExtensionType value from RFC5764 */
+# define TLSEXT_TYPE_use_srtp    14
+
+/* ExtensionType value from RFC5620 */
+# define TLSEXT_TYPE_heartbeat   15
+
+/* ExtensionType value from RFC7301 */
+# define TLSEXT_TYPE_application_layer_protocol_negotiation 16
+
+/*
+ * Extension type for Certificate Transparency
+ * https://tools.ietf.org/html/rfc6962#section-3.3.1
+ */
+# define TLSEXT_TYPE_signed_certificate_timestamp    18
+
+/*
+ * ExtensionType value for TLS padding extension.
+ * http://tools.ietf.org/html/draft-agl-tls-padding
+ */
+# define TLSEXT_TYPE_padding     21
+
+/* ExtensionType value from RFC7366 */
+# define TLSEXT_TYPE_encrypt_then_mac    22
+
+/* ExtensionType value from RFC7627 */
+# define TLSEXT_TYPE_extended_master_secret      23
+
+/* ExtensionType value from RFC4507 */
+# define TLSEXT_TYPE_session_ti
