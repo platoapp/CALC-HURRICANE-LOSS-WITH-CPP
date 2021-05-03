@@ -132,4 +132,51 @@ extern "C" {
 # define TLSEXT_TYPE_extended_master_secret      23
 
 /* ExtensionType value from RFC4507 */
-# define TLSEXT_TYPE_session_ti
+# define TLSEXT_TYPE_session_ticket              35
+
+/* As defined for TLS1.3 */
+# define TLSEXT_TYPE_psk                         41
+# define TLSEXT_TYPE_early_data                  42
+# define TLSEXT_TYPE_supported_versions          43
+# define TLSEXT_TYPE_cookie                      44
+# define TLSEXT_TYPE_psk_kex_modes               45
+# define TLSEXT_TYPE_certificate_authorities     47
+# define TLSEXT_TYPE_post_handshake_auth         49
+# define TLSEXT_TYPE_signature_algorithms_cert   50
+# define TLSEXT_TYPE_key_share                   51
+
+/* Temporary extension type */
+# define TLSEXT_TYPE_renegotiate                 0xff01
+
+# ifndef OPENSSL_NO_NEXTPROTONEG
+/* This is not an IANA defined extension number */
+#  define TLSEXT_TYPE_next_proto_neg              13172
+# endif
+
+/* NameType value from RFC3546 */
+# define TLSEXT_NAMETYPE_host_name 0
+/* status request value from RFC3546 */
+# define TLSEXT_STATUSTYPE_ocsp 1
+
+/* ECPointFormat values from RFC4492 */
+# define TLSEXT_ECPOINTFORMAT_first                      0
+# define TLSEXT_ECPOINTFORMAT_uncompressed               0
+# define TLSEXT_ECPOINTFORMAT_ansiX962_compressed_prime  1
+# define TLSEXT_ECPOINTFORMAT_ansiX962_compressed_char2  2
+# define TLSEXT_ECPOINTFORMAT_last                       2
+
+/* Signature and hash algorithms from RFC5246 */
+# define TLSEXT_signature_anonymous                      0
+# define TLSEXT_signature_rsa                            1
+# define TLSEXT_signature_dsa                            2
+# define TLSEXT_signature_ecdsa                          3
+# define TLSEXT_signature_gostr34102001                  237
+# define TLSEXT_signature_gostr34102012_256              238
+# define TLSEXT_signature_gostr34102012_512              239
+
+/* Total number of different signature algorithms */
+# define TLSEXT_signature_num                            7
+
+# define TLSEXT_hash_none                                0
+# define TLSEXT_hash_md5                                 1
+# define TLSEXT_hash_sha1 
