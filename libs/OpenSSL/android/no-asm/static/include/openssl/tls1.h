@@ -271,4 +271,52 @@ __owur int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain)
         SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
 
 # define SSL_get_tlsext_status_exts(ssl, arg) \
-        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_EXTS,0,
+        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_EXTS,0,arg)
+
+# define SSL_set_tlsext_status_exts(ssl, arg) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_EXTS,0,arg)
+
+# define SSL_get_tlsext_status_ids(ssl, arg) \
+        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_IDS,0,arg)
+
+# define SSL_set_tlsext_status_ids(ssl, arg) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_IDS,0,arg)
+
+# define SSL_get_tlsext_status_ocsp_resp(ssl, arg) \
+        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_OCSP_RESP,0,arg)
+
+# define SSL_set_tlsext_status_ocsp_resp(ssl, arg, arglen) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP,arglen,arg)
+
+# define SSL_CTX_set_tlsext_servername_callback(ctx, cb) \
+        SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,\
+                (void (*)(void))cb)
+
+# define SSL_TLSEXT_ERR_OK 0
+# define SSL_TLSEXT_ERR_ALERT_WARNING 1
+# define SSL_TLSEXT_ERR_ALERT_FATAL 2
+# define SSL_TLSEXT_ERR_NOACK 3
+
+# define SSL_CTX_set_tlsext_servername_arg(ctx, arg) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg)
+
+# define SSL_CTX_get_tlsext_ticket_keys(ctx, keys, keylen) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_TLSEXT_TICKET_KEYS,keylen,keys)
+# define SSL_CTX_set_tlsext_ticket_keys(ctx, keys, keylen) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_TICKET_KEYS,keylen,keys)
+
+# define SSL_CTX_get_tlsext_status_cb(ssl, cb) \
+        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB,0,(void *)cb)
+# define SSL_CTX_set_tlsext_status_cb(ssl, cb) \
+        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB,\
+                (void (*)(void))cb)
+
+# define SSL_CTX_get_tlsext_status_arg(ssl, arg) \
+        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
+# define SSL_CTX_set_tlsext_status_arg(ssl, arg) \
+        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
+
+# define SSL_CTX_set_tlsext_status_type(ssl, type) \
+        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
+
+# define SSL_CTX_get_tlsext_status_typ
