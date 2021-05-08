@@ -179,4 +179,49 @@ extern "C" {
 
 # define TLSEXT_hash_none                                0
 # define TLSEXT_hash_md5                                 1
-# define TLSEXT_hash_sha1 
+# define TLSEXT_hash_sha1                                2
+# define TLSEXT_hash_sha224                              3
+# define TLSEXT_hash_sha256                              4
+# define TLSEXT_hash_sha384                              5
+# define TLSEXT_hash_sha512                              6
+# define TLSEXT_hash_gostr3411                           237
+# define TLSEXT_hash_gostr34112012_256                   238
+# define TLSEXT_hash_gostr34112012_512                   239
+
+/* Total number of different digest algorithms */
+
+# define TLSEXT_hash_num                                 10
+
+/* Flag set for unrecognised algorithms */
+# define TLSEXT_nid_unknown                              0x1000000
+
+/* ECC curves */
+
+# define TLSEXT_curve_P_256                              23
+# define TLSEXT_curve_P_384                              24
+
+/* OpenSSL value to disable maximum fragment length extension */
+# define TLSEXT_max_fragment_length_DISABLED    0
+/* Allowed values for max fragment length extension */
+# define TLSEXT_max_fragment_length_512         1
+# define TLSEXT_max_fragment_length_1024        2
+# define TLSEXT_max_fragment_length_2048        3
+# define TLSEXT_max_fragment_length_4096        4
+
+int SSL_CTX_set_tlsext_max_fragment_length(SSL_CTX *ctx, uint8_t mode);
+int SSL_set_tlsext_max_fragment_length(SSL *ssl, uint8_t mode);
+
+# define TLSEXT_MAXLEN_host_name 255
+
+__owur const char *SSL_get_servername(const SSL *s, const int type);
+__owur int SSL_get_servername_type(const SSL *s);
+/*
+ * SSL_export_keying_material exports a value derived from the master secret,
+ * as specified in RFC 5705. It writes |olen| bytes to |out| given a label and
+ * optional context. (Since a zero length context is allowed, the |use_context|
+ * flag controls whether a context is included.) It returns 1 on success and
+ * 0 or -1 otherwise.
+ */
+__owur int SSL_export_keying_material(SSL *s, unsigned char *out, size_t olen,
+                                      const char *label, size_t llen,
+                                      const unsigned char 
