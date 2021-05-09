@@ -319,4 +319,47 @@ __owur int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain)
 # define SSL_CTX_set_tlsext_status_type(ssl, type) \
         SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
 
-# define SSL_CTX_get_tlsext_status_typ
+# define SSL_CTX_get_tlsext_status_type(ssl) \
+        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
+
+# define SSL_CTX_set_tlsext_ticket_key_cb(ssl, cb) \
+        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB,\
+                (void (*)(void))cb)
+
+# ifndef OPENSSL_NO_HEARTBEATS
+#  define SSL_DTLSEXT_HB_ENABLED                   0x01
+#  define SSL_DTLSEXT_HB_DONT_SEND_REQUESTS        0x02
+#  define SSL_DTLSEXT_HB_DONT_RECV_REQUESTS        0x04
+#  define SSL_get_dtlsext_heartbeat_pending(ssl) \
+        SSL_ctrl(ssl,SSL_CTRL_GET_DTLS_EXT_HEARTBEAT_PENDING,0,NULL)
+#  define SSL_set_dtlsext_heartbeat_no_requests(ssl, arg) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_DTLS_EXT_HEARTBEAT_NO_REQUESTS,arg,NULL)
+
+#  if OPENSSL_API_COMPAT < 0x10100000L
+#   define SSL_CTRL_TLS_EXT_SEND_HEARTBEAT \
+        SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT
+#   define SSL_CTRL_GET_TLS_EXT_HEARTBEAT_PENDING \
+        SSL_CTRL_GET_DTLS_EXT_HEARTBEAT_PENDING
+#   define SSL_CTRL_SET_TLS_EXT_HEARTBEAT_NO_REQUESTS \
+        SSL_CTRL_SET_DTLS_EXT_HEARTBEAT_NO_REQUESTS
+#   define SSL_TLSEXT_HB_ENABLED \
+        SSL_DTLSEXT_HB_ENABLED
+#   define SSL_TLSEXT_HB_DONT_SEND_REQUESTS \
+        SSL_DTLSEXT_HB_DONT_SEND_REQUESTS
+#   define SSL_TLSEXT_HB_DONT_RECV_REQUESTS \
+        SSL_DTLSEXT_HB_DONT_RECV_REQUESTS
+#   define SSL_get_tlsext_heartbeat_pending(ssl) \
+        SSL_get_dtlsext_heartbeat_pending(ssl)
+#   define SSL_set_tlsext_heartbeat_no_requests(ssl, arg) \
+        SSL_set_dtlsext_heartbeat_no_requests(ssl,arg)
+#  endif
+# endif
+
+/* PSK ciphersuites from 4279 */
+# define TLS1_CK_PSK_WITH_RC4_128_SHA                    0x0300008A
+# define TLS1_CK_PSK_WITH_3DES_EDE_CBC_SHA               0x0300008B
+# define TLS1_CK_PSK_WITH_AES_128_CBC_SHA                0x0300008C
+# define TLS1_CK_PSK_WITH_AES_256_CBC_SHA                0x0300008D
+# define TLS1_CK_DHE_PSK_WITH_RC4_128_SHA                0x0300008E
+# define TLS1_CK_DHE_PSK_WITH_3DES_EDE_CBC_SHA           0x0300008F
+# define TLS1_CK_DHE_PSK_WITH_AES_128_CBC_SHA          
