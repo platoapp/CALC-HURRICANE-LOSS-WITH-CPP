@@ -396,4 +396,37 @@ __owur int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain)
 
 /* AES ciphersuites from RFC3268 */
 # define TLS1_CK_RSA_WITH_AES_128_SHA                    0x0300002F
-# define TLS1_CK_DH_DSS_WITH_AES_128_SHA                 0x03000
+# define TLS1_CK_DH_DSS_WITH_AES_128_SHA                 0x03000030
+# define TLS1_CK_DH_RSA_WITH_AES_128_SHA                 0x03000031
+# define TLS1_CK_DHE_DSS_WITH_AES_128_SHA                0x03000032
+# define TLS1_CK_DHE_RSA_WITH_AES_128_SHA                0x03000033
+# define TLS1_CK_ADH_WITH_AES_128_SHA                    0x03000034
+# define TLS1_CK_RSA_WITH_AES_256_SHA                    0x03000035
+# define TLS1_CK_DH_DSS_WITH_AES_256_SHA                 0x03000036
+# define TLS1_CK_DH_RSA_WITH_AES_256_SHA                 0x03000037
+# define TLS1_CK_DHE_DSS_WITH_AES_256_SHA                0x03000038
+# define TLS1_CK_DHE_RSA_WITH_AES_256_SHA                0x03000039
+# define TLS1_CK_ADH_WITH_AES_256_SHA                    0x0300003A
+
+/* TLS v1.2 ciphersuites */
+# define TLS1_CK_RSA_WITH_NULL_SHA256                    0x0300003B
+# define TLS1_CK_RSA_WITH_AES_128_SHA256                 0x0300003C
+# define TLS1_CK_RSA_WITH_AES_256_SHA256                 0x0300003D
+# define TLS1_CK_DH_DSS_WITH_AES_128_SHA256              0x0300003E
+# define TLS1_CK_DH_RSA_WITH_AES_128_SHA256              0x0300003F
+# define TLS1_CK_DHE_DSS_WITH_AES_128_SHA256             0x03000040
+
+/* Camellia ciphersuites from RFC4132 */
+# define TLS1_CK_RSA_WITH_CAMELLIA_128_CBC_SHA           0x03000041
+# define TLS1_CK_DH_DSS_WITH_CAMELLIA_128_CBC_SHA        0x03000042
+# define TLS1_CK_DH_RSA_WITH_CAMELLIA_128_CBC_SHA        0x03000043
+# define TLS1_CK_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA       0x03000044
+# define TLS1_CK_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA       0x03000045
+# define TLS1_CK_ADH_WITH_CAMELLIA_128_CBC_SHA           0x03000046
+
+/* TLS v1.2 ciphersuites */
+# define TLS1_CK_DHE_RSA_WITH_AES_128_SHA256             0x03000067
+# define TLS1_CK_DH_DSS_WITH_AES_256_SHA256              0x03000068
+# define TLS1_CK_DH_RSA_WITH_AES_256_SHA256              0x03000069
+# define TLS1_CK_DHE_DSS_WITH_AES_256_SHA256             0x0300006A
+# define TLS1_CK_DHE_RSA_WITH_AES_256_SHA256             0x0300006B
