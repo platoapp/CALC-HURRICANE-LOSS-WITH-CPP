@@ -464,4 +464,36 @@ __owur int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain)
 # define TLS1_CK_ADH_WITH_AES_256_GCM_SHA384             0x030000A7
 
 /* CCM ciphersuites from RFC6655 */
-# define TLS1_CK_RSA_WI
+# define TLS1_CK_RSA_WITH_AES_128_CCM                    0x0300C09C
+# define TLS1_CK_RSA_WITH_AES_256_CCM                    0x0300C09D
+# define TLS1_CK_DHE_RSA_WITH_AES_128_CCM                0x0300C09E
+# define TLS1_CK_DHE_RSA_WITH_AES_256_CCM                0x0300C09F
+# define TLS1_CK_RSA_WITH_AES_128_CCM_8                  0x0300C0A0
+# define TLS1_CK_RSA_WITH_AES_256_CCM_8                  0x0300C0A1
+# define TLS1_CK_DHE_RSA_WITH_AES_128_CCM_8              0x0300C0A2
+# define TLS1_CK_DHE_RSA_WITH_AES_256_CCM_8              0x0300C0A3
+# define TLS1_CK_PSK_WITH_AES_128_CCM                    0x0300C0A4
+# define TLS1_CK_PSK_WITH_AES_256_CCM                    0x0300C0A5
+# define TLS1_CK_DHE_PSK_WITH_AES_128_CCM                0x0300C0A6
+# define TLS1_CK_DHE_PSK_WITH_AES_256_CCM                0x0300C0A7
+# define TLS1_CK_PSK_WITH_AES_128_CCM_8                  0x0300C0A8
+# define TLS1_CK_PSK_WITH_AES_256_CCM_8                  0x0300C0A9
+# define TLS1_CK_DHE_PSK_WITH_AES_128_CCM_8              0x0300C0AA
+# define TLS1_CK_DHE_PSK_WITH_AES_256_CCM_8              0x0300C0AB
+
+/* CCM ciphersuites from RFC7251 */
+# define TLS1_CK_ECDHE_ECDSA_WITH_AES_128_CCM            0x0300C0AC
+# define TLS1_CK_ECDHE_ECDSA_WITH_AES_256_CCM            0x0300C0AD
+# define TLS1_CK_ECDHE_ECDSA_WITH_AES_128_CCM_8          0x0300C0AE
+# define TLS1_CK_ECDHE_ECDSA_WITH_AES_256_CCM_8          0x0300C0AF
+
+/* TLS 1.2 Camellia SHA-256 ciphersuites from RFC5932 */
+# define TLS1_CK_RSA_WITH_CAMELLIA_128_CBC_SHA256                0x030000BA
+# define TLS1_CK_DH_DSS_WITH_CAMELLIA_128_CBC_SHA256             0x030000BB
+# define TLS1_CK_DH_RSA_WITH_CAMELLIA_128_CBC_SHA256             0x030000BC
+# define TLS1_CK_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA256            0x030000BD
+# define TLS1_CK_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA256            0x030000BE
+# define TLS1_CK_ADH_WITH_CAMELLIA_128_CBC_SHA256                0x030000BF
+
+# define TLS1_CK_RSA_WITH_CAMELLIA_256_CBC_SHA256                0x030000C0
+# define TLS1_CK_DH_DSS_WITH_CAMELLIA_256_CBC_SHA256             0x030000C1
