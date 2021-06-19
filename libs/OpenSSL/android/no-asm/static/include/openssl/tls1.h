@@ -827,4 +827,40 @@ __owur int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain)
 # define TLS1_RFC_ECDH_RSA_WITH_ARIA_256_GCM_SHA384      "TLS_ECDH_RSA_WITH_ARIA_256_GCM_SHA384"
 # define TLS1_RFC_PSK_WITH_ARIA_128_GCM_SHA256           "TLS_PSK_WITH_ARIA_128_GCM_SHA256"
 # define TLS1_RFC_PSK_WITH_ARIA_256_GCM_SHA384           "TLS_PSK_WITH_ARIA_256_GCM_SHA384"
-# define TLS1_RFC_DHE_PSK_WITH_ARIA_128_GCM_SHA256    
+# define TLS1_RFC_DHE_PSK_WITH_ARIA_128_GCM_SHA256       "TLS_DHE_PSK_WITH_ARIA_128_GCM_SHA256"
+# define TLS1_RFC_DHE_PSK_WITH_ARIA_256_GCM_SHA384       "TLS_DHE_PSK_WITH_ARIA_256_GCM_SHA384"
+# define TLS1_RFC_RSA_PSK_WITH_ARIA_128_GCM_SHA256       "TLS_RSA_PSK_WITH_ARIA_128_GCM_SHA256"
+# define TLS1_RFC_RSA_PSK_WITH_ARIA_256_GCM_SHA384       "TLS_RSA_PSK_WITH_ARIA_256_GCM_SHA384"
+
+
+/*
+ * XXX Backward compatibility alert: Older versions of OpenSSL gave some DHE
+ * ciphers names with "EDH" instead of "DHE".  Going forward, we should be
+ * using DHE everywhere, though we may indefinitely maintain aliases for
+ * users or configurations that used "EDH"
+ */
+# define TLS1_TXT_DHE_DSS_WITH_RC4_128_SHA               "DHE-DSS-RC4-SHA"
+
+# define TLS1_TXT_PSK_WITH_NULL_SHA                      "PSK-NULL-SHA"
+# define TLS1_TXT_DHE_PSK_WITH_NULL_SHA                  "DHE-PSK-NULL-SHA"
+# define TLS1_TXT_RSA_PSK_WITH_NULL_SHA                  "RSA-PSK-NULL-SHA"
+
+/* AES ciphersuites from RFC3268 */
+# define TLS1_TXT_RSA_WITH_AES_128_SHA                   "AES128-SHA"
+# define TLS1_TXT_DH_DSS_WITH_AES_128_SHA                "DH-DSS-AES128-SHA"
+# define TLS1_TXT_DH_RSA_WITH_AES_128_SHA                "DH-RSA-AES128-SHA"
+# define TLS1_TXT_DHE_DSS_WITH_AES_128_SHA               "DHE-DSS-AES128-SHA"
+# define TLS1_TXT_DHE_RSA_WITH_AES_128_SHA               "DHE-RSA-AES128-SHA"
+# define TLS1_TXT_ADH_WITH_AES_128_SHA                   "ADH-AES128-SHA"
+
+# define TLS1_TXT_RSA_WITH_AES_256_SHA                   "AES256-SHA"
+# define TLS1_TXT_DH_DSS_WITH_AES_256_SHA                "DH-DSS-AES256-SHA"
+# define TLS1_TXT_DH_RSA_WITH_AES_256_SHA                "DH-RSA-AES256-SHA"
+# define TLS1_TXT_DHE_DSS_WITH_AES_256_SHA               "DHE-DSS-AES256-SHA"
+# define TLS1_TXT_DHE_RSA_WITH_AES_256_SHA               "DHE-RSA-AES256-SHA"
+# define TLS1_TXT_ADH_WITH_AES_256_SHA                   "ADH-AES256-SHA"
+
+/* ECC ciphersuites from RFC4492 */
+# define TLS1_TXT_ECDH_ECDSA_WITH_NULL_SHA               "ECDH-ECDSA-NULL-SHA"
+# define TLS1_TXT_ECDH_ECDSA_WITH_RC4_128_SHA            "ECDH-ECDSA-RC4-SHA"
+# 
