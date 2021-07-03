@@ -1119,4 +1119,47 @@ __owur int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain)
 # define TLS1_TXT_ECDHE_RSA_WITH_ARIA_128_GCM_SHA256       "ECDHE-ARIA128-GCM-SHA256"
 # define TLS1_TXT_ECDHE_RSA_WITH_ARIA_256_GCM_SHA384       "ECDHE-ARIA256-GCM-SHA384"
 # define TLS1_TXT_ECDH_RSA_WITH_ARIA_128_GCM_SHA256        "ECDH-ARIA128-GCM-SHA256"
-# define TLS1_TXT_ECDH_RSA_WITH_ARIA_256_
+# define TLS1_TXT_ECDH_RSA_WITH_ARIA_256_GCM_SHA384        "ECDH-ARIA256-GCM-SHA384"
+# define TLS1_TXT_PSK_WITH_ARIA_128_GCM_SHA256             "PSK-ARIA128-GCM-SHA256"
+# define TLS1_TXT_PSK_WITH_ARIA_256_GCM_SHA384             "PSK-ARIA256-GCM-SHA384"
+# define TLS1_TXT_DHE_PSK_WITH_ARIA_128_GCM_SHA256         "DHE-PSK-ARIA128-GCM-SHA256"
+# define TLS1_TXT_DHE_PSK_WITH_ARIA_256_GCM_SHA384         "DHE-PSK-ARIA256-GCM-SHA384"
+# define TLS1_TXT_RSA_PSK_WITH_ARIA_128_GCM_SHA256         "RSA-PSK-ARIA128-GCM-SHA256"
+# define TLS1_TXT_RSA_PSK_WITH_ARIA_256_GCM_SHA384         "RSA-PSK-ARIA256-GCM-SHA384"
+
+# define TLS_CT_RSA_SIGN                 1
+# define TLS_CT_DSS_SIGN                 2
+# define TLS_CT_RSA_FIXED_DH             3
+# define TLS_CT_DSS_FIXED_DH             4
+# define TLS_CT_ECDSA_SIGN               64
+# define TLS_CT_RSA_FIXED_ECDH           65
+# define TLS_CT_ECDSA_FIXED_ECDH         66
+# define TLS_CT_GOST01_SIGN              22
+# define TLS_CT_GOST12_SIGN              238
+# define TLS_CT_GOST12_512_SIGN          239
+
+/*
+ * when correcting this number, correct also SSL3_CT_NUMBER in ssl3.h (see
+ * comment there)
+ */
+# define TLS_CT_NUMBER                   10
+
+# if defined(SSL3_CT_NUMBER)
+#  if TLS_CT_NUMBER != SSL3_CT_NUMBER
+#    error "SSL/TLS CT_NUMBER values do not match"
+#  endif
+# endif
+
+# define TLS1_FINISH_MAC_LENGTH          12
+
+# define TLS_MD_MAX_CONST_SIZE                   22
+# define TLS_MD_CLIENT_FINISH_CONST              "client finished"
+# define TLS_MD_CLIENT_FINISH_CONST_SIZE         15
+# define TLS_MD_SERVER_FINISH_CONST              "server finished"
+# define TLS_MD_SERVER_FINISH_CONST_SIZE         15
+# define TLS_MD_KEY_EXPANSION_CONST              "key expansion"
+# define TLS_MD_KEY_EXPANSION_CONST_SIZE         13
+# define TLS_MD_CLIENT_WRITE_KEY_CONST           "client write key"
+# define TLS_MD_CLIENT_WRITE_KEY_CONST_SIZE      16
+# define TLS_MD_SERVER_WRITE_KEY_CONST           "server write key"
+# define TLS
