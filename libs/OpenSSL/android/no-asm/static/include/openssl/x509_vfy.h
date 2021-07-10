@@ -209,4 +209,45 @@ void X509_STORE_CTX_set_depth(X509_STORE_CTX *ctx, int depth);
 /* Policy variable inhibit-any-policy */
 # define X509_V_FLAG_INHIBIT_ANY                 0x200
 /* Policy variable inhibit-policy-mapping */
-# define X509_V_FLAG_INHIBIT_MAP                 0
+# define X509_V_FLAG_INHIBIT_MAP                 0x400
+/* Notify callback that policy is OK */
+# define X509_V_FLAG_NOTIFY_POLICY               0x800
+/* Extended CRL features such as indirect CRLs, alternate CRL signing keys */
+# define X509_V_FLAG_EXTENDED_CRL_SUPPORT        0x1000
+/* Delta CRL support */
+# define X509_V_FLAG_USE_DELTAS                  0x2000
+/* Check self-signed CA signature */
+# define X509_V_FLAG_CHECK_SS_SIGNATURE          0x4000
+/* Use trusted store first */
+# define X509_V_FLAG_TRUSTED_FIRST               0x8000
+/* Suite B 128 bit only mode: not normally used */
+# define X509_V_FLAG_SUITEB_128_LOS_ONLY         0x10000
+/* Suite B 192 bit only mode */
+# define X509_V_FLAG_SUITEB_192_LOS              0x20000
+/* Suite B 128 bit mode allowing 192 bit algorithms */
+# define X509_V_FLAG_SUITEB_128_LOS              0x30000
+/* Allow partial chains if at least one certificate is in trusted store */
+# define X509_V_FLAG_PARTIAL_CHAIN               0x80000
+/*
+ * If the initial chain is not trusted, do not attempt to build an alternative
+ * chain. Alternate chain checking was introduced in 1.1.0. Setting this flag
+ * will force the behaviour to match that of previous versions.
+ */
+# define X509_V_FLAG_NO_ALT_CHAINS               0x100000
+/* Do not check certificate/CRL validity against current time */
+# define X509_V_FLAG_NO_CHECK_TIME               0x200000
+
+# define X509_VP_FLAG_DEFAULT                    0x1
+# define X509_VP_FLAG_OVERWRITE                  0x2
+# define X509_VP_FLAG_RESET_FLAGS                0x4
+# define X509_VP_FLAG_LOCKED                     0x8
+# define X509_VP_FLAG_ONCE                       0x10
+
+/* Internal use: mask of policy related options */
+# define X509_V_FLAG_POLICY_MASK (X509_V_FLAG_POLICY_CHECK \
+                                | X509_V_FLAG_EXPLICIT_POLICY \
+                                | X509_V_FLAG_INHIBIT_ANY \
+                                | X509_V_FLAG_INHIBIT_MAP)
+
+int X509_OBJECT_idx_by_subject(STACK_OF(X509_OBJECT) *h, X509_LOOKUP_TYPE type,
+ 
