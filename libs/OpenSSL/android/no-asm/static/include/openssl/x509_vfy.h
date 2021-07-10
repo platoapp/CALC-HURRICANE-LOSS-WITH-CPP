@@ -168,4 +168,45 @@ void X509_STORE_CTX_set_depth(X509_STORE_CTX *ctx, int depth);
 # define         X509_V_ERR_IP_ADDRESS_MISMATCH                  64
 /* DANE TLSA errors */
 # define         X509_V_ERR_DANE_NO_MATCH                        65
-/* security level err
+/* security level errors */
+# define         X509_V_ERR_EE_KEY_TOO_SMALL                     66
+# define         X509_V_ERR_CA_KEY_TOO_SMALL                     67
+# define         X509_V_ERR_CA_MD_TOO_WEAK                       68
+/* Caller error */
+# define         X509_V_ERR_INVALID_CALL                         69
+/* Issuer lookup error */
+# define         X509_V_ERR_STORE_LOOKUP                         70
+/* Certificate transparency */
+# define         X509_V_ERR_NO_VALID_SCTS                        71
+
+# define         X509_V_ERR_PROXY_SUBJECT_NAME_VIOLATION         72
+/* OCSP status errors */
+# define         X509_V_ERR_OCSP_VERIFY_NEEDED                   73  /* Need OCSP verification */
+# define         X509_V_ERR_OCSP_VERIFY_FAILED                   74  /* Couldn't verify cert through OCSP */
+# define         X509_V_ERR_OCSP_CERT_UNKNOWN                    75  /* Certificate wasn't recognized by the OCSP responder */
+
+/* Certificate verify flags */
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define X509_V_FLAG_CB_ISSUER_CHECK             0x0   /* Deprecated */
+# endif
+/* Use check time instead of current time */
+# define X509_V_FLAG_USE_CHECK_TIME              0x2
+/* Lookup CRLs */
+# define X509_V_FLAG_CRL_CHECK                   0x4
+/* Lookup CRLs for whole chain */
+# define X509_V_FLAG_CRL_CHECK_ALL               0x8
+/* Ignore unhandled critical extensions */
+# define X509_V_FLAG_IGNORE_CRITICAL             0x10
+/* Disable workarounds for broken certificates */
+# define X509_V_FLAG_X509_STRICT                 0x20
+/* Enable proxy certificate validation */
+# define X509_V_FLAG_ALLOW_PROXY_CERTS           0x40
+/* Enable policy checking */
+# define X509_V_FLAG_POLICY_CHECK                0x80
+/* Policy variable require-explicit-policy */
+# define X509_V_FLAG_EXPLICIT_POLICY             0x100
+/* Policy variable inhibit-any-policy */
+# define X509_V_FLAG_INHIBIT_ANY                 0x200
+/* Policy variable inhibit-policy-mapping */
+# define X509_V_FLAG_INHIBIT_MAP                 0
