@@ -107,4 +107,34 @@ void X509_STORE_CTX_set_depth(X509_STORE_CTX *ctx, int depth);
 # define         X509_V_ERR_CRL_SIGNATURE_FAILURE                8
 # define         X509_V_ERR_CERT_NOT_YET_VALID                   9
 # define         X509_V_ERR_CERT_HAS_EXPIRED                     10
-# define         X509_V_ERR_CRL_NOT_YET_VALID             
+# define         X509_V_ERR_CRL_NOT_YET_VALID                    11
+# define         X509_V_ERR_CRL_HAS_EXPIRED                      12
+# define         X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD       13
+# define         X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD        14
+# define         X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD       15
+# define         X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD       16
+# define         X509_V_ERR_OUT_OF_MEM                           17
+# define         X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT          18
+# define         X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN            19
+# define         X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY    20
+# define         X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE      21
+# define         X509_V_ERR_CERT_CHAIN_TOO_LONG                  22
+# define         X509_V_ERR_CERT_REVOKED                         23
+# define         X509_V_ERR_INVALID_CA                           24
+# define         X509_V_ERR_PATH_LENGTH_EXCEEDED                 25
+# define         X509_V_ERR_INVALID_PURPOSE                      26
+# define         X509_V_ERR_CERT_UNTRUSTED                       27
+# define         X509_V_ERR_CERT_REJECTED                        28
+/* These are 'informational' when looking for issuer cert */
+# define         X509_V_ERR_SUBJECT_ISSUER_MISMATCH              29
+# define         X509_V_ERR_AKID_SKID_MISMATCH                   30
+# define         X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH          31
+# define         X509_V_ERR_KEYUSAGE_NO_CERTSIGN                 32
+# define         X509_V_ERR_UNABLE_TO_GET_CRL_ISSUER             33
+# define         X509_V_ERR_UNHANDLED_CRITICAL_EXTENSION         34
+# define         X509_V_ERR_KEYUSAGE_NO_CRL_SIGN                 35
+# define         X509_V_ERR_UNHANDLED_CRITICAL_CRL_EXTENSION     36
+# define         X509_V_ERR_INVALID_NON_CA                       37
+# define         X509_V_ERR_PROXY_PATH_LENGTH_EXCEEDED           38
+# define         X509_V_ERR_KEYUSAGE_NO_DIGITAL_SIGNATURE        39
+# defi
