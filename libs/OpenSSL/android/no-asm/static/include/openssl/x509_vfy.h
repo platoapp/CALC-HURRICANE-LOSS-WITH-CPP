@@ -250,4 +250,42 @@ void X509_STORE_CTX_set_depth(X509_STORE_CTX *ctx, int depth);
                                 | X509_V_FLAG_INHIBIT_MAP)
 
 int X509_OBJECT_idx_by_subject(STACK_OF(X509_OBJECT) *h, X509_LOOKUP_TYPE type,
- 
+                               X509_NAME *name);
+X509_OBJECT *X509_OBJECT_retrieve_by_subject(STACK_OF(X509_OBJECT) *h,
+                                             X509_LOOKUP_TYPE type,
+                                             X509_NAME *name);
+X509_OBJECT *X509_OBJECT_retrieve_match(STACK_OF(X509_OBJECT) *h,
+                                        X509_OBJECT *x);
+int X509_OBJECT_up_ref_count(X509_OBJECT *a);
+X509_OBJECT *X509_OBJECT_new(void);
+void X509_OBJECT_free(X509_OBJECT *a);
+X509_LOOKUP_TYPE X509_OBJECT_get_type(const X509_OBJECT *a);
+X509 *X509_OBJECT_get0_X509(const X509_OBJECT *a);
+int X509_OBJECT_set1_X509(X509_OBJECT *a, X509 *obj);
+X509_CRL *X509_OBJECT_get0_X509_CRL(X509_OBJECT *a);
+int X509_OBJECT_set1_X509_CRL(X509_OBJECT *a, X509_CRL *obj);
+X509_STORE *X509_STORE_new(void);
+void X509_STORE_free(X509_STORE *v);
+int X509_STORE_lock(X509_STORE *ctx);
+int X509_STORE_unlock(X509_STORE *ctx);
+int X509_STORE_up_ref(X509_STORE *v);
+STACK_OF(X509_OBJECT) *X509_STORE_get0_objects(X509_STORE *v);
+
+STACK_OF(X509) *X509_STORE_CTX_get1_certs(X509_STORE_CTX *st, X509_NAME *nm);
+STACK_OF(X509_CRL) *X509_STORE_CTX_get1_crls(X509_STORE_CTX *st, X509_NAME *nm);
+int X509_STORE_set_flags(X509_STORE *ctx, unsigned long flags);
+int X509_STORE_set_purpose(X509_STORE *ctx, int purpose);
+int X509_STORE_set_trust(X509_STORE *ctx, int trust);
+int X509_STORE_set1_param(X509_STORE *ctx, X509_VERIFY_PARAM *pm);
+X509_VERIFY_PARAM *X509_STORE_get0_param(X509_STORE *ctx);
+
+void X509_STORE_set_verify(X509_STORE *ctx, X509_STORE_CTX_verify_fn verify);
+#define X509_STORE_set_verify_func(ctx, func) \
+            X509_STORE_set_verify((ctx),(func))
+void X509_STORE_CTX_set_verify(X509_STORE_CTX *ctx,
+                               X509_STORE_CTX_verify_fn verify);
+X509_STORE_CTX_verify_fn X509_STORE_get_verify(X509_STORE *ctx);
+void X509_STORE_set_verify_cb(X509_STORE *ctx,
+                              X509_STORE_CTX_verify_cb verify_cb);
+# define X509_STORE_set_verify_cb_func(ctx,func) \
+            X509_STO
