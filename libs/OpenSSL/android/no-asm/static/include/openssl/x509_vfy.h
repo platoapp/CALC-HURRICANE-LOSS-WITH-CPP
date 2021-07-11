@@ -288,4 +288,34 @@ X509_STORE_CTX_verify_fn X509_STORE_get_verify(X509_STORE *ctx);
 void X509_STORE_set_verify_cb(X509_STORE *ctx,
                               X509_STORE_CTX_verify_cb verify_cb);
 # define X509_STORE_set_verify_cb_func(ctx,func) \
-            X509_STO
+            X509_STORE_set_verify_cb((ctx),(func))
+X509_STORE_CTX_verify_cb X509_STORE_get_verify_cb(X509_STORE *ctx);
+void X509_STORE_set_get_issuer(X509_STORE *ctx,
+                               X509_STORE_CTX_get_issuer_fn get_issuer);
+X509_STORE_CTX_get_issuer_fn X509_STORE_get_get_issuer(X509_STORE *ctx);
+void X509_STORE_set_check_issued(X509_STORE *ctx,
+                                 X509_STORE_CTX_check_issued_fn check_issued);
+X509_STORE_CTX_check_issued_fn X509_STORE_get_check_issued(X509_STORE *ctx);
+void X509_STORE_set_check_revocation(X509_STORE *ctx,
+                                     X509_STORE_CTX_check_revocation_fn check_revocation);
+X509_STORE_CTX_check_revocation_fn X509_STORE_get_check_revocation(X509_STORE *ctx);
+void X509_STORE_set_get_crl(X509_STORE *ctx,
+                            X509_STORE_CTX_get_crl_fn get_crl);
+X509_STORE_CTX_get_crl_fn X509_STORE_get_get_crl(X509_STORE *ctx);
+void X509_STORE_set_check_crl(X509_STORE *ctx,
+                              X509_STORE_CTX_check_crl_fn check_crl);
+X509_STORE_CTX_check_crl_fn X509_STORE_get_check_crl(X509_STORE *ctx);
+void X509_STORE_set_cert_crl(X509_STORE *ctx,
+                             X509_STORE_CTX_cert_crl_fn cert_crl);
+X509_STORE_CTX_cert_crl_fn X509_STORE_get_cert_crl(X509_STORE *ctx);
+void X509_STORE_set_check_policy(X509_STORE *ctx,
+                                 X509_STORE_CTX_check_policy_fn check_policy);
+X509_STORE_CTX_check_policy_fn X509_STORE_get_check_policy(X509_STORE *ctx);
+void X509_STORE_set_lookup_certs(X509_STORE *ctx,
+                                 X509_STORE_CTX_lookup_certs_fn lookup_certs);
+X509_STORE_CTX_lookup_certs_fn X509_STORE_get_lookup_certs(X509_STORE *ctx);
+void X509_STORE_set_lookup_crls(X509_STORE *ctx,
+                                X509_STORE_CTX_lookup_crls_fn lookup_crls);
+#define X509_STORE_set_lookup_crls_cb(ctx, func) \
+    X509_STORE_set_lookup_crls((ctx), (func))
+X509_STORE_CTX_lookup_crls_fn X509_STORE_get_loo
