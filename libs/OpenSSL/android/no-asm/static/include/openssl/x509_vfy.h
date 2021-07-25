@@ -318,4 +318,38 @@ void X509_STORE_set_lookup_crls(X509_STORE *ctx,
                                 X509_STORE_CTX_lookup_crls_fn lookup_crls);
 #define X509_STORE_set_lookup_crls_cb(ctx, func) \
     X509_STORE_set_lookup_crls((ctx), (func))
-X509_STORE_CTX_lookup_crls_fn X509_STORE_get_loo
+X509_STORE_CTX_lookup_crls_fn X509_STORE_get_lookup_crls(X509_STORE *ctx);
+void X509_STORE_set_cleanup(X509_STORE *ctx,
+                            X509_STORE_CTX_cleanup_fn cleanup);
+X509_STORE_CTX_cleanup_fn X509_STORE_get_cleanup(X509_STORE *ctx);
+
+#define X509_STORE_get_ex_new_index(l, p, newf, dupf, freef) \
+    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE, l, p, newf, dupf, freef)
+int X509_STORE_set_ex_data(X509_STORE *ctx, int idx, void *data);
+void *X509_STORE_get_ex_data(X509_STORE *ctx, int idx);
+
+X509_STORE_CTX *X509_STORE_CTX_new(void);
+
+int X509_STORE_CTX_get1_issuer(X509 **issuer, X509_STORE_CTX *ctx, X509 *x);
+
+void X509_STORE_CTX_free(X509_STORE_CTX *ctx);
+int X509_STORE_CTX_init(X509_STORE_CTX *ctx, X509_STORE *store,
+                        X509 *x509, STACK_OF(X509) *chain);
+void X509_STORE_CTX_set0_trusted_stack(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);
+void X509_STORE_CTX_cleanup(X509_STORE_CTX *ctx);
+
+X509_STORE *X509_STORE_CTX_get0_store(X509_STORE_CTX *ctx);
+X509 *X509_STORE_CTX_get0_cert(X509_STORE_CTX *ctx);
+STACK_OF(X509)* X509_STORE_CTX_get0_untrusted(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_set0_untrusted(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);
+void X509_STORE_CTX_set_verify_cb(X509_STORE_CTX *ctx,
+                                  X509_STORE_CTX_verify_cb verify);
+X509_STORE_CTX_verify_cb X509_STORE_CTX_get_verify_cb(X509_STORE_CTX *ctx);
+X509_STORE_CTX_verify_fn X509_STORE_CTX_get_verify(X509_STORE_CTX *ctx);
+X509_STORE_CTX_get_issuer_fn X509_STORE_CTX_get_get_issuer(X509_STORE_CTX *ctx);
+X509_STORE_CTX_check_issued_fn X509_STORE_CTX_get_check_issued(X509_STORE_CTX *ctx);
+X509_STORE_CTX_check_revocation_fn X509_STORE_CTX_get_check_revocation(X509_STORE_CTX *ctx);
+X509_STORE_CTX_get_crl_fn X509_STORE_CTX_get_get_crl(X509_STORE_CTX *ctx);
+X509_STORE_CTX_check_crl_fn X509_STORE_CTX_get_check_crl(X509_STORE_CTX *ctx);
+X509_STORE_CTX_cert_crl_fn X509_STORE_CTX_get_cert_crl(X509_STORE_CTX *ctx);
+X509_STORE_CTX_check_policy_fn X509_STORE_CTX_get_check_policy(X509_STORE_CTX *
