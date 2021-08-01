@@ -352,4 +352,39 @@ X509_STORE_CTX_check_revocation_fn X509_STORE_CTX_get_check_revocation(X509_STOR
 X509_STORE_CTX_get_crl_fn X509_STORE_CTX_get_get_crl(X509_STORE_CTX *ctx);
 X509_STORE_CTX_check_crl_fn X509_STORE_CTX_get_check_crl(X509_STORE_CTX *ctx);
 X509_STORE_CTX_cert_crl_fn X509_STORE_CTX_get_cert_crl(X509_STORE_CTX *ctx);
-X509_STORE_CTX_check_policy_fn X509_STORE_CTX_get_check_policy(X509_STORE_CTX *
+X509_STORE_CTX_check_policy_fn X509_STORE_CTX_get_check_policy(X509_STORE_CTX *ctx);
+X509_STORE_CTX_lookup_certs_fn X509_STORE_CTX_get_lookup_certs(X509_STORE_CTX *ctx);
+X509_STORE_CTX_lookup_crls_fn X509_STORE_CTX_get_lookup_crls(X509_STORE_CTX *ctx);
+X509_STORE_CTX_cleanup_fn X509_STORE_CTX_get_cleanup(X509_STORE_CTX *ctx);
+
+#if OPENSSL_API_COMPAT < 0x10100000L
+# define X509_STORE_CTX_get_chain X509_STORE_CTX_get0_chain
+# define X509_STORE_CTX_set_chain X509_STORE_CTX_set0_untrusted
+# define X509_STORE_CTX_trusted_stack X509_STORE_CTX_set0_trusted_stack
+# define X509_STORE_get_by_subject X509_STORE_CTX_get_by_subject
+# define X509_STORE_get1_certs X509_STORE_CTX_get1_certs
+# define X509_STORE_get1_crls X509_STORE_CTX_get1_crls
+/* the following macro is misspelled; use X509_STORE_get1_certs instead */
+# define X509_STORE_get1_cert X509_STORE_CTX_get1_certs
+/* the following macro is misspelled; use X509_STORE_get1_crls instead */
+# define X509_STORE_get1_crl X509_STORE_CTX_get1_crls
+#endif
+
+X509_LOOKUP *X509_STORE_add_lookup(X509_STORE *v, X509_LOOKUP_METHOD *m);
+X509_LOOKUP_METHOD *X509_LOOKUP_hash_dir(void);
+X509_LOOKUP_METHOD *X509_LOOKUP_file(void);
+
+typedef int (*X509_LOOKUP_ctrl_fn)(X509_LOOKUP *ctx, int cmd, const char *argc,
+                                   long argl, char **ret);
+typedef int (*X509_LOOKUP_get_by_subject_fn)(X509_LOOKUP *ctx,
+                                             X509_LOOKUP_TYPE type,
+                                             X509_NAME *name,
+                                             X509_OBJECT *ret);
+typedef int (*X509_LOOKUP_get_by_issuer_serial_fn)(X509_LOOKUP *ctx,
+                                                   X509_LOOKUP_TYPE type,
+                                                   X509_NAME *name,
+                                                   ASN1_INTEGER *serial,
+                                                   X509_OBJECT *ret);
+typedef int (*X509_LOOKUP_get_by_fingerprint_fn)(X509_LOOKUP *ctx,
+                                                 X509_LOOKUP_TYPE type,
+                              
