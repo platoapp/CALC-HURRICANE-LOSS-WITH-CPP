@@ -426,4 +426,45 @@ X509_LOOKUP_ctrl_fn X509_LOOKUP_meth_get_ctrl(const X509_LOOKUP_METHOD *method);
 int X509_LOOKUP_meth_set_get_by_subject(X509_LOOKUP_METHOD *method,
                                         X509_LOOKUP_get_by_subject_fn fn);
 X509_LOOKUP_get_by_subject_fn X509_LOOKUP_meth_get_get_by_subject(
-    const X509_LOOKUP_METHOD *met
+    const X509_LOOKUP_METHOD *method);
+
+int X509_LOOKUP_meth_set_get_by_issuer_serial(X509_LOOKUP_METHOD *method,
+    X509_LOOKUP_get_by_issuer_serial_fn fn);
+X509_LOOKUP_get_by_issuer_serial_fn X509_LOOKUP_meth_get_get_by_issuer_serial(
+    const X509_LOOKUP_METHOD *method);
+
+int X509_LOOKUP_meth_set_get_by_fingerprint(X509_LOOKUP_METHOD *method,
+    X509_LOOKUP_get_by_fingerprint_fn fn);
+X509_LOOKUP_get_by_fingerprint_fn X509_LOOKUP_meth_get_get_by_fingerprint(
+    const X509_LOOKUP_METHOD *method);
+
+int X509_LOOKUP_meth_set_get_by_alias(X509_LOOKUP_METHOD *method,
+                                      X509_LOOKUP_get_by_alias_fn fn);
+X509_LOOKUP_get_by_alias_fn X509_LOOKUP_meth_get_get_by_alias(
+    const X509_LOOKUP_METHOD *method);
+
+
+int X509_STORE_add_cert(X509_STORE *ctx, X509 *x);
+int X509_STORE_add_crl(X509_STORE *ctx, X509_CRL *x);
+
+int X509_STORE_CTX_get_by_subject(X509_STORE_CTX *vs, X509_LOOKUP_TYPE type,
+                                  X509_NAME *name, X509_OBJECT *ret);
+X509_OBJECT *X509_STORE_CTX_get_obj_by_subject(X509_STORE_CTX *vs,
+                                               X509_LOOKUP_TYPE type,
+                                               X509_NAME *name);
+
+int X509_LOOKUP_ctrl(X509_LOOKUP *ctx, int cmd, const char *argc,
+                     long argl, char **ret);
+
+int X509_load_cert_file(X509_LOOKUP *ctx, const char *file, int type);
+int X509_load_crl_file(X509_LOOKUP *ctx, const char *file, int type);
+int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);
+
+X509_LOOKUP *X509_LOOKUP_new(X509_LOOKUP_METHOD *method);
+void X509_LOOKUP_free(X509_LOOKUP *ctx);
+int X509_LOOKUP_init(X509_LOOKUP *ctx);
+int X509_LOOKUP_by_subject(X509_LOOKUP *ctx, X509_LOOKUP_TYPE type,
+                           X509_NAME *name, X509_OBJECT *ret);
+int X509_LOOKUP_by_issuer_serial(X509_LOOKUP *ctx, X509_LOOKUP_TYPE type,
+                                 X509_NAME *name, ASN1_INTEGER *serial,
+                    
