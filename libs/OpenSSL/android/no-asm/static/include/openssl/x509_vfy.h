@@ -467,4 +467,38 @@ int X509_LOOKUP_by_subject(X509_LOOKUP *ctx, X509_LOOKUP_TYPE type,
                            X509_NAME *name, X509_OBJECT *ret);
 int X509_LOOKUP_by_issuer_serial(X509_LOOKUP *ctx, X509_LOOKUP_TYPE type,
                                  X509_NAME *name, ASN1_INTEGER *serial,
-                    
+                                 X509_OBJECT *ret);
+int X509_LOOKUP_by_fingerprint(X509_LOOKUP *ctx, X509_LOOKUP_TYPE type,
+                               const unsigned char *bytes, int len,
+                               X509_OBJECT *ret);
+int X509_LOOKUP_by_alias(X509_LOOKUP *ctx, X509_LOOKUP_TYPE type,
+                         const char *str, int len, X509_OBJECT *ret);
+int X509_LOOKUP_set_method_data(X509_LOOKUP *ctx, void *data);
+void *X509_LOOKUP_get_method_data(const X509_LOOKUP *ctx);
+X509_STORE *X509_LOOKUP_get_store(const X509_LOOKUP *ctx);
+int X509_LOOKUP_shutdown(X509_LOOKUP *ctx);
+
+int X509_STORE_load_locations(X509_STORE *ctx,
+                              const char *file, const char *dir);
+int X509_STORE_set_default_paths(X509_STORE *ctx);
+
+#define X509_STORE_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
+    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE_CTX, l, p, newf, dupf, freef)
+int X509_STORE_CTX_set_ex_data(X509_STORE_CTX *ctx, int idx, void *data);
+void *X509_STORE_CTX_get_ex_data(X509_STORE_CTX *ctx, int idx);
+int X509_STORE_CTX_get_error(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_set_error(X509_STORE_CTX *ctx, int s);
+int X509_STORE_CTX_get_error_depth(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_set_error_depth(X509_STORE_CTX *ctx, int depth);
+X509 *X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_set_current_cert(X509_STORE_CTX *ctx, X509 *x);
+X509 *X509_STORE_CTX_get0_current_issuer(X509_STORE_CTX *ctx);
+X509_CRL *X509_STORE_CTX_get0_current_crl(X509_STORE_CTX *ctx);
+X509_STORE_CTX *X509_STORE_CTX_get0_parent_ctx(X509_STORE_CTX *ctx);
+STACK_OF(X509) *X509_STORE_CTX_get0_chain(X509_STORE_CTX *ctx);
+STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_set_cert(X509_STORE_CTX *c, X509 *x);
+void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *c, STACK_OF(X509) *sk);
+void X509_STORE_CTX_set0_crls(X509_STORE_CTX *c, STACK_OF(X509_CRL) *sk);
+int X509_STORE_CTX_set_purpose(X509_STORE_CTX *ctx, int purpose);
+int X5
