@@ -501,4 +501,42 @@ void X509_STORE_CTX_set_cert(X509_STORE_CTX *c, X509 *x);
 void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *c, STACK_OF(X509) *sk);
 void X509_STORE_CTX_set0_crls(X509_STORE_CTX *c, STACK_OF(X509_CRL) *sk);
 int X509_STORE_CTX_set_purpose(X509_STORE_CTX *ctx, int purpose);
-int X5
+int X509_STORE_CTX_set_trust(X509_STORE_CTX *ctx, int trust);
+int X509_STORE_CTX_purpose_inherit(X509_STORE_CTX *ctx, int def_purpose,
+                                   int purpose, int trust);
+void X509_STORE_CTX_set_flags(X509_STORE_CTX *ctx, unsigned long flags);
+void X509_STORE_CTX_set_time(X509_STORE_CTX *ctx, unsigned long flags,
+                             time_t t);
+
+X509_POLICY_TREE *X509_STORE_CTX_get0_policy_tree(X509_STORE_CTX *ctx);
+int X509_STORE_CTX_get_explicit_policy(X509_STORE_CTX *ctx);
+int X509_STORE_CTX_get_num_untrusted(X509_STORE_CTX *ctx);
+
+X509_VERIFY_PARAM *X509_STORE_CTX_get0_param(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_set0_param(X509_STORE_CTX *ctx, X509_VERIFY_PARAM *param);
+int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);
+
+/*
+ * Bridge opacity barrier between libcrypt and libssl, also needed to support
+ * offline testing in test/danetest.c
+ */
+void X509_STORE_CTX_set0_dane(X509_STORE_CTX *ctx, SSL_DANE *dane);
+#define DANE_FLAG_NO_DANE_EE_NAMECHECKS (1L << 0)
+
+/* X509_VERIFY_PARAM functions */
+
+X509_VERIFY_PARAM *X509_VERIFY_PARAM_new(void);
+void X509_VERIFY_PARAM_free(X509_VERIFY_PARAM *param);
+int X509_VERIFY_PARAM_inherit(X509_VERIFY_PARAM *to,
+                              const X509_VERIFY_PARAM *from);
+int X509_VERIFY_PARAM_set1(X509_VERIFY_PARAM *to,
+                           const X509_VERIFY_PARAM *from);
+int X509_VERIFY_PARAM_set1_name(X509_VERIFY_PARAM *param, const char *name);
+int X509_VERIFY_PARAM_set_flags(X509_VERIFY_PARAM *param,
+                                unsigned long flags);
+int X509_VERIFY_PARAM_clear_flags(X509_VERIFY_PARAM *param,
+                                  unsigned long flags);
+unsigned long X509_VERIFY_PARAM_get_flags(X509_VERIFY_PARAM *param);
+int X509_VERIFY_PARAM_set_purpose(X509_VERIFY_PARAM *param, int purpose);
+int X509_VERIFY_PARAM_set_trust(X509_VERIFY_PARAM *param, int trust);
+void X509_VERIFY_PARAM_set_depth(X509_VE
