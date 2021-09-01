@@ -539,4 +539,39 @@ int X509_VERIFY_PARAM_clear_flags(X509_VERIFY_PARAM *param,
 unsigned long X509_VERIFY_PARAM_get_flags(X509_VERIFY_PARAM *param);
 int X509_VERIFY_PARAM_set_purpose(X509_VERIFY_PARAM *param, int purpose);
 int X509_VERIFY_PARAM_set_trust(X509_VERIFY_PARAM *param, int trust);
-void X509_VERIFY_PARAM_set_depth(X509_VE
+void X509_VERIFY_PARAM_set_depth(X509_VERIFY_PARAM *param, int depth);
+void X509_VERIFY_PARAM_set_auth_level(X509_VERIFY_PARAM *param, int auth_level);
+time_t X509_VERIFY_PARAM_get_time(const X509_VERIFY_PARAM *param);
+void X509_VERIFY_PARAM_set_time(X509_VERIFY_PARAM *param, time_t t);
+int X509_VERIFY_PARAM_add0_policy(X509_VERIFY_PARAM *param,
+                                  ASN1_OBJECT *policy);
+int X509_VERIFY_PARAM_set1_policies(X509_VERIFY_PARAM *param,
+                                    STACK_OF(ASN1_OBJECT) *policies);
+
+int X509_VERIFY_PARAM_set_inh_flags(X509_VERIFY_PARAM *param,
+                                    uint32_t flags);
+uint32_t X509_VERIFY_PARAM_get_inh_flags(const X509_VERIFY_PARAM *param);
+
+int X509_VERIFY_PARAM_set1_host(X509_VERIFY_PARAM *param,
+                                const char *name, size_t namelen);
+int X509_VERIFY_PARAM_add1_host(X509_VERIFY_PARAM *param,
+                                const char *name, size_t namelen);
+void X509_VERIFY_PARAM_set_hostflags(X509_VERIFY_PARAM *param,
+                                     unsigned int flags);
+unsigned int X509_VERIFY_PARAM_get_hostflags(const X509_VERIFY_PARAM *param);
+char *X509_VERIFY_PARAM_get0_peername(X509_VERIFY_PARAM *);
+void X509_VERIFY_PARAM_move_peername(X509_VERIFY_PARAM *, X509_VERIFY_PARAM *);
+int X509_VERIFY_PARAM_set1_email(X509_VERIFY_PARAM *param,
+                                 const char *email, size_t emaillen);
+int X509_VERIFY_PARAM_set1_ip(X509_VERIFY_PARAM *param,
+                              const unsigned char *ip, size_t iplen);
+int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param,
+                                  const char *ipasc);
+
+int X509_VERIFY_PARAM_get_depth(const X509_VERIFY_PARAM *param);
+int X509_VERIFY_PARAM_get_auth_level(const X509_VERIFY_PARAM *param);
+const char *X509_VERIFY_PARAM_get0_name(const X509_VERIFY_PARAM *param);
+
+int X509_VERIFY_PARAM_add0_table(X509_VERIFY_PARAM *param);
+int X509_VERIFY_PARAM_get_count(void);
+const X509_VERIFY_PARAM *X509_VERIFY_PARAM_get0(
