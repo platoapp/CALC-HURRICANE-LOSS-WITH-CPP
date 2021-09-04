@@ -617,4 +617,12 @@ X509_POLICY_NODE *X509_policy_level_get0_node(X509_POLICY_LEVEL *level,
 const ASN1_OBJECT *X509_policy_node_get0_policy(const X509_POLICY_NODE *node);
 
 STACK_OF(POLICYQUALINFO) *X509_policy_node_get0_qualifiers(const
-                                                           X509_POLI
+                                                           X509_POLICY_NODE
+                                                           *node);
+const X509_POLICY_NODE *X509_policy_node_get0_parent(const X509_POLICY_NODE
+                                                     *node);
+
+#ifdef  __cplusplus
+}
+#endif
+#endif
