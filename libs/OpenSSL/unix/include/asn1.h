@@ -828,3 +828,60 @@ int ASN1_str2mask(const char *str, unsigned long *pmask);
 /* Mark start and end of SEQUENCE/SET OF */
 # define ASN1_PCTX_FLAGS_SHOW_SSOF               0x004
 /* Show the ASN1 type of primitives */
+# define ASN1_PCTX_FLAGS_SHOW_TYPE               0x008
+/* Don't show ASN1 type of ANY */
+# define ASN1_PCTX_FLAGS_NO_ANY_TYPE             0x010
+/* Don't show ASN1 type of MSTRINGs */
+# define ASN1_PCTX_FLAGS_NO_MSTRING_TYPE         0x020
+/* Don't show field names in SEQUENCE */
+# define ASN1_PCTX_FLAGS_NO_FIELD_NAME           0x040
+/* Show structure names of each SEQUENCE field */
+# define ASN1_PCTX_FLAGS_SHOW_FIELD_STRUCT_NAME  0x080
+/* Don't show structure name even at top level */
+# define ASN1_PCTX_FLAGS_NO_STRUCT_NAME          0x100
+
+int ASN1_item_print(BIO *out, ASN1_VALUE *ifld, int indent,
+                    const ASN1_ITEM *it, const ASN1_PCTX *pctx);
+ASN1_PCTX *ASN1_PCTX_new(void);
+void ASN1_PCTX_free(ASN1_PCTX *p);
+unsigned long ASN1_PCTX_get_flags(const ASN1_PCTX *p);
+void ASN1_PCTX_set_flags(ASN1_PCTX *p, unsigned long flags);
+unsigned long ASN1_PCTX_get_nm_flags(const ASN1_PCTX *p);
+void ASN1_PCTX_set_nm_flags(ASN1_PCTX *p, unsigned long flags);
+unsigned long ASN1_PCTX_get_cert_flags(const ASN1_PCTX *p);
+void ASN1_PCTX_set_cert_flags(ASN1_PCTX *p, unsigned long flags);
+unsigned long ASN1_PCTX_get_oid_flags(const ASN1_PCTX *p);
+void ASN1_PCTX_set_oid_flags(ASN1_PCTX *p, unsigned long flags);
+unsigned long ASN1_PCTX_get_str_flags(const ASN1_PCTX *p);
+void ASN1_PCTX_set_str_flags(ASN1_PCTX *p, unsigned long flags);
+
+ASN1_SCTX *ASN1_SCTX_new(int (*scan_cb) (ASN1_SCTX *ctx));
+void ASN1_SCTX_free(ASN1_SCTX *p);
+const ASN1_ITEM *ASN1_SCTX_get_item(ASN1_SCTX *p);
+const ASN1_TEMPLATE *ASN1_SCTX_get_template(ASN1_SCTX *p);
+unsigned long ASN1_SCTX_get_flags(ASN1_SCTX *p);
+void ASN1_SCTX_set_app_data(ASN1_SCTX *p, void *data);
+void *ASN1_SCTX_get_app_data(ASN1_SCTX *p);
+
+const BIO_METHOD *BIO_f_asn1(void);
+
+BIO *BIO_new_NDEF(BIO *out, ASN1_VALUE *val, const ASN1_ITEM *it);
+
+int i2d_ASN1_bio_stream(BIO *out, ASN1_VALUE *val, BIO *in, int flags,
+                        const ASN1_ITEM *it);
+int PEM_write_bio_ASN1_stream(BIO *out, ASN1_VALUE *val, BIO *in, int flags,
+                              const char *hdr, const ASN1_ITEM *it);
+int SMIME_write_ASN1(BIO *bio, ASN1_VALUE *val, BIO *data, int flags,
+                     int ctype_nid, int econt_nid,
+                     STACK_OF(X509_ALGOR) *mdalgs, const ASN1_ITEM *it);
+ASN1_VALUE *SMIME_read_ASN1(BIO *bio, BIO **bcont, const ASN1_ITEM *it);
+int SMIME_crlf_copy(BIO *in, BIO *out, int flags);
+int SMIME_text(BIO *in, BIO *out);
+
+const ASN1_ITEM *ASN1_ITEM_lookup(const char *name);
+const ASN1_ITEM *ASN1_ITEM_get(size_t i);
+
+# ifdef  __cplusplus
+}
+# endif
+#endif
