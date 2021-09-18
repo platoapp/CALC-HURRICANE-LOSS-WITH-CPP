@@ -60,4 +60,33 @@ void AES_cfb128_encrypt(const unsigned char *in, unsigned char *out,
                         unsigned char *ivec, int *num, const int enc);
 void AES_cfb1_encrypt(const unsigned char *in, unsigned char *out,
                       size_t length, const AES_KEY *key,
-                    
+                      unsigned char *ivec, int *num, const int enc);
+void AES_cfb8_encrypt(const unsigned char *in, unsigned char *out,
+                      size_t length, const AES_KEY *key,
+                      unsigned char *ivec, int *num, const int enc);
+void AES_ofb128_encrypt(const unsigned char *in, unsigned char *out,
+                        size_t length, const AES_KEY *key,
+                        unsigned char *ivec, int *num);
+/* NB: the IV is _two_ blocks long */
+void AES_ige_encrypt(const unsigned char *in, unsigned char *out,
+                     size_t length, const AES_KEY *key,
+                     unsigned char *ivec, const int enc);
+/* NB: the IV is _four_ blocks long */
+void AES_bi_ige_encrypt(const unsigned char *in, unsigned char *out,
+                        size_t length, const AES_KEY *key,
+                        const AES_KEY *key2, const unsigned char *ivec,
+                        const int enc);
+
+int AES_wrap_key(AES_KEY *key, const unsigned char *iv,
+                 unsigned char *out,
+                 const unsigned char *in, unsigned int inlen);
+int AES_unwrap_key(AES_KEY *key, const unsigned char *iv,
+                   unsigned char *out,
+                   const unsigned char *in, unsigned int inlen);
+
+
+# ifdef  __cplusplus
+}
+# endif
+
+#endif
