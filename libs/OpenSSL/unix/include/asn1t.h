@@ -247,4 +247,62 @@ extern "C" {
  *      typedef struct {
  *              int type;
  *              union {
- *   
+ *                      ASN1_SOMETHING *opt1;
+ *                      ASN1_SOMEOTHER *opt2;
+ *              } value;
+ *      } chname;
+ *
+ *      the name of the selector must be 'type'.
+ *      to use an alternative selector name use the
+ *      ASN1_CHOICE_END_selector() version.
+ */
+
+# define ASN1_CHOICE(tname) \
+        static const ASN1_TEMPLATE tname##_ch_tt[]
+
+# define ASN1_CHOICE_cb(tname, cb) \
+        static const ASN1_AUX tname##_aux = {NULL, 0, 0, 0, cb, 0}; \
+        ASN1_CHOICE(tname)
+
+# define ASN1_CHOICE_END(stname) ASN1_CHOICE_END_name(stname, stname)
+
+# define static_ASN1_CHOICE_END(stname) static_ASN1_CHOICE_END_name(stname, stname)
+
+# define ASN1_CHOICE_END_name(stname, tname) ASN1_CHOICE_END_selector(stname, tname, type)
+
+# define static_ASN1_CHOICE_END_name(stname, tname) static_ASN1_CHOICE_END_selector(stname, tname, type)
+
+# define ASN1_CHOICE_END_selector(stname, tname, selname) \
+        ;\
+        ASN1_ITEM_start(tname) \
+                ASN1_ITYPE_CHOICE,\
+                offsetof(stname,selname) ,\
+                tname##_ch_tt,\
+                sizeof(tname##_ch_tt) / sizeof(ASN1_TEMPLATE),\
+                NULL,\
+                sizeof(stname),\
+                #stname \
+        ASN1_ITEM_end(tname)
+
+# define static_ASN1_CHOICE_END_selector(stname, tname, selname) \
+        ;\
+        static_ASN1_ITEM_start(tname) \
+                ASN1_ITYPE_CHOICE,\
+                offsetof(stname,selname) ,\
+                tname##_ch_tt,\
+                sizeof(tname##_ch_tt) / sizeof(ASN1_TEMPLATE),\
+                NULL,\
+                sizeof(stname),\
+                #stname \
+        ASN1_ITEM_end(tname)
+
+# define ASN1_CHOICE_END_cb(stname, tname, selname) \
+        ;\
+        ASN1_ITEM_start(tname) \
+                ASN1_ITYPE_CHOICE,\
+                offsetof(stname,selname) ,\
+                tname##_ch_tt,\
+                sizeof(tname##_ch_tt) / sizeof(ASN1_TEMPLATE),\
+                &tname##_aux,\
+                sizeof(stname),\
+   
