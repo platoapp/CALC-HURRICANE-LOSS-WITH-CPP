@@ -190,4 +190,61 @@ extern "C" {
                 #tname \
         ASN1_ITEM_end(tname)
 
-# define ASN1_BROKEN_SEQUENCE_END(stname) ASN1
+# define ASN1_BROKEN_SEQUENCE_END(stname) ASN1_SEQUENCE_END_ref(stname, stname)
+# define static_ASN1_BROKEN_SEQUENCE_END(stname) \
+        static_ASN1_SEQUENCE_END_ref(stname, stname)
+
+# define ASN1_SEQUENCE_END_enc(stname, tname) ASN1_SEQUENCE_END_ref(stname, tname)
+
+# define ASN1_SEQUENCE_END_cb(stname, tname) ASN1_SEQUENCE_END_ref(stname, tname)
+# define static_ASN1_SEQUENCE_END_cb(stname, tname) static_ASN1_SEQUENCE_END_ref(stname, tname)
+
+# define ASN1_SEQUENCE_END_ref(stname, tname) \
+        ;\
+        ASN1_ITEM_start(tname) \
+                ASN1_ITYPE_SEQUENCE,\
+                V_ASN1_SEQUENCE,\
+                tname##_seq_tt,\
+                sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
+                &tname##_aux,\
+                sizeof(stname),\
+                #tname \
+        ASN1_ITEM_end(tname)
+# define static_ASN1_SEQUENCE_END_ref(stname, tname) \
+        ;\
+        static_ASN1_ITEM_start(tname) \
+                ASN1_ITYPE_SEQUENCE,\
+                V_ASN1_SEQUENCE,\
+                tname##_seq_tt,\
+                sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
+                &tname##_aux,\
+                sizeof(stname),\
+                #stname \
+        ASN1_ITEM_end(tname)
+
+# define ASN1_NDEF_SEQUENCE_END_cb(stname, tname) \
+        ;\
+        ASN1_ITEM_start(tname) \
+                ASN1_ITYPE_NDEF_SEQUENCE,\
+                V_ASN1_SEQUENCE,\
+                tname##_seq_tt,\
+                sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
+                &tname##_aux,\
+                sizeof(stname),\
+                #stname \
+        ASN1_ITEM_end(tname)
+
+/*-
+ * This pair helps declare a CHOICE type. We can do:
+ *
+ *      ASN1_CHOICE(chname) = {
+ *              ... CHOICE options ...
+ *      ASN1_CHOICE_END(chname)
+ *
+ *      This will produce an ASN1_ITEM called chname_it
+ *      for a structure called chname. The structure
+ *      definition must look like this:
+ *      typedef struct {
+ *              int type;
+ *              union {
+ *   
