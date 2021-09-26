@@ -133,4 +133,61 @@ extern "C" {
                 #tname \
         ASN1_ITEM_end(tname)
 
-# define 
+# define static_ASN1_SEQUENCE_END_name(stname, tname) \
+        ;\
+        static_ASN1_ITEM_start(tname) \
+                ASN1_ITYPE_SEQUENCE,\
+                V_ASN1_SEQUENCE,\
+                tname##_seq_tt,\
+                sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
+                NULL,\
+                sizeof(stname),\
+                #stname \
+        ASN1_ITEM_end(tname)
+
+# define ASN1_NDEF_SEQUENCE(tname) \
+        ASN1_SEQUENCE(tname)
+
+# define ASN1_NDEF_SEQUENCE_cb(tname, cb) \
+        ASN1_SEQUENCE_cb(tname, cb)
+
+# define ASN1_SEQUENCE_cb(tname, cb) \
+        static const ASN1_AUX tname##_aux = {NULL, 0, 0, 0, cb, 0}; \
+        ASN1_SEQUENCE(tname)
+
+# define ASN1_BROKEN_SEQUENCE(tname) \
+        static const ASN1_AUX tname##_aux = {NULL, ASN1_AFLG_BROKEN, 0, 0, 0, 0}; \
+        ASN1_SEQUENCE(tname)
+
+# define ASN1_SEQUENCE_ref(tname, cb) \
+        static const ASN1_AUX tname##_aux = {NULL, ASN1_AFLG_REFCOUNT, offsetof(tname, references), offsetof(tname, lock), cb, 0}; \
+        ASN1_SEQUENCE(tname)
+
+# define ASN1_SEQUENCE_enc(tname, enc, cb) \
+        static const ASN1_AUX tname##_aux = {NULL, ASN1_AFLG_ENCODING, 0, 0, cb, offsetof(tname, enc)}; \
+        ASN1_SEQUENCE(tname)
+
+# define ASN1_NDEF_SEQUENCE_END(tname) \
+        ;\
+        ASN1_ITEM_start(tname) \
+                ASN1_ITYPE_NDEF_SEQUENCE,\
+                V_ASN1_SEQUENCE,\
+                tname##_seq_tt,\
+                sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
+                NULL,\
+                sizeof(tname),\
+                #tname \
+        ASN1_ITEM_end(tname)
+# define static_ASN1_NDEF_SEQUENCE_END(tname) \
+        ;\
+        static_ASN1_ITEM_start(tname) \
+                ASN1_ITYPE_NDEF_SEQUENCE,\
+                V_ASN1_SEQUENCE,\
+                tname##_seq_tt,\
+                sizeof(tname##_seq_tt) / sizeof(ASN1_TEMPLATE),\
+                NULL,\
+                sizeof(tname),\
+                #tname \
+        ASN1_ITEM_end(tname)
+
+# define ASN1_BROKEN_SEQUENCE_END(stname) ASN1
