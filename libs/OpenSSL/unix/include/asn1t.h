@@ -305,4 +305,51 @@ extern "C" {
                 sizeof(tname##_ch_tt) / sizeof(ASN1_TEMPLATE),\
                 &tname##_aux,\
                 sizeof(stname),\
-   
+                #stname \
+        ASN1_ITEM_end(tname)
+
+/* This helps with the template wrapper form of ASN1_ITEM */
+
+# define ASN1_EX_TEMPLATE_TYPE(flags, tag, name, type) { \
+        (flags), (tag), 0,\
+        #name, ASN1_ITEM_ref(type) }
+
+/* These help with SEQUENCE or CHOICE components */
+
+/* used to declare other types */
+
+# define ASN1_EX_TYPE(flags, tag, stname, field, type) { \
+        (flags), (tag), offsetof(stname, field),\
+        #field, ASN1_ITEM_ref(type) }
+
+/* implicit and explicit helper macros */
+
+# define ASN1_IMP_EX(stname, field, type, tag, ex) \
+         ASN1_EX_TYPE(ASN1_TFLG_IMPLICIT | (ex), tag, stname, field, type)
+
+# define ASN1_EXP_EX(stname, field, type, tag, ex) \
+         ASN1_EX_TYPE(ASN1_TFLG_EXPLICIT | (ex), tag, stname, field, type)
+
+/* Any defined by macros: the field used is in the table itself */
+
+# ifndef OPENSSL_EXPORT_VAR_AS_FUNCTION
+#  define ASN1_ADB_OBJECT(tblname) { ASN1_TFLG_ADB_OID, -1, 0, #tblname, (const ASN1_ITEM *)&(tblname##_adb) }
+#  define ASN1_ADB_INTEGER(tblname) { ASN1_TFLG_ADB_INT, -1, 0, #tblname, (const ASN1_ITEM *)&(tblname##_adb) }
+# else
+#  define ASN1_ADB_OBJECT(tblname) { ASN1_TFLG_ADB_OID, -1, 0, #tblname, tblname##_adb }
+#  define ASN1_ADB_INTEGER(tblname) { ASN1_TFLG_ADB_INT, -1, 0, #tblname, tblname##_adb }
+# endif
+/* Plain simple type */
+# define ASN1_SIMPLE(stname, field, type) ASN1_EX_TYPE(0,0, stname, field, type)
+/* Embedded simple type */
+# define ASN1_EMBED(stname, field, type) ASN1_EX_TYPE(ASN1_TFLG_EMBED,0, stname, field, type)
+
+/* OPTIONAL simple type */
+# define ASN1_OPT(stname, field, type) ASN1_EX_TYPE(ASN1_TFLG_OPTIONAL, 0, stname, field, type)
+# define ASN1_OPT_EMBED(stname, field, type) ASN1_EX_TYPE(ASN1_TFLG_OPTIONAL|ASN1_TFLG_EMBED, 0, stname, field, type)
+
+/* IMPLICIT tagged simple type */
+# define ASN1_IMP(stname, field, type, tag) ASN1_IMP_EX(stname, field, type, tag, 0)
+# define ASN1_IMP_EMBED(stname, field, type, tag) ASN1_IMP_EX(stname, field, type, tag, ASN1_TFLG_EMBED)
+
+/* IMPLIC
