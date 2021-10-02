@@ -352,4 +352,43 @@ extern "C" {
 # define ASN1_IMP(stname, field, type, tag) ASN1_IMP_EX(stname, field, type, tag, 0)
 # define ASN1_IMP_EMBED(stname, field, type, tag) ASN1_IMP_EX(stname, field, type, tag, ASN1_TFLG_EMBED)
 
-/* IMPLIC
+/* IMPLICIT tagged OPTIONAL simple type */
+# define ASN1_IMP_OPT(stname, field, type, tag) ASN1_IMP_EX(stname, field, type, tag, ASN1_TFLG_OPTIONAL)
+# define ASN1_IMP_OPT_EMBED(stname, field, type, tag) ASN1_IMP_EX(stname, field, type, tag, ASN1_TFLG_OPTIONAL|ASN1_TFLG_EMBED)
+
+/* Same as above but EXPLICIT */
+
+# define ASN1_EXP(stname, field, type, tag) ASN1_EXP_EX(stname, field, type, tag, 0)
+# define ASN1_EXP_EMBED(stname, field, type, tag) ASN1_EXP_EX(stname, field, type, tag, ASN1_TFLG_EMBED)
+# define ASN1_EXP_OPT(stname, field, type, tag) ASN1_EXP_EX(stname, field, type, tag, ASN1_TFLG_OPTIONAL)
+# define ASN1_EXP_OPT_EMBED(stname, field, type, tag) ASN1_EXP_EX(stname, field, type, tag, ASN1_TFLG_OPTIONAL|ASN1_TFLG_EMBED)
+
+/* SEQUENCE OF type */
+# define ASN1_SEQUENCE_OF(stname, field, type) \
+                ASN1_EX_TYPE(ASN1_TFLG_SEQUENCE_OF, 0, stname, field, type)
+
+/* OPTIONAL SEQUENCE OF */
+# define ASN1_SEQUENCE_OF_OPT(stname, field, type) \
+                ASN1_EX_TYPE(ASN1_TFLG_SEQUENCE_OF|ASN1_TFLG_OPTIONAL, 0, stname, field, type)
+
+/* Same as above but for SET OF */
+
+# define ASN1_SET_OF(stname, field, type) \
+                ASN1_EX_TYPE(ASN1_TFLG_SET_OF, 0, stname, field, type)
+
+# define ASN1_SET_OF_OPT(stname, field, type) \
+                ASN1_EX_TYPE(ASN1_TFLG_SET_OF|ASN1_TFLG_OPTIONAL, 0, stname, field, type)
+
+/* Finally compound types of SEQUENCE, SET, IMPLICIT, EXPLICIT and OPTIONAL */
+
+# define ASN1_IMP_SET_OF(stname, field, type, tag) \
+                        ASN1_IMP_EX(stname, field, type, tag, ASN1_TFLG_SET_OF)
+
+# define ASN1_EXP_SET_OF(stname, field, type, tag) \
+                        ASN1_EXP_EX(stname, field, type, tag, ASN1_TFLG_SET_OF)
+
+# define ASN1_IMP_SET_OF_OPT(stname, field, type, tag) \
+                        ASN1_IMP_EX(stname, field, type, tag, ASN1_TFLG_SET_OF|ASN1_TFLG_OPTIONAL)
+
+# define ASN1_EXP_SET_OF_OPT(stname, field, type, tag) \
+                        ASN1_EXP_EX(stname, field, typ
