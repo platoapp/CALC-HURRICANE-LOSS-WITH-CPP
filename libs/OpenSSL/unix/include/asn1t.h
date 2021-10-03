@@ -391,4 +391,59 @@ extern "C" {
                         ASN1_IMP_EX(stname, field, type, tag, ASN1_TFLG_SET_OF|ASN1_TFLG_OPTIONAL)
 
 # define ASN1_EXP_SET_OF_OPT(stname, field, type, tag) \
-                        ASN1_EXP_EX(stname, field, typ
+                        ASN1_EXP_EX(stname, field, type, tag, ASN1_TFLG_SET_OF|ASN1_TFLG_OPTIONAL)
+
+# define ASN1_IMP_SEQUENCE_OF(stname, field, type, tag) \
+                        ASN1_IMP_EX(stname, field, type, tag, ASN1_TFLG_SEQUENCE_OF)
+
+# define ASN1_IMP_SEQUENCE_OF_OPT(stname, field, type, tag) \
+                        ASN1_IMP_EX(stname, field, type, tag, ASN1_TFLG_SEQUENCE_OF|ASN1_TFLG_OPTIONAL)
+
+# define ASN1_EXP_SEQUENCE_OF(stname, field, type, tag) \
+                        ASN1_EXP_EX(stname, field, type, tag, ASN1_TFLG_SEQUENCE_OF)
+
+# define ASN1_EXP_SEQUENCE_OF_OPT(stname, field, type, tag) \
+                        ASN1_EXP_EX(stname, field, type, tag, ASN1_TFLG_SEQUENCE_OF|ASN1_TFLG_OPTIONAL)
+
+/* EXPLICIT using indefinite length constructed form */
+# define ASN1_NDEF_EXP(stname, field, type, tag) \
+                        ASN1_EXP_EX(stname, field, type, tag, ASN1_TFLG_NDEF)
+
+/* EXPLICIT OPTIONAL using indefinite length constructed form */
+# define ASN1_NDEF_EXP_OPT(stname, field, type, tag) \
+                        ASN1_EXP_EX(stname, field, type, tag, ASN1_TFLG_OPTIONAL|ASN1_TFLG_NDEF)
+
+/* Macros for the ASN1_ADB structure */
+
+# define ASN1_ADB(name) \
+        static const ASN1_ADB_TABLE name##_adbtbl[]
+
+# ifndef OPENSSL_EXPORT_VAR_AS_FUNCTION
+
+#  define ASN1_ADB_END(name, flags, field, adb_cb, def, none) \
+        ;\
+        static const ASN1_ADB name##_adb = {\
+                flags,\
+                offsetof(name, field),\
+                adb_cb,\
+                name##_adbtbl,\
+                sizeof(name##_adbtbl) / sizeof(ASN1_ADB_TABLE),\
+                def,\
+                none\
+        }
+
+# else
+
+#  define ASN1_ADB_END(name, flags, field, adb_cb, def, none) \
+        ;\
+        static const ASN1_ITEM *name##_adb(void) \
+        { \
+        static const ASN1_ADB internal_adb = \
+                {\
+                flags,\
+                offsetof(name, field),\
+                adb_cb,\
+                name##_adbtbl,\
+                sizeof(name##_adbtbl) / sizeof(ASN1_ADB_TABLE),\
+                def,\
+     
