@@ -446,4 +446,62 @@ extern "C" {
                 name##_adbtbl,\
                 sizeof(name##_adbtbl) / sizeof(ASN1_ADB_TABLE),\
                 def,\
-     
+                none\
+                }; \
+                return (const ASN1_ITEM *) &internal_adb; \
+        } \
+        void dummy_function(void)
+
+# endif
+
+# define ADB_ENTRY(val, template) {val, template}
+
+# define ASN1_ADB_TEMPLATE(name) \
+        static const ASN1_TEMPLATE name##_tt
+
+/*
+ * This is the ASN1 template structure that defines a wrapper round the
+ * actual type. It determines the actual position of the field in the value
+ * structure, various flags such as OPTIONAL and the field name.
+ */
+
+struct ASN1_TEMPLATE_st {
+    unsigned long flags;        /* Various flags */
+    long tag;                   /* tag, not used if no tagging */
+    unsigned long offset;       /* Offset of this field in structure */
+    const char *field_name;     /* Field name */
+    ASN1_ITEM_EXP *item;        /* Relevant ASN1_ITEM or ASN1_ADB */
+};
+
+/* Macro to extract ASN1_ITEM and ASN1_ADB pointer from ASN1_TEMPLATE */
+
+# define ASN1_TEMPLATE_item(t) (t->item_ptr)
+# define ASN1_TEMPLATE_adb(t) (t->item_ptr)
+
+typedef struct ASN1_ADB_TABLE_st ASN1_ADB_TABLE;
+typedef struct ASN1_ADB_st ASN1_ADB;
+
+struct ASN1_ADB_st {
+    unsigned long flags;        /* Various flags */
+    unsigned long offset;       /* Offset of selector field */
+    int (*adb_cb)(long *psel);  /* Application callback */
+    const ASN1_ADB_TABLE *tbl;  /* Table of possible types */
+    long tblcount;              /* Number of entries in tbl */
+    const ASN1_TEMPLATE *default_tt; /* Type to use if no match */
+    const ASN1_TEMPLATE *null_tt; /* Type to use if selector is NULL */
+};
+
+struct ASN1_ADB_TABLE_st {
+    long value;                 /* NID for an object or value for an int */
+    const ASN1_TEMPLATE tt;     /* item for this value */
+};
+
+/* template flags */
+
+/* Field is optional */
+# define ASN1_TFLG_OPTIONAL      (0x1)
+
+/* Field is a SET OF */
+# define ASN1_TFLG_SET_OF        (0x1 << 1)
+
+/* Field is
