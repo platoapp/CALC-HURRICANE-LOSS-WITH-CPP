@@ -504,4 +504,72 @@ struct ASN1_ADB_TABLE_st {
 /* Field is a SET OF */
 # define ASN1_TFLG_SET_OF        (0x1 << 1)
 
-/* Field is
+/* Field is a SEQUENCE OF */
+# define ASN1_TFLG_SEQUENCE_OF   (0x2 << 1)
+
+/*
+ * Special case: this refers to a SET OF that will be sorted into DER order
+ * when encoded *and* the corresponding STACK will be modified to match the
+ * new order.
+ */
+# define ASN1_TFLG_SET_ORDER     (0x3 << 1)
+
+/* Mask for SET OF or SEQUENCE OF */
+# define ASN1_TFLG_SK_MASK       (0x3 << 1)
+
+/*
+ * These flags mean the tag should be taken from the tag field. If EXPLICIT
+ * then the underlying type is used for the inner tag.
+ */
+
+/* IMPLICIT tagging */
+# define ASN1_TFLG_IMPTAG        (0x1 << 3)
+
+/* EXPLICIT tagging, inner tag from underlying type */
+# define ASN1_TFLG_EXPTAG        (0x2 << 3)
+
+# define ASN1_TFLG_TAG_MASK      (0x3 << 3)
+
+/* context specific IMPLICIT */
+# define ASN1_TFLG_IMPLICIT      (ASN1_TFLG_IMPTAG|ASN1_TFLG_CONTEXT)
+
+/* context specific EXPLICIT */
+# define ASN1_TFLG_EXPLICIT      (ASN1_TFLG_EXPTAG|ASN1_TFLG_CONTEXT)
+
+/*
+ * If tagging is in force these determine the type of tag to use. Otherwise
+ * the tag is determined by the underlying type. These values reflect the
+ * actual octet format.
+ */
+
+/* Universal tag */
+# define ASN1_TFLG_UNIVERSAL     (0x0<<6)
+/* Application tag */
+# define ASN1_TFLG_APPLICATION   (0x1<<6)
+/* Context specific tag */
+# define ASN1_TFLG_CONTEXT       (0x2<<6)
+/* Private tag */
+# define ASN1_TFLG_PRIVATE       (0x3<<6)
+
+# define ASN1_TFLG_TAG_CLASS     (0x3<<6)
+
+/*
+ * These are for ANY DEFINED BY type. In this case the 'item' field points to
+ * an ASN1_ADB structure which contains a table of values to decode the
+ * relevant type
+ */
+
+# define ASN1_TFLG_ADB_MASK      (0x3<<8)
+
+# define ASN1_TFLG_ADB_OID       (0x1<<8)
+
+# define ASN1_TFLG_ADB_INT       (0x1<<9)
+
+/*
+ * This flag when present in a SEQUENCE OF, SET OF or EXPLICIT causes
+ * indefinite length constructed encoding to be used if required.
+ */
+
+# define ASN1_TFLG_NDEF          (0x1<<11)
+
+/* Field is embedded and not a pointer 
