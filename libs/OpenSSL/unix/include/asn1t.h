@@ -572,4 +572,62 @@ struct ASN1_ADB_TABLE_st {
 
 # define ASN1_TFLG_NDEF          (0x1<<11)
 
-/* Field is embedded and not a pointer 
+/* Field is embedded and not a pointer */
+# define ASN1_TFLG_EMBED         (0x1 << 12)
+
+/* This is the actual ASN1 item itself */
+
+struct ASN1_ITEM_st {
+    char itype;                 /* The item type, primitive, SEQUENCE, CHOICE
+                                 * or extern */
+    long utype;                 /* underlying type */
+    const ASN1_TEMPLATE *templates; /* If SEQUENCE or CHOICE this contains
+                                     * the contents */
+    long tcount;                /* Number of templates if SEQUENCE or CHOICE */
+    const void *funcs;          /* functions that handle this type */
+    long size;                  /* Structure size (usually) */
+    const char *sname;          /* Structure name */
+};
+
+/*-
+ * These are values for the itype field and
+ * determine how the type is interpreted.
+ *
+ * For PRIMITIVE types the underlying type
+ * determines the behaviour if items is NULL.
+ *
+ * Otherwise templates must contain a single
+ * template and the type is treated in the
+ * same way as the type specified in the template.
+ *
+ * For SEQUENCE types the templates field points
+ * to the members, the size field is the
+ * structure size.
+ *
+ * For CHOICE types the templates field points
+ * to each possible member (typically a union)
+ * and the 'size' field is the offset of the
+ * selector.
+ *
+ * The 'funcs' field is used for application
+ * specific functions.
+ *
+ * The EXTERN type uses a new style d2i/i2d.
+ * The new style should be used where possible
+ * because it avoids things like the d2i IMPLICIT
+ * hack.
+ *
+ * MSTRING is a multiple string type, it is used
+ * for a CHOICE of character strings where the
+ * actual strings all occupy an ASN1_STRING
+ * structure. In this case the 'utype' field
+ * has a special meaning, it is used as a mask
+ * of acceptable types using the B_ASN1 constants.
+ *
+ * NDEF_SEQUENCE is the same as SEQUENCE except
+ * that it will use indefinite length constructed
+ * encoding if requested.
+ *
+ */
+
+# def
