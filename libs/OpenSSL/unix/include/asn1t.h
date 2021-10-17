@@ -630,4 +630,55 @@ struct ASN1_ITEM_st {
  *
  */
 
-# def
+# define ASN1_ITYPE_PRIMITIVE            0x0
+
+# define ASN1_ITYPE_SEQUENCE             0x1
+
+# define ASN1_ITYPE_CHOICE               0x2
+
+# define ASN1_ITYPE_EXTERN               0x4
+
+# define ASN1_ITYPE_MSTRING              0x5
+
+# define ASN1_ITYPE_NDEF_SEQUENCE        0x6
+
+/*
+ * Cache for ASN1 tag and length, so we don't keep re-reading it for things
+ * like CHOICE
+ */
+
+struct ASN1_TLC_st {
+    char valid;                 /* Values below are valid */
+    int ret;                    /* return value */
+    long plen;                  /* length */
+    int ptag;                   /* class value */
+    int pclass;                 /* class value */
+    int hdrlen;                 /* header length */
+};
+
+/* Typedefs for ASN1 function pointers */
+typedef int ASN1_ex_d2i(ASN1_VALUE **pval, const unsigned char **in, long len,
+                        const ASN1_ITEM *it, int tag, int aclass, char opt,
+                        ASN1_TLC *ctx);
+
+typedef int ASN1_ex_i2d(ASN1_VALUE **pval, unsigned char **out,
+                        const ASN1_ITEM *it, int tag, int aclass);
+typedef int ASN1_ex_new_func(ASN1_VALUE **pval, const ASN1_ITEM *it);
+typedef void ASN1_ex_free_func(ASN1_VALUE **pval, const ASN1_ITEM *it);
+
+typedef int ASN1_ex_print_func(BIO *out, ASN1_VALUE **pval,
+                               int indent, const char *fname,
+                               const ASN1_PCTX *pctx);
+
+typedef int ASN1_primitive_i2c(ASN1_VALUE **pval, unsigned char *cont,
+                               int *putype, const ASN1_ITEM *it);
+typedef int ASN1_primitive_c2i(ASN1_VALUE **pval, const unsigned char *cont,
+                               int len, int utype, char *free_cont,
+                               const ASN1_ITEM *it);
+typedef int ASN1_primitive_print(BIO *out, ASN1_VALUE **pval,
+                                 const ASN1_ITEM *it, int indent,
+                                 const ASN1_PCTX *pctx);
+
+typedef struct ASN1_EXTERN_FUNCS_st {
+    void *app_data;
+    ASN1_ex_new_func *asn1_ex
