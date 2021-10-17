@@ -681,4 +681,61 @@ typedef int ASN1_primitive_print(BIO *out, ASN1_VALUE **pval,
 
 typedef struct ASN1_EXTERN_FUNCS_st {
     void *app_data;
-    ASN1_ex_new_func *asn1_ex
+    ASN1_ex_new_func *asn1_ex_new;
+    ASN1_ex_free_func *asn1_ex_free;
+    ASN1_ex_free_func *asn1_ex_clear;
+    ASN1_ex_d2i *asn1_ex_d2i;
+    ASN1_ex_i2d *asn1_ex_i2d;
+    ASN1_ex_print_func *asn1_ex_print;
+} ASN1_EXTERN_FUNCS;
+
+typedef struct ASN1_PRIMITIVE_FUNCS_st {
+    void *app_data;
+    unsigned long flags;
+    ASN1_ex_new_func *prim_new;
+    ASN1_ex_free_func *prim_free;
+    ASN1_ex_free_func *prim_clear;
+    ASN1_primitive_c2i *prim_c2i;
+    ASN1_primitive_i2c *prim_i2c;
+    ASN1_primitive_print *prim_print;
+} ASN1_PRIMITIVE_FUNCS;
+
+/*
+ * This is the ASN1_AUX structure: it handles various miscellaneous
+ * requirements. For example the use of reference counts and an informational
+ * callback. The "informational callback" is called at various points during
+ * the ASN1 encoding and decoding. It can be used to provide minor
+ * customisation of the structures used. This is most useful where the
+ * supplied routines *almost* do the right thing but need some extra help at
+ * a few points. If the callback returns zero then it is assumed a fatal
+ * error has occurred and the main operation should be abandoned. If major
+ * changes in the default behaviour are required then an external type is
+ * more appropriate.
+ */
+
+typedef int ASN1_aux_cb(int operation, ASN1_VALUE **in, const ASN1_ITEM *it,
+                        void *exarg);
+
+typedef struct ASN1_AUX_st {
+    void *app_data;
+    int flags;
+    int ref_offset;             /* Offset of reference value */
+    int ref_lock;               /* Lock type to use */
+    ASN1_aux_cb *asn1_cb;
+    int enc_offset;             /* Offset of ASN1_ENCODING structure */
+} ASN1_AUX;
+
+/* For print related callbacks exarg points to this structure */
+typedef struct ASN1_PRINT_ARG_st {
+    BIO *out;
+    int indent;
+    const ASN1_PCTX *pctx;
+} ASN1_PRINT_ARG;
+
+/* For streaming related callbacks exarg points to this structure */
+typedef struct ASN1_STREAM_ARG_st {
+    /* BIO to stream through */
+    BIO *out;
+    /* BIO with filters appended */
+    BIO *ndef_bio;
+    /* Streaming I/O bounda
