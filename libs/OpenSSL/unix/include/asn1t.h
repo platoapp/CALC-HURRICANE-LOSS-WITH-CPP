@@ -738,4 +738,60 @@ typedef struct ASN1_STREAM_ARG_st {
     BIO *out;
     /* BIO with filters appended */
     BIO *ndef_bio;
-    /* Streaming I/O bounda
+    /* Streaming I/O boundary */
+    unsigned char **boundary;
+} ASN1_STREAM_ARG;
+
+/* Flags in ASN1_AUX */
+
+/* Use a reference count */
+# define ASN1_AFLG_REFCOUNT      1
+/* Save the encoding of structure (useful for signatures) */
+# define ASN1_AFLG_ENCODING      2
+/* The Sequence length is invalid */
+# define ASN1_AFLG_BROKEN        4
+
+/* operation values for asn1_cb */
+
+# define ASN1_OP_NEW_PRE         0
+# define ASN1_OP_NEW_POST        1
+# define ASN1_OP_FREE_PRE        2
+# define ASN1_OP_FREE_POST       3
+# define ASN1_OP_D2I_PRE         4
+# define ASN1_OP_D2I_POST        5
+# define ASN1_OP_I2D_PRE         6
+# define ASN1_OP_I2D_POST        7
+# define ASN1_OP_PRINT_PRE       8
+# define ASN1_OP_PRINT_POST      9
+# define ASN1_OP_STREAM_PRE      10
+# define ASN1_OP_STREAM_POST     11
+# define ASN1_OP_DETACHED_PRE    12
+# define ASN1_OP_DETACHED_POST   13
+
+/* Macro to implement a primitive type */
+# define IMPLEMENT_ASN1_TYPE(stname) IMPLEMENT_ASN1_TYPE_ex(stname, stname, 0)
+# define IMPLEMENT_ASN1_TYPE_ex(itname, vname, ex) \
+                                ASN1_ITEM_start(itname) \
+                                        ASN1_ITYPE_PRIMITIVE, V_##vname, NULL, 0, NULL, ex, #itname \
+                                ASN1_ITEM_end(itname)
+
+/* Macro to implement a multi string type */
+# define IMPLEMENT_ASN1_MSTRING(itname, mask) \
+                                ASN1_ITEM_start(itname) \
+                                        ASN1_ITYPE_MSTRING, mask, NULL, 0, NULL, sizeof(ASN1_STRING), #itname \
+                                ASN1_ITEM_end(itname)
+
+# define IMPLEMENT_EXTERN_ASN1(sname, tag, fptrs) \
+        ASN1_ITEM_start(sname) \
+                ASN1_ITYPE_EXTERN, \
+                tag, \
+                NULL, \
+                0, \
+                &fptrs, \
+                0, \
+                #sname \
+        ASN1_ITEM_end(sname)
+
+/* Macro to implement standard functions in terms of ASN1_ITEM structures */
+
+# define IMPLEMENT_ASN1_FUNCTIONS(stname) IMPLEMENT_ASN1
