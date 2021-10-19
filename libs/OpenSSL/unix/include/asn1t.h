@@ -794,4 +794,52 @@ typedef struct ASN1_STREAM_ARG_st {
 
 /* Macro to implement standard functions in terms of ASN1_ITEM structures */
 
-# define IMPLEMENT_ASN1_FUNCTIONS(stname) IMPLEMENT_ASN1
+# define IMPLEMENT_ASN1_FUNCTIONS(stname) IMPLEMENT_ASN1_FUNCTIONS_fname(stname, stname, stname)
+
+# define IMPLEMENT_ASN1_FUNCTIONS_name(stname, itname) IMPLEMENT_ASN1_FUNCTIONS_fname(stname, itname, itname)
+
+# define IMPLEMENT_ASN1_FUNCTIONS_ENCODE_name(stname, itname) \
+                        IMPLEMENT_ASN1_FUNCTIONS_ENCODE_fname(stname, itname, itname)
+
+# define IMPLEMENT_STATIC_ASN1_ALLOC_FUNCTIONS(stname) \
+                IMPLEMENT_ASN1_ALLOC_FUNCTIONS_pfname(static, stname, stname, stname)
+
+# define IMPLEMENT_ASN1_ALLOC_FUNCTIONS(stname) \
+                IMPLEMENT_ASN1_ALLOC_FUNCTIONS_fname(stname, stname, stname)
+
+# define IMPLEMENT_ASN1_ALLOC_FUNCTIONS_pfname(pre, stname, itname, fname) \
+        pre stname *fname##_new(void) \
+        { \
+                return (stname *)ASN1_item_new(ASN1_ITEM_rptr(itname)); \
+        } \
+        pre void fname##_free(stname *a) \
+        { \
+                ASN1_item_free((ASN1_VALUE *)a, ASN1_ITEM_rptr(itname)); \
+        }
+
+# define IMPLEMENT_ASN1_ALLOC_FUNCTIONS_fname(stname, itname, fname) \
+        stname *fname##_new(void) \
+        { \
+                return (stname *)ASN1_item_new(ASN1_ITEM_rptr(itname)); \
+        } \
+        void fname##_free(stname *a) \
+        { \
+                ASN1_item_free((ASN1_VALUE *)a, ASN1_ITEM_rptr(itname)); \
+        }
+
+# define IMPLEMENT_ASN1_FUNCTIONS_fname(stname, itname, fname) \
+        IMPLEMENT_ASN1_ENCODE_FUNCTIONS_fname(stname, itname, fname) \
+        IMPLEMENT_ASN1_ALLOC_FUNCTIONS_fname(stname, itname, fname)
+
+# define IMPLEMENT_ASN1_ENCODE_FUNCTIONS_fname(stname, itname, fname) \
+        stname *d2i_##fname(stname **a, const unsigned char **in, long len) \
+        { \
+                return (stname *)ASN1_item_d2i((ASN1_VALUE **)a, in, len, ASN1_ITEM_rptr(itname));\
+        } \
+        int i2d_##fname(stname *a, unsigned char **out) \
+        { \
+                return ASN1_item_i2d((ASN1_VALUE *)a, out, ASN1_ITEM_rptr(itname));\
+        }
+
+# define IMPLEMENT_ASN1_NDEF_FUNCTION(stname) \
+        int i2d_##stname##_NDEF(stname
