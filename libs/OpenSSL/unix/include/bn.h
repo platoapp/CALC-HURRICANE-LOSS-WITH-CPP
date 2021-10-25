@@ -59,4 +59,56 @@ extern "C" {
  * BN_mod_inverse() will call bn_mod_inverse_no_branch.
  */
 # define BN_FLG_CONSTTIME        0x04
-# define BN_FLG_SECURE           
+# define BN_FLG_SECURE           0x08
+
+# if OPENSSL_API_COMPAT < 0x00908000L
+/* deprecated name for the flag */
+#  define BN_FLG_EXP_CONSTTIME BN_FLG_CONSTTIME
+#  define BN_FLG_FREE            0x8000 /* used for debugging */
+# endif
+
+void BN_set_flags(BIGNUM *b, int n);
+int BN_get_flags(const BIGNUM *b, int n);
+
+/* Values for |top| in BN_rand() */
+#define BN_RAND_TOP_ANY    -1
+#define BN_RAND_TOP_ONE     0
+#define BN_RAND_TOP_TWO     1
+
+/* Values for |bottom| in BN_rand() */
+#define BN_RAND_BOTTOM_ANY  0
+#define BN_RAND_BOTTOM_ODD  1
+
+/*
+ * get a clone of a BIGNUM with changed flags, for *temporary* use only (the
+ * two BIGNUMs cannot be used in parallel!). Also only for *read only* use. The
+ * value |dest| should be a newly allocated BIGNUM obtained via BN_new() that
+ * has not been otherwise initialised or used.
+ */
+void BN_with_flags(BIGNUM *dest, const BIGNUM *b, int flags);
+
+/* Wrapper function to make using BN_GENCB easier */
+int BN_GENCB_call(BN_GENCB *cb, int a, int b);
+
+BN_GENCB *BN_GENCB_new(void);
+void BN_GENCB_free(BN_GENCB *cb);
+
+/* Populate a BN_GENCB structure with an "old"-style callback */
+void BN_GENCB_set_old(BN_GENCB *gencb, void (*callback) (int, int, void *),
+                      void *cb_arg);
+
+/* Populate a BN_GENCB structure with a "new"-style callback */
+void BN_GENCB_set(BN_GENCB *gencb, int (*callback) (int, int, BN_GENCB *),
+                  void *cb_arg);
+
+void *BN_GENCB_get_arg(BN_GENCB *cb);
+
+# define BN_prime_checks 0      /* default: select number of iterations based
+                                 * on the size of the number */
+
+/*
+ * BN_prime_checks_for_size() returns the number of Miller-Rabin iterations
+ * that will be done for checking that a random number is probably prime. The
+ * error rate for accepting a composite number as prime depends on the size of
+ * the prime |b|. The error rates used are for calculating an RSA key with 2 primes,
+ * and so the level is what you would expect f
