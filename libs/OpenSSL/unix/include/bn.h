@@ -220,4 +220,43 @@ BIGNUM *BN_copy(BIGNUM *a, const BIGNUM *b);
 void BN_swap(BIGNUM *a, BIGNUM *b);
 BIGNUM *BN_bin2bn(const unsigned char *s, int len, BIGNUM *ret);
 int BN_bn2bin(const BIGNUM *a, unsigned char *to);
-int BN_bn2binpad(const BIGNUM *a, unsigned char *to, int to
+int BN_bn2binpad(const BIGNUM *a, unsigned char *to, int tolen);
+BIGNUM *BN_lebin2bn(const unsigned char *s, int len, BIGNUM *ret);
+int BN_bn2lebinpad(const BIGNUM *a, unsigned char *to, int tolen);
+BIGNUM *BN_mpi2bn(const unsigned char *s, int len, BIGNUM *ret);
+int BN_bn2mpi(const BIGNUM *a, unsigned char *to);
+int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
+int BN_usub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
+int BN_uadd(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
+int BN_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
+int BN_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
+int BN_sqr(BIGNUM *r, const BIGNUM *a, BN_CTX *ctx);
+/** BN_set_negative sets sign of a BIGNUM
+ * \param  b  pointer to the BIGNUM object
+ * \param  n  0 if the BIGNUM b should be positive and a value != 0 otherwise
+ */
+void BN_set_negative(BIGNUM *b, int n);
+/** BN_is_negative returns 1 if the BIGNUM is negative
+ * \param  b  pointer to the BIGNUM object
+ * \return 1 if a < 0 and 0 otherwise
+ */
+int BN_is_negative(const BIGNUM *b);
+
+int BN_div(BIGNUM *dv, BIGNUM *rem, const BIGNUM *m, const BIGNUM *d,
+           BN_CTX *ctx);
+# define BN_mod(rem,m,d,ctx) BN_div(NULL,(rem),(m),(d),(ctx))
+int BN_nnmod(BIGNUM *r, const BIGNUM *m, const BIGNUM *d, BN_CTX *ctx);
+int BN_mod_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m,
+               BN_CTX *ctx);
+int BN_mod_add_quick(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                     const BIGNUM *m);
+int BN_mod_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m,
+               BN_CTX *ctx);
+int BN_mod_sub_quick(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                     const BIGNUM *m);
+int BN_mod_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m,
+               BN_CTX *ctx);
+int BN_mod_sqr(BIGNUM *r, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);
+int BN_mod_lshift1(BIGNUM *r, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);
+int BN_mod_lshift1_quick(BIGNUM *r, const BIGNUM *a, const BIGNUM *m);
+int BN_mod_lshift(BIGNUM *r, const BIGNUM *a, int n, con
