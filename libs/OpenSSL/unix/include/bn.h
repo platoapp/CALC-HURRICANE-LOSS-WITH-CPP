@@ -259,4 +259,49 @@ int BN_mod_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, const BIGNUM *m,
 int BN_mod_sqr(BIGNUM *r, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);
 int BN_mod_lshift1(BIGNUM *r, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);
 int BN_mod_lshift1_quick(BIGNUM *r, const BIGNUM *a, const BIGNUM *m);
-int BN_mod_lshift(BIGNUM *r, const BIGNUM *a, int n, con
+int BN_mod_lshift(BIGNUM *r, const BIGNUM *a, int n, const BIGNUM *m,
+                  BN_CTX *ctx);
+int BN_mod_lshift_quick(BIGNUM *r, const BIGNUM *a, int n, const BIGNUM *m);
+
+BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w);
+BN_ULONG BN_div_word(BIGNUM *a, BN_ULONG w);
+int BN_mul_word(BIGNUM *a, BN_ULONG w);
+int BN_add_word(BIGNUM *a, BN_ULONG w);
+int BN_sub_word(BIGNUM *a, BN_ULONG w);
+int BN_set_word(BIGNUM *a, BN_ULONG w);
+BN_ULONG BN_get_word(const BIGNUM *a);
+
+int BN_cmp(const BIGNUM *a, const BIGNUM *b);
+void BN_free(BIGNUM *a);
+int BN_is_bit_set(const BIGNUM *a, int n);
+int BN_lshift(BIGNUM *r, const BIGNUM *a, int n);
+int BN_lshift1(BIGNUM *r, const BIGNUM *a);
+int BN_exp(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx);
+
+int BN_mod_exp(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
+               const BIGNUM *m, BN_CTX *ctx);
+int BN_mod_exp_mont(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
+                    const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx);
+int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
+                              const BIGNUM *m, BN_CTX *ctx,
+                              BN_MONT_CTX *in_mont);
+int BN_mod_exp_mont_word(BIGNUM *r, BN_ULONG a, const BIGNUM *p,
+                         const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx);
+int BN_mod_exp2_mont(BIGNUM *r, const BIGNUM *a1, const BIGNUM *p1,
+                     const BIGNUM *a2, const BIGNUM *p2, const BIGNUM *m,
+                     BN_CTX *ctx, BN_MONT_CTX *m_ctx);
+int BN_mod_exp_simple(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
+                      const BIGNUM *m, BN_CTX *ctx);
+
+int BN_mask_bits(BIGNUM *a, int n);
+# ifndef OPENSSL_NO_STDIO
+int BN_print_fp(FILE *fp, const BIGNUM *a);
+# endif
+int BN_print(BIO *bio, const BIGNUM *a);
+int BN_reciprocal(BIGNUM *r, const BIGNUM *m, int len, BN_CTX *ctx);
+int BN_rshift(BIGNUM *r, const BIGNUM *a, int n);
+int BN_rshift1(BIGNUM *r, const BIGNUM *a);
+void BN_clear(BIGNUM *a);
+BIGNUM *BN_dup(const BIGNUM *a);
+int BN_ucmp(const BIGNUM *a, const BIGNUM *b);
+int BN_set
