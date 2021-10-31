@@ -304,4 +304,40 @@ int BN_rshift1(BIGNUM *r, const BIGNUM *a);
 void BN_clear(BIGNUM *a);
 BIGNUM *BN_dup(const BIGNUM *a);
 int BN_ucmp(const BIGNUM *a, const BIGNUM *b);
-int BN_set
+int BN_set_bit(BIGNUM *a, int n);
+int BN_clear_bit(BIGNUM *a, int n);
+char *BN_bn2hex(const BIGNUM *a);
+char *BN_bn2dec(const BIGNUM *a);
+int BN_hex2bn(BIGNUM **a, const char *str);
+int BN_dec2bn(BIGNUM **a, const char *str);
+int BN_asc2bn(BIGNUM **a, const char *str);
+int BN_gcd(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
+int BN_kronecker(const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx); /* returns
+                                                                  * -2 for
+                                                                  * error */
+BIGNUM *BN_mod_inverse(BIGNUM *ret,
+                       const BIGNUM *a, const BIGNUM *n, BN_CTX *ctx);
+BIGNUM *BN_mod_sqrt(BIGNUM *ret,
+                    const BIGNUM *a, const BIGNUM *n, BN_CTX *ctx);
+
+void BN_consttime_swap(BN_ULONG swap, BIGNUM *a, BIGNUM *b, int nwords);
+
+/* Deprecated versions */
+DEPRECATEDIN_0_9_8(BIGNUM *BN_generate_prime(BIGNUM *ret, int bits, int safe,
+                                             const BIGNUM *add,
+                                             const BIGNUM *rem,
+                                             void (*callback) (int, int,
+                                                               void *),
+                                             void *cb_arg))
+DEPRECATEDIN_0_9_8(int
+                   BN_is_prime(const BIGNUM *p, int nchecks,
+                               void (*callback) (int, int, void *),
+                               BN_CTX *ctx, void *cb_arg))
+DEPRECATEDIN_0_9_8(int
+                   BN_is_prime_fasttest(const BIGNUM *p, int nchecks,
+                                        void (*callback) (int, int, void *),
+                                        BN_CTX *ctx, void *cb_arg,
+                                        int do_trial_division))
+
+/* Newer versions */
+int BN_generate_prime_ex(BIGNUM *ret, int bits, int safe, co
