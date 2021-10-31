@@ -340,4 +340,43 @@ DEPRECATEDIN_0_9_8(int
                                         int do_trial_division))
 
 /* Newer versions */
-int BN_generate_prime_ex(BIGNUM *ret, int bits, int safe, co
+int BN_generate_prime_ex(BIGNUM *ret, int bits, int safe, const BIGNUM *add,
+                         const BIGNUM *rem, BN_GENCB *cb);
+int BN_is_prime_ex(const BIGNUM *p, int nchecks, BN_CTX *ctx, BN_GENCB *cb);
+int BN_is_prime_fasttest_ex(const BIGNUM *p, int nchecks, BN_CTX *ctx,
+                            int do_trial_division, BN_GENCB *cb);
+
+int BN_X931_generate_Xpq(BIGNUM *Xp, BIGNUM *Xq, int nbits, BN_CTX *ctx);
+
+int BN_X931_derive_prime_ex(BIGNUM *p, BIGNUM *p1, BIGNUM *p2,
+                            const BIGNUM *Xp, const BIGNUM *Xp1,
+                            const BIGNUM *Xp2, const BIGNUM *e, BN_CTX *ctx,
+                            BN_GENCB *cb);
+int BN_X931_generate_prime_ex(BIGNUM *p, BIGNUM *p1, BIGNUM *p2, BIGNUM *Xp1,
+                              BIGNUM *Xp2, const BIGNUM *Xp, const BIGNUM *e,
+                              BN_CTX *ctx, BN_GENCB *cb);
+
+BN_MONT_CTX *BN_MONT_CTX_new(void);
+int BN_mod_mul_montgomery(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                          BN_MONT_CTX *mont, BN_CTX *ctx);
+int BN_to_montgomery(BIGNUM *r, const BIGNUM *a, BN_MONT_CTX *mont,
+                     BN_CTX *ctx);
+int BN_from_montgomery(BIGNUM *r, const BIGNUM *a, BN_MONT_CTX *mont,
+                       BN_CTX *ctx);
+void BN_MONT_CTX_free(BN_MONT_CTX *mont);
+int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *mod, BN_CTX *ctx);
+BN_MONT_CTX *BN_MONT_CTX_copy(BN_MONT_CTX *to, BN_MONT_CTX *from);
+BN_MONT_CTX *BN_MONT_CTX_set_locked(BN_MONT_CTX **pmont, CRYPTO_RWLOCK *lock,
+                                    const BIGNUM *mod, BN_CTX *ctx);
+
+/* BN_BLINDING flags */
+# define BN_BLINDING_NO_UPDATE   0x00000001
+# define BN_BLINDING_NO_RECREATE 0x00000002
+
+BN_BLINDING *BN_BLINDING_new(const BIGNUM *A, const BIGNUM *Ai, BIGNUM *mod);
+void BN_BLINDING_free(BN_BLINDING *b);
+int BN_BLINDING_update(BN_BLINDING *b, BN_CTX *ctx);
+int BN_BLINDING_convert(BIGNUM *n, BN_BLINDING *b, BN_CTX *ctx);
+int BN_BLINDING_invert(BIGNUM *n, BN_BLINDING *b, BN_CTX *ctx);
+int BN_BLINDING_convert_ex(BIGNUM *n, BIGNUM *r, BN_BLINDING *b, BN_CTX *);
+int BN_BLINDING_invert_ex(BIGNUM *n, c
