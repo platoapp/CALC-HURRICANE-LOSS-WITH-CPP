@@ -470,4 +470,53 @@ int BN_GF2m_mod_inv_arr(BIGNUM *r, const BIGNUM *b, const int p[],
                         BN_CTX *ctx);
 /* r = (a / b) mod p */
 int BN_GF2m_mod_div_arr(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
-                        const int p[], B
+                        const int p[], BN_CTX *ctx);
+/* r = (a ^ b) mod p */
+int BN_GF2m_mod_exp_arr(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                        const int p[], BN_CTX *ctx);
+/* r = sqrt(a) mod p */
+int BN_GF2m_mod_sqrt_arr(BIGNUM *r, const BIGNUM *a,
+                         const int p[], BN_CTX *ctx);
+/* r^2 + r = a mod p */
+int BN_GF2m_mod_solve_quad_arr(BIGNUM *r, const BIGNUM *a,
+                               const int p[], BN_CTX *ctx);
+int BN_GF2m_poly2arr(const BIGNUM *a, int p[], int max);
+int BN_GF2m_arr2poly(const int p[], BIGNUM *a);
+
+# endif
+
+/*
+ * faster mod functions for the 'NIST primes' 0 <= a < p^2
+ */
+int BN_nist_mod_192(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx);
+int BN_nist_mod_224(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx);
+int BN_nist_mod_256(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx);
+int BN_nist_mod_384(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx);
+int BN_nist_mod_521(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx);
+
+const BIGNUM *BN_get0_nist_prime_192(void);
+const BIGNUM *BN_get0_nist_prime_224(void);
+const BIGNUM *BN_get0_nist_prime_256(void);
+const BIGNUM *BN_get0_nist_prime_384(void);
+const BIGNUM *BN_get0_nist_prime_521(void);
+
+int (*BN_nist_mod_func(const BIGNUM *p)) (BIGNUM *r, const BIGNUM *a,
+                                          const BIGNUM *field, BN_CTX *ctx);
+
+int BN_generate_dsa_nonce(BIGNUM *out, const BIGNUM *range,
+                          const BIGNUM *priv, const unsigned char *message,
+                          size_t message_len, BN_CTX *ctx);
+
+/* Primes from RFC 2409 */
+BIGNUM *BN_get_rfc2409_prime_768(BIGNUM *bn);
+BIGNUM *BN_get_rfc2409_prime_1024(BIGNUM *bn);
+
+/* Primes from RFC 3526 */
+BIGNUM *BN_get_rfc3526_prime_1536(BIGNUM *bn);
+BIGNUM *BN_get_rfc3526_prime_2048(BIGNUM *bn);
+BIGNUM *BN_get_rfc3526_prime_3072(BIGNUM *bn);
+BIGNUM *BN_get_rfc3526_prime_4096(BIGNUM *bn);
+BIGNUM *BN_get_rfc3526_prime_6144(BIGNUM *bn);
+BIGNUM *BN_get_rfc3526_prime_8192(BIGNUM *bn);
+
+# if OPE
