@@ -419,4 +419,55 @@ int BN_div_recp(BIGNUM *dv, BIGNUM *rem, const BIGNUM *m,
  * Functions for arithmetic over binary polynomials represented by BIGNUMs.
  * The BIGNUM::neg property of BIGNUMs representing binary polynomials is
  * ignored. Note that input arguments are not const so that their bit arrays
- * can be expan
+ * can be expanded to the appropriate size if needed.
+ */
+
+/*
+ * r = a + b
+ */
+int BN_GF2m_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
+#  define BN_GF2m_sub(r, a, b) BN_GF2m_add(r, a, b)
+/*
+ * r=a mod p
+ */
+int BN_GF2m_mod(BIGNUM *r, const BIGNUM *a, const BIGNUM *p);
+/* r = (a * b) mod p */
+int BN_GF2m_mod_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                    const BIGNUM *p, BN_CTX *ctx);
+/* r = (a * a) mod p */
+int BN_GF2m_mod_sqr(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx);
+/* r = (1 / b) mod p */
+int BN_GF2m_mod_inv(BIGNUM *r, const BIGNUM *b, const BIGNUM *p, BN_CTX *ctx);
+/* r = (a / b) mod p */
+int BN_GF2m_mod_div(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                    const BIGNUM *p, BN_CTX *ctx);
+/* r = (a ^ b) mod p */
+int BN_GF2m_mod_exp(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                    const BIGNUM *p, BN_CTX *ctx);
+/* r = sqrt(a) mod p */
+int BN_GF2m_mod_sqrt(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
+                     BN_CTX *ctx);
+/* r^2 + r = a mod p */
+int BN_GF2m_mod_solve_quad(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
+                           BN_CTX *ctx);
+#  define BN_GF2m_cmp(a, b) BN_ucmp((a), (b))
+/*-
+ * Some functions allow for representation of the irreducible polynomials
+ * as an unsigned int[], say p.  The irreducible f(t) is then of the form:
+ *     t^p[0] + t^p[1] + ... + t^p[k]
+ * where m = p[0] > p[1] > ... > p[k] = 0.
+ */
+/* r = a mod p */
+int BN_GF2m_mod_arr(BIGNUM *r, const BIGNUM *a, const int p[]);
+/* r = (a * b) mod p */
+int BN_GF2m_mod_mul_arr(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                        const int p[], BN_CTX *ctx);
+/* r = (a * a) mod p */
+int BN_GF2m_mod_sqr_arr(BIGNUM *r, const BIGNUM *a, const int p[],
+                        BN_CTX *ctx);
+/* r = (1 / b) mod p */
+int BN_GF2m_mod_inv_arr(BIGNUM *r, const BIGNUM *b, const int p[],
+                        BN_CTX *ctx);
+/* r = (a / b) mod p */
+int BN_GF2m_mod_div_arr(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                        const int p[], B
