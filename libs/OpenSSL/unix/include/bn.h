@@ -519,4 +519,21 @@ BIGNUM *BN_get_rfc3526_prime_4096(BIGNUM *bn);
 BIGNUM *BN_get_rfc3526_prime_6144(BIGNUM *bn);
 BIGNUM *BN_get_rfc3526_prime_8192(BIGNUM *bn);
 
-# if OPE
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define get_rfc2409_prime_768 BN_get_rfc2409_prime_768
+#  define get_rfc2409_prime_1024 BN_get_rfc2409_prime_1024
+#  define get_rfc3526_prime_1536 BN_get_rfc3526_prime_1536
+#  define get_rfc3526_prime_2048 BN_get_rfc3526_prime_2048
+#  define get_rfc3526_prime_3072 BN_get_rfc3526_prime_3072
+#  define get_rfc3526_prime_4096 BN_get_rfc3526_prime_4096
+#  define get_rfc3526_prime_6144 BN_get_rfc3526_prime_6144
+#  define get_rfc3526_prime_8192 BN_get_rfc3526_prime_8192
+# endif
+
+int BN_bntest_rand(BIGNUM *rnd, int bits, int top, int bottom);
+
+
+# ifdef  __cplusplus
+}
+# endif
+#endif
