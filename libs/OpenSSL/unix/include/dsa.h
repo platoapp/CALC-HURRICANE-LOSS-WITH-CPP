@@ -110,4 +110,53 @@ int DSA_set_ex_data(DSA *d, int idx, void *arg);
 void *DSA_get_ex_data(DSA *d, int idx);
 
 DSA *d2i_DSAPublicKey(DSA **a, const unsigned char **pp, long length);
-DSA *d2i_DSAPrivateKey(DSA **a, con
+DSA *d2i_DSAPrivateKey(DSA **a, const unsigned char **pp, long length);
+DSA *d2i_DSAparams(DSA **a, const unsigned char **pp, long length);
+
+/* Deprecated version */
+DEPRECATEDIN_0_9_8(DSA *DSA_generate_parameters(int bits,
+                                                unsigned char *seed,
+                                                int seed_len,
+                                                int *counter_ret,
+                                                unsigned long *h_ret, void
+                                                 (*callback) (int, int,
+                                                              void *),
+                                                void *cb_arg))
+
+/* New version */
+int DSA_generate_parameters_ex(DSA *dsa, int bits,
+                               const unsigned char *seed, int seed_len,
+                               int *counter_ret, unsigned long *h_ret,
+                               BN_GENCB *cb);
+
+int DSA_generate_key(DSA *a);
+int i2d_DSAPublicKey(const DSA *a, unsigned char **pp);
+int i2d_DSAPrivateKey(const DSA *a, unsigned char **pp);
+int i2d_DSAparams(const DSA *a, unsigned char **pp);
+
+int DSAparams_print(BIO *bp, const DSA *x);
+int DSA_print(BIO *bp, const DSA *x, int off);
+# ifndef OPENSSL_NO_STDIO
+int DSAparams_print_fp(FILE *fp, const DSA *x);
+int DSA_print_fp(FILE *bp, const DSA *x, int off);
+# endif
+
+# define DSS_prime_checks 64
+/*
+ * Primality test according to FIPS PUB 186-4, Appendix C.3. Since we only
+ * have one value here we set the number of checks to 64 which is the 128 bit
+ * security level that is the highest level and valid for creating a 3072 bit
+ * DSA key.
+ */
+# define DSA_is_prime(n, callback, cb_arg) \
+        BN_is_prime(n, DSS_prime_checks, callback, NULL, cb_arg)
+
+# ifndef OPENSSL_NO_DH
+/*
+ * Convert DSA structure (key or just parameters) into DH structure (be
+ * careful to avoid small subgroup attacks when using this!)
+ */
+DH *DSA_dup_DH(const DSA *r);
+# endif
+
+# define EVP_PKEY_CTX_set_dsa_para
