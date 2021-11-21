@@ -66,3 +66,48 @@ typedef struct DSA_SIG_st DSA_SIG;
 
 # define d2i_DSAparams_fp(fp,x) (DSA *)ASN1_d2i_fp((char *(*)())DSA_new, \
                 (char *(*)())d2i_DSAparams,(fp),(unsigned char **)(x))
+# define i2d_DSAparams_fp(fp,x) ASN1_i2d_fp(i2d_DSAparams,(fp), \
+                (unsigned char *)(x))
+# define d2i_DSAparams_bio(bp,x) ASN1_d2i_bio_of(DSA,DSA_new,d2i_DSAparams,bp,x)
+# define i2d_DSAparams_bio(bp,x) ASN1_i2d_bio_of_const(DSA,i2d_DSAparams,bp,x)
+
+DSA *DSAparams_dup(DSA *x);
+DSA_SIG *DSA_SIG_new(void);
+void DSA_SIG_free(DSA_SIG *a);
+int i2d_DSA_SIG(const DSA_SIG *a, unsigned char **pp);
+DSA_SIG *d2i_DSA_SIG(DSA_SIG **v, const unsigned char **pp, long length);
+void DSA_SIG_get0(const DSA_SIG *sig, const BIGNUM **pr, const BIGNUM **ps);
+int DSA_SIG_set0(DSA_SIG *sig, BIGNUM *r, BIGNUM *s);
+
+DSA_SIG *DSA_do_sign(const unsigned char *dgst, int dlen, DSA *dsa);
+int DSA_do_verify(const unsigned char *dgst, int dgst_len,
+                  DSA_SIG *sig, DSA *dsa);
+
+const DSA_METHOD *DSA_OpenSSL(void);
+
+void DSA_set_default_method(const DSA_METHOD *);
+const DSA_METHOD *DSA_get_default_method(void);
+int DSA_set_method(DSA *dsa, const DSA_METHOD *);
+const DSA_METHOD *DSA_get_method(DSA *d);
+
+DSA *DSA_new(void);
+DSA *DSA_new_method(ENGINE *engine);
+void DSA_free(DSA *r);
+/* "up" the DSA object's reference count */
+int DSA_up_ref(DSA *r);
+int DSA_size(const DSA *);
+int DSA_bits(const DSA *d);
+int DSA_security_bits(const DSA *d);
+        /* next 4 return -1 on error */
+DEPRECATEDIN_1_2_0(int DSA_sign_setup(DSA *dsa, BN_CTX *ctx_in, BIGNUM **kinvp, BIGNUM **rp))
+int DSA_sign(int type, const unsigned char *dgst, int dlen,
+             unsigned char *sig, unsigned int *siglen, DSA *dsa);
+int DSA_verify(int type, const unsigned char *dgst, int dgst_len,
+               const unsigned char *sigbuf, int siglen, DSA *dsa);
+#define DSA_get_ex_new_index(l, p, newf, dupf, freef) \
+    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DSA, l, p, newf, dupf, freef)
+int DSA_set_ex_data(DSA *d, int idx, void *arg);
+void *DSA_get_ex_data(DSA *d, int idx);
+
+DSA *d2i_DSAPublicKey(DSA **a, const unsigned char **pp, long length);
+DSA *d2i_DSAPrivateKey(DSA **a, con
