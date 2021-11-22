@@ -159,4 +159,44 @@ int DSA_print_fp(FILE *bp, const DSA *x, int off);
 DH *DSA_dup_DH(const DSA *r);
 # endif
 
-# define EVP_PKEY_CTX_set_dsa_para
+# define EVP_PKEY_CTX_set_dsa_paramgen_bits(ctx, nbits) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_DSA, EVP_PKEY_OP_PARAMGEN, \
+                                EVP_PKEY_CTRL_DSA_PARAMGEN_BITS, nbits, NULL)
+# define EVP_PKEY_CTX_set_dsa_paramgen_q_bits(ctx, qbits) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_DSA, EVP_PKEY_OP_PARAMGEN, \
+                                EVP_PKEY_CTRL_DSA_PARAMGEN_Q_BITS, qbits, NULL)
+# define EVP_PKEY_CTX_set_dsa_paramgen_md(ctx, md) \
+        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_DSA, EVP_PKEY_OP_PARAMGEN, \
+                                EVP_PKEY_CTRL_DSA_PARAMGEN_MD, 0, (void *)(md))
+
+# define EVP_PKEY_CTRL_DSA_PARAMGEN_BITS         (EVP_PKEY_ALG_CTRL + 1)
+# define EVP_PKEY_CTRL_DSA_PARAMGEN_Q_BITS       (EVP_PKEY_ALG_CTRL + 2)
+# define EVP_PKEY_CTRL_DSA_PARAMGEN_MD           (EVP_PKEY_ALG_CTRL + 3)
+
+void DSA_get0_pqg(const DSA *d,
+                  const BIGNUM **p, const BIGNUM **q, const BIGNUM **g);
+int DSA_set0_pqg(DSA *d, BIGNUM *p, BIGNUM *q, BIGNUM *g);
+void DSA_get0_key(const DSA *d,
+                  const BIGNUM **pub_key, const BIGNUM **priv_key);
+int DSA_set0_key(DSA *d, BIGNUM *pub_key, BIGNUM *priv_key);
+const BIGNUM *DSA_get0_p(const DSA *d);
+const BIGNUM *DSA_get0_q(const DSA *d);
+const BIGNUM *DSA_get0_g(const DSA *d);
+const BIGNUM *DSA_get0_pub_key(const DSA *d);
+const BIGNUM *DSA_get0_priv_key(const DSA *d);
+void DSA_clear_flags(DSA *d, int flags);
+int DSA_test_flags(const DSA *d, int flags);
+void DSA_set_flags(DSA *d, int flags);
+ENGINE *DSA_get0_engine(DSA *d);
+
+DSA_METHOD *DSA_meth_new(const char *name, int flags);
+void DSA_meth_free(DSA_METHOD *dsam);
+DSA_METHOD *DSA_meth_dup(const DSA_METHOD *dsam);
+const char *DSA_meth_get0_name(const DSA_METHOD *dsam);
+int DSA_meth_set1_name(DSA_METHOD *dsam, const char *name);
+int DSA_meth_get_flags(const DSA_METHOD *dsam);
+int DSA_meth_set_flags(DSA_METHOD *dsam, int flags);
+void *DSA_meth_get0_app_data(const DSA_METHOD *dsam);
+int DSA_meth_set0_app_data(DSA_METHOD *dsam, void *app_data);
+DSA_SIG *(*DSA_meth_get_sign(const DSA_METHOD *dsam))
+        (const unsigned char *, int, DSA
