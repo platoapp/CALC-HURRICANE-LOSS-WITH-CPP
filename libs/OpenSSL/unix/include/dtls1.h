@@ -23,4 +23,33 @@ extern "C" {
 # define DTLS1_BAD_VER                   0x0100
 
 /* Special value for method supporting multiple versions */
-# define DTLS
+# define DTLS_ANY_VERSION                0x1FFFF
+
+/* lengths of messages */
+/*
+ * Actually the max cookie length in DTLS is 255. But we can't change this now
+ * due to compatibility concerns.
+ */
+# define DTLS1_COOKIE_LENGTH                     256
+
+# define DTLS1_RT_HEADER_LENGTH                  13
+
+# define DTLS1_HM_HEADER_LENGTH                  12
+
+# define DTLS1_HM_BAD_FRAGMENT                   -2
+# define DTLS1_HM_FRAGMENT_RETRY                 -3
+
+# define DTLS1_CCS_HEADER_LENGTH                  1
+
+# define DTLS1_AL_HEADER_LENGTH                   2
+
+/* Timeout multipliers */
+# define DTLS1_TMO_READ_COUNT                      2
+# define DTLS1_TMO_WRITE_COUNT                     2
+
+# define DTLS1_TMO_ALERT_COUNT                     12
+
+#ifdef  __cplusplus
+}
+#endif
+#endif
