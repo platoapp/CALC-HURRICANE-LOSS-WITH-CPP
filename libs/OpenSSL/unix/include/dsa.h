@@ -233,4 +233,12 @@ int (*DSA_meth_get_paramgen(const DSA_METHOD *dsam))
 int DSA_meth_set_paramgen(DSA_METHOD *dsam,
         int (*paramgen) (DSA *, int, const unsigned char *, int, int *,
                          unsigned long *, BN_GENCB *));
-int (*DSA_meth_get_keygen(const DSA_METHOD *dsa
+int (*DSA_meth_get_keygen(const DSA_METHOD *dsam)) (DSA *);
+int DSA_meth_set_keygen(DSA_METHOD *dsam, int (*keygen) (DSA *));
+
+
+#  ifdef  __cplusplus
+}
+#  endif
+# endif
+#endif
