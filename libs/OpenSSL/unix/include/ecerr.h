@@ -48,4 +48,35 @@ int ERR_load_EC_strings(void);
 #  define EC_F_ECKEY_PRIV_DECODE                           213
 #  define EC_F_ECKEY_PRIV_ENCODE                           214
 #  define EC_F_ECKEY_PUB_DECODE                            215
-#  define EC_F_ECKEY_P
+#  define EC_F_ECKEY_PUB_ENCODE                            216
+#  define EC_F_ECKEY_TYPE2PARAM                            220
+#  define EC_F_ECPARAMETERS_PRINT                          147
+#  define EC_F_ECPARAMETERS_PRINT_FP                       148
+#  define EC_F_ECPKPARAMETERS_PRINT                        149
+#  define EC_F_ECPKPARAMETERS_PRINT_FP                     150
+#  define EC_F_ECP_NISTZ256_GET_AFFINE                     240
+#  define EC_F_ECP_NISTZ256_INV_MOD_ORD                    275
+#  define EC_F_ECP_NISTZ256_MULT_PRECOMPUTE                243
+#  define EC_F_ECP_NISTZ256_POINTS_MUL                     241
+#  define EC_F_ECP_NISTZ256_PRE_COMP_NEW                   244
+#  define EC_F_ECP_NISTZ256_WINDOWED_MUL                   242
+#  define EC_F_ECX_KEY_OP                                  266
+#  define EC_F_ECX_PRIV_ENCODE                             267
+#  define EC_F_ECX_PUB_ENCODE                              268
+#  define EC_F_EC_ASN1_GROUP2CURVE                         153
+#  define EC_F_EC_ASN1_GROUP2FIELDID                       154
+#  define EC_F_EC_GF2M_MONTGOMERY_POINT_MULTIPLY           208
+#  define EC_F_EC_GF2M_SIMPLE_FIELD_INV                    296
+#  define EC_F_EC_GF2M_SIMPLE_GROUP_CHECK_DISCRIMINANT     159
+#  define EC_F_EC_GF2M_SIMPLE_GROUP_SET_CURVE              195
+#  define EC_F_EC_GF2M_SIMPLE_LADDER_POST                  285
+#  define EC_F_EC_GF2M_SIMPLE_LADDER_PRE                   288
+#  define EC_F_EC_GF2M_SIMPLE_OCT2POINT                    160
+#  define EC_F_EC_GF2M_SIMPLE_POINT2OCT                    161
+#  define EC_F_EC_GF2M_SIMPLE_POINTS_MUL                   289
+#  define EC_F_EC_GF2M_SIMPLE_POINT_GET_AFFINE_COORDINATES 162
+#  define EC_F_EC_GF2M_SIMPLE_POINT_SET_AFFINE_COORDINATES 163
+#  define EC_F_EC_GF2M_SIMPLE_SET_COMPRESSED_COORDINATES   164
+#  define EC_F_EC_GFP_MONT_FIELD_DECODE                    133
+#  define EC_F_EC_GFP_MONT_FIELD_ENCODE                    134
+#  define E
