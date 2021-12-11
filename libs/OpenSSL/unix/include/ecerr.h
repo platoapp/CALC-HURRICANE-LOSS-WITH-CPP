@@ -172,4 +172,39 @@ int ERR_load_EC_strings(void);
 #  define EC_F_EC_POINT_SET_JPROJECTIVE_COORDINATES_GFP    126
 #  define EC_F_EC_POINT_SET_TO_INFINITY                    127
 #  define EC_F_EC_PRE_COMP_NEW                             196
-#  define EC_F_EC_SCALAR_MUL_LADDER              
+#  define EC_F_EC_SCALAR_MUL_LADDER                        284
+#  define EC_F_EC_WNAF_MUL                                 187
+#  define EC_F_EC_WNAF_PRECOMPUTE_MULT                     188
+#  define EC_F_I2D_ECPARAMETERS                            190
+#  define EC_F_I2D_ECPKPARAMETERS                          191
+#  define EC_F_I2D_ECPRIVATEKEY                            192
+#  define EC_F_I2O_ECPUBLICKEY                             151
+#  define EC_F_NISTP224_PRE_COMP_NEW                       227
+#  define EC_F_NISTP256_PRE_COMP_NEW                       236
+#  define EC_F_NISTP521_PRE_COMP_NEW                       237
+#  define EC_F_O2I_ECPUBLICKEY                             152
+#  define EC_F_OLD_EC_PRIV_DECODE                          222
+#  define EC_F_OSSL_ECDH_COMPUTE_KEY                       247
+#  define EC_F_OSSL_ECDSA_SIGN_SIG                         249
+#  define EC_F_OSSL_ECDSA_VERIFY_SIG                       250
+#  define EC_F_PKEY_ECD_CTRL                               271
+#  define EC_F_PKEY_ECD_DIGESTSIGN                         272
+#  define EC_F_PKEY_ECD_DIGESTSIGN25519                    276
+#  define EC_F_PKEY_ECD_DIGESTSIGN448                      277
+#  define EC_F_PKEY_ECX_DERIVE                             269
+#  define EC_F_PKEY_EC_CTRL                                197
+#  define EC_F_PKEY_EC_CTRL_STR                            198
+#  define EC_F_PKEY_EC_DERIVE                              217
+#  define EC_F_PKEY_EC_INIT                                282
+#  define EC_F_PKEY_EC_KDF_DERIVE                          283
+#  define EC_F_PKEY_EC_KEYGEN                              199
+#  define EC_F_PKEY_EC_PARAMGEN                            219
+#  define EC_F_PKEY_EC_SIGN                                218
+#  define EC_F_VALIDATE_ECX_DERIVE                         278
+
+/*
+ * EC reason codes.
+ */
+#  define EC_R_ASN1_ERROR                                  115
+#  define EC_R_BAD_SIGNATURE                               156
+#  define EC_R_BIGNUM_OUT_OF_RANGE             
