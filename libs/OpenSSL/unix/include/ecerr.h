@@ -239,4 +239,35 @@ int ERR_load_EC_strings(void);
 #  define EC_R_INVALID_PRIVATE_KEY                         123
 #  define EC_R_INVALID_TRINOMIAL_BASIS                     137
 #  define EC_R_KDF_PARAMETER_ERROR                         148
-#  define EC_R_KEYS_NOT_SET  
+#  define EC_R_KEYS_NOT_SET                                140
+#  define EC_R_LADDER_POST_FAILURE                         136
+#  define EC_R_LADDER_PRE_FAILURE                          153
+#  define EC_R_LADDER_STEP_FAILURE                         162
+#  define EC_R_MISSING_OID                                 167
+#  define EC_R_MISSING_PARAMETERS                          124
+#  define EC_R_MISSING_PRIVATE_KEY                         125
+#  define EC_R_NEED_NEW_SETUP_VALUES                       157
+#  define EC_R_NOT_A_NIST_PRIME                            135
+#  define EC_R_NOT_IMPLEMENTED                             126
+#  define EC_R_NOT_INITIALIZED                             111
+#  define EC_R_NO_PARAMETERS_SET                           139
+#  define EC_R_NO_PRIVATE_VALUE                            154
+#  define EC_R_OPERATION_NOT_SUPPORTED                     152
+#  define EC_R_PASSED_NULL_PARAMETER                       134
+#  define EC_R_PEER_KEY_ERROR                              149
+#  define EC_R_PKPARAMETERS2GROUP_FAILURE                  127
+#  define EC_R_POINT_ARITHMETIC_FAILURE                    155
+#  define EC_R_POINT_AT_INFINITY                           106
+#  define EC_R_POINT_COORDINATES_BLIND_FAILURE             163
+#  define EC_R_POINT_IS_NOT_ON_CURVE                       107
+#  define EC_R_RANDOM_NUMBER_GENERATION_FAILED             158
+#  define EC_R_SHARED_INFO_ERROR                           150
+#  define EC_R_SLOT_FULL                                   108
+#  define EC_R_UNDEFINED_GENERATOR                         113
+#  define EC_R_UNDEFINED_ORDER                             128
+#  define EC_R_UNKNOWN_COFACTOR                            164
+#  define EC_R_UNKNOWN_GROUP                               129
+#  define EC_R_UNKNOWN_ORDER                               114
+#  define EC_R_UNSUPPORTED_FIELD                           131
+#  define EC_R_WRONG_CURVE_PARAMETERS                      145
+#  define EC_R_WRONG_ORDER                  
