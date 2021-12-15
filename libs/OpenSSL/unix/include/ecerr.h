@@ -270,4 +270,7 @@ int ERR_load_EC_strings(void);
 #  define EC_R_UNKNOWN_ORDER                               114
 #  define EC_R_UNSUPPORTED_FIELD                           131
 #  define EC_R_WRONG_CURVE_PARAMETERS                      145
-#  define EC_R_WRONG_ORDER                  
+#  define EC_R_WRONG_ORDER                                 130
+
+# endif
+#endif
