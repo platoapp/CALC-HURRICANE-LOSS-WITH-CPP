@@ -32,3 +32,48 @@ typedef struct lhash_st OPENSSL_LHASH;
  * Macros for declaring and implementing type-safe wrappers for LHASH
  * callbacks. This way, callbacks can be provided to LHASH structures without
  * function pointer casting and the macro-defined callbacks provide
+ * per-variable casting before deferring to the underlying type-specific
+ * callbacks. NB: It is possible to place a "static" in front of both the
+ * DECLARE and IMPLEMENT macros if the functions are strictly internal.
+ */
+
+/* First: "hash" functions */
+# define DECLARE_LHASH_HASH_FN(name, o_type) \
+        unsigned long name##_LHASH_HASH(const void *);
+# define IMPLEMENT_LHASH_HASH_FN(name, o_type) \
+        unsigned long name##_LHASH_HASH(const void *arg) { \
+                const o_type *a = arg; \
+                return name##_hash(a); }
+# define LHASH_HASH_FN(name) name##_LHASH_HASH
+
+/* Second: "compare" functions */
+# define DECLARE_LHASH_COMP_FN(name, o_type) \
+        int name##_LHASH_COMP(const void *, const void *);
+# define IMPLEMENT_LHASH_COMP_FN(name, o_type) \
+        int name##_LHASH_COMP(const void *arg1, const void *arg2) { \
+                const o_type *a = arg1;             \
+                const o_type *b = arg2; \
+                return name##_cmp(a,b); }
+# define LHASH_COMP_FN(name) name##_LHASH_COMP
+
+/* Fourth: "doall_arg" functions */
+# define DECLARE_LHASH_DOALL_ARG_FN(name, o_type, a_type) \
+        void name##_LHASH_DOALL_ARG(void *, void *);
+# define IMPLEMENT_LHASH_DOALL_ARG_FN(name, o_type, a_type) \
+        void name##_LHASH_DOALL_ARG(void *arg1, void *arg2) { \
+                o_type *a = arg1; \
+                a_type *b = arg2; \
+                name##_doall_arg(a, b); }
+# define LHASH_DOALL_ARG_FN(name) name##_LHASH_DOALL_ARG
+
+
+# define LH_LOAD_MULT    256
+
+int OPENSSL_LH_error(OPENSSL_LHASH *lh);
+OPENSSL_LHASH *OPENSSL_LH_new(OPENSSL_LH_HASHFUNC h, OPENSSL_LH_COMPFUNC c);
+void OPENSSL_LH_free(OPENSSL_LHASH *lh);
+void *OPENSSL_LH_insert(OPENSSL_LHASH *lh, void *data);
+void *OPENSSL_LH_delete(OPENSSL_LHASH *lh, const void *data);
+void *OPENSSL_LH_retrieve(OPENSSL_LHASH *lh, const void *data);
+void OPENSSL_LH_doall(OPENSSL_LHASH *lh, OPENSSL_LH_DOALL_FUNC func);
+void OPENSSL_LH_doall_arg(OPENSSL_LHASH *lh, OPENSSL_LH_DOALL_FU
