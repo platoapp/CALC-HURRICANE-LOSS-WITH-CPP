@@ -170,4 +170,61 @@ void OPENSSL_LH_node_usage_stats_bio(const OPENSSL_LHASH *lh, BIO *out);
     { \
         OPENSSL_LH_set_down_load((OPENSSL_LHASH *)lh, dl); \
     } \
-    static ossl_unused ossl_inline v
+    static ossl_unused ossl_inline void lh_##type##_doall(LHASH_OF(type) *lh, \
+                                                          void (*doall)(type *)) \
+    { \
+        OPENSSL_LH_doall((OPENSSL_LHASH *)lh, (OPENSSL_LH_DOALL_FUNC)doall); \
+    } \
+    LHASH_OF(type)
+
+#define IMPLEMENT_LHASH_DOALL_ARG_CONST(type, argtype) \
+    int_implement_lhash_doall(type, argtype, const type)
+
+#define IMPLEMENT_LHASH_DOALL_ARG(type, argtype) \
+    int_implement_lhash_doall(type, argtype, type)
+
+#define int_implement_lhash_doall(type, argtype, cbargtype) \
+    static ossl_unused ossl_inline void \
+        lh_##type##_doall_##argtype(LHASH_OF(type) *lh, \
+                                   void (*fn)(cbargtype *, argtype *), \
+                                   argtype *arg) \
+    { \
+        OPENSSL_LH_doall_arg((OPENSSL_LHASH *)lh, (OPENSSL_LH_DOALL_FUNCARG)fn, (void *)arg); \
+    } \
+    LHASH_OF(type)
+
+DEFINE_LHASH_OF(OPENSSL_STRING);
+# ifdef _MSC_VER
+/*
+ * push and pop this warning:
+ *   warning C4090: 'function': different 'const' qualifiers
+ */
+#  pragma warning (push)
+#  pragma warning (disable: 4090)
+# endif
+
+DEFINE_LHASH_OF(OPENSSL_CSTRING);
+
+# ifdef _MSC_VER
+#  pragma warning (pop)
+# endif
+
+/*
+ * If called without higher optimization (min. -xO3) the Oracle Developer
+ * Studio compiler generates code for the defined (static inline) functions
+ * above.
+ * This would later lead to the linker complaining about missing symbols when
+ * this header file is included but the resulting object is not linked against
+ * the Crypto library (openssl#6912).
+ */
+# ifdef __SUNPRO_C
+#  pragma weak OPENSSL_LH_new
+#  pragma weak OPENSSL_LH_free
+#  pragma weak OPENSSL_LH_insert
+#  pragma weak OPENSSL_LH_delete
+#  pragma weak OPENSSL_LH_retrieve
+#  pragma weak OPENSSL_LH_error
+#  pragma weak OPENSSL_LH_num_items
+#  pragma weak OPENSSL_LH_node_stats_bio
+#  pragma weak OPENSSL_LH_node_usage_stats_bio
+#  pragma weak OPENSSL_LH_stats_
