@@ -227,4 +227,15 @@ DEFINE_LHASH_OF(OPENSSL_CSTRING);
 #  pragma weak OPENSSL_LH_num_items
 #  pragma weak OPENSSL_LH_node_stats_bio
 #  pragma weak OPENSSL_LH_node_usage_stats_bio
-#  pragma weak OPENSSL_LH_stats_
+#  pragma weak OPENSSL_LH_stats_bio
+#  pragma weak OPENSSL_LH_get_down_load
+#  pragma weak OPENSSL_LH_set_down_load
+#  pragma weak OPENSSL_LH_doall
+#  pragma weak OPENSSL_LH_doall_arg
+# endif /* __SUNPRO_C */
+
+#ifdef  __cplusplus
+}
+#endif
+
+#endif
