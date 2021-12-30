@@ -4752,3 +4752,448 @@
 #define LN_sm4_cfb128           "sm4-cfb"
 #define NID_sm4_cfb128          1137
 #define OBJ_sm4_cfb128          OBJ_sm_scheme,104L,4L
+
+#define SN_sm4_cfb1             "SM4-CFB1"
+#define LN_sm4_cfb1             "sm4-cfb1"
+#define NID_sm4_cfb1            1136
+#define OBJ_sm4_cfb1            OBJ_sm_scheme,104L,5L
+
+#define SN_sm4_cfb8             "SM4-CFB8"
+#define LN_sm4_cfb8             "sm4-cfb8"
+#define NID_sm4_cfb8            1138
+#define OBJ_sm4_cfb8            OBJ_sm_scheme,104L,6L
+
+#define SN_sm4_ctr              "SM4-CTR"
+#define LN_sm4_ctr              "sm4-ctr"
+#define NID_sm4_ctr             1139
+#define OBJ_sm4_ctr             OBJ_sm_scheme,104L,7L
+
+#define SN_hmac         "HMAC"
+#define LN_hmac         "hmac"
+#define NID_hmac                855
+
+#define SN_cmac         "CMAC"
+#define LN_cmac         "cmac"
+#define NID_cmac                894
+
+#define SN_rc4_hmac_md5         "RC4-HMAC-MD5"
+#define LN_rc4_hmac_md5         "rc4-hmac-md5"
+#define NID_rc4_hmac_md5                915
+
+#define SN_aes_128_cbc_hmac_sha1                "AES-128-CBC-HMAC-SHA1"
+#define LN_aes_128_cbc_hmac_sha1                "aes-128-cbc-hmac-sha1"
+#define NID_aes_128_cbc_hmac_sha1               916
+
+#define SN_aes_192_cbc_hmac_sha1                "AES-192-CBC-HMAC-SHA1"
+#define LN_aes_192_cbc_hmac_sha1                "aes-192-cbc-hmac-sha1"
+#define NID_aes_192_cbc_hmac_sha1               917
+
+#define SN_aes_256_cbc_hmac_sha1                "AES-256-CBC-HMAC-SHA1"
+#define LN_aes_256_cbc_hmac_sha1                "aes-256-cbc-hmac-sha1"
+#define NID_aes_256_cbc_hmac_sha1               918
+
+#define SN_aes_128_cbc_hmac_sha256              "AES-128-CBC-HMAC-SHA256"
+#define LN_aes_128_cbc_hmac_sha256              "aes-128-cbc-hmac-sha256"
+#define NID_aes_128_cbc_hmac_sha256             948
+
+#define SN_aes_192_cbc_hmac_sha256              "AES-192-CBC-HMAC-SHA256"
+#define LN_aes_192_cbc_hmac_sha256              "aes-192-cbc-hmac-sha256"
+#define NID_aes_192_cbc_hmac_sha256             949
+
+#define SN_aes_256_cbc_hmac_sha256              "AES-256-CBC-HMAC-SHA256"
+#define LN_aes_256_cbc_hmac_sha256              "aes-256-cbc-hmac-sha256"
+#define NID_aes_256_cbc_hmac_sha256             950
+
+#define SN_chacha20_poly1305            "ChaCha20-Poly1305"
+#define LN_chacha20_poly1305            "chacha20-poly1305"
+#define NID_chacha20_poly1305           1018
+
+#define SN_chacha20             "ChaCha20"
+#define LN_chacha20             "chacha20"
+#define NID_chacha20            1019
+
+#define SN_dhpublicnumber               "dhpublicnumber"
+#define LN_dhpublicnumber               "X9.42 DH"
+#define NID_dhpublicnumber              920
+#define OBJ_dhpublicnumber              OBJ_ISO_US,10046L,2L,1L
+
+#define SN_brainpoolP160r1              "brainpoolP160r1"
+#define NID_brainpoolP160r1             921
+#define OBJ_brainpoolP160r1             1L,3L,36L,3L,3L,2L,8L,1L,1L,1L
+
+#define SN_brainpoolP160t1              "brainpoolP160t1"
+#define NID_brainpoolP160t1             922
+#define OBJ_brainpoolP160t1             1L,3L,36L,3L,3L,2L,8L,1L,1L,2L
+
+#define SN_brainpoolP192r1              "brainpoolP192r1"
+#define NID_brainpoolP192r1             923
+#define OBJ_brainpoolP192r1             1L,3L,36L,3L,3L,2L,8L,1L,1L,3L
+
+#define SN_brainpoolP192t1              "brainpoolP192t1"
+#define NID_brainpoolP192t1             924
+#define OBJ_brainpoolP192t1             1L,3L,36L,3L,3L,2L,8L,1L,1L,4L
+
+#define SN_brainpoolP224r1              "brainpoolP224r1"
+#define NID_brainpoolP224r1             925
+#define OBJ_brainpoolP224r1             1L,3L,36L,3L,3L,2L,8L,1L,1L,5L
+
+#define SN_brainpoolP224t1              "brainpoolP224t1"
+#define NID_brainpoolP224t1             926
+#define OBJ_brainpoolP224t1             1L,3L,36L,3L,3L,2L,8L,1L,1L,6L
+
+#define SN_brainpoolP256r1              "brainpoolP256r1"
+#define NID_brainpoolP256r1             927
+#define OBJ_brainpoolP256r1             1L,3L,36L,3L,3L,2L,8L,1L,1L,7L
+
+#define SN_brainpoolP256t1              "brainpoolP256t1"
+#define NID_brainpoolP256t1             928
+#define OBJ_brainpoolP256t1             1L,3L,36L,3L,3L,2L,8L,1L,1L,8L
+
+#define SN_brainpoolP320r1              "brainpoolP320r1"
+#define NID_brainpoolP320r1             929
+#define OBJ_brainpoolP320r1             1L,3L,36L,3L,3L,2L,8L,1L,1L,9L
+
+#define SN_brainpoolP320t1              "brainpoolP320t1"
+#define NID_brainpoolP320t1             930
+#define OBJ_brainpoolP320t1             1L,3L,36L,3L,3L,2L,8L,1L,1L,10L
+
+#define SN_brainpoolP384r1              "brainpoolP384r1"
+#define NID_brainpoolP384r1             931
+#define OBJ_brainpoolP384r1             1L,3L,36L,3L,3L,2L,8L,1L,1L,11L
+
+#define SN_brainpoolP384t1              "brainpoolP384t1"
+#define NID_brainpoolP384t1             932
+#define OBJ_brainpoolP384t1             1L,3L,36L,3L,3L,2L,8L,1L,1L,12L
+
+#define SN_brainpoolP512r1              "brainpoolP512r1"
+#define NID_brainpoolP512r1             933
+#define OBJ_brainpoolP512r1             1L,3L,36L,3L,3L,2L,8L,1L,1L,13L
+
+#define SN_brainpoolP512t1              "brainpoolP512t1"
+#define NID_brainpoolP512t1             934
+#define OBJ_brainpoolP512t1             1L,3L,36L,3L,3L,2L,8L,1L,1L,14L
+
+#define OBJ_x9_63_scheme                1L,3L,133L,16L,840L,63L,0L
+
+#define OBJ_secg_scheme         OBJ_certicom_arc,1L
+
+#define SN_dhSinglePass_stdDH_sha1kdf_scheme            "dhSinglePass-stdDH-sha1kdf-scheme"
+#define NID_dhSinglePass_stdDH_sha1kdf_scheme           936
+#define OBJ_dhSinglePass_stdDH_sha1kdf_scheme           OBJ_x9_63_scheme,2L
+
+#define SN_dhSinglePass_stdDH_sha224kdf_scheme          "dhSinglePass-stdDH-sha224kdf-scheme"
+#define NID_dhSinglePass_stdDH_sha224kdf_scheme         937
+#define OBJ_dhSinglePass_stdDH_sha224kdf_scheme         OBJ_secg_scheme,11L,0L
+
+#define SN_dhSinglePass_stdDH_sha256kdf_scheme          "dhSinglePass-stdDH-sha256kdf-scheme"
+#define NID_dhSinglePass_stdDH_sha256kdf_scheme         938
+#define OBJ_dhSinglePass_stdDH_sha256kdf_scheme         OBJ_secg_scheme,11L,1L
+
+#define SN_dhSinglePass_stdDH_sha384kdf_scheme          "dhSinglePass-stdDH-sha384kdf-scheme"
+#define NID_dhSinglePass_stdDH_sha384kdf_scheme         939
+#define OBJ_dhSinglePass_stdDH_sha384kdf_scheme         OBJ_secg_scheme,11L,2L
+
+#define SN_dhSinglePass_stdDH_sha512kdf_scheme          "dhSinglePass-stdDH-sha512kdf-scheme"
+#define NID_dhSinglePass_stdDH_sha512kdf_scheme         940
+#define OBJ_dhSinglePass_stdDH_sha512kdf_scheme         OBJ_secg_scheme,11L,3L
+
+#define SN_dhSinglePass_cofactorDH_sha1kdf_scheme               "dhSinglePass-cofactorDH-sha1kdf-scheme"
+#define NID_dhSinglePass_cofactorDH_sha1kdf_scheme              941
+#define OBJ_dhSinglePass_cofactorDH_sha1kdf_scheme              OBJ_x9_63_scheme,3L
+
+#define SN_dhSinglePass_cofactorDH_sha224kdf_scheme             "dhSinglePass-cofactorDH-sha224kdf-scheme"
+#define NID_dhSinglePass_cofactorDH_sha224kdf_scheme            942
+#define OBJ_dhSinglePass_cofactorDH_sha224kdf_scheme            OBJ_secg_scheme,14L,0L
+
+#define SN_dhSinglePass_cofactorDH_sha256kdf_scheme             "dhSinglePass-cofactorDH-sha256kdf-scheme"
+#define NID_dhSinglePass_cofactorDH_sha256kdf_scheme            943
+#define OBJ_dhSinglePass_cofactorDH_sha256kdf_scheme            OBJ_secg_scheme,14L,1L
+
+#define SN_dhSinglePass_cofactorDH_sha384kdf_scheme             "dhSinglePass-cofactorDH-sha384kdf-scheme"
+#define NID_dhSinglePass_cofactorDH_sha384kdf_scheme            944
+#define OBJ_dhSinglePass_cofactorDH_sha384kdf_scheme            OBJ_secg_scheme,14L,2L
+
+#define SN_dhSinglePass_cofactorDH_sha512kdf_scheme             "dhSinglePass-cofactorDH-sha512kdf-scheme"
+#define NID_dhSinglePass_cofactorDH_sha512kdf_scheme            945
+#define OBJ_dhSinglePass_cofactorDH_sha512kdf_scheme            OBJ_secg_scheme,14L,3L
+
+#define SN_dh_std_kdf           "dh-std-kdf"
+#define NID_dh_std_kdf          946
+
+#define SN_dh_cofactor_kdf              "dh-cofactor-kdf"
+#define NID_dh_cofactor_kdf             947
+
+#define SN_ct_precert_scts              "ct_precert_scts"
+#define LN_ct_precert_scts              "CT Precertificate SCTs"
+#define NID_ct_precert_scts             951
+#define OBJ_ct_precert_scts             1L,3L,6L,1L,4L,1L,11129L,2L,4L,2L
+
+#define SN_ct_precert_poison            "ct_precert_poison"
+#define LN_ct_precert_poison            "CT Precertificate Poison"
+#define NID_ct_precert_poison           952
+#define OBJ_ct_precert_poison           1L,3L,6L,1L,4L,1L,11129L,2L,4L,3L
+
+#define SN_ct_precert_signer            "ct_precert_signer"
+#define LN_ct_precert_signer            "CT Precertificate Signer"
+#define NID_ct_precert_signer           953
+#define OBJ_ct_precert_signer           1L,3L,6L,1L,4L,1L,11129L,2L,4L,4L
+
+#define SN_ct_cert_scts         "ct_cert_scts"
+#define LN_ct_cert_scts         "CT Certificate SCTs"
+#define NID_ct_cert_scts                954
+#define OBJ_ct_cert_scts                1L,3L,6L,1L,4L,1L,11129L,2L,4L,5L
+
+#define SN_jurisdictionLocalityName             "jurisdictionL"
+#define LN_jurisdictionLocalityName             "jurisdictionLocalityName"
+#define NID_jurisdictionLocalityName            955
+#define OBJ_jurisdictionLocalityName            1L,3L,6L,1L,4L,1L,311L,60L,2L,1L,1L
+
+#define SN_jurisdictionStateOrProvinceName              "jurisdictionST"
+#define LN_jurisdictionStateOrProvinceName              "jurisdictionStateOrProvinceName"
+#define NID_jurisdictionStateOrProvinceName             956
+#define OBJ_jurisdictionStateOrProvinceName             1L,3L,6L,1L,4L,1L,311L,60L,2L,1L,2L
+
+#define SN_jurisdictionCountryName              "jurisdictionC"
+#define LN_jurisdictionCountryName              "jurisdictionCountryName"
+#define NID_jurisdictionCountryName             957
+#define OBJ_jurisdictionCountryName             1L,3L,6L,1L,4L,1L,311L,60L,2L,1L,3L
+
+#define SN_id_scrypt            "id-scrypt"
+#define LN_id_scrypt            "scrypt"
+#define NID_id_scrypt           973
+#define OBJ_id_scrypt           1L,3L,6L,1L,4L,1L,11591L,4L,11L
+
+#define SN_tls1_prf             "TLS1-PRF"
+#define LN_tls1_prf             "tls1-prf"
+#define NID_tls1_prf            1021
+
+#define SN_hkdf         "HKDF"
+#define LN_hkdf         "hkdf"
+#define NID_hkdf                1036
+
+#define SN_id_pkinit            "id-pkinit"
+#define NID_id_pkinit           1031
+#define OBJ_id_pkinit           1L,3L,6L,1L,5L,2L,3L
+
+#define SN_pkInitClientAuth             "pkInitClientAuth"
+#define LN_pkInitClientAuth             "PKINIT Client Auth"
+#define NID_pkInitClientAuth            1032
+#define OBJ_pkInitClientAuth            OBJ_id_pkinit,4L
+
+#define SN_pkInitKDC            "pkInitKDC"
+#define LN_pkInitKDC            "Signing KDC Response"
+#define NID_pkInitKDC           1033
+#define OBJ_pkInitKDC           OBJ_id_pkinit,5L
+
+#define SN_X25519               "X25519"
+#define NID_X25519              1034
+#define OBJ_X25519              1L,3L,101L,110L
+
+#define SN_X448         "X448"
+#define NID_X448                1035
+#define OBJ_X448                1L,3L,101L,111L
+
+#define SN_ED25519              "ED25519"
+#define NID_ED25519             1087
+#define OBJ_ED25519             1L,3L,101L,112L
+
+#define SN_ED448                "ED448"
+#define NID_ED448               1088
+#define OBJ_ED448               1L,3L,101L,113L
+
+#define SN_kx_rsa               "KxRSA"
+#define LN_kx_rsa               "kx-rsa"
+#define NID_kx_rsa              1037
+
+#define SN_kx_ecdhe             "KxECDHE"
+#define LN_kx_ecdhe             "kx-ecdhe"
+#define NID_kx_ecdhe            1038
+
+#define SN_kx_dhe               "KxDHE"
+#define LN_kx_dhe               "kx-dhe"
+#define NID_kx_dhe              1039
+
+#define SN_kx_ecdhe_psk         "KxECDHE-PSK"
+#define LN_kx_ecdhe_psk         "kx-ecdhe-psk"
+#define NID_kx_ecdhe_psk                1040
+
+#define SN_kx_dhe_psk           "KxDHE-PSK"
+#define LN_kx_dhe_psk           "kx-dhe-psk"
+#define NID_kx_dhe_psk          1041
+
+#define SN_kx_rsa_psk           "KxRSA_PSK"
+#define LN_kx_rsa_psk           "kx-rsa-psk"
+#define NID_kx_rsa_psk          1042
+
+#define SN_kx_psk               "KxPSK"
+#define LN_kx_psk               "kx-psk"
+#define NID_kx_psk              1043
+
+#define SN_kx_srp               "KxSRP"
+#define LN_kx_srp               "kx-srp"
+#define NID_kx_srp              1044
+
+#define SN_kx_gost              "KxGOST"
+#define LN_kx_gost              "kx-gost"
+#define NID_kx_gost             1045
+
+#define SN_kx_any               "KxANY"
+#define LN_kx_any               "kx-any"
+#define NID_kx_any              1063
+
+#define SN_auth_rsa             "AuthRSA"
+#define LN_auth_rsa             "auth-rsa"
+#define NID_auth_rsa            1046
+
+#define SN_auth_ecdsa           "AuthECDSA"
+#define LN_auth_ecdsa           "auth-ecdsa"
+#define NID_auth_ecdsa          1047
+
+#define SN_auth_psk             "AuthPSK"
+#define LN_auth_psk             "auth-psk"
+#define NID_auth_psk            1048
+
+#define SN_auth_dss             "AuthDSS"
+#define LN_auth_dss             "auth-dss"
+#define NID_auth_dss            1049
+
+#define SN_auth_gost01          "AuthGOST01"
+#define LN_auth_gost01          "auth-gost01"
+#define NID_auth_gost01         1050
+
+#define SN_auth_gost12          "AuthGOST12"
+#define LN_auth_gost12          "auth-gost12"
+#define NID_auth_gost12         1051
+
+#define SN_auth_srp             "AuthSRP"
+#define LN_auth_srp             "auth-srp"
+#define NID_auth_srp            1052
+
+#define SN_auth_null            "AuthNULL"
+#define LN_auth_null            "auth-null"
+#define NID_auth_null           1053
+
+#define SN_auth_any             "AuthANY"
+#define LN_auth_any             "auth-any"
+#define NID_auth_any            1064
+
+#define SN_poly1305             "Poly1305"
+#define LN_poly1305             "poly1305"
+#define NID_poly1305            1061
+
+#define SN_siphash              "SipHash"
+#define LN_siphash              "siphash"
+#define NID_siphash             1062
+
+#define SN_ffdhe2048            "ffdhe2048"
+#define NID_ffdhe2048           1126
+
+#define SN_ffdhe3072            "ffdhe3072"
+#define NID_ffdhe3072           1127
+
+#define SN_ffdhe4096            "ffdhe4096"
+#define NID_ffdhe4096           1128
+
+#define SN_ffdhe6144            "ffdhe6144"
+#define NID_ffdhe6144           1129
+
+#define SN_ffdhe8192            "ffdhe8192"
+#define NID_ffdhe8192           1130
+
+#define SN_ISO_UA               "ISO-UA"
+#define NID_ISO_UA              1150
+#define OBJ_ISO_UA              OBJ_member_body,804L
+
+#define SN_ua_pki               "ua-pki"
+#define NID_ua_pki              1151
+#define OBJ_ua_pki              OBJ_ISO_UA,2L,1L,1L,1L
+
+#define SN_dstu28147            "dstu28147"
+#define LN_dstu28147            "DSTU Gost 28147-2009"
+#define NID_dstu28147           1152
+#define OBJ_dstu28147           OBJ_ua_pki,1L,1L,1L
+
+#define SN_dstu28147_ofb                "dstu28147-ofb"
+#define LN_dstu28147_ofb                "DSTU Gost 28147-2009 OFB mode"
+#define NID_dstu28147_ofb               1153
+#define OBJ_dstu28147_ofb               OBJ_dstu28147,2L
+
+#define SN_dstu28147_cfb                "dstu28147-cfb"
+#define LN_dstu28147_cfb                "DSTU Gost 28147-2009 CFB mode"
+#define NID_dstu28147_cfb               1154
+#define OBJ_dstu28147_cfb               OBJ_dstu28147,3L
+
+#define SN_dstu28147_wrap               "dstu28147-wrap"
+#define LN_dstu28147_wrap               "DSTU Gost 28147-2009 key wrap"
+#define NID_dstu28147_wrap              1155
+#define OBJ_dstu28147_wrap              OBJ_dstu28147,5L
+
+#define SN_hmacWithDstu34311            "hmacWithDstu34311"
+#define LN_hmacWithDstu34311            "HMAC DSTU Gost 34311-95"
+#define NID_hmacWithDstu34311           1156
+#define OBJ_hmacWithDstu34311           OBJ_ua_pki,1L,1L,2L
+
+#define SN_dstu34311            "dstu34311"
+#define LN_dstu34311            "DSTU Gost 34311-95"
+#define NID_dstu34311           1157
+#define OBJ_dstu34311           OBJ_ua_pki,1L,2L,1L
+
+#define SN_dstu4145le           "dstu4145le"
+#define LN_dstu4145le           "DSTU 4145-2002 little endian"
+#define NID_dstu4145le          1158
+#define OBJ_dstu4145le          OBJ_ua_pki,1L,3L,1L,1L
+
+#define SN_dstu4145be           "dstu4145be"
+#define LN_dstu4145be           "DSTU 4145-2002 big endian"
+#define NID_dstu4145be          1159
+#define OBJ_dstu4145be          OBJ_dstu4145le,1L,1L
+
+#define SN_uacurve0             "uacurve0"
+#define LN_uacurve0             "DSTU curve 0"
+#define NID_uacurve0            1160
+#define OBJ_uacurve0            OBJ_dstu4145le,2L,0L
+
+#define SN_uacurve1             "uacurve1"
+#define LN_uacurve1             "DSTU curve 1"
+#define NID_uacurve1            1161
+#define OBJ_uacurve1            OBJ_dstu4145le,2L,1L
+
+#define SN_uacurve2             "uacurve2"
+#define LN_uacurve2             "DSTU curve 2"
+#define NID_uacurve2            1162
+#define OBJ_uacurve2            OBJ_dstu4145le,2L,2L
+
+#define SN_uacurve3             "uacurve3"
+#define LN_uacurve3             "DSTU curve 3"
+#define NID_uacurve3            1163
+#define OBJ_uacurve3            OBJ_dstu4145le,2L,3L
+
+#define SN_uacurve4             "uacurve4"
+#define LN_uacurve4             "DSTU curve 4"
+#define NID_uacurve4            1164
+#define OBJ_uacurve4            OBJ_dstu4145le,2L,4L
+
+#define SN_uacurve5             "uacurve5"
+#define LN_uacurve5             "DSTU curve 5"
+#define NID_uacurve5            1165
+#define OBJ_uacurve5            OBJ_dstu4145le,2L,5L
+
+#define SN_uacurve6             "uacurve6"
+#define LN_uacurve6             "DSTU curve 6"
+#define NID_uacurve6            1166
+#define OBJ_uacurve6            OBJ_dstu4145le,2L,6L
+
+#define SN_uacurve7             "uacurve7"
+#define LN_uacurve7             "DSTU curve 7"
+#define NID_uacurve7            1167
+#define OBJ_uacurve7            OBJ_dstu4145le,2L,7L
+
+#define SN_uacurve8             "uacurve8"
+#define LN_uacurve8             "DSTU curve 8"
+#define NID_uacurve8            1168
+#define OBJ_uacurve8            OBJ_dstu4145le,2L,8L
+
+#define SN_uacurve9             "uacurve9"
+#define LN_uacurve9             "DSTU curve 9"
+#define NID_uacurve9            1169
+#define OBJ_uacurve9            OBJ_dstu4145le,2L,9L
