@@ -45,4 +45,78 @@ typedef struct asn1_string_st ASN1_PRINTABLESTRING;
 typedef struct asn1_string_st ASN1_T61STRING;
 typedef struct asn1_string_st ASN1_IA5STRING;
 typedef struct asn1_string_st ASN1_GENERALSTRING;
-typedef struct asn1_string_st ASN
+typedef struct asn1_string_st ASN1_UNIVERSALSTRING;
+typedef struct asn1_string_st ASN1_BMPSTRING;
+typedef struct asn1_string_st ASN1_UTCTIME;
+typedef struct asn1_string_st ASN1_TIME;
+typedef struct asn1_string_st ASN1_GENERALIZEDTIME;
+typedef struct asn1_string_st ASN1_VISIBLESTRING;
+typedef struct asn1_string_st ASN1_UTF8STRING;
+typedef struct asn1_string_st ASN1_STRING;
+typedef int ASN1_BOOLEAN;
+typedef int ASN1_NULL;
+# endif
+
+typedef struct asn1_object_st ASN1_OBJECT;
+
+typedef struct ASN1_ITEM_st ASN1_ITEM;
+typedef struct asn1_pctx_st ASN1_PCTX;
+typedef struct asn1_sctx_st ASN1_SCTX;
+
+# ifdef _WIN32
+#  undef X509_NAME
+#  undef X509_EXTENSIONS
+#  undef PKCS7_ISSUER_AND_SERIAL
+#  undef PKCS7_SIGNER_INFO
+#  undef OCSP_REQUEST
+#  undef OCSP_RESPONSE
+# endif
+
+# ifdef BIGNUM
+#  undef BIGNUM
+# endif
+struct dane_st;
+typedef struct bio_st BIO;
+typedef struct bignum_st BIGNUM;
+typedef struct bignum_ctx BN_CTX;
+typedef struct bn_blinding_st BN_BLINDING;
+typedef struct bn_mont_ctx_st BN_MONT_CTX;
+typedef struct bn_recp_ctx_st BN_RECP_CTX;
+typedef struct bn_gencb_st BN_GENCB;
+
+typedef struct buf_mem_st BUF_MEM;
+
+typedef struct evp_cipher_st EVP_CIPHER;
+typedef struct evp_cipher_ctx_st EVP_CIPHER_CTX;
+typedef struct evp_md_st EVP_MD;
+typedef struct evp_md_ctx_st EVP_MD_CTX;
+typedef struct evp_pkey_st EVP_PKEY;
+
+typedef struct evp_pkey_asn1_method_st EVP_PKEY_ASN1_METHOD;
+
+typedef struct evp_pkey_method_st EVP_PKEY_METHOD;
+typedef struct evp_pkey_ctx_st EVP_PKEY_CTX;
+
+typedef struct evp_Encode_Ctx_st EVP_ENCODE_CTX;
+
+typedef struct hmac_ctx_st HMAC_CTX;
+
+typedef struct dh_st DH;
+typedef struct dh_method DH_METHOD;
+
+typedef struct dsa_st DSA;
+typedef struct dsa_method DSA_METHOD;
+
+typedef struct rsa_st RSA;
+typedef struct rsa_meth_st RSA_METHOD;
+typedef struct rsa_pss_params_st RSA_PSS_PARAMS;
+
+typedef struct ec_key_st EC_KEY;
+typedef struct ec_key_method_st EC_KEY_METHOD;
+
+typedef struct rand_meth_st RAND_METHOD;
+typedef struct rand_drbg_st RAND_DRBG;
+
+typedef struct ssl_dane_st SSL_DANE;
+typedef struct x509_st X509;
+typedef struct X509_algor_s
