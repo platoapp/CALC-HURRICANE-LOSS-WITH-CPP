@@ -119,4 +119,61 @@ typedef struct rand_drbg_st RAND_DRBG;
 
 typedef struct ssl_dane_st SSL_DANE;
 typedef struct x509_st X509;
-typedef struct X509_algor_s
+typedef struct X509_algor_st X509_ALGOR;
+typedef struct X509_crl_st X509_CRL;
+typedef struct x509_crl_method_st X509_CRL_METHOD;
+typedef struct x509_revoked_st X509_REVOKED;
+typedef struct X509_name_st X509_NAME;
+typedef struct X509_pubkey_st X509_PUBKEY;
+typedef struct x509_store_st X509_STORE;
+typedef struct x509_store_ctx_st X509_STORE_CTX;
+
+typedef struct x509_object_st X509_OBJECT;
+typedef struct x509_lookup_st X509_LOOKUP;
+typedef struct x509_lookup_method_st X509_LOOKUP_METHOD;
+typedef struct X509_VERIFY_PARAM_st X509_VERIFY_PARAM;
+
+typedef struct x509_sig_info_st X509_SIG_INFO;
+
+typedef struct pkcs8_priv_key_info_st PKCS8_PRIV_KEY_INFO;
+
+typedef struct v3_ext_ctx X509V3_CTX;
+typedef struct conf_st CONF;
+typedef struct ossl_init_settings_st OPENSSL_INIT_SETTINGS;
+
+typedef struct ui_st UI;
+typedef struct ui_method_st UI_METHOD;
+
+typedef struct engine_st ENGINE;
+typedef struct ssl_st SSL;
+typedef struct ssl_ctx_st SSL_CTX;
+
+typedef struct comp_ctx_st COMP_CTX;
+typedef struct comp_method_st COMP_METHOD;
+
+typedef struct X509_POLICY_NODE_st X509_POLICY_NODE;
+typedef struct X509_POLICY_LEVEL_st X509_POLICY_LEVEL;
+typedef struct X509_POLICY_TREE_st X509_POLICY_TREE;
+typedef struct X509_POLICY_CACHE_st X509_POLICY_CACHE;
+
+typedef struct AUTHORITY_KEYID_st AUTHORITY_KEYID;
+typedef struct DIST_POINT_st DIST_POINT;
+typedef struct ISSUING_DIST_POINT_st ISSUING_DIST_POINT;
+typedef struct NAME_CONSTRAINTS_st NAME_CONSTRAINTS;
+
+typedef struct crypto_ex_data_st CRYPTO_EX_DATA;
+
+typedef struct ocsp_req_ctx_st OCSP_REQ_CTX;
+typedef struct ocsp_response_st OCSP_RESPONSE;
+typedef struct ocsp_responder_id_st OCSP_RESPID;
+
+typedef struct sct_st SCT;
+typedef struct sct_ctx_st SCT_CTX;
+typedef struct ctlog_st CTLOG;
+typedef struct ctlog_store_st CTLOG_STORE;
+typedef struct ct_policy_eval_ctx_st CT_POLICY_EVAL_CTX;
+
+typedef struct ossl_store_info_st OSSL_STORE_INFO;
+typedef struct ossl_store_search_st OSSL_STORE_SEARCH;
+
+#if defined(__STDC_VERSION
