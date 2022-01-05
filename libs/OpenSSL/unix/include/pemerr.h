@@ -52,4 +52,39 @@ int ERR_load_PEM_strings(void);
 # define PEM_F_PEM_GET_EVP_CIPHER_INFO                    107
 # define PEM_F_PEM_READ                                   108
 # define PEM_F_PEM_READ_BIO                               109
-# define PEM_F_PEM_READ_BIO_DHPARAMS           
+# define PEM_F_PEM_READ_BIO_DHPARAMS                      141
+# define PEM_F_PEM_READ_BIO_EX                            145
+# define PEM_F_PEM_READ_BIO_PARAMETERS                    140
+# define PEM_F_PEM_READ_BIO_PRIVATEKEY                    123
+# define PEM_F_PEM_READ_DHPARAMS                          142
+# define PEM_F_PEM_READ_PRIVATEKEY                        124
+# define PEM_F_PEM_SIGNFINAL                              112
+# define PEM_F_PEM_WRITE                                  113
+# define PEM_F_PEM_WRITE_BIO                              114
+# define PEM_F_PEM_WRITE_BIO_PRIVATEKEY_TRADITIONAL       147
+# define PEM_F_PEM_WRITE_PRIVATEKEY                       139
+# define PEM_F_PEM_X509_INFO_READ                         115
+# define PEM_F_PEM_X509_INFO_READ_BIO                     116
+# define PEM_F_PEM_X509_INFO_WRITE_BIO                    117
+
+/*
+ * PEM reason codes.
+ */
+# define PEM_R_BAD_BASE64_DECODE                          100
+# define PEM_R_BAD_DECRYPT                                101
+# define PEM_R_BAD_END_LINE                               102
+# define PEM_R_BAD_IV_CHARS                               103
+# define PEM_R_BAD_MAGIC_NUMBER                           116
+# define PEM_R_BAD_PASSWORD_READ                          104
+# define PEM_R_BAD_VERSION_NUMBER                         117
+# define PEM_R_BIO_WRITE_FAILURE                          118
+# define PEM_R_CIPHER_IS_NULL                             127
+# define PEM_R_ERROR_CONVERTING_PRIVATE_KEY               115
+# define PEM_R_EXPECTING_PRIVATE_KEY_BLOB                 119
+# define PEM_R_EXPECTING_PUBLIC_KEY_BLOB                  120
+# define PEM_R_HEADER_TOO_LONG                            128
+# define PEM_R_INCONSISTENT_HEADER                        121
+# define PEM_R_KEYBLOB_HEADER_PARSE_ERROR                 122
+# define PEM_R_KEYBLOB_TOO_SHORT                          123
+# define PEM_R_MISSING_DEK_IV                             129
+# define PEM_R_NOT_DEK_INFO       
