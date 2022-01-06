@@ -87,4 +87,19 @@ int ERR_load_PEM_strings(void);
 # define PEM_R_KEYBLOB_HEADER_PARSE_ERROR                 122
 # define PEM_R_KEYBLOB_TOO_SHORT                          123
 # define PEM_R_MISSING_DEK_IV                             129
-# define PEM_R_NOT_DEK_INFO       
+# define PEM_R_NOT_DEK_INFO                               105
+# define PEM_R_NOT_ENCRYPTED                              106
+# define PEM_R_NOT_PROC_TYPE                              107
+# define PEM_R_NO_START_LINE                              108
+# define PEM_R_PROBLEMS_GETTING_PASSWORD                  109
+# define PEM_R_PVK_DATA_TOO_SHORT                         124
+# define PEM_R_PVK_TOO_SHORT                              125
+# define PEM_R_READ_KEY                                   111
+# define PEM_R_SHORT_HEADER                               112
+# define PEM_R_UNEXPECTED_DEK_IV                          130
+# define PEM_R_UNSUPPORTED_CIPHER                         113
+# define PEM_R_UNSUPPORTED_ENCRYPTION                     114
+# define PEM_R_UNSUPPORTED_KEY_COMPONENTS                 126
+# define PEM_R_UNSUPPORTED_PUBLIC_KEY_TYPE                110
+
+#endif
