@@ -84,4 +84,11 @@ int ERR_load_RAND_strings(void);
 # define RAND_R_RANDOM_POOL_OVERFLOW                      125
 # define RAND_R_RANDOM_POOL_UNDERFLOW                     134
 # define RAND_R_REQUEST_TOO_LARGE_FOR_DRBG                117
-# define RAND_R_RESEED_ERROR                            
+# define RAND_R_RESEED_ERROR                              118
+# define RAND_R_SELFTEST_FAILURE                          119
+# define RAND_R_TOO_LITTLE_NONCE_REQUESTED                135
+# define RAND_R_TOO_MUCH_NONCE_REQUESTED                  136
+# define RAND_R_UNSUPPORTED_DRBG_FLAGS                    132
+# define RAND_R_UNSUPPORTED_DRBG_TYPE                     120
+
+#endif
