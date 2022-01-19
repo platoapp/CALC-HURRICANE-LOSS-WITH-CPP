@@ -80,4 +80,17 @@ void SEED_ecb_encrypt(const unsigned char *in, unsigned char *out,
 void SEED_cbc_encrypt(const unsigned char *in, unsigned char *out, size_t len,
                       const SEED_KEY_SCHEDULE *ks,
                       unsigned char ivec[SEED_BLOCK_SIZE], int enc);
-void SEED_cfb
+void SEED_cfb128_encrypt(const unsigned char *in, unsigned char *out,
+                         size_t len, const SEED_KEY_SCHEDULE *ks,
+                         unsigned char ivec[SEED_BLOCK_SIZE], int *num,
+                         int enc);
+void SEED_ofb128_encrypt(const unsigned char *in, unsigned char *out,
+                         size_t len, const SEED_KEY_SCHEDULE *ks,
+                         unsigned char ivec[SEED_BLOCK_SIZE], int *num);
+
+# ifdef  __cplusplus
+}
+# endif
+# endif
+
+#endif
