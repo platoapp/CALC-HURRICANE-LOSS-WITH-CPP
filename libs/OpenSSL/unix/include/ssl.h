@@ -101,4 +101,55 @@ extern "C" {
 # define SSL_TXT_EDH             "EDH"/* alias for DHE */
 # define SSL_TXT_ADH             "ADH"
 # define SSL_TXT_RSA             "RSA"
-# define SSL_TXT_EC
+# define SSL_TXT_ECDH            "ECDH"
+# define SSL_TXT_EECDH           "EECDH"/* alias for ECDHE" */
+# define SSL_TXT_ECDHE           "ECDHE"/* same as "kECDHE:-AECDH" */
+# define SSL_TXT_AECDH           "AECDH"
+# define SSL_TXT_ECDSA           "ECDSA"
+# define SSL_TXT_PSK             "PSK"
+# define SSL_TXT_SRP             "SRP"
+
+# define SSL_TXT_DES             "DES"
+# define SSL_TXT_3DES            "3DES"
+# define SSL_TXT_RC4             "RC4"
+# define SSL_TXT_RC2             "RC2"
+# define SSL_TXT_IDEA            "IDEA"
+# define SSL_TXT_SEED            "SEED"
+# define SSL_TXT_AES128          "AES128"
+# define SSL_TXT_AES256          "AES256"
+# define SSL_TXT_AES             "AES"
+# define SSL_TXT_AES_GCM         "AESGCM"
+# define SSL_TXT_AES_CCM         "AESCCM"
+# define SSL_TXT_AES_CCM_8       "AESCCM8"
+# define SSL_TXT_CAMELLIA128     "CAMELLIA128"
+# define SSL_TXT_CAMELLIA256     "CAMELLIA256"
+# define SSL_TXT_CAMELLIA        "CAMELLIA"
+# define SSL_TXT_CHACHA20        "CHACHA20"
+# define SSL_TXT_GOST            "GOST89"
+# define SSL_TXT_ARIA            "ARIA"
+# define SSL_TXT_ARIA_GCM        "ARIAGCM"
+# define SSL_TXT_ARIA128         "ARIA128"
+# define SSL_TXT_ARIA256         "ARIA256"
+
+# define SSL_TXT_MD5             "MD5"
+# define SSL_TXT_SHA1            "SHA1"
+# define SSL_TXT_SHA             "SHA"/* same as "SHA1" */
+# define SSL_TXT_GOST94          "GOST94"
+# define SSL_TXT_GOST89MAC       "GOST89MAC"
+# define SSL_TXT_GOST12          "GOST12"
+# define SSL_TXT_GOST89MAC12     "GOST89MAC12"
+# define SSL_TXT_SHA256          "SHA256"
+# define SSL_TXT_SHA384          "SHA384"
+
+# define SSL_TXT_SSLV3           "SSLv3"
+# define SSL_TXT_TLSV1           "TLSv1"
+# define SSL_TXT_TLSV1_1         "TLSv1.1"
+# define SSL_TXT_TLSV1_2         "TLSv1.2"
+
+# define SSL_TXT_ALL             "ALL"
+
+/*-
+ * COMPLEMENTOF* definitions. These identifiers are used to (de-select)
+ * ciphers normally not being used.
+ * Example: "RC4" will activate all ciphers using RC4 including ciphers
+ * without authentication, 
