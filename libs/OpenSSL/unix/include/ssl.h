@@ -200,4 +200,50 @@ extern "C" {
 #endif
 
 # define SSL_FILETYPE_ASN1       X509_FILETYPE_ASN1
-# define SSL_FILETYPE_PEM        X509_FILET
+# define SSL_FILETYPE_PEM        X509_FILETYPE_PEM
+
+/*
+ * This is needed to stop compilers complaining about the 'struct ssl_st *'
+ * function parameters used to prototype callbacks in SSL_CTX.
+ */
+typedef struct ssl_st *ssl_crock_st;
+typedef struct tls_session_ticket_ext_st TLS_SESSION_TICKET_EXT;
+typedef struct ssl_method_st SSL_METHOD;
+typedef struct ssl_cipher_st SSL_CIPHER;
+typedef struct ssl_session_st SSL_SESSION;
+typedef struct tls_sigalgs_st TLS_SIGALGS;
+typedef struct ssl_conf_ctx_st SSL_CONF_CTX;
+typedef struct ssl_comp_st SSL_COMP;
+
+STACK_OF(SSL_CIPHER);
+STACK_OF(SSL_COMP);
+
+/* SRTP protection profiles for use with the use_srtp extension (RFC 5764)*/
+typedef struct srtp_protection_profile_st {
+    const char *name;
+    unsigned long id;
+} SRTP_PROTECTION_PROFILE;
+
+DEFINE_STACK_OF(SRTP_PROTECTION_PROFILE)
+
+typedef int (*tls_session_ticket_ext_cb_fn)(SSL *s, const unsigned char *data,
+                                            int len, void *arg);
+typedef int (*tls_session_secret_cb_fn)(SSL *s, void *secret, int *secret_len,
+                                        STACK_OF(SSL_CIPHER) *peer_ciphers,
+                                        const SSL_CIPHER **cipher, void *arg);
+
+/* Extension context codes */
+/* This extension is only allowed in TLS */
+#define SSL_EXT_TLS_ONLY                        0x0001
+/* This extension is only allowed in DTLS */
+#define SSL_EXT_DTLS_ONLY                       0x0002
+/* Some extensions may be allowed in DTLS but we don't implement them for it */
+#define SSL_EXT_TLS_IMPLEMENTATION_ONLY         0x0004
+/* Most extensions are not defined for SSLv3 but EXT_TYPE_renegotiate is */
+#define SSL_EXT_SSL3_ALLOWED                    0x0008
+/* Extension is only defined for TLS1.2 and below */
+#define SSL_EXT_TLS1_2_AND_BELOW_ONLY           0x0010
+/* Extension is only defined for TLS1.3 and above */
+#define SSL_EXT_TLS1_3_ONLY                     0x0020
+/* Ignore this extension during parsing if we are resuming */
+#define SSL_EXT_IGNORE_ON_RESUMPTION            0x0
