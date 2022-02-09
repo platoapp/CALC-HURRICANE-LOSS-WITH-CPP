@@ -152,4 +152,52 @@ extern "C" {
  * COMPLEMENTOF* definitions. These identifiers are used to (de-select)
  * ciphers normally not being used.
  * Example: "RC4" will activate all ciphers using RC4 including ciphers
- * without authentication, 
+ * without authentication, which would normally disabled by DEFAULT (due
+ * the "!ADH" being part of default). Therefore "RC4:!COMPLEMENTOFDEFAULT"
+ * will make sure that it is also disabled in the specific selection.
+ * COMPLEMENTOF* identifiers are portable between version, as adjustments
+ * to the default cipher setup will also be included here.
+ *
+ * COMPLEMENTOFDEFAULT does not experience the same special treatment that
+ * DEFAULT gets, as only selection is being done and no sorting as needed
+ * for DEFAULT.
+ */
+# define SSL_TXT_CMPALL          "COMPLEMENTOFALL"
+# define SSL_TXT_CMPDEF          "COMPLEMENTOFDEFAULT"
+
+/*
+ * The following cipher list is used by default. It also is substituted when
+ * an application-defined cipher list string starts with 'DEFAULT'.
+ * This applies to ciphersuites for TLSv1.2 and below.
+ */
+# define SSL_DEFAULT_CIPHER_LIST "ALL:!COMPLEMENTOFDEFAULT:!eNULL"
+/* This is the default set of TLSv1.3 ciphersuites */
+# if !defined(OPENSSL_NO_CHACHA) && !defined(OPENSSL_NO_POLY1305)
+#  define TLS_DEFAULT_CIPHERSUITES "TLS_AES_256_GCM_SHA384:" \
+                                   "TLS_CHACHA20_POLY1305_SHA256:" \
+                                   "TLS_AES_128_GCM_SHA256"
+# else
+#  define TLS_DEFAULT_CIPHERSUITES "TLS_AES_256_GCM_SHA384:" \
+                                   "TLS_AES_128_GCM_SHA256"
+#endif
+/*
+ * As of OpenSSL 1.0.0, ssl_create_cipher_list() in ssl/ssl_ciph.c always
+ * starts with a reasonable order, and all we have to do for DEFAULT is
+ * throwing out anonymous and unencrypted ciphersuites! (The latter are not
+ * actually enabled by ALL, but "ALL:RSA" would enable some of them.)
+ */
+
+/* Used in SSL_set_shutdown()/SSL_get_shutdown(); */
+# define SSL_SENT_SHUTDOWN       1
+# define SSL_RECEIVED_SHUTDOWN   2
+
+#ifdef __cplusplus
+}
+#endif
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+# define SSL_FILETYPE_ASN1       X509_FILETYPE_ASN1
+# define SSL_FILETYPE_PEM        X509_FILET
