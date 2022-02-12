@@ -246,4 +246,43 @@ typedef int (*tls_session_secret_cb_fn)(SSL *s, void *secret, int *secret_len,
 /* Extension is only defined for TLS1.3 and above */
 #define SSL_EXT_TLS1_3_ONLY                     0x0020
 /* Ignore this extension during parsing if we are resuming */
-#define SSL_EXT_IGNORE_ON_RESUMPTION            0x0
+#define SSL_EXT_IGNORE_ON_RESUMPTION            0x0040
+#define SSL_EXT_CLIENT_HELLO                    0x0080
+/* Really means TLS1.2 or below */
+#define SSL_EXT_TLS1_2_SERVER_HELLO             0x0100
+#define SSL_EXT_TLS1_3_SERVER_HELLO             0x0200
+#define SSL_EXT_TLS1_3_ENCRYPTED_EXTENSIONS     0x0400
+#define SSL_EXT_TLS1_3_HELLO_RETRY_REQUEST      0x0800
+#define SSL_EXT_TLS1_3_CERTIFICATE              0x1000
+#define SSL_EXT_TLS1_3_NEW_SESSION_TICKET       0x2000
+#define SSL_EXT_TLS1_3_CERTIFICATE_REQUEST      0x4000
+
+/* Typedefs for handling custom extensions */
+
+typedef int (*custom_ext_add_cb)(SSL *s, unsigned int ext_type,
+                                 const unsigned char **out, size_t *outlen,
+                                 int *al, void *add_arg);
+
+typedef void (*custom_ext_free_cb)(SSL *s, unsigned int ext_type,
+                                   const unsigned char *out, void *add_arg);
+
+typedef int (*custom_ext_parse_cb)(SSL *s, unsigned int ext_type,
+                                   const unsigned char *in, size_t inlen,
+                                   int *al, void *parse_arg);
+
+
+typedef int (*SSL_custom_ext_add_cb_ex)(SSL *s, unsigned int ext_type,
+                                        unsigned int context,
+                                        const unsigned char **out,
+                                        size_t *outlen, X509 *x,
+                                        size_t chainidx,
+                                        int *al, void *add_arg);
+
+typedef void (*SSL_custom_ext_free_cb_ex)(SSL *s, unsigned int ext_type,
+                                          unsigned int context,
+                                          const unsigned char *out,
+                                          void *add_arg);
+
+typedef int (*SSL_custom_ext_parse_cb_ex)(SSL *s, unsigned int ext_type,
+                                          unsigned int context,
+                                          const unsigned char *
