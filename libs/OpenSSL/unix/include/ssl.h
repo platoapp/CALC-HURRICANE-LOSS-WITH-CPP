@@ -285,4 +285,48 @@ typedef void (*SSL_custom_ext_free_cb_ex)(SSL *s, unsigned int ext_type,
 
 typedef int (*SSL_custom_ext_parse_cb_ex)(SSL *s, unsigned int ext_type,
                                           unsigned int context,
-                                          const unsigned char *
+                                          const unsigned char *in,
+                                          size_t inlen, X509 *x,
+                                          size_t chainidx,
+                                          int *al, void *parse_arg);
+
+/* Typedef for verification callback */
+typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
+
+/*
+ * Some values are reserved until OpenSSL 1.2.0 because they were previously
+ * included in SSL_OP_ALL in a 1.1.x release.
+ *
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000001U
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000002U
+ */
+/* Allow initial connection to servers that don't support RI */
+# define SSL_OP_LEGACY_SERVER_CONNECT                    0x00000004U
+
+/* Reserved value (until OpenSSL 1.2.0)                  0x00000008U */
+# define SSL_OP_TLSEXT_PADDING                           0x00000010U
+/* Reserved value (until OpenSSL 1.2.0)                  0x00000020U */
+# define SSL_OP_SAFARI_ECDHE_ECDSA_BUG                   0x00000040U
+/*
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000080U
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000100U
+ * Reserved value (until OpenSSL 1.2.0)                  0x00000200U
+ */
+
+/* In TLSv1.3 allow a non-(ec)dhe based kex_mode */
+# define SSL_OP_ALLOW_NO_DHE_KEX                         0x00000400U
+
+/*
+ * Disable SSL 3.0/TLS 1.0 CBC vulnerability workaround that was added in
+ * OpenSSL 0.9.6d.  Usually (depending on the application protocol) the
+ * workaround is not needed.  Unfortunately some broken SSL/TLS
+ * implementations cannot handle it at all, which is why we include it in
+ * SSL_OP_ALL. Added in 0.9.6e
+ */
+# define SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS              0x00000800U
+
+/* DTLS options */
+# define SSL_OP_NO_QUERY_MTU                             0x00001000U
+/* Turn on Cookie Exchange (on relevant for servers) */
+# define SSL_OP_COOKIE_EXCHANGE                          0x00002000U
+/* Don't use RF
