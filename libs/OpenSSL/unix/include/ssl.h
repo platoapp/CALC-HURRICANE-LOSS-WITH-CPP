@@ -329,4 +329,49 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
 # define SSL_OP_NO_QUERY_MTU                             0x00001000U
 /* Turn on Cookie Exchange (on relevant for servers) */
 # define SSL_OP_COOKIE_EXCHANGE                          0x00002000U
-/* Don't use RF
+/* Don't use RFC4507 ticket extension */
+# define SSL_OP_NO_TICKET                                0x00004000U
+# ifndef OPENSSL_NO_DTLS1_METHOD
+/* Use Cisco's "speshul" version of DTLS_BAD_VER
+ * (only with deprecated DTLSv1_client_method())  */
+#  define SSL_OP_CISCO_ANYCONNECT                        0x00008000U
+# endif
+
+/* As server, disallow session resumption on renegotiation */
+# define SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION   0x00010000U
+/* Don't use compression even if supported */
+# define SSL_OP_NO_COMPRESSION                           0x00020000U
+/* Permit unsafe legacy renegotiation */
+# define SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION        0x00040000U
+/* Disable encrypt-then-mac */
+# define SSL_OP_NO_ENCRYPT_THEN_MAC                      0x00080000U
+
+/*
+ * Enable TLSv1.3 Compatibility mode. This is on by default. A future version
+ * of OpenSSL may have this disabled by default.
+ */
+# define SSL_OP_ENABLE_MIDDLEBOX_COMPAT                  0x00100000U
+
+/* Prioritize Chacha20Poly1305 when client does.
+ * Modifies SSL_OP_CIPHER_SERVER_PREFERENCE */
+# define SSL_OP_PRIORITIZE_CHACHA                        0x00200000U
+
+/*
+ * Set on servers to choose the cipher according to the server's preferences
+ */
+# define SSL_OP_CIPHER_SERVER_PREFERENCE                 0x00400000U
+/*
+ * If set, a server will allow a client to issue a SSLv3.0 version number as
+ * latest version supported in the premaster secret, even when TLSv1.0
+ * (version 3.1) was announced in the client hello. Normally this is
+ * forbidden to prevent version rollback attacks.
+ */
+# define SSL_OP_TLS_ROLLBACK_BUG                         0x00800000U
+
+/*
+ * Switches off automatic TLSv1.3 anti-replay protection for early data. This
+ * is a server-side option only (no effect on the client).
+ */
+# define SSL_OP_NO_ANTI_REPLAY                           0x01000000U
+
+# define SSL_OP_NO_SSLv3                      
