@@ -374,4 +374,49 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
  */
 # define SSL_OP_NO_ANTI_REPLAY                           0x01000000U
 
-# define SSL_OP_NO_SSLv3                      
+# define SSL_OP_NO_SSLv3                                 0x02000000U
+# define SSL_OP_NO_TLSv1                                 0x04000000U
+# define SSL_OP_NO_TLSv1_2                               0x08000000U
+# define SSL_OP_NO_TLSv1_1                               0x10000000U
+# define SSL_OP_NO_TLSv1_3                               0x20000000U
+
+# define SSL_OP_NO_DTLSv1                                0x04000000U
+# define SSL_OP_NO_DTLSv1_2                              0x08000000U
+
+# define SSL_OP_NO_SSL_MASK (SSL_OP_NO_SSLv3|\
+        SSL_OP_NO_TLSv1|SSL_OP_NO_TLSv1_1|SSL_OP_NO_TLSv1_2|SSL_OP_NO_TLSv1_3)
+# define SSL_OP_NO_DTLS_MASK (SSL_OP_NO_DTLSv1|SSL_OP_NO_DTLSv1_2)
+
+/* Disallow all renegotiation */
+# define SSL_OP_NO_RENEGOTIATION                         0x40000000U
+
+/*
+ * Make server add server-hello extension from early version of cryptopro
+ * draft, when GOST ciphersuite is negotiated. Required for interoperability
+ * with CryptoPro CSP 3.x
+ */
+# define SSL_OP_CRYPTOPRO_TLSEXT_BUG                     0x80000000U
+
+/*
+ * SSL_OP_ALL: various bug workarounds that should be rather harmless.
+ * This used to be 0x000FFFFFL before 0.9.7.
+ * This used to be 0x80000BFFU before 1.1.1.
+ */
+# define SSL_OP_ALL        (SSL_OP_CRYPTOPRO_TLSEXT_BUG|\
+                            SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS|\
+                            SSL_OP_LEGACY_SERVER_CONNECT|\
+                            SSL_OP_TLSEXT_PADDING|\
+                            SSL_OP_SAFARI_ECDHE_ECDSA_BUG)
+
+/* OBSOLETE OPTIONS: retained for compatibility */
+
+/* Removed from OpenSSL 1.1.0. Was 0x00000001L */
+/* Related to removed SSLv2. */
+# define SSL_OP_MICROSOFT_SESS_ID_BUG                    0x0
+/* Removed from OpenSSL 1.1.0. Was 0x00000002L */
+/* Related to removed SSLv2. */
+# define SSL_OP_NETSCAPE_CHALLENGE_BUG                   0x0
+/* Removed from OpenSSL 0.9.8q and 1.0.0c. Was 0x00000008L */
+/* Dead forever, see CVE-2010-4180 */
+# define SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG         0x0
+/* Removed from 
