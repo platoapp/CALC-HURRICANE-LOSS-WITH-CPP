@@ -458,4 +458,60 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
 /*
  * Make it possible to retry SSL_write() with changed buffer location (buffer
  * contents must stay the same!); this is not the default to avoid the
- * misconception that non-blocking SSL_write(
+ * misconception that non-blocking SSL_write() behaves like non-blocking
+ * write():
+ */
+# define SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER 0x00000002U
+/*
+ * Never bother the application with retries if the transport is blocking:
+ */
+# define SSL_MODE_AUTO_RETRY 0x00000004U
+/* Don't attempt to automatically build certificate chain */
+# define SSL_MODE_NO_AUTO_CHAIN 0x00000008U
+/*
+ * Save RAM by releasing read and write buffers when they're empty. (SSL3 and
+ * TLS only.) Released buffers are freed.
+ */
+# define SSL_MODE_RELEASE_BUFFERS 0x00000010U
+/*
+ * Send the current time in the Random fields of the ClientHello and
+ * ServerHello records for compatibility with hypothetical implementations
+ * that require it.
+ */
+# define SSL_MODE_SEND_CLIENTHELLO_TIME 0x00000020U
+# define SSL_MODE_SEND_SERVERHELLO_TIME 0x00000040U
+/*
+ * Send TLS_FALLBACK_SCSV in the ClientHello. To be set only by applications
+ * that reconnect with a downgraded protocol version; see
+ * draft-ietf-tls-downgrade-scsv-00 for details. DO NOT ENABLE THIS if your
+ * application attempts a normal handshake. Only use this in explicit
+ * fallback retries, following the guidance in
+ * draft-ietf-tls-downgrade-scsv-00.
+ */
+# define SSL_MODE_SEND_FALLBACK_SCSV 0x00000080U
+/*
+ * Support Asynchronous operation
+ */
+# define SSL_MODE_ASYNC 0x00000100U
+
+/*
+ * When using DTLS/SCTP, include the terminating zero in the label
+ * used for computing the endpoint-pair shared secret. Required for
+ * interoperability with implementations having this bug like these
+ * older version of OpenSSL:
+ * - OpenSSL 1.0.0 series
+ * - OpenSSL 1.0.1 series
+ * - OpenSSL 1.0.2 series
+ * - OpenSSL 1.1.0 series
+ * - OpenSSL 1.1.1 and 1.1.1a
+ */
+# define SSL_MODE_DTLS_SCTP_LABEL_LENGTH_BUG 0x00000400U
+
+/* Cert related flags */
+/*
+ * Many implementations ignore some aspects of the TLS standards such as
+ * enforcing certificate chain algorithms. When this is set we enforce them.
+ */
+# define SSL_CERT_FLAG_TLS_STRICT                0x00000001U
+
+/* Suite B modes, takes sa
