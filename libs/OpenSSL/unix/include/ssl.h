@@ -514,4 +514,49 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
  */
 # define SSL_CERT_FLAG_TLS_STRICT                0x00000001U
 
-/* Suite B modes, takes sa
+/* Suite B modes, takes same values as certificate verify flags */
+# define SSL_CERT_FLAG_SUITEB_128_LOS_ONLY       0x10000
+/* Suite B 192 bit only mode */
+# define SSL_CERT_FLAG_SUITEB_192_LOS            0x20000
+/* Suite B 128 bit mode allowing 192 bit algorithms */
+# define SSL_CERT_FLAG_SUITEB_128_LOS            0x30000
+
+/* Perform all sorts of protocol violations for testing purposes */
+# define SSL_CERT_FLAG_BROKEN_PROTOCOL           0x10000000
+
+/* Flags for building certificate chains */
+/* Treat any existing certificates as untrusted CAs */
+# define SSL_BUILD_CHAIN_FLAG_UNTRUSTED          0x1
+/* Don't include root CA in chain */
+# define SSL_BUILD_CHAIN_FLAG_NO_ROOT            0x2
+/* Just check certificates already there */
+# define SSL_BUILD_CHAIN_FLAG_CHECK              0x4
+/* Ignore verification errors */
+# define SSL_BUILD_CHAIN_FLAG_IGNORE_ERROR       0x8
+/* Clear verification errors from queue */
+# define SSL_BUILD_CHAIN_FLAG_CLEAR_ERROR        0x10
+
+/* Flags returned by SSL_check_chain */
+/* Certificate can be used with this session */
+# define CERT_PKEY_VALID         0x1
+/* Certificate can also be used for signing */
+# define CERT_PKEY_SIGN          0x2
+/* EE certificate signing algorithm OK */
+# define CERT_PKEY_EE_SIGNATURE  0x10
+/* CA signature algorithms OK */
+# define CERT_PKEY_CA_SIGNATURE  0x20
+/* EE certificate parameters OK */
+# define CERT_PKEY_EE_PARAM      0x40
+/* CA certificate parameters OK */
+# define CERT_PKEY_CA_PARAM      0x80
+/* Signing explicitly allowed as opposed to SHA1 fallback */
+# define CERT_PKEY_EXPLICIT_SIGN 0x100
+/* Client CA issuer names match (always set for server cert) */
+# define CERT_PKEY_ISSUER_NAME   0x200
+/* Cert type matches client types (always set for server cert) */
+# define CERT_PKEY_CERT_TYPE     0x400
+/* Cert chain suitable to Suite B */
+# define CERT_PKEY_SUITEB        0x800
+
+# define SSL_CONF_FLAG_CMDLINE           0x1
+# define SSL_CONF_FLAG_FILE              0x2
