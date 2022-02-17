@@ -560,3 +560,53 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
 
 # define SSL_CONF_FLAG_CMDLINE           0x1
 # define SSL_CONF_FLAG_FILE              0x2
+# define SSL_CONF_FLAG_CLIENT            0x4
+# define SSL_CONF_FLAG_SERVER            0x8
+# define SSL_CONF_FLAG_SHOW_ERRORS       0x10
+# define SSL_CONF_FLAG_CERTIFICATE       0x20
+# define SSL_CONF_FLAG_REQUIRE_PRIVATE   0x40
+/* Configuration value types */
+# define SSL_CONF_TYPE_UNKNOWN           0x0
+# define SSL_CONF_TYPE_STRING            0x1
+# define SSL_CONF_TYPE_FILE              0x2
+# define SSL_CONF_TYPE_DIR               0x3
+# define SSL_CONF_TYPE_NONE              0x4
+
+/* Maximum length of the application-controlled segment of a a TLSv1.3 cookie */
+# define SSL_COOKIE_LENGTH                       4096
+
+/*
+ * Note: SSL[_CTX]_set_{options,mode} use |= op on the previous value, they
+ * cannot be used to clear bits.
+ */
+
+unsigned long SSL_CTX_get_options(const SSL_CTX *ctx);
+unsigned long SSL_get_options(const SSL *s);
+unsigned long SSL_CTX_clear_options(SSL_CTX *ctx, unsigned long op);
+unsigned long SSL_clear_options(SSL *s, unsigned long op);
+unsigned long SSL_CTX_set_options(SSL_CTX *ctx, unsigned long op);
+unsigned long SSL_set_options(SSL *s, unsigned long op);
+
+# define SSL_CTX_set_mode(ctx,op) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
+# define SSL_CTX_clear_mode(ctx,op) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
+# define SSL_CTX_get_mode(ctx) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,0,NULL)
+# define SSL_clear_mode(ssl,op) \
+        SSL_ctrl((ssl),SSL_CTRL_CLEAR_MODE,(op),NULL)
+# define SSL_set_mode(ssl,op) \
+        SSL_ctrl((ssl),SSL_CTRL_MODE,(op),NULL)
+# define SSL_get_mode(ssl) \
+        SSL_ctrl((ssl),SSL_CTRL_MODE,0,NULL)
+# define SSL_set_mtu(ssl, mtu) \
+        SSL_ctrl((ssl),SSL_CTRL_SET_MTU,(mtu),NULL)
+# define DTLS_set_link_mtu(ssl, mtu) \
+        SSL_ctrl((ssl),DTLS_CTRL_SET_LINK_MTU,(mtu),NULL)
+# define DTLS_get_link_min_mtu(ssl) \
+        SSL_ctrl((ssl),DTLS_CTRL_GET_LINK_MIN_MTU,0,NULL)
+
+# define SSL_get_secure_renegotiation_support(ssl) \
+        SSL_ctrl((ssl), SSL_CTRL_GET_RI_SUPPORT, 0, NULL)
+
+# ifndef OPENSSL_NO_H
