@@ -609,4 +609,52 @@ unsigned long SSL_set_options(SSL *s, unsigned long op);
 # define SSL_get_secure_renegotiation_support(ssl) \
         SSL_ctrl((ssl), SSL_CTRL_GET_RI_SUPPORT, 0, NULL)
 
-# ifndef OPENSSL_NO_H
+# ifndef OPENSSL_NO_HEARTBEATS
+#  define SSL_heartbeat(ssl) \
+        SSL_ctrl((ssl),SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT,0,NULL)
+# endif
+
+# define SSL_CTX_set_cert_flags(ctx,op) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_CERT_FLAGS,(op),NULL)
+# define SSL_set_cert_flags(s,op) \
+        SSL_ctrl((s),SSL_CTRL_CERT_FLAGS,(op),NULL)
+# define SSL_CTX_clear_cert_flags(ctx,op) \
+        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
+# define SSL_clear_cert_flags(s,op) \
+        SSL_ctrl((s),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
+
+void SSL_CTX_set_msg_callback(SSL_CTX *ctx,
+                              void (*cb) (int write_p, int version,
+                                          int content_type, const void *buf,
+                                          size_t len, SSL *ssl, void *arg));
+void SSL_set_msg_callback(SSL *ssl,
+                          void (*cb) (int write_p, int version,
+                                      int content_type, const void *buf,
+                                      size_t len, SSL *ssl, void *arg));
+# define SSL_CTX_set_msg_callback_arg(ctx, arg) SSL_CTX_ctrl((ctx), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
+# define SSL_set_msg_callback_arg(ssl, arg) SSL_ctrl((ssl), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
+
+# define SSL_get_extms_support(s) \
+        SSL_ctrl((s),SSL_CTRL_GET_EXTMS_SUPPORT,0,NULL)
+
+# ifndef OPENSSL_NO_SRP
+
+/* see tls_srp.c */
+__owur int SSL_SRP_CTX_init(SSL *s);
+__owur int SSL_CTX_SRP_CTX_init(SSL_CTX *ctx);
+int SSL_SRP_CTX_free(SSL *ctx);
+int SSL_CTX_SRP_CTX_free(SSL_CTX *ctx);
+__owur int SSL_srp_server_param_with_username(SSL *s, int *ad);
+__owur int SRP_Calc_A_param(SSL *s);
+
+# endif
+
+/* 100k max cert list */
+# define SSL_MAX_CERT_LIST_DEFAULT 1024*100
+
+# define SSL_SESSION_CACHE_MAX_SIZE_DEFAULT      (1024*20)
+
+/*
+ * This callback type is used inside SSL_CTX, SSL, and in the functions that
+ * set them. It is used to override the generation of SSL/TLS session IDs in
+ * a server. Retu
