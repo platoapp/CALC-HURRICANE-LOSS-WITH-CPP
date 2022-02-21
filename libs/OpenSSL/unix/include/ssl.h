@@ -657,4 +657,40 @@ __owur int SRP_Calc_A_param(SSL *s);
 /*
  * This callback type is used inside SSL_CTX, SSL, and in the functions that
  * set them. It is used to override the generation of SSL/TLS session IDs in
- * a server. Retu
+ * a server. Return value should be zero on an error, non-zero to proceed.
+ * Also, callbacks should themselves check if the id they generate is unique
+ * otherwise the SSL handshake will fail with an error - callbacks can do
+ * this using the 'ssl' value they're passed by;
+ * SSL_has_matching_session_id(ssl, id, *id_len) The length value passed in
+ * is set at the maximum size the session ID can be. In SSLv3/TLSv1 it is 32
+ * bytes. The callback can alter this length to be less if desired. It is
+ * also an error for the callback to set the size to zero.
+ */
+typedef int (*GEN_SESSION_CB) (SSL *ssl, unsigned char *id,
+                               unsigned int *id_len);
+
+# define SSL_SESS_CACHE_OFF                      0x0000
+# define SSL_SESS_CACHE_CLIENT                   0x0001
+# define SSL_SESS_CACHE_SERVER                   0x0002
+# define SSL_SESS_CACHE_BOTH     (SSL_SESS_CACHE_CLIENT|SSL_SESS_CACHE_SERVER)
+# define SSL_SESS_CACHE_NO_AUTO_CLEAR            0x0080
+/* enough comments already ... see SSL_CTX_set_session_cache_mode(3) */
+# define SSL_SESS_CACHE_NO_INTERNAL_LOOKUP       0x0100
+# define SSL_SESS_CACHE_NO_INTERNAL_STORE        0x0200
+# define SSL_SESS_CACHE_NO_INTERNAL \
+        (SSL_SESS_CACHE_NO_INTERNAL_LOOKUP|SSL_SESS_CACHE_NO_INTERNAL_STORE)
+
+LHASH_OF(SSL_SESSION) *SSL_CTX_sessions(SSL_CTX *ctx);
+# define SSL_CTX_sess_number(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_NUMBER,0,NULL)
+# define SSL_CTX_sess_connect(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT,0,NULL)
+# define SSL_CTX_sess_connect_good(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_GOOD,0,NULL)
+# define SSL_CTX_sess_connect_renegotiate(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_RENEGOTIATE,0,NULL)
+# define SSL_CTX_sess_accept(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT,0,NULL)
+# define SSL_CTX_sess_accept_renegotiate(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_RENEGOTIATE,0,NULL)
+# define SSL_CTX_sess_accept_good(ctx) \
