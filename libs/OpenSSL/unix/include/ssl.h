@@ -694,3 +694,37 @@ LHASH_OF(SSL_SESSION) *SSL_CTX_sessions(SSL_CTX *ctx);
 # define SSL_CTX_sess_accept_renegotiate(ctx) \
         SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_RENEGOTIATE,0,NULL)
 # define SSL_CTX_sess_accept_good(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_GOOD,0,NULL)
+# define SSL_CTX_sess_hits(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_HIT,0,NULL)
+# define SSL_CTX_sess_cb_hits(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CB_HIT,0,NULL)
+# define SSL_CTX_sess_misses(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_MISSES,0,NULL)
+# define SSL_CTX_sess_timeouts(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_TIMEOUTS,0,NULL)
+# define SSL_CTX_sess_cache_full(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CACHE_FULL,0,NULL)
+
+void SSL_CTX_sess_set_new_cb(SSL_CTX *ctx,
+                             int (*new_session_cb) (struct ssl_st *ssl,
+                                                    SSL_SESSION *sess));
+int (*SSL_CTX_sess_get_new_cb(SSL_CTX *ctx)) (struct ssl_st *ssl,
+                                              SSL_SESSION *sess);
+void SSL_CTX_sess_set_remove_cb(SSL_CTX *ctx,
+                                void (*remove_session_cb) (struct ssl_ctx_st
+                                                           *ctx,
+                                                           SSL_SESSION *sess));
+void (*SSL_CTX_sess_get_remove_cb(SSL_CTX *ctx)) (struct ssl_ctx_st *ctx,
+                                                  SSL_SESSION *sess);
+void SSL_CTX_sess_set_get_cb(SSL_CTX *ctx,
+                             SSL_SESSION *(*get_session_cb) (struct ssl_st
+                                                             *ssl,
+                                                             const unsigned char
+                                                             *data, int len,
+                                                             int *copy));
+SSL_SESSION *(*SSL_CTX_sess_get_get_cb(SSL_CTX *ctx)) (struct ssl_st *ssl,
+                                                       const unsigned char *data,
+                                                       int len, int *copy);
+void SSL_CTX_set_info_callback(SSL_CTX *ctx,
+                             
