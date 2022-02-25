@@ -763,4 +763,43 @@ void SSL_CTX_set_stateless_cookie_verify_cb(
                                        size_t cookie_len));
 # ifndef OPENSSL_NO_NEXTPROTONEG
 
-typedef int (*SSL_CTX_npn_ad
+typedef int (*SSL_CTX_npn_advertised_cb_func)(SSL *ssl,
+                                              const unsigned char **out,
+                                              unsigned int *outlen,
+                                              void *arg);
+void SSL_CTX_set_next_protos_advertised_cb(SSL_CTX *s,
+                                           SSL_CTX_npn_advertised_cb_func cb,
+                                           void *arg);
+#  define SSL_CTX_set_npn_advertised_cb SSL_CTX_set_next_protos_advertised_cb
+
+typedef int (*SSL_CTX_npn_select_cb_func)(SSL *s,
+                                          unsigned char **out,
+                                          unsigned char *outlen,
+                                          const unsigned char *in,
+                                          unsigned int inlen,
+                                          void *arg);
+void SSL_CTX_set_next_proto_select_cb(SSL_CTX *s,
+                                      SSL_CTX_npn_select_cb_func cb,
+                                      void *arg);
+#  define SSL_CTX_set_npn_select_cb SSL_CTX_set_next_proto_select_cb
+
+void SSL_get0_next_proto_negotiated(const SSL *s, const unsigned char **data,
+                                    unsigned *len);
+#  define SSL_get0_npn_negotiated SSL_get0_next_proto_negotiated
+# endif
+
+__owur int SSL_select_next_proto(unsigned char **out, unsigned char *outlen,
+                                 const unsigned char *in, unsigned int inlen,
+                                 const unsigned char *client,
+                                 unsigned int client_len);
+
+# define OPENSSL_NPN_UNSUPPORTED 0
+# define OPENSSL_NPN_NEGOTIATED  1
+# define OPENSSL_NPN_NO_OVERLAP  2
+
+__owur int SSL_CTX_set_alpn_protos(SSL_CTX *ctx, const unsigned char *protos,
+                                   unsigned int protos_len);
+__owur int SSL_set_alpn_protos(SSL *ssl, const unsigned char *protos,
+                               unsigned int protos_len);
+typedef int (*SSL_CTX_alpn_select_cb_func)(SSL *ssl,
+  
