@@ -802,4 +802,40 @@ __owur int SSL_CTX_set_alpn_protos(SSL_CTX *ctx, const unsigned char *protos,
 __owur int SSL_set_alpn_protos(SSL *ssl, const unsigned char *protos,
                                unsigned int protos_len);
 typedef int (*SSL_CTX_alpn_select_cb_func)(SSL *ssl,
-  
+                                           const unsigned char **out,
+                                           unsigned char *outlen,
+                                           const unsigned char *in,
+                                           unsigned int inlen,
+                                           void *arg);
+void SSL_CTX_set_alpn_select_cb(SSL_CTX *ctx,
+                                SSL_CTX_alpn_select_cb_func cb,
+                                void *arg);
+void SSL_get0_alpn_selected(const SSL *ssl, const unsigned char **data,
+                            unsigned int *len);
+
+# ifndef OPENSSL_NO_PSK
+/*
+ * the maximum length of the buffer given to callbacks containing the
+ * resulting identity/psk
+ */
+#  define PSK_MAX_IDENTITY_LEN 128
+#  define PSK_MAX_PSK_LEN 256
+typedef unsigned int (*SSL_psk_client_cb_func)(SSL *ssl,
+                                               const char *hint,
+                                               char *identity,
+                                               unsigned int max_identity_len,
+                                               unsigned char *psk,
+                                               unsigned int max_psk_len);
+void SSL_CTX_set_psk_client_callback(SSL_CTX *ctx, SSL_psk_client_cb_func cb);
+void SSL_set_psk_client_callback(SSL *ssl, SSL_psk_client_cb_func cb);
+
+typedef unsigned int (*SSL_psk_server_cb_func)(SSL *ssl,
+                                               const char *identity,
+                                               unsigned char *psk,
+                                               unsigned int max_psk_len);
+void SSL_CTX_set_psk_server_callback(SSL_CTX *ctx, SSL_psk_server_cb_func cb);
+void SSL_set_psk_server_callback(SSL *ssl, SSL_psk_server_cb_func cb);
+
+__owur int SSL_CTX_use_psk_identity_hint(SSL_CTX *ctx, const char *identity_hint);
+__owur int SSL_use_psk_identity_hint(SSL *s, const char *identity_hint);
+const ch
