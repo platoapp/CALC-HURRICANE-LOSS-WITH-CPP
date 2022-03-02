@@ -838,4 +838,42 @@ void SSL_set_psk_server_callback(SSL *ssl, SSL_psk_server_cb_func cb);
 
 __owur int SSL_CTX_use_psk_identity_hint(SSL_CTX *ctx, const char *identity_hint);
 __owur int SSL_use_psk_identity_hint(SSL *s, const char *identity_hint);
-const ch
+const char *SSL_get_psk_identity_hint(const SSL *s);
+const char *SSL_get_psk_identity(const SSL *s);
+# endif
+
+typedef int (*SSL_psk_find_session_cb_func)(SSL *ssl,
+                                            const unsigned char *identity,
+                                            size_t identity_len,
+                                            SSL_SESSION **sess);
+typedef int (*SSL_psk_use_session_cb_func)(SSL *ssl, const EVP_MD *md,
+                                           const unsigned char **id,
+                                           size_t *idlen,
+                                           SSL_SESSION **sess);
+
+void SSL_set_psk_find_session_callback(SSL *s, SSL_psk_find_session_cb_func cb);
+void SSL_CTX_set_psk_find_session_callback(SSL_CTX *ctx,
+                                           SSL_psk_find_session_cb_func cb);
+void SSL_set_psk_use_session_callback(SSL *s, SSL_psk_use_session_cb_func cb);
+void SSL_CTX_set_psk_use_session_callback(SSL_CTX *ctx,
+                                          SSL_psk_use_session_cb_func cb);
+
+/* Register callbacks to handle custom TLS Extensions for client or server. */
+
+__owur int SSL_CTX_has_client_custom_ext(const SSL_CTX *ctx,
+                                         unsigned int ext_type);
+
+__owur int SSL_CTX_add_client_custom_ext(SSL_CTX *ctx,
+                                         unsigned int ext_type,
+                                         custom_ext_add_cb add_cb,
+                                         custom_ext_free_cb free_cb,
+                                         void *add_arg,
+                                         custom_ext_parse_cb parse_cb,
+                                         void *parse_arg);
+
+__owur int SSL_CTX_add_server_custom_ext(SSL_CTX *ctx,
+                                         unsigned int ext_type,
+                                         custom_ext_add_cb add_cb,
+                                         custom_ext_free_cb free_cb,
+                                         void *add_arg,
+          
