@@ -876,4 +876,46 @@ __owur int SSL_CTX_add_server_custom_ext(SSL_CTX *ctx,
                                          custom_ext_add_cb add_cb,
                                          custom_ext_free_cb free_cb,
                                          void *add_arg,
-          
+                                         custom_ext_parse_cb parse_cb,
+                                         void *parse_arg);
+
+__owur int SSL_CTX_add_custom_ext(SSL_CTX *ctx, unsigned int ext_type,
+                                  unsigned int context,
+                                  SSL_custom_ext_add_cb_ex add_cb,
+                                  SSL_custom_ext_free_cb_ex free_cb,
+                                  void *add_arg,
+                                  SSL_custom_ext_parse_cb_ex parse_cb,
+                                  void *parse_arg);
+
+__owur int SSL_extension_supported(unsigned int ext_type);
+
+# define SSL_NOTHING            1
+# define SSL_WRITING            2
+# define SSL_READING            3
+# define SSL_X509_LOOKUP        4
+# define SSL_ASYNC_PAUSED       5
+# define SSL_ASYNC_NO_JOBS      6
+# define SSL_CLIENT_HELLO_CB    7
+
+/* These will only be used when doing non-blocking IO */
+# define SSL_want_nothing(s)         (SSL_want(s) == SSL_NOTHING)
+# define SSL_want_read(s)            (SSL_want(s) == SSL_READING)
+# define SSL_want_write(s)           (SSL_want(s) == SSL_WRITING)
+# define SSL_want_x509_lookup(s)     (SSL_want(s) == SSL_X509_LOOKUP)
+# define SSL_want_async(s)           (SSL_want(s) == SSL_ASYNC_PAUSED)
+# define SSL_want_async_job(s)       (SSL_want(s) == SSL_ASYNC_NO_JOBS)
+# define SSL_want_client_hello_cb(s) (SSL_want(s) == SSL_CLIENT_HELLO_CB)
+
+# define SSL_MAC_FLAG_READ_MAC_STREAM 1
+# define SSL_MAC_FLAG_WRITE_MAC_STREAM 2
+
+/*
+ * A callback for logging out TLS key material. This callback should log out
+ * |line| followed by a newline.
+ */
+typedef void (*SSL_CTX_keylog_cb_func)(const SSL *ssl, const char *line);
+
+/*
+ * SSL_CTX_set_keylog_callback configures a callback to log key material. This
+ * is intended for debugging use with tools like Wireshark. The cb function
+ * should log 
