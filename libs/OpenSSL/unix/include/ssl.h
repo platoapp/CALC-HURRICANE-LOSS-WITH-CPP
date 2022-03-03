@@ -918,4 +918,53 @@ typedef void (*SSL_CTX_keylog_cb_func)(const SSL *ssl, const char *line);
 /*
  * SSL_CTX_set_keylog_callback configures a callback to log key material. This
  * is intended for debugging use with tools like Wireshark. The cb function
- * should log 
+ * should log line followed by a newline.
+ */
+void SSL_CTX_set_keylog_callback(SSL_CTX *ctx, SSL_CTX_keylog_cb_func cb);
+
+/*
+ * SSL_CTX_get_keylog_callback returns the callback configured by
+ * SSL_CTX_set_keylog_callback.
+ */
+SSL_CTX_keylog_cb_func SSL_CTX_get_keylog_callback(const SSL_CTX *ctx);
+
+int SSL_CTX_set_max_early_data(SSL_CTX *ctx, uint32_t max_early_data);
+uint32_t SSL_CTX_get_max_early_data(const SSL_CTX *ctx);
+int SSL_set_max_early_data(SSL *s, uint32_t max_early_data);
+uint32_t SSL_get_max_early_data(const SSL *s);
+int SSL_CTX_set_recv_max_early_data(SSL_CTX *ctx, uint32_t recv_max_early_data);
+uint32_t SSL_CTX_get_recv_max_early_data(const SSL_CTX *ctx);
+int SSL_set_recv_max_early_data(SSL *s, uint32_t recv_max_early_data);
+uint32_t SSL_get_recv_max_early_data(const SSL *s);
+
+#ifdef __cplusplus
+}
+#endif
+
+# include <openssl/ssl2.h>
+# include <openssl/ssl3.h>
+# include <openssl/tls1.h>      /* This is mostly sslv3 with a few tweaks */
+# include <openssl/dtls1.h>     /* Datagram TLS */
+# include <openssl/srtp.h>      /* Support for the use_srtp extension */
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+/*
+ * These need to be after the above set of includes due to a compiler bug
+ * in VisualStudio 2015
+ */
+DEFINE_STACK_OF_CONST(SSL_CIPHER)
+DEFINE_STACK_OF(SSL_COMP)
+
+/* compatibility */
+# define SSL_set_app_data(s,arg)         (SSL_set_ex_data(s,0,(char *)(arg)))
+# define SSL_get_app_data(s)             (SSL_get_ex_data(s,0))
+# define SSL_SESSION_set_app_data(s,a)   (SSL_SESSION_set_ex_data(s,0, \
+                                                                  (char *)(a)))
+# define SSL_SESSION_get_app_data(s)     (SSL_SESSION_get_ex_data(s,0))
+# define SSL_CTX_get_app_data(ctx)       (SSL_CTX_get_ex_data(ctx,0))
+# define SSL_CTX_set_app_data(ctx,arg)   (SSL_CTX_set_ex_data(ctx,0, \
+                                                              (char *)(arg)))
+DEPRECATEDIN_1
