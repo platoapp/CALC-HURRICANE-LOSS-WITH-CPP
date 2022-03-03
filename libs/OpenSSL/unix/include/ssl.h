@@ -967,4 +967,73 @@ DEFINE_STACK_OF(SSL_COMP)
 # define SSL_CTX_get_app_data(ctx)       (SSL_CTX_get_ex_data(ctx,0))
 # define SSL_CTX_set_app_data(ctx,arg)   (SSL_CTX_set_ex_data(ctx,0, \
                                                               (char *)(arg)))
-DEPRECATEDIN_1
+DEPRECATEDIN_1_1_0(void SSL_set_debug(SSL *s, int debug))
+
+/* TLSv1.3 KeyUpdate message types */
+/* -1 used so that this is an invalid value for the on-the-wire protocol */
+#define SSL_KEY_UPDATE_NONE             -1
+/* Values as defined for the on-the-wire protocol */
+#define SSL_KEY_UPDATE_NOT_REQUESTED     0
+#define SSL_KEY_UPDATE_REQUESTED         1
+
+/*
+ * The valid handshake states (one for each type message sent and one for each
+ * type of message received). There are also two "special" states:
+ * TLS = TLS or DTLS state
+ * DTLS = DTLS specific state
+ * CR/SR = Client Read/Server Read
+ * CW/SW = Client Write/Server Write
+ *
+ * The "special" states are:
+ * TLS_ST_BEFORE = No handshake has been initiated yet
+ * TLS_ST_OK = A handshake has been successfully completed
+ */
+typedef enum {
+    TLS_ST_BEFORE,
+    TLS_ST_OK,
+    DTLS_ST_CR_HELLO_VERIFY_REQUEST,
+    TLS_ST_CR_SRVR_HELLO,
+    TLS_ST_CR_CERT,
+    TLS_ST_CR_CERT_STATUS,
+    TLS_ST_CR_KEY_EXCH,
+    TLS_ST_CR_CERT_REQ,
+    TLS_ST_CR_SRVR_DONE,
+    TLS_ST_CR_SESSION_TICKET,
+    TLS_ST_CR_CHANGE,
+    TLS_ST_CR_FINISHED,
+    TLS_ST_CW_CLNT_HELLO,
+    TLS_ST_CW_CERT,
+    TLS_ST_CW_KEY_EXCH,
+    TLS_ST_CW_CERT_VRFY,
+    TLS_ST_CW_CHANGE,
+    TLS_ST_CW_NEXT_PROTO,
+    TLS_ST_CW_FINISHED,
+    TLS_ST_SW_HELLO_REQ,
+    TLS_ST_SR_CLNT_HELLO,
+    DTLS_ST_SW_HELLO_VERIFY_REQUEST,
+    TLS_ST_SW_SRVR_HELLO,
+    TLS_ST_SW_CERT,
+    TLS_ST_SW_KEY_EXCH,
+    TLS_ST_SW_CERT_REQ,
+    TLS_ST_SW_SRVR_DONE,
+    TLS_ST_SR_CERT,
+    TLS_ST_SR_KEY_EXCH,
+    TLS_ST_SR_CERT_VRFY,
+    TLS_ST_SR_NEXT_PROTO,
+    TLS_ST_SR_CHANGE,
+    TLS_ST_SR_FINISHED,
+    TLS_ST_SW_SESSION_TICKET,
+    TLS_ST_SW_CERT_STATUS,
+    TLS_ST_SW_CHANGE,
+    TLS_ST_SW_FINISHED,
+    TLS_ST_SW_ENCRYPTED_EXTENSIONS,
+    TLS_ST_CR_ENCRYPTED_EXTENSIONS,
+    TLS_ST_CR_CERT_VRFY,
+    TLS_ST_SW_CERT_VRFY,
+    TLS_ST_CR_HELLO_REQ,
+    TLS_ST_SW_KEY_UPDATE,
+    TLS_ST_CW_KEY_UPDATE,
+    TLS_ST_SR_KEY_UPDATE,
+    TLS_ST_CR_KEY_UPDATE,
+    TLS_ST_EARLY_DATA,
+    TLS_ST_PENDING_EARLY_DATA_
