@@ -1036,4 +1036,52 @@ typedef enum {
     TLS_ST_SR_KEY_UPDATE,
     TLS_ST_CR_KEY_UPDATE,
     TLS_ST_EARLY_DATA,
-    TLS_ST_PENDING_EARLY_DATA_
+    TLS_ST_PENDING_EARLY_DATA_END,
+    TLS_ST_CW_END_OF_EARLY_DATA,
+    TLS_ST_SR_END_OF_EARLY_DATA
+} OSSL_HANDSHAKE_STATE;
+
+/*
+ * Most of the following state values are no longer used and are defined to be
+ * the closest equivalent value in the current state machine code. Not all
+ * defines have an equivalent and are set to a dummy value (-1). SSL_ST_CONNECT
+ * and SSL_ST_ACCEPT are still in use in the definition of SSL_CB_ACCEPT_LOOP,
+ * SSL_CB_ACCEPT_EXIT, SSL_CB_CONNECT_LOOP and SSL_CB_CONNECT_EXIT.
+ */
+
+# define SSL_ST_CONNECT                  0x1000
+# define SSL_ST_ACCEPT                   0x2000
+
+# define SSL_ST_MASK                     0x0FFF
+
+# define SSL_CB_LOOP                     0x01
+# define SSL_CB_EXIT                     0x02
+# define SSL_CB_READ                     0x04
+# define SSL_CB_WRITE                    0x08
+# define SSL_CB_ALERT                    0x4000/* used in callback */
+# define SSL_CB_READ_ALERT               (SSL_CB_ALERT|SSL_CB_READ)
+# define SSL_CB_WRITE_ALERT              (SSL_CB_ALERT|SSL_CB_WRITE)
+# define SSL_CB_ACCEPT_LOOP              (SSL_ST_ACCEPT|SSL_CB_LOOP)
+# define SSL_CB_ACCEPT_EXIT              (SSL_ST_ACCEPT|SSL_CB_EXIT)
+# define SSL_CB_CONNECT_LOOP             (SSL_ST_CONNECT|SSL_CB_LOOP)
+# define SSL_CB_CONNECT_EXIT             (SSL_ST_CONNECT|SSL_CB_EXIT)
+# define SSL_CB_HANDSHAKE_START          0x10
+# define SSL_CB_HANDSHAKE_DONE           0x20
+
+/* Is the SSL_connection established? */
+# define SSL_in_connect_init(a)          (SSL_in_init(a) && !SSL_is_server(a))
+# define SSL_in_accept_init(a)           (SSL_in_init(a) && SSL_is_server(a))
+int SSL_in_init(const SSL *s);
+int SSL_in_before(const SSL *s);
+int SSL_is_init_finished(const SSL *s);
+
+/*
+ * The following 3 states are kept in ssl->rlayer.rstate when reads fail, you
+ * should not need these
+ */
+# define SSL_ST_READ_HEADER                      0xF0
+# define SSL_ST_READ_BODY                        0xF1
+# define SSL_ST_READ_DONE                        0xF2
+
+/*-
+ * Obtain latest Finished messa
