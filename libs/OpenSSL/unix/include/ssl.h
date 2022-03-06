@@ -1084,4 +1084,49 @@ int SSL_is_init_finished(const SSL *s);
 # define SSL_ST_READ_DONE                        0xF2
 
 /*-
- * Obtain latest Finished messa
+ * Obtain latest Finished message
+ *   -- that we sent (SSL_get_finished)
+ *   -- that we expected from peer (SSL_get_peer_finished).
+ * Returns length (0 == no Finished so far), copies up to 'count' bytes.
+ */
+size_t SSL_get_finished(const SSL *s, void *buf, size_t count);
+size_t SSL_get_peer_finished(const SSL *s, void *buf, size_t count);
+
+/*
+ * use either SSL_VERIFY_NONE or SSL_VERIFY_PEER, the last 3 options are
+ * 'ored' with SSL_VERIFY_PEER if they are desired
+ */
+# define SSL_VERIFY_NONE                 0x00
+# define SSL_VERIFY_PEER                 0x01
+# define SSL_VERIFY_FAIL_IF_NO_PEER_CERT 0x02
+# define SSL_VERIFY_CLIENT_ONCE          0x04
+# define SSL_VERIFY_POST_HANDSHAKE       0x08
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define OpenSSL_add_ssl_algorithms()   SSL_library_init()
+#  define SSLeay_add_ssl_algorithms()    SSL_library_init()
+# endif
+
+/* More backward compatibility */
+# define SSL_get_cipher(s) \
+                SSL_CIPHER_get_name(SSL_get_current_cipher(s))
+# define SSL_get_cipher_bits(s,np) \
+                SSL_CIPHER_get_bits(SSL_get_current_cipher(s),np)
+# define SSL_get_cipher_version(s) \
+                SSL_CIPHER_get_version(SSL_get_current_cipher(s))
+# define SSL_get_cipher_name(s) \
+                SSL_CIPHER_get_name(SSL_get_current_cipher(s))
+# define SSL_get_time(a)         SSL_SESSION_get_time(a)
+# define SSL_set_time(a,b)       SSL_SESSION_set_time((a),(b))
+# define SSL_get_timeout(a)      SSL_SESSION_get_timeout(a)
+# define SSL_set_timeout(a,b)    SSL_SESSION_set_timeout((a),(b))
+
+# define d2i_SSL_SESSION_bio(bp,s_id) ASN1_d2i_bio_of(SSL_SESSION,SSL_SESSION_new,d2i_SSL_SESSION,bp,s_id)
+# define i2d_SSL_SESSION_bio(bp,s_id) ASN1_i2d_bio_of(SSL_SESSION,i2d_SSL_SESSION,bp,s_id)
+
+DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
+# define SSL_AD_REASON_OFFSET            1000/* offset to get SSL_R_... value
+                                              * from SSL_AD_... */
+/* These alert types are for SSLv3 and TLSv1 */
+# define SSL_AD_CLOSE_NOTIFY             SSL3_AD_CLOSE_NOTIFY
+/* fatal 
