@@ -1168,4 +1168,44 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 # define SSL_AD_MISSING_EXTENSION        TLS13_AD_MISSING_EXTENSION
 # define SSL_AD_CERTIFICATE_REQUIRED     TLS13_AD_CERTIFICATE_REQUIRED
 # define SSL_AD_UNSUPPORTED_EXTENSION    TLS1_AD_UNSUPPORTED_EXTENSION
-# define SSL_AD_CERTIF
+# define SSL_AD_CERTIFICATE_UNOBTAINABLE TLS1_AD_CERTIFICATE_UNOBTAINABLE
+# define SSL_AD_UNRECOGNIZED_NAME        TLS1_AD_UNRECOGNIZED_NAME
+# define SSL_AD_BAD_CERTIFICATE_STATUS_RESPONSE TLS1_AD_BAD_CERTIFICATE_STATUS_RESPONSE
+# define SSL_AD_BAD_CERTIFICATE_HASH_VALUE TLS1_AD_BAD_CERTIFICATE_HASH_VALUE
+/* fatal */
+# define SSL_AD_UNKNOWN_PSK_IDENTITY     TLS1_AD_UNKNOWN_PSK_IDENTITY
+/* fatal */
+# define SSL_AD_INAPPROPRIATE_FALLBACK   TLS1_AD_INAPPROPRIATE_FALLBACK
+# define SSL_AD_NO_APPLICATION_PROTOCOL  TLS1_AD_NO_APPLICATION_PROTOCOL
+# define SSL_ERROR_NONE                  0
+# define SSL_ERROR_SSL                   1
+# define SSL_ERROR_WANT_READ             2
+# define SSL_ERROR_WANT_WRITE            3
+# define SSL_ERROR_WANT_X509_LOOKUP      4
+# define SSL_ERROR_SYSCALL               5/* look at error stack/return
+                                           * value/errno */
+# define SSL_ERROR_ZERO_RETURN           6
+# define SSL_ERROR_WANT_CONNECT          7
+# define SSL_ERROR_WANT_ACCEPT           8
+# define SSL_ERROR_WANT_ASYNC            9
+# define SSL_ERROR_WANT_ASYNC_JOB       10
+# define SSL_ERROR_WANT_CLIENT_HELLO_CB 11
+# define SSL_CTRL_SET_TMP_DH                     3
+# define SSL_CTRL_SET_TMP_ECDH                   4
+# define SSL_CTRL_SET_TMP_DH_CB                  6
+# define SSL_CTRL_GET_CLIENT_CERT_REQUEST        9
+# define SSL_CTRL_GET_NUM_RENEGOTIATIONS         10
+# define SSL_CTRL_CLEAR_NUM_RENEGOTIATIONS       11
+# define SSL_CTRL_GET_TOTAL_RENEGOTIATIONS       12
+# define SSL_CTRL_GET_FLAGS                      13
+# define SSL_CTRL_EXTRA_CHAIN_CERT               14
+# define SSL_CTRL_SET_MSG_CALLBACK               15
+# define SSL_CTRL_SET_MSG_CALLBACK_ARG           16
+/* only applies to datagram connections */
+# define SSL_CTRL_SET_MTU                17
+/* Stats */
+# define SSL_CTRL_SESS_NUMBER                    20
+# define SSL_CTRL_SESS_CONNECT                   21
+# define SSL_CTRL_SESS_CONNECT_GOOD              22
+# define SSL_CTRL_SESS_CONNECT_RENEGOTIATE       23
+# define SSL_CT
