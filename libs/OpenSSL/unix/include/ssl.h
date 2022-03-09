@@ -1246,4 +1246,43 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 # define SSL_CTRL_SET_TLSEXT_STATUS_REQ_IDS      69
 # define SSL_CTRL_GET_TLSEXT_STATUS_REQ_OCSP_RESP        70
 # define SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP        71
-# defi
+# define SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB       72
+# define SSL_CTRL_SET_TLS_EXT_SRP_USERNAME_CB    75
+# define SSL_CTRL_SET_SRP_VERIFY_PARAM_CB                76
+# define SSL_CTRL_SET_SRP_GIVE_CLIENT_PWD_CB             77
+# define SSL_CTRL_SET_SRP_ARG            78
+# define SSL_CTRL_SET_TLS_EXT_SRP_USERNAME               79
+# define SSL_CTRL_SET_TLS_EXT_SRP_STRENGTH               80
+# define SSL_CTRL_SET_TLS_EXT_SRP_PASSWORD               81
+# ifndef OPENSSL_NO_HEARTBEATS
+#  define SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT               85
+#  define SSL_CTRL_GET_DTLS_EXT_HEARTBEAT_PENDING        86
+#  define SSL_CTRL_SET_DTLS_EXT_HEARTBEAT_NO_REQUESTS    87
+# endif
+# define DTLS_CTRL_GET_TIMEOUT           73
+# define DTLS_CTRL_HANDLE_TIMEOUT        74
+# define SSL_CTRL_GET_RI_SUPPORT                 76
+# define SSL_CTRL_CLEAR_MODE                     78
+# define SSL_CTRL_SET_NOT_RESUMABLE_SESS_CB      79
+# define SSL_CTRL_GET_EXTRA_CHAIN_CERTS          82
+# define SSL_CTRL_CLEAR_EXTRA_CHAIN_CERTS        83
+# define SSL_CTRL_CHAIN                          88
+# define SSL_CTRL_CHAIN_CERT                     89
+# define SSL_CTRL_GET_GROUPS                     90
+# define SSL_CTRL_SET_GROUPS                     91
+# define SSL_CTRL_SET_GROUPS_LIST                92
+# define SSL_CTRL_GET_SHARED_GROUP               93
+# define SSL_CTRL_SET_SIGALGS                    97
+# define SSL_CTRL_SET_SIGALGS_LIST               98
+# define SSL_CTRL_CERT_FLAGS                     99
+# define SSL_CTRL_CLEAR_CERT_FLAGS               100
+# define SSL_CTRL_SET_CLIENT_SIGALGS             101
+# define SSL_CTRL_SET_CLIENT_SIGALGS_LIST        102
+# define SSL_CTRL_GET_CLIENT_CERT_TYPES          103
+# define SSL_CTRL_SET_CLIENT_CERT_TYPES          104
+# define SSL_CTRL_BUILD_CERT_CHAIN               105
+# define SSL_CTRL_SET_VERIFY_CERT_STORE          106
+# define SSL_CTRL_SET_CHAIN_CERT_STORE           107
+# define SSL_CTRL_GET_PEER_SIGNATURE_NID         108
+# define SSL_CTRL_GET_PEER_TMP_KEY               109
+# define SSL_
