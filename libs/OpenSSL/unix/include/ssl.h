@@ -1208,4 +1208,42 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 # define SSL_CTRL_SESS_CONNECT                   21
 # define SSL_CTRL_SESS_CONNECT_GOOD              22
 # define SSL_CTRL_SESS_CONNECT_RENEGOTIATE       23
-# define SSL_CT
+# define SSL_CTRL_SESS_ACCEPT                    24
+# define SSL_CTRL_SESS_ACCEPT_GOOD               25
+# define SSL_CTRL_SESS_ACCEPT_RENEGOTIATE        26
+# define SSL_CTRL_SESS_HIT                       27
+# define SSL_CTRL_SESS_CB_HIT                    28
+# define SSL_CTRL_SESS_MISSES                    29
+# define SSL_CTRL_SESS_TIMEOUTS                  30
+# define SSL_CTRL_SESS_CACHE_FULL                31
+# define SSL_CTRL_MODE                           33
+# define SSL_CTRL_GET_READ_AHEAD                 40
+# define SSL_CTRL_SET_READ_AHEAD                 41
+# define SSL_CTRL_SET_SESS_CACHE_SIZE            42
+# define SSL_CTRL_GET_SESS_CACHE_SIZE            43
+# define SSL_CTRL_SET_SESS_CACHE_MODE            44
+# define SSL_CTRL_GET_SESS_CACHE_MODE            45
+# define SSL_CTRL_GET_MAX_CERT_LIST              50
+# define SSL_CTRL_SET_MAX_CERT_LIST              51
+# define SSL_CTRL_SET_MAX_SEND_FRAGMENT          52
+/* see tls1.h for macros based on these */
+# define SSL_CTRL_SET_TLSEXT_SERVERNAME_CB       53
+# define SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG      54
+# define SSL_CTRL_SET_TLSEXT_HOSTNAME            55
+# define SSL_CTRL_SET_TLSEXT_DEBUG_CB            56
+# define SSL_CTRL_SET_TLSEXT_DEBUG_ARG           57
+# define SSL_CTRL_GET_TLSEXT_TICKET_KEYS         58
+# define SSL_CTRL_SET_TLSEXT_TICKET_KEYS         59
+/*# define SSL_CTRL_SET_TLSEXT_OPAQUE_PRF_INPUT    60 */
+/*# define SSL_CTRL_SET_TLSEXT_OPAQUE_PRF_INPUT_CB 61 */
+/*# define SSL_CTRL_SET_TLSEXT_OPAQUE_PRF_INPUT_CB_ARG 62 */
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB       63
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB_ARG   64
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE     65
+# define SSL_CTRL_GET_TLSEXT_STATUS_REQ_EXTS     66
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_EXTS     67
+# define SSL_CTRL_GET_TLSEXT_STATUS_REQ_IDS      68
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_IDS      69
+# define SSL_CTRL_GET_TLSEXT_STATUS_REQ_OCSP_RESP        70
+# define SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP        71
+# defi
