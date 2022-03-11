@@ -1322,4 +1322,42 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
         SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TMP_DH,0,(char *)(dh))
 # define SSL_CTX_set_tmp_ecdh(ctx,ecdh) \
         SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TMP_ECDH,0,(char *)(ecdh))
-# define SSL_CTX_set_d
+# define SSL_CTX_set_dh_auto(ctx, onoff) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_DH_AUTO,onoff,NULL)
+# define SSL_set_dh_auto(s, onoff) \
+        SSL_ctrl(s,SSL_CTRL_SET_DH_AUTO,onoff,NULL)
+# define SSL_set_tmp_dh(ssl,dh) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_TMP_DH,0,(char *)(dh))
+# define SSL_set_tmp_ecdh(ssl,ecdh) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_TMP_ECDH,0,(char *)(ecdh))
+# define SSL_CTX_add_extra_chain_cert(ctx,x509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_EXTRA_CHAIN_CERT,0,(char *)(x509))
+# define SSL_CTX_get_extra_chain_certs(ctx,px509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_EXTRA_CHAIN_CERTS,0,px509)
+# define SSL_CTX_get_extra_chain_certs_only(ctx,px509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_EXTRA_CHAIN_CERTS,1,px509)
+# define SSL_CTX_clear_extra_chain_certs(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CLEAR_EXTRA_CHAIN_CERTS,0,NULL)
+# define SSL_CTX_set0_chain(ctx,sk) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CHAIN,0,(char *)(sk))
+# define SSL_CTX_set1_chain(ctx,sk) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CHAIN,1,(char *)(sk))
+# define SSL_CTX_add0_chain_cert(ctx,x509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CHAIN_CERT,0,(char *)(x509))
+# define SSL_CTX_add1_chain_cert(ctx,x509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_CHAIN_CERT,1,(char *)(x509))
+# define SSL_CTX_get0_chain_certs(ctx,px509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_CHAIN_CERTS,0,px509)
+# define SSL_CTX_clear_chain_certs(ctx) \
+        SSL_CTX_set0_chain(ctx,NULL)
+# define SSL_CTX_build_cert_chain(ctx, flags) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_BUILD_CERT_CHAIN, flags, NULL)
+# define SSL_CTX_select_current_cert(ctx,x509) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SELECT_CURRENT_CERT,0,(char *)(x509))
+# define SSL_CTX_set_current_cert(ctx, op) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_CURRENT_CERT, op, NULL)
+# define SSL_CTX_set0_verify_cert_store(ctx,st) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_VERIFY_CERT_STORE,0,(char *)(st))
+# define SSL_CTX_set1_verify_cert_store(ctx,st) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_VERIFY_CERT_STORE,1,(char *)(st))
+# define SSL_CTX_set0_chain_cert_st
