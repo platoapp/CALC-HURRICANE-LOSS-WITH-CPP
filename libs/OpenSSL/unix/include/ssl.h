@@ -1437,4 +1437,45 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
         SSL_ctrl(s,SSL_CTRL_GET_RAW_CIPHERLIST,0,plst)
 # define SSL_get0_ec_point_formats(s, plst) \
         SSL_ctrl(s,SSL_CTRL_GET_EC_POINT_FORMATS,0,plst)
-# define
+# define SSL_CTX_set_min_proto_version(ctx, version) \
+        SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MIN_PROTO_VERSION, version, NULL)
+# define SSL_CTX_set_max_proto_version(ctx, version) \
+        SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MAX_PROTO_VERSION, version, NULL)
+# define SSL_CTX_get_min_proto_version(ctx) \
+        SSL_CTX_ctrl(ctx, SSL_CTRL_GET_MIN_PROTO_VERSION, 0, NULL)
+# define SSL_CTX_get_max_proto_version(ctx) \
+        SSL_CTX_ctrl(ctx, SSL_CTRL_GET_MAX_PROTO_VERSION, 0, NULL)
+# define SSL_set_min_proto_version(s, version) \
+        SSL_ctrl(s, SSL_CTRL_SET_MIN_PROTO_VERSION, version, NULL)
+# define SSL_set_max_proto_version(s, version) \
+        SSL_ctrl(s, SSL_CTRL_SET_MAX_PROTO_VERSION, version, NULL)
+# define SSL_get_min_proto_version(s) \
+        SSL_ctrl(s, SSL_CTRL_GET_MIN_PROTO_VERSION, 0, NULL)
+# define SSL_get_max_proto_version(s) \
+        SSL_ctrl(s, SSL_CTRL_GET_MAX_PROTO_VERSION, 0, NULL)
+
+/* Backwards compatibility, original 1.1.0 names */
+# define SSL_CTRL_GET_SERVER_TMP_KEY \
+         SSL_CTRL_GET_PEER_TMP_KEY
+# define SSL_get_server_tmp_key(s, pk) \
+         SSL_get_peer_tmp_key(s, pk)
+
+/*
+ * The following symbol names are old and obsolete. They are kept
+ * for compatibility reasons only and should not be used anymore.
+ */
+# define SSL_CTRL_GET_CURVES           SSL_CTRL_GET_GROUPS
+# define SSL_CTRL_SET_CURVES           SSL_CTRL_SET_GROUPS
+# define SSL_CTRL_SET_CURVES_LIST      SSL_CTRL_SET_GROUPS_LIST
+# define SSL_CTRL_GET_SHARED_CURVE     SSL_CTRL_GET_SHARED_GROUP
+
+# define SSL_get1_curves               SSL_get1_groups
+# define SSL_CTX_set1_curves           SSL_CTX_set1_groups
+# define SSL_CTX_set1_curves_list      SSL_CTX_set1_groups_list
+# define SSL_set1_curves               SSL_set1_groups
+# define SSL_set1_curves_list          SSL_set1_groups_list
+# define SSL_get_shared_curve          SSL_get_shared_group
+
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+/* Provide some compatibility macros for removed fu
