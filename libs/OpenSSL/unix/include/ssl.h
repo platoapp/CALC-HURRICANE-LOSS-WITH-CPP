@@ -1401,4 +1401,40 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 # define SSL_set1_groups_list(s, str) \
         SSL_ctrl(s,SSL_CTRL_SET_GROUPS_LIST,0,(char *)(str))
 # define SSL_get_shared_group(s, n) \
-        SSL_ctrl(s,SSL
+        SSL_ctrl(s,SSL_CTRL_GET_SHARED_GROUP,n,NULL)
+# define SSL_CTX_set1_sigalgs(ctx, slist, slistlen) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SIGALGS,slistlen,(int *)(slist))
+# define SSL_CTX_set1_sigalgs_list(ctx, s) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SIGALGS_LIST,0,(char *)(s))
+# define SSL_set1_sigalgs(s, slist, slistlen) \
+        SSL_ctrl(s,SSL_CTRL_SET_SIGALGS,slistlen,(int *)(slist))
+# define SSL_set1_sigalgs_list(s, str) \
+        SSL_ctrl(s,SSL_CTRL_SET_SIGALGS_LIST,0,(char *)(str))
+# define SSL_CTX_set1_client_sigalgs(ctx, slist, slistlen) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_CLIENT_SIGALGS,slistlen,(int *)(slist))
+# define SSL_CTX_set1_client_sigalgs_list(ctx, s) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_CLIENT_SIGALGS_LIST,0,(char *)(s))
+# define SSL_set1_client_sigalgs(s, slist, slistlen) \
+        SSL_ctrl(s,SSL_CTRL_SET_CLIENT_SIGALGS,slistlen,(int *)(slist))
+# define SSL_set1_client_sigalgs_list(s, str) \
+        SSL_ctrl(s,SSL_CTRL_SET_CLIENT_SIGALGS_LIST,0,(char *)(str))
+# define SSL_get0_certificate_types(s, clist) \
+        SSL_ctrl(s, SSL_CTRL_GET_CLIENT_CERT_TYPES, 0, (char *)(clist))
+# define SSL_CTX_set1_client_certificate_types(ctx, clist, clistlen) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_CLIENT_CERT_TYPES,clistlen, \
+                     (char *)(clist))
+# define SSL_set1_client_certificate_types(s, clist, clistlen) \
+        SSL_ctrl(s,SSL_CTRL_SET_CLIENT_CERT_TYPES,clistlen,(char *)(clist))
+# define SSL_get_signature_nid(s, pn) \
+        SSL_ctrl(s,SSL_CTRL_GET_SIGNATURE_NID,0,pn)
+# define SSL_get_peer_signature_nid(s, pn) \
+        SSL_ctrl(s,SSL_CTRL_GET_PEER_SIGNATURE_NID,0,pn)
+# define SSL_get_peer_tmp_key(s, pk) \
+        SSL_ctrl(s,SSL_CTRL_GET_PEER_TMP_KEY,0,pk)
+# define SSL_get_tmp_key(s, pk) \
+        SSL_ctrl(s,SSL_CTRL_GET_TMP_KEY,0,pk)
+# define SSL_get0_raw_cipherlist(s, plst) \
+        SSL_ctrl(s,SSL_CTRL_GET_RAW_CIPHERLIST,0,plst)
+# define SSL_get0_ec_point_formats(s, plst) \
+        SSL_ctrl(s,SSL_CTRL_GET_EC_POINT_FORMATS,0,plst)
+# define
