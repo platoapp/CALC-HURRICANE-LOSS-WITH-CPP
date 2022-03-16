@@ -1478,4 +1478,47 @@ DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 
 
 # if OPENSSL_API_COMPAT < 0x10100000L
-/* Provide some compatibility macros for removed fu
+/* Provide some compatibility macros for removed functionality. */
+#  define SSL_CTX_need_tmp_RSA(ctx)                0
+#  define SSL_CTX_set_tmp_rsa(ctx,rsa)             1
+#  define SSL_need_tmp_RSA(ssl)                    0
+#  define SSL_set_tmp_rsa(ssl,rsa)                 1
+#  define SSL_CTX_set_ecdh_auto(dummy, onoff)      ((onoff) != 0)
+#  define SSL_set_ecdh_auto(dummy, onoff)          ((onoff) != 0)
+/*
+ * We "pretend" to call the callback to avoid warnings about unused static
+ * functions.
+ */
+#  define SSL_CTX_set_tmp_rsa_callback(ctx, cb)    while(0) (cb)(NULL, 0, 0)
+#  define SSL_set_tmp_rsa_callback(ssl, cb)        while(0) (cb)(NULL, 0, 0)
+# endif
+__owur const BIO_METHOD *BIO_f_ssl(void);
+__owur BIO *BIO_new_ssl(SSL_CTX *ctx, int client);
+__owur BIO *BIO_new_ssl_connect(SSL_CTX *ctx);
+__owur BIO *BIO_new_buffer_ssl_connect(SSL_CTX *ctx);
+__owur int BIO_ssl_copy_session_id(BIO *to, BIO *from);
+void BIO_ssl_shutdown(BIO *ssl_bio);
+
+__owur int SSL_CTX_set_cipher_list(SSL_CTX *, const char *str);
+__owur SSL_CTX *SSL_CTX_new(const SSL_METHOD *meth);
+int SSL_CTX_up_ref(SSL_CTX *ctx);
+void SSL_CTX_free(SSL_CTX *);
+__owur long SSL_CTX_set_timeout(SSL_CTX *ctx, long t);
+__owur long SSL_CTX_get_timeout(const SSL_CTX *ctx);
+__owur X509_STORE *SSL_CTX_get_cert_store(const SSL_CTX *);
+void SSL_CTX_set_cert_store(SSL_CTX *, X509_STORE *);
+void SSL_CTX_set1_cert_store(SSL_CTX *, X509_STORE *);
+__owur int SSL_want(const SSL *s);
+__owur int SSL_clear(SSL *s);
+
+void SSL_CTX_flush_sessions(SSL_CTX *ctx, long tm);
+
+__owur const SSL_CIPHER *SSL_get_current_cipher(const SSL *s);
+__owur const SSL_CIPHER *SSL_get_pending_cipher(const SSL *s);
+__owur int SSL_CIPHER_get_bits(const SSL_CIPHER *c, int *alg_bits);
+__owur const char *SSL_CIPHER_get_version(const SSL_CIPHER *c);
+__owur const char *SSL_CIPHER_get_name(const SSL_CIPHER *c);
+__owur const char *SSL_CIPHER_standard_name(const SSL_CIPHER *c);
+__owur const char *OPENSSL_cipher_name(const char *rfc_name);
+__owur uint32_t SSL_CIPHER_get_id(const SSL_CIPHER *c);
+__owur uint16_t SSL_CIPHER_get_protocol_i
