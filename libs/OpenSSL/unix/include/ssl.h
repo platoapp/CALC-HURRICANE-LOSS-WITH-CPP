@@ -1521,4 +1521,47 @@ __owur const char *SSL_CIPHER_get_name(const SSL_CIPHER *c);
 __owur const char *SSL_CIPHER_standard_name(const SSL_CIPHER *c);
 __owur const char *OPENSSL_cipher_name(const char *rfc_name);
 __owur uint32_t SSL_CIPHER_get_id(const SSL_CIPHER *c);
-__owur uint16_t SSL_CIPHER_get_protocol_i
+__owur uint16_t SSL_CIPHER_get_protocol_id(const SSL_CIPHER *c);
+__owur int SSL_CIPHER_get_kx_nid(const SSL_CIPHER *c);
+__owur int SSL_CIPHER_get_auth_nid(const SSL_CIPHER *c);
+__owur const EVP_MD *SSL_CIPHER_get_handshake_digest(const SSL_CIPHER *c);
+__owur int SSL_CIPHER_is_aead(const SSL_CIPHER *c);
+
+__owur int SSL_get_fd(const SSL *s);
+__owur int SSL_get_rfd(const SSL *s);
+__owur int SSL_get_wfd(const SSL *s);
+__owur const char *SSL_get_cipher_list(const SSL *s, int n);
+__owur char *SSL_get_shared_ciphers(const SSL *s, char *buf, int size);
+__owur int SSL_get_read_ahead(const SSL *s);
+__owur int SSL_pending(const SSL *s);
+__owur int SSL_has_pending(const SSL *s);
+# ifndef OPENSSL_NO_SOCK
+__owur int SSL_set_fd(SSL *s, int fd);
+__owur int SSL_set_rfd(SSL *s, int fd);
+__owur int SSL_set_wfd(SSL *s, int fd);
+# endif
+void SSL_set0_rbio(SSL *s, BIO *rbio);
+void SSL_set0_wbio(SSL *s, BIO *wbio);
+void SSL_set_bio(SSL *s, BIO *rbio, BIO *wbio);
+__owur BIO *SSL_get_rbio(const SSL *s);
+__owur BIO *SSL_get_wbio(const SSL *s);
+__owur int SSL_set_cipher_list(SSL *s, const char *str);
+__owur int SSL_CTX_set_ciphersuites(SSL_CTX *ctx, const char *str);
+__owur int SSL_set_ciphersuites(SSL *s, const char *str);
+void SSL_set_read_ahead(SSL *s, int yes);
+__owur int SSL_get_verify_mode(const SSL *s);
+__owur int SSL_get_verify_depth(const SSL *s);
+__owur SSL_verify_cb SSL_get_verify_callback(const SSL *s);
+void SSL_set_verify(SSL *s, int mode, SSL_verify_cb callback);
+void SSL_set_verify_depth(SSL *s, int depth);
+void SSL_set_cert_cb(SSL *s, int (*cb) (SSL *ssl, void *arg), void *arg);
+# ifndef OPENSSL_NO_RSA
+__owur int SSL_use_RSAPrivateKey(SSL *ssl, RSA *rsa);
+__owur int SSL_use_RSAPrivateKey_ASN1(SSL *ssl, const unsigned char *d,
+                                      long len);
+# endif
+__owur int SSL_use_PrivateKey(SSL *ssl, EVP_PKEY *pkey);
+__owur int SSL_use_PrivateKey_ASN1(int pk, SSL *ssl, const unsigned char *d,
+                                   long len);
+__owur int SSL_use_certificate(SSL *ssl, X509 *x);
+__o
