@@ -1564,4 +1564,45 @@ __owur int SSL_use_PrivateKey(SSL *ssl, EVP_PKEY *pkey);
 __owur int SSL_use_PrivateKey_ASN1(int pk, SSL *ssl, const unsigned char *d,
                                    long len);
 __owur int SSL_use_certificate(SSL *ssl, X509 *x);
-__o
+__owur int SSL_use_certificate_ASN1(SSL *ssl, const unsigned char *d, int len);
+__owur int SSL_use_cert_and_key(SSL *ssl, X509 *x509, EVP_PKEY *privatekey,
+                                STACK_OF(X509) *chain, int override);
+
+
+/* serverinfo file format versions */
+# define SSL_SERVERINFOV1   1
+# define SSL_SERVERINFOV2   2
+
+/* Set serverinfo data for the current active cert. */
+__owur int SSL_CTX_use_serverinfo(SSL_CTX *ctx, const unsigned char *serverinfo,
+                                  size_t serverinfo_length);
+__owur int SSL_CTX_use_serverinfo_ex(SSL_CTX *ctx, unsigned int version,
+                                     const unsigned char *serverinfo,
+                                     size_t serverinfo_length);
+__owur int SSL_CTX_use_serverinfo_file(SSL_CTX *ctx, const char *file);
+
+#ifndef OPENSSL_NO_RSA
+__owur int SSL_use_RSAPrivateKey_file(SSL *ssl, const char *file, int type);
+#endif
+
+__owur int SSL_use_PrivateKey_file(SSL *ssl, const char *file, int type);
+__owur int SSL_use_certificate_file(SSL *ssl, const char *file, int type);
+
+#ifndef OPENSSL_NO_RSA
+__owur int SSL_CTX_use_RSAPrivateKey_file(SSL_CTX *ctx, const char *file,
+                                          int type);
+#endif
+__owur int SSL_CTX_use_PrivateKey_file(SSL_CTX *ctx, const char *file,
+                                       int type);
+__owur int SSL_CTX_use_certificate_file(SSL_CTX *ctx, const char *file,
+                                        int type);
+/* PEM type */
+__owur int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);
+__owur int SSL_use_certificate_chain_file(SSL *ssl, const char *file);
+__owur STACK_OF(X509_NAME) *SSL_load_client_CA_file(const char *file);
+__owur int SSL_add_file_cert_subjects_to_stack(STACK_OF(X509_NAME) *stackCAs,
+                                               const char *file);
+int SSL_add_dir_cert_subjects_to_stack(STACK_OF(X509_NAME) *stackCAs,
+                                       const char *dir);
+
+# if OPENSSL_API_COMPAT < 0x10100000L
