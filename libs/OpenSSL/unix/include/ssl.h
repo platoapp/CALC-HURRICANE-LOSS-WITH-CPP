@@ -1606,3 +1606,37 @@ int SSL_add_dir_cert_subjects_to_stack(STACK_OF(X509_NAME) *stackCAs,
                                        const char *dir);
 
 # if OPENSSL_API_COMPAT < 0x10100000L
+#  define SSL_load_error_strings() \
+    OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS \
+                     | OPENSSL_INIT_LOAD_CRYPTO_STRINGS, NULL)
+# endif
+
+__owur const char *SSL_state_string(const SSL *s);
+__owur const char *SSL_rstate_string(const SSL *s);
+__owur const char *SSL_state_string_long(const SSL *s);
+__owur const char *SSL_rstate_string_long(const SSL *s);
+__owur long SSL_SESSION_get_time(const SSL_SESSION *s);
+__owur long SSL_SESSION_set_time(SSL_SESSION *s, long t);
+__owur long SSL_SESSION_get_timeout(const SSL_SESSION *s);
+__owur long SSL_SESSION_set_timeout(SSL_SESSION *s, long t);
+__owur int SSL_SESSION_get_protocol_version(const SSL_SESSION *s);
+__owur int SSL_SESSION_set_protocol_version(SSL_SESSION *s, int version);
+
+__owur const char *SSL_SESSION_get0_hostname(const SSL_SESSION *s);
+__owur int SSL_SESSION_set1_hostname(SSL_SESSION *s, const char *hostname);
+void SSL_SESSION_get0_alpn_selected(const SSL_SESSION *s,
+                                    const unsigned char **alpn,
+                                    size_t *len);
+__owur int SSL_SESSION_set1_alpn_selected(SSL_SESSION *s,
+                                          const unsigned char *alpn,
+                                          size_t len);
+__owur const SSL_CIPHER *SSL_SESSION_get0_cipher(const SSL_SESSION *s);
+__owur int SSL_SESSION_set_cipher(SSL_SESSION *s, const SSL_CIPHER *cipher);
+__owur int SSL_SESSION_has_ticket(const SSL_SESSION *s);
+__owur unsigned long SSL_SESSION_get_ticket_lifetime_hint(const SSL_SESSION *s);
+void SSL_SESSION_get0_ticket(const SSL_SESSION *s, const unsigned char **tick,
+                             size_t *len);
+__owur uint32_t SSL_SESSION_get_max_early_data(const SSL_SESSION *s);
+__owur int SSL_SESSION_set_max_early_data(SSL_SESSION *s,
+                                          uint32_t max_early_data);
+__owur int SSL_copy_session_id
