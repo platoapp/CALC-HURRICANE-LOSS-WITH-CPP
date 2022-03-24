@@ -1678,4 +1678,40 @@ SSL_SESSION *d2i_SSL_SESSION(SSL_SESSION **a, const unsigned char **pp,
 __owur X509 *SSL_get_peer_certificate(const SSL *s);
 # endif
 
-__owur STACK_OF(X509) *SSL_get_peer_cert_chain(
+__owur STACK_OF(X509) *SSL_get_peer_cert_chain(const SSL *s);
+
+__owur int SSL_CTX_get_verify_mode(const SSL_CTX *ctx);
+__owur int SSL_CTX_get_verify_depth(const SSL_CTX *ctx);
+__owur SSL_verify_cb SSL_CTX_get_verify_callback(const SSL_CTX *ctx);
+void SSL_CTX_set_verify(SSL_CTX *ctx, int mode, SSL_verify_cb callback);
+void SSL_CTX_set_verify_depth(SSL_CTX *ctx, int depth);
+void SSL_CTX_set_cert_verify_callback(SSL_CTX *ctx,
+                                      int (*cb) (X509_STORE_CTX *, void *),
+                                      void *arg);
+void SSL_CTX_set_cert_cb(SSL_CTX *c, int (*cb) (SSL *ssl, void *arg),
+                         void *arg);
+# ifndef OPENSSL_NO_RSA
+__owur int SSL_CTX_use_RSAPrivateKey(SSL_CTX *ctx, RSA *rsa);
+__owur int SSL_CTX_use_RSAPrivateKey_ASN1(SSL_CTX *ctx, const unsigned char *d,
+                                          long len);
+# endif
+__owur int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey);
+__owur int SSL_CTX_use_PrivateKey_ASN1(int pk, SSL_CTX *ctx,
+                                       const unsigned char *d, long len);
+__owur int SSL_CTX_use_certificate(SSL_CTX *ctx, X509 *x);
+__owur int SSL_CTX_use_certificate_ASN1(SSL_CTX *ctx, int len,
+                                        const unsigned char *d);
+__owur int SSL_CTX_use_cert_and_key(SSL_CTX *ctx, X509 *x509, EVP_PKEY *privatekey,
+                                    STACK_OF(X509) *chain, int override);
+
+void SSL_CTX_set_default_passwd_cb(SSL_CTX *ctx, pem_password_cb *cb);
+void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);
+pem_password_cb *SSL_CTX_get_default_passwd_cb(SSL_CTX *ctx);
+void *SSL_CTX_get_default_passwd_cb_userdata(SSL_CTX *ctx);
+void SSL_set_default_passwd_cb(SSL *s, pem_password_cb *cb);
+void SSL_set_default_passwd_cb_userdata(SSL *s, void *u);
+pem_password_cb *SSL_get_default_passwd_cb(SSL *s);
+void *SSL_get_default_passwd_cb_userdata(SSL *s);
+
+__owur int SSL_CTX_check_private_key(const SSL_CTX *ctx);
+__owur int SSL_check_private_key(const SSL *ctx
