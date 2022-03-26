@@ -1757,4 +1757,51 @@ SSL_DANE *SSL_get0_dane(SSL *ssl);
 unsigned long SSL_CTX_dane_set_flags(SSL_CTX *ctx, unsigned long flags);
 unsigned long SSL_CTX_dane_clear_flags(SSL_CTX *ctx, unsigned long flags);
 unsigned long SSL_dane_set_flags(SSL *ssl, unsigned long flags);
-unsigned long SSL_dane_clear_flags(S
+unsigned long SSL_dane_clear_flags(SSL *ssl, unsigned long flags);
+
+__owur int SSL_CTX_set1_param(SSL_CTX *ctx, X509_VERIFY_PARAM *vpm);
+__owur int SSL_set1_param(SSL *ssl, X509_VERIFY_PARAM *vpm);
+
+__owur X509_VERIFY_PARAM *SSL_CTX_get0_param(SSL_CTX *ctx);
+__owur X509_VERIFY_PARAM *SSL_get0_param(SSL *ssl);
+
+# ifndef OPENSSL_NO_SRP
+int SSL_CTX_set_srp_username(SSL_CTX *ctx, char *name);
+int SSL_CTX_set_srp_password(SSL_CTX *ctx, char *password);
+int SSL_CTX_set_srp_strength(SSL_CTX *ctx, int strength);
+int SSL_CTX_set_srp_client_pwd_callback(SSL_CTX *ctx,
+                                        char *(*cb) (SSL *, void *));
+int SSL_CTX_set_srp_verify_param_callback(SSL_CTX *ctx,
+                                          int (*cb) (SSL *, void *));
+int SSL_CTX_set_srp_username_callback(SSL_CTX *ctx,
+                                      int (*cb) (SSL *, int *, void *));
+int SSL_CTX_set_srp_cb_arg(SSL_CTX *ctx, void *arg);
+
+int SSL_set_srp_server_param(SSL *s, const BIGNUM *N, const BIGNUM *g,
+                             BIGNUM *sa, BIGNUM *v, char *info);
+int SSL_set_srp_server_param_pw(SSL *s, const char *user, const char *pass,
+                                const char *grp);
+
+__owur BIGNUM *SSL_get_srp_g(SSL *s);
+__owur BIGNUM *SSL_get_srp_N(SSL *s);
+
+__owur char *SSL_get_srp_username(SSL *s);
+__owur char *SSL_get_srp_userinfo(SSL *s);
+# endif
+
+/*
+ * ClientHello callback and helpers.
+ */
+
+# define SSL_CLIENT_HELLO_SUCCESS 1
+# define SSL_CLIENT_HELLO_ERROR   0
+# define SSL_CLIENT_HELLO_RETRY   (-1)
+
+typedef int (*SSL_client_hello_cb_fn) (SSL *s, int *al, void *arg);
+void SSL_CTX_set_client_hello_cb(SSL_CTX *c, SSL_client_hello_cb_fn cb,
+                                 void *arg);
+int SSL_client_hello_isv2(SSL *s);
+unsigned int SSL_client_hello_get0_legacy_version(SSL *s);
+size_t SSL_client_hello_get0_random(SSL *s, const unsigned char **out);
+size_t SSL_client_hello_get0_session_id(SSL *s, const unsigned char **out);
+size_t SSL_client_hello_get0_ciphers(SSL *s, const unsigned ch
