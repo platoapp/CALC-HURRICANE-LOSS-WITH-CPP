@@ -1804,4 +1804,48 @@ int SSL_client_hello_isv2(SSL *s);
 unsigned int SSL_client_hello_get0_legacy_version(SSL *s);
 size_t SSL_client_hello_get0_random(SSL *s, const unsigned char **out);
 size_t SSL_client_hello_get0_session_id(SSL *s, const unsigned char **out);
-size_t SSL_client_hello_get0_ciphers(SSL *s, const unsigned ch
+size_t SSL_client_hello_get0_ciphers(SSL *s, const unsigned char **out);
+size_t SSL_client_hello_get0_compression_methods(SSL *s,
+                                                 const unsigned char **out);
+int SSL_client_hello_get1_extensions_present(SSL *s, int **out, size_t *outlen);
+int SSL_client_hello_get0_ext(SSL *s, unsigned int type,
+                              const unsigned char **out, size_t *outlen);
+
+void SSL_certs_clear(SSL *s);
+void SSL_free(SSL *ssl);
+# ifdef OSSL_ASYNC_FD
+/*
+ * Windows application developer has to include windows.h to use these.
+ */
+__owur int SSL_waiting_for_async(SSL *s);
+__owur int SSL_get_all_async_fds(SSL *s, OSSL_ASYNC_FD *fds, size_t *numfds);
+__owur int SSL_get_changed_async_fds(SSL *s, OSSL_ASYNC_FD *addfd,
+                                     size_t *numaddfds, OSSL_ASYNC_FD *delfd,
+                                     size_t *numdelfds);
+# endif
+__owur int SSL_accept(SSL *ssl);
+__owur int SSL_stateless(SSL *s);
+__owur int SSL_connect(SSL *ssl);
+__owur int SSL_read(SSL *ssl, void *buf, int num);
+__owur int SSL_read_ex(SSL *ssl, void *buf, size_t num, size_t *readbytes);
+
+# define SSL_READ_EARLY_DATA_ERROR   0
+# define SSL_READ_EARLY_DATA_SUCCESS 1
+# define SSL_READ_EARLY_DATA_FINISH  2
+
+__owur int SSL_read_early_data(SSL *s, void *buf, size_t num,
+                               size_t *readbytes);
+__owur int SSL_peek(SSL *ssl, void *buf, int num);
+__owur int SSL_peek_ex(SSL *ssl, void *buf, size_t num, size_t *readbytes);
+__owur int SSL_write(SSL *ssl, const void *buf, int num);
+__owur int SSL_write_ex(SSL *s, const void *buf, size_t num, size_t *written);
+__owur int SSL_write_early_data(SSL *s, const void *buf, size_t num,
+                                size_t *written);
+long SSL_ctrl(SSL *ssl, int cmd, long larg, void *parg);
+long SSL_callback_ctrl(SSL *, int, void (*)(void));
+long SSL_CTX_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg);
+long SSL_CTX_callback_ctrl(SSL_CTX *, int, void (*)(void));
+
+# define SSL_EARLY_DATA_NOT_SENT    0
+# define SSL_EARLY_DATA_REJECTED    1
+# define SSL_EARLY_DATA_ACCEPT
