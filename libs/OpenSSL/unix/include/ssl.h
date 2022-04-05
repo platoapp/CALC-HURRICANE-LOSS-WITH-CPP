@@ -1987,4 +1987,37 @@ __owur int SSL_CTX_load_verify_locations(SSL_CTX *ctx, const char *CAfile,
                                          const char *CApath);
 # define SSL_get0_session SSL_get_session/* just peek at pointer */
 __owur SSL_SESSION *SSL_get_session(const SSL *ssl);
-__owur SSL_SESSION *SSL_get1_s
+__owur SSL_SESSION *SSL_get1_session(SSL *ssl); /* obtain a reference count */
+__owur SSL_CTX *SSL_get_SSL_CTX(const SSL *ssl);
+SSL_CTX *SSL_set_SSL_CTX(SSL *ssl, SSL_CTX *ctx);
+void SSL_set_info_callback(SSL *ssl,
+                           void (*cb) (const SSL *ssl, int type, int val));
+void (*SSL_get_info_callback(const SSL *ssl)) (const SSL *ssl, int type,
+                                               int val);
+__owur OSSL_HANDSHAKE_STATE SSL_get_state(const SSL *ssl);
+
+void SSL_set_verify_result(SSL *ssl, long v);
+__owur long SSL_get_verify_result(const SSL *ssl);
+__owur STACK_OF(X509) *SSL_get0_verified_chain(const SSL *s);
+
+__owur size_t SSL_get_client_random(const SSL *ssl, unsigned char *out,
+                                    size_t outlen);
+__owur size_t SSL_get_server_random(const SSL *ssl, unsigned char *out,
+                                    size_t outlen);
+__owur size_t SSL_SESSION_get_master_key(const SSL_SESSION *sess,
+                                         unsigned char *out, size_t outlen);
+__owur int SSL_SESSION_set1_master_key(SSL_SESSION *sess,
+                                       const unsigned char *in, size_t len);
+uint8_t SSL_SESSION_get_max_fragment_length(const SSL_SESSION *sess);
+
+#define SSL_get_ex_new_index(l, p, newf, dupf, freef) \
+    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL, l, p, newf, dupf, freef)
+__owur int SSL_set_ex_data(SSL *ssl, int idx, void *data);
+void *SSL_get_ex_data(const SSL *ssl, int idx);
+#define SSL_SESSION_get_ex_new_index(l, p, newf, dupf, freef) \
+    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef)
+__owur int SSL_SESSION_set_ex_data(SSL_SESSION *ss, int idx, void *data);
+void *SSL_SESSION_get_ex_data(const SSL_SESSION *ss, int idx);
+#define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
+    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
+__owur int SSL_CTX_set_ex_data(SSL_CTX *ssl, int idx, void *d
