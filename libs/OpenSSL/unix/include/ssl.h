@@ -1940,4 +1940,51 @@ __owur const STACK_OF(X509_NAME) *SSL_get0_CA_list(const SSL *s);
 __owur const STACK_OF(X509_NAME) *SSL_CTX_get0_CA_list(const SSL_CTX *ctx);
 __owur int SSL_add1_to_CA_list(SSL *ssl, const X509 *x);
 __owur int SSL_CTX_add1_to_CA_list(SSL_CTX *ctx, const X509 *x);
-__owur con
+__owur const STACK_OF(X509_NAME) *SSL_get0_peer_CA_list(const SSL *s);
+
+void SSL_set_client_CA_list(SSL *s, STACK_OF(X509_NAME) *name_list);
+void SSL_CTX_set_client_CA_list(SSL_CTX *ctx, STACK_OF(X509_NAME) *name_list);
+__owur STACK_OF(X509_NAME) *SSL_get_client_CA_list(const SSL *s);
+__owur STACK_OF(X509_NAME) *SSL_CTX_get_client_CA_list(const SSL_CTX *s);
+__owur int SSL_add_client_CA(SSL *ssl, X509 *x);
+__owur int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *x);
+
+void SSL_set_connect_state(SSL *s);
+void SSL_set_accept_state(SSL *s);
+
+__owur long SSL_get_default_timeout(const SSL *s);
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define SSL_library_init() OPENSSL_init_ssl(0, NULL)
+# endif
+
+__owur char *SSL_CIPHER_description(const SSL_CIPHER *, char *buf, int size);
+__owur STACK_OF(X509_NAME) *SSL_dup_CA_list(const STACK_OF(X509_NAME) *sk);
+
+__owur SSL *SSL_dup(SSL *ssl);
+
+__owur X509 *SSL_get_certificate(const SSL *ssl);
+/*
+ * EVP_PKEY
+ */
+struct evp_pkey_st *SSL_get_privatekey(const SSL *ssl);
+
+__owur X509 *SSL_CTX_get0_certificate(const SSL_CTX *ctx);
+__owur EVP_PKEY *SSL_CTX_get0_privatekey(const SSL_CTX *ctx);
+
+void SSL_CTX_set_quiet_shutdown(SSL_CTX *ctx, int mode);
+__owur int SSL_CTX_get_quiet_shutdown(const SSL_CTX *ctx);
+void SSL_set_quiet_shutdown(SSL *ssl, int mode);
+__owur int SSL_get_quiet_shutdown(const SSL *ssl);
+void SSL_set_shutdown(SSL *ssl, int mode);
+__owur int SSL_get_shutdown(const SSL *ssl);
+__owur int SSL_version(const SSL *ssl);
+__owur int SSL_client_version(const SSL *s);
+__owur int SSL_CTX_set_default_verify_paths(SSL_CTX *ctx);
+__owur int SSL_CTX_set_default_verify_dir(SSL_CTX *ctx);
+__owur int SSL_CTX_set_default_verify_file(SSL_CTX *ctx);
+__owur int SSL_CTX_load_verify_locations(SSL_CTX *ctx, const char *CAfile,
+                                         const char *CApath);
+# define SSL_get0_session SSL_get_session/* just peek at pointer */
+__owur SSL_SESSION *SSL_get_session(const SSL *ssl);
+__owur SSL_SESSION *SSL_get1_s
