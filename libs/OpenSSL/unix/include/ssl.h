@@ -2020,4 +2020,47 @@ __owur int SSL_SESSION_set_ex_data(SSL_SESSION *ss, int idx, void *data);
 void *SSL_SESSION_get_ex_data(const SSL_SESSION *ss, int idx);
 #define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
     CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
-__owur int SSL_CTX_set_ex_data(SSL_CTX *ssl, int idx, void *d
+__owur int SSL_CTX_set_ex_data(SSL_CTX *ssl, int idx, void *data);
+void *SSL_CTX_get_ex_data(const SSL_CTX *ssl, int idx);
+
+__owur int SSL_get_ex_data_X509_STORE_CTX_idx(void);
+
+# define SSL_CTX_sess_set_cache_size(ctx,t) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SESS_CACHE_SIZE,t,NULL)
+# define SSL_CTX_sess_get_cache_size(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_SESS_CACHE_SIZE,0,NULL)
+# define SSL_CTX_set_session_cache_mode(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SESS_CACHE_MODE,m,NULL)
+# define SSL_CTX_get_session_cache_mode(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_SESS_CACHE_MODE,0,NULL)
+
+# define SSL_CTX_get_default_read_ahead(ctx) SSL_CTX_get_read_ahead(ctx)
+# define SSL_CTX_set_default_read_ahead(ctx,m) SSL_CTX_set_read_ahead(ctx,m)
+# define SSL_CTX_get_read_ahead(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_READ_AHEAD,0,NULL)
+# define SSL_CTX_set_read_ahead(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_READ_AHEAD,m,NULL)
+# define SSL_CTX_get_max_cert_list(ctx) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_MAX_CERT_LIST,0,NULL)
+# define SSL_CTX_set_max_cert_list(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_CERT_LIST,m,NULL)
+# define SSL_get_max_cert_list(ssl) \
+        SSL_ctrl(ssl,SSL_CTRL_GET_MAX_CERT_LIST,0,NULL)
+# define SSL_set_max_cert_list(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_CERT_LIST,m,NULL)
+
+# define SSL_CTX_set_max_send_fragment(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
+# define SSL_set_max_send_fragment(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
+# define SSL_CTX_set_split_send_fragment(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)
+# define SSL_set_split_send_fragment(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)
+# define SSL_CTX_set_max_pipelines(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
+# define SSL_set_max_pipelines(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
+
+void SSL_CTX_set_default_read_buffer_len(SSL_CTX *ctx, size_t len);
+v
