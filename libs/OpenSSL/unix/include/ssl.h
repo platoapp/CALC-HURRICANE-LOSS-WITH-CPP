@@ -2063,4 +2063,45 @@ __owur int SSL_get_ex_data_X509_STORE_CTX_idx(void);
         SSL_ctrl(ssl,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
 
 void SSL_CTX_set_default_read_buffer_len(SSL_CTX *ctx, size_t len);
-v
+void SSL_set_default_read_buffer_len(SSL *s, size_t len);
+
+# ifndef OPENSSL_NO_DH
+/* NB: the |keylength| is only applicable when is_export is true */
+void SSL_CTX_set_tmp_dh_callback(SSL_CTX *ctx,
+                                 DH *(*dh) (SSL *ssl, int is_export,
+                                            int keylength));
+void SSL_set_tmp_dh_callback(SSL *ssl,
+                             DH *(*dh) (SSL *ssl, int is_export,
+                                        int keylength));
+# endif
+
+__owur const COMP_METHOD *SSL_get_current_compression(const SSL *s);
+__owur const COMP_METHOD *SSL_get_current_expansion(const SSL *s);
+__owur const char *SSL_COMP_get_name(const COMP_METHOD *comp);
+__owur const char *SSL_COMP_get0_name(const SSL_COMP *comp);
+__owur int SSL_COMP_get_id(const SSL_COMP *comp);
+STACK_OF(SSL_COMP) *SSL_COMP_get_compression_methods(void);
+__owur STACK_OF(SSL_COMP) *SSL_COMP_set0_compression_methods(STACK_OF(SSL_COMP)
+                                                             *meths);
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define SSL_COMP_free_compression_methods() while(0) continue
+# endif
+__owur int SSL_COMP_add_compression_method(int id, COMP_METHOD *cm);
+
+const SSL_CIPHER *SSL_CIPHER_find(SSL *ssl, const unsigned char *ptr);
+int SSL_CIPHER_get_cipher_nid(const SSL_CIPHER *c);
+int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);
+int SSL_bytes_to_cipher_list(SSL *s, const unsigned char *bytes, size_t len,
+                             int isv2format, STACK_OF(SSL_CIPHER) **sk,
+                             STACK_OF(SSL_CIPHER) **scsvs);
+
+/* TLS extensions functions */
+__owur int SSL_set_session_ticket_ext(SSL *s, void *ext_data, int ext_len);
+
+__owur int SSL_set_session_ticket_ext_cb(SSL *s,
+                                         tls_session_ticket_ext_cb_fn cb,
+                                         void *arg);
+
+/* Pre-shared secret session resumption functions */
+__owur int SSL_set_session_secret_cb(SSL *s,
+                         
