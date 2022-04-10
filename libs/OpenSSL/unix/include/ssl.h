@@ -2104,4 +2104,45 @@ __owur int SSL_set_session_ticket_ext_cb(SSL *s,
 
 /* Pre-shared secret session resumption functions */
 __owur int SSL_set_session_secret_cb(SSL *s,
-                         
+                                     tls_session_secret_cb_fn session_secret_cb,
+                                     void *arg);
+
+void SSL_CTX_set_not_resumable_session_callback(SSL_CTX *ctx,
+                                                int (*cb) (SSL *ssl,
+                                                           int
+                                                           is_forward_secure));
+
+void SSL_set_not_resumable_session_callback(SSL *ssl,
+                                            int (*cb) (SSL *ssl,
+                                                       int is_forward_secure));
+
+void SSL_CTX_set_record_padding_callback(SSL_CTX *ctx,
+                                         size_t (*cb) (SSL *ssl, int type,
+                                                       size_t len, void *arg));
+void SSL_CTX_set_record_padding_callback_arg(SSL_CTX *ctx, void *arg);
+void *SSL_CTX_get_record_padding_callback_arg(const SSL_CTX *ctx);
+int SSL_CTX_set_block_padding(SSL_CTX *ctx, size_t block_size);
+
+void SSL_set_record_padding_callback(SSL *ssl,
+                                    size_t (*cb) (SSL *ssl, int type,
+                                                  size_t len, void *arg));
+void SSL_set_record_padding_callback_arg(SSL *ssl, void *arg);
+void *SSL_get_record_padding_callback_arg(const SSL *ssl);
+int SSL_set_block_padding(SSL *ssl, size_t block_size);
+
+int SSL_set_num_tickets(SSL *s, size_t num_tickets);
+size_t SSL_get_num_tickets(const SSL *s);
+int SSL_CTX_set_num_tickets(SSL_CTX *ctx, size_t num_tickets);
+size_t SSL_CTX_get_num_tickets(const SSL_CTX *ctx);
+
+# if OPENSSL_API_COMPAT < 0x10100000L
+#  define SSL_cache_hit(s) SSL_session_reused(s)
+# endif
+
+__owur int SSL_session_reused(const SSL *s);
+__owur int SSL_is_server(const SSL *s);
+
+__owur __owur SSL_CONF_CTX *SSL_CONF_CTX_new(void);
+int SSL_CONF_CTX_finish(SSL_CONF_CTX *cctx);
+void SSL_CONF_CTX_free(SSL_CONF_CTX *cctx);
+unsigned int SSL_CONF_CTX_set_flags(SSL
