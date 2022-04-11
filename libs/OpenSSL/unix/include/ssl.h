@@ -2145,4 +2145,52 @@ __owur int SSL_is_server(const SSL *s);
 __owur __owur SSL_CONF_CTX *SSL_CONF_CTX_new(void);
 int SSL_CONF_CTX_finish(SSL_CONF_CTX *cctx);
 void SSL_CONF_CTX_free(SSL_CONF_CTX *cctx);
-unsigned int SSL_CONF_CTX_set_flags(SSL
+unsigned int SSL_CONF_CTX_set_flags(SSL_CONF_CTX *cctx, unsigned int flags);
+__owur unsigned int SSL_CONF_CTX_clear_flags(SSL_CONF_CTX *cctx,
+                                             unsigned int flags);
+__owur int SSL_CONF_CTX_set1_prefix(SSL_CONF_CTX *cctx, const char *pre);
+
+void SSL_CONF_CTX_set_ssl(SSL_CONF_CTX *cctx, SSL *ssl);
+void SSL_CONF_CTX_set_ssl_ctx(SSL_CONF_CTX *cctx, SSL_CTX *ctx);
+
+__owur int SSL_CONF_cmd(SSL_CONF_CTX *cctx, const char *cmd, const char *value);
+__owur int SSL_CONF_cmd_argv(SSL_CONF_CTX *cctx, int *pargc, char ***pargv);
+__owur int SSL_CONF_cmd_value_type(SSL_CONF_CTX *cctx, const char *cmd);
+
+void SSL_add_ssl_module(void);
+int SSL_config(SSL *s, const char *name);
+int SSL_CTX_config(SSL_CTX *ctx, const char *name);
+
+# ifndef OPENSSL_NO_SSL_TRACE
+void SSL_trace(int write_p, int version, int content_type,
+               const void *buf, size_t len, SSL *ssl, void *arg);
+# endif
+
+# ifndef OPENSSL_NO_SOCK
+int DTLSv1_listen(SSL *s, BIO_ADDR *client);
+# endif
+
+# ifndef OPENSSL_NO_CT
+
+/*
+ * A callback for verifying that the received SCTs are sufficient.
+ * Expected to return 1 if they are sufficient, otherwise 0.
+ * May return a negative integer if an error occurs.
+ * A connection should be aborted if the SCTs are deemed insufficient.
+ */
+typedef int (*ssl_ct_validation_cb)(const CT_POLICY_EVAL_CTX *ctx,
+                                    const STACK_OF(SCT) *scts, void *arg);
+
+/*
+ * Sets a |callback| that is invoked upon receipt of ServerHelloDone to validate
+ * the received SCTs.
+ * If the callback returns a non-positive result, the connection is terminated.
+ * Call this function before beginning a handshake.
+ * If a NULL |callback| is provided, SCT validation is disabled.
+ * |arg| is arbitrary userdata that will be passed to the callback whenever it
+ * is invoked. Ownership of |arg| remains with the caller.
+ *
+ * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
+ *       will be requested.
+ */
+int SSL_set_ct_validation_callback(SSL *s, ssl_ct_validation_
