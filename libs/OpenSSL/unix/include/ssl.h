@@ -2193,4 +2193,57 @@ typedef int (*ssl_ct_validation_cb)(const CT_POLICY_EVAL_CTX *ctx,
  * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
  *       will be requested.
  */
-int SSL_set_ct_validation_callback(SSL *s, ssl_ct_validation_
+int SSL_set_ct_validation_callback(SSL *s, ssl_ct_validation_cb callback,
+                                   void *arg);
+int SSL_CTX_set_ct_validation_callback(SSL_CTX *ctx,
+                                       ssl_ct_validation_cb callback,
+                                       void *arg);
+#define SSL_disable_ct(s) \
+        ((void) SSL_set_validation_callback((s), NULL, NULL))
+#define SSL_CTX_disable_ct(ctx) \
+        ((void) SSL_CTX_set_validation_callback((ctx), NULL, NULL))
+
+/*
+ * The validation type enumerates the available behaviours of the built-in SSL
+ * CT validation callback selected via SSL_enable_ct() and SSL_CTX_enable_ct().
+ * The underlying callback is a static function in libssl.
+ */
+enum {
+    SSL_CT_VALIDATION_PERMISSIVE = 0,
+    SSL_CT_VALIDATION_STRICT
+};
+
+/*
+ * Enable CT by setting up a callback that implements one of the built-in
+ * validation variants.  The SSL_CT_VALIDATION_PERMISSIVE variant always
+ * continues the handshake, the application can make appropriate decisions at
+ * handshake completion.  The SSL_CT_VALIDATION_STRICT variant requires at
+ * least one valid SCT, or else handshake termination will be requested.  The
+ * handshake may continue anyway if SSL_VERIFY_NONE is in effect.
+ */
+int SSL_enable_ct(SSL *s, int validation_mode);
+int SSL_CTX_enable_ct(SSL_CTX *ctx, int validation_mode);
+
+/*
+ * Report whether a non-NULL callback is enabled.
+ */
+int SSL_ct_is_enabled(const SSL *s);
+int SSL_CTX_ct_is_enabled(const SSL_CTX *ctx);
+
+/* Gets the SCTs received from a connection */
+const STACK_OF(SCT) *SSL_get0_peer_scts(SSL *s);
+
+/*
+ * Loads the CT log list from the default location.
+ * If a CTLOG_STORE has previously been set using SSL_CTX_set_ctlog_store,
+ * the log information loaded from this file will be appended to the
+ * CTLOG_STORE.
+ * Returns 1 on success, 0 otherwise.
+ */
+int SSL_CTX_set_default_ctlog_list_file(SSL_CTX *ctx);
+
+/*
+ * Loads the CT log list from the specified file path.
+ * If a CTLOG_STORE has previously been set using SSL_CTX_set_ctlog_store,
+ * the log information loaded from this file will be appended to the
+ * C
