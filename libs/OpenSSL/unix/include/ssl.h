@@ -2298,4 +2298,41 @@ const CTLOG_STORE *SSL_CTX_get0_ctlog_store(const SSL_CTX *ctx);
 /* Sanity check of curve server selects */
 # define SSL_SECOP_CURVE_CHECK           (6 | SSL_SECOP_OTHER_CURVE)
 /* Temporary DH key */
-# define SSL_SECOP_TMP_DH                (7 | SSL_SECOP_OTHER_P
+# define SSL_SECOP_TMP_DH                (7 | SSL_SECOP_OTHER_PKEY)
+/* SSL/TLS version */
+# define SSL_SECOP_VERSION               (9 | SSL_SECOP_OTHER_NONE)
+/* Session tickets */
+# define SSL_SECOP_TICKET                (10 | SSL_SECOP_OTHER_NONE)
+/* Supported signature algorithms sent to peer */
+# define SSL_SECOP_SIGALG_SUPPORTED      (11 | SSL_SECOP_OTHER_SIGALG)
+/* Shared signature algorithm */
+# define SSL_SECOP_SIGALG_SHARED         (12 | SSL_SECOP_OTHER_SIGALG)
+/* Sanity check signature algorithm allowed */
+# define SSL_SECOP_SIGALG_CHECK          (13 | SSL_SECOP_OTHER_SIGALG)
+/* Used to get mask of supported public key signature algorithms */
+# define SSL_SECOP_SIGALG_MASK           (14 | SSL_SECOP_OTHER_SIGALG)
+/* Use to see if compression is allowed */
+# define SSL_SECOP_COMPRESSION           (15 | SSL_SECOP_OTHER_NONE)
+/* EE key in certificate */
+# define SSL_SECOP_EE_KEY                (16 | SSL_SECOP_OTHER_CERT)
+/* CA key in certificate */
+# define SSL_SECOP_CA_KEY                (17 | SSL_SECOP_OTHER_CERT)
+/* CA digest algorithm in certificate */
+# define SSL_SECOP_CA_MD                 (18 | SSL_SECOP_OTHER_CERT)
+/* Peer EE key in certificate */
+# define SSL_SECOP_PEER_EE_KEY           (SSL_SECOP_EE_KEY | SSL_SECOP_PEER)
+/* Peer CA key in certificate */
+# define SSL_SECOP_PEER_CA_KEY           (SSL_SECOP_CA_KEY | SSL_SECOP_PEER)
+/* Peer CA digest algorithm in certificate */
+# define SSL_SECOP_PEER_CA_MD            (SSL_SECOP_CA_MD | SSL_SECOP_PEER)
+
+void SSL_set_security_level(SSL *s, int level);
+__owur int SSL_get_security_level(const SSL *s);
+void SSL_set_security_callback(SSL *s,
+                               int (*cb) (const SSL *s, const SSL_CTX *ctx,
+                                          int op, int bits, int nid,
+                                          void *other, void *ex));
+int (*SSL_get_security_callback(const SSL *s)) (const SSL *s,
+                                                const SSL_CTX *ctx, int op,
+                                                int bits, int nid, void *other,
+                                                void *e
