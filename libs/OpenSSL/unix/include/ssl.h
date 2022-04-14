@@ -2335,4 +2335,46 @@ void SSL_set_security_callback(SSL *s,
 int (*SSL_get_security_callback(const SSL *s)) (const SSL *s,
                                                 const SSL_CTX *ctx, int op,
                                                 int bits, int nid, void *other,
-                                                void *e
+                                                void *ex);
+void SSL_set0_security_ex_data(SSL *s, void *ex);
+__owur void *SSL_get0_security_ex_data(const SSL *s);
+
+void SSL_CTX_set_security_level(SSL_CTX *ctx, int level);
+__owur int SSL_CTX_get_security_level(const SSL_CTX *ctx);
+void SSL_CTX_set_security_callback(SSL_CTX *ctx,
+                                   int (*cb) (const SSL *s, const SSL_CTX *ctx,
+                                              int op, int bits, int nid,
+                                              void *other, void *ex));
+int (*SSL_CTX_get_security_callback(const SSL_CTX *ctx)) (const SSL *s,
+                                                          const SSL_CTX *ctx,
+                                                          int op, int bits,
+                                                          int nid,
+                                                          void *other,
+                                                          void *ex);
+void SSL_CTX_set0_security_ex_data(SSL_CTX *ctx, void *ex);
+__owur void *SSL_CTX_get0_security_ex_data(const SSL_CTX *ctx);
+
+/* OPENSSL_INIT flag 0x010000 reserved for internal use */
+# define OPENSSL_INIT_NO_LOAD_SSL_STRINGS    0x00100000L
+# define OPENSSL_INIT_LOAD_SSL_STRINGS       0x00200000L
+
+# define OPENSSL_INIT_SSL_DEFAULT \
+        (OPENSSL_INIT_LOAD_SSL_STRINGS | OPENSSL_INIT_LOAD_CRYPTO_STRINGS)
+
+int OPENSSL_init_ssl(uint64_t opts, const OPENSSL_INIT_SETTINGS *settings);
+
+# ifndef OPENSSL_NO_UNIT_TEST
+__owur const struct openssl_ssl_test_functions *SSL_test_functions(void);
+# endif
+
+__owur int SSL_free_buffers(SSL *ssl);
+__owur int SSL_alloc_buffers(SSL *ssl);
+
+/* Status codes passed to the decrypt session ticket callback. Some of these
+ * are for internal use only and are never passed to the callback. */
+typedef int SSL_TICKET_STATUS;
+
+/* Support for ticket appdata */
+/* fatal error, malloc failure */
+# define SSL_TICKET_FATAL_ERR_MALLOC 0
+/* fatal error, either from parsing or decrypting the ticket 
