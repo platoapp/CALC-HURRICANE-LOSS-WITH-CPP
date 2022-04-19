@@ -96,4 +96,45 @@ extern "C" {
 # define SSL3_TXT_DH_DSS_DES_64_CBC_SHA          "DH-DSS-DES-CBC-SHA"
 # define SSL3_TXT_DH_DSS_DES_192_CBC3_SHA        "DH-DSS-DES-CBC3-SHA"
 # define SSL3_TXT_DH_RSA_DES_40_CBC_SHA          "EXP-DH-RSA-DES-CBC-SHA"
-# define SSL3_TXT_DH_RSA_DES_64_CBC_SH
+# define SSL3_TXT_DH_RSA_DES_64_CBC_SHA          "DH-RSA-DES-CBC-SHA"
+# define SSL3_TXT_DH_RSA_DES_192_CBC3_SHA        "DH-RSA-DES-CBC3-SHA"
+
+# define SSL3_TXT_DHE_DSS_DES_40_CBC_SHA         "EXP-DHE-DSS-DES-CBC-SHA"
+# define SSL3_TXT_DHE_DSS_DES_64_CBC_SHA         "DHE-DSS-DES-CBC-SHA"
+# define SSL3_TXT_DHE_DSS_DES_192_CBC3_SHA       "DHE-DSS-DES-CBC3-SHA"
+# define SSL3_TXT_DHE_RSA_DES_40_CBC_SHA         "EXP-DHE-RSA-DES-CBC-SHA"
+# define SSL3_TXT_DHE_RSA_DES_64_CBC_SHA         "DHE-RSA-DES-CBC-SHA"
+# define SSL3_TXT_DHE_RSA_DES_192_CBC3_SHA       "DHE-RSA-DES-CBC3-SHA"
+
+/*
+ * This next block of six "EDH" labels is for backward compatibility with
+ * older versions of OpenSSL.  New code should use the six "DHE" labels above
+ * instead:
+ */
+# define SSL3_TXT_EDH_DSS_DES_40_CBC_SHA         "EXP-EDH-DSS-DES-CBC-SHA"
+# define SSL3_TXT_EDH_DSS_DES_64_CBC_SHA         "EDH-DSS-DES-CBC-SHA"
+# define SSL3_TXT_EDH_DSS_DES_192_CBC3_SHA       "EDH-DSS-DES-CBC3-SHA"
+# define SSL3_TXT_EDH_RSA_DES_40_CBC_SHA         "EXP-EDH-RSA-DES-CBC-SHA"
+# define SSL3_TXT_EDH_RSA_DES_64_CBC_SHA         "EDH-RSA-DES-CBC-SHA"
+# define SSL3_TXT_EDH_RSA_DES_192_CBC3_SHA       "EDH-RSA-DES-CBC3-SHA"
+
+# define SSL3_TXT_ADH_RC4_40_MD5                 "EXP-ADH-RC4-MD5"
+# define SSL3_TXT_ADH_RC4_128_MD5                "ADH-RC4-MD5"
+# define SSL3_TXT_ADH_DES_40_CBC_SHA             "EXP-ADH-DES-CBC-SHA"
+# define SSL3_TXT_ADH_DES_64_CBC_SHA             "ADH-DES-CBC-SHA"
+# define SSL3_TXT_ADH_DES_192_CBC_SHA            "ADH-DES-CBC3-SHA"
+
+# define SSL3_SSL_SESSION_ID_LENGTH              32
+# define SSL3_MAX_SSL_SESSION_ID_LENGTH          32
+
+# define SSL3_MASTER_SECRET_SIZE                 48
+# define SSL3_RANDOM_SIZE                        32
+# define SSL3_SESSION_ID_SIZE                    32
+# define SSL3_RT_HEADER_LENGTH                   5
+
+# define SSL3_HM_HEADER_LENGTH                  4
+
+# ifndef SSL3_ALIGN_PAYLOAD
+ /*
+  * Some will argue that this increases memory footprint, but it's not
+  * actually true. Po
