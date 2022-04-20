@@ -195,4 +195,49 @@ extern "C" {
 # else
 #  define SSL3_RT_MAX_COMPRESSED_LENGTH   \
             (SSL3_RT_MAX_PLAIN_LENGTH+SSL3_RT_MAX_COMPRESSED_OVERHEAD)
-# e
+# endif
+# define SSL3_RT_MAX_ENCRYPTED_LENGTH    \
+            (SSL3_RT_MAX_ENCRYPTED_OVERHEAD+SSL3_RT_MAX_COMPRESSED_LENGTH)
+# define SSL3_RT_MAX_TLS13_ENCRYPTED_LENGTH \
+            (SSL3_RT_MAX_PLAIN_LENGTH + SSL3_RT_MAX_TLS13_ENCRYPTED_OVERHEAD)
+# define SSL3_RT_MAX_PACKET_SIZE         \
+            (SSL3_RT_MAX_ENCRYPTED_LENGTH+SSL3_RT_HEADER_LENGTH)
+
+# define SSL3_MD_CLIENT_FINISHED_CONST   "\x43\x4C\x4E\x54"
+# define SSL3_MD_SERVER_FINISHED_CONST   "\x53\x52\x56\x52"
+
+# define SSL3_VERSION                    0x0300
+# define SSL3_VERSION_MAJOR              0x03
+# define SSL3_VERSION_MINOR              0x00
+
+# define SSL3_RT_CHANGE_CIPHER_SPEC      20
+# define SSL3_RT_ALERT                   21
+# define SSL3_RT_HANDSHAKE               22
+# define SSL3_RT_APPLICATION_DATA        23
+# define DTLS1_RT_HEARTBEAT              24
+
+/* Pseudo content types to indicate additional parameters */
+# define TLS1_RT_CRYPTO                  0x1000
+# define TLS1_RT_CRYPTO_PREMASTER        (TLS1_RT_CRYPTO | 0x1)
+# define TLS1_RT_CRYPTO_CLIENT_RANDOM    (TLS1_RT_CRYPTO | 0x2)
+# define TLS1_RT_CRYPTO_SERVER_RANDOM    (TLS1_RT_CRYPTO | 0x3)
+# define TLS1_RT_CRYPTO_MASTER           (TLS1_RT_CRYPTO | 0x4)
+
+# define TLS1_RT_CRYPTO_READ             0x0000
+# define TLS1_RT_CRYPTO_WRITE            0x0100
+# define TLS1_RT_CRYPTO_MAC              (TLS1_RT_CRYPTO | 0x5)
+# define TLS1_RT_CRYPTO_KEY              (TLS1_RT_CRYPTO | 0x6)
+# define TLS1_RT_CRYPTO_IV               (TLS1_RT_CRYPTO | 0x7)
+# define TLS1_RT_CRYPTO_FIXED_IV         (TLS1_RT_CRYPTO | 0x8)
+
+/* Pseudo content types for SSL/TLS header info */
+# define SSL3_RT_HEADER                  0x100
+# define SSL3_RT_INNER_CONTENT_TYPE      0x101
+
+# define SSL3_AL_WARNING                 1
+# define SSL3_AL_FATAL                   2
+
+# define SSL3_AD_CLOSE_NOTIFY             0
+# define SSL3_AD_UNEXPECTED_MESSAGE      10/* fatal */
+# define SSL3_AD_BAD_RECORD_MAC          20/* fatal */
+# define SSL3_AD_DECOMPRESSION_FAILU
