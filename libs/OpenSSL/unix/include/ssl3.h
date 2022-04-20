@@ -137,4 +137,62 @@ extern "C" {
 # ifndef SSL3_ALIGN_PAYLOAD
  /*
   * Some will argue that this increases memory footprint, but it's not
-  * actually true. Po
+  * actually true. Point is that malloc has to return at least 64-bit aligned
+  * pointers, meaning that allocating 5 bytes wastes 3 bytes in either case.
+  * Suggested pre-gaping simply moves these wasted bytes from the end of
+  * allocated region to its front, but makes data payload aligned, which
+  * improves performance:-)
+  */
+#  define SSL3_ALIGN_PAYLOAD                     8
+# else
+#  if (SSL3_ALIGN_PAYLOAD&(SSL3_ALIGN_PAYLOAD-1))!=0
+#   error "insane SSL3_ALIGN_PAYLOAD"
+#   undef SSL3_ALIGN_PAYLOAD
+#  endif
+# endif
+
+/*
+ * This is the maximum MAC (digest) size used by the SSL library. Currently
+ * maximum of 20 is used by SHA1, but we reserve for future extension for
+ * 512-bit hashes.
+ */
+
+# define SSL3_RT_MAX_MD_SIZE                     64
+
+/*
+ * Maximum block size used in all ciphersuites. Currently 16 for AES.
+ */
+
+# define SSL_RT_MAX_CIPHER_BLOCK_SIZE            16
+
+# define SSL3_RT_MAX_EXTRA                       (16384)
+
+/* Maximum plaintext length: defined by SSL/TLS standards */
+# define SSL3_RT_MAX_PLAIN_LENGTH                16384
+/* Maximum compression overhead: defined by SSL/TLS standards */
+# define SSL3_RT_MAX_COMPRESSED_OVERHEAD         1024
+
+/*
+ * The standards give a maximum encryption overhead of 1024 bytes. In
+ * practice the value is lower than this. The overhead is the maximum number
+ * of padding bytes (256) plus the mac size.
+ */
+# define SSL3_RT_MAX_ENCRYPTED_OVERHEAD        (256 + SSL3_RT_MAX_MD_SIZE)
+# define SSL3_RT_MAX_TLS13_ENCRYPTED_OVERHEAD  256
+
+/*
+ * OpenSSL currently only uses a padding length of at most one block so the
+ * send overhead is smaller.
+ */
+
+# define SSL3_RT_SEND_MAX_ENCRYPTED_OVERHEAD \
+                        (SSL_RT_MAX_CIPHER_BLOCK_SIZE + SSL3_RT_MAX_MD_SIZE)
+
+/* If compression isn't used don't include the compression overhead */
+
+# ifdef OPENSSL_NO_COMP
+#  define SSL3_RT_MAX_COMPRESSED_LENGTH           SSL3_RT_MAX_PLAIN_LENGTH
+# else
+#  define SSL3_RT_MAX_COMPRESSED_LENGTH   \
+            (SSL3_RT_MAX_PLAIN_LENGTH+SSL3_RT_MAX_COMPRESSED_OVERHEAD)
+# e
