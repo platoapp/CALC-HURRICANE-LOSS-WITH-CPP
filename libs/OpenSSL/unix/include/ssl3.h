@@ -240,4 +240,61 @@ extern "C" {
 # define SSL3_AD_CLOSE_NOTIFY             0
 # define SSL3_AD_UNEXPECTED_MESSAGE      10/* fatal */
 # define SSL3_AD_BAD_RECORD_MAC          20/* fatal */
-# define SSL3_AD_DECOMPRESSION_FAILU
+# define SSL3_AD_DECOMPRESSION_FAILURE   30/* fatal */
+# define SSL3_AD_HANDSHAKE_FAILURE       40/* fatal */
+# define SSL3_AD_NO_CERTIFICATE          41
+# define SSL3_AD_BAD_CERTIFICATE         42
+# define SSL3_AD_UNSUPPORTED_CERTIFICATE 43
+# define SSL3_AD_CERTIFICATE_REVOKED     44
+# define SSL3_AD_CERTIFICATE_EXPIRED     45
+# define SSL3_AD_CERTIFICATE_UNKNOWN     46
+# define SSL3_AD_ILLEGAL_PARAMETER       47/* fatal */
+
+# define TLS1_HB_REQUEST         1
+# define TLS1_HB_RESPONSE        2
+
+
+# define SSL3_CT_RSA_SIGN                        1
+# define SSL3_CT_DSS_SIGN                        2
+# define SSL3_CT_RSA_FIXED_DH                    3
+# define SSL3_CT_DSS_FIXED_DH                    4
+# define SSL3_CT_RSA_EPHEMERAL_DH                5
+# define SSL3_CT_DSS_EPHEMERAL_DH                6
+# define SSL3_CT_FORTEZZA_DMS                    20
+/*
+ * SSL3_CT_NUMBER is used to size arrays and it must be large enough to
+ * contain all of the cert types defined for *either* SSLv3 and TLSv1.
+ */
+# define SSL3_CT_NUMBER                  10
+
+# if defined(TLS_CT_NUMBER)
+#  if TLS_CT_NUMBER != SSL3_CT_NUMBER
+#    error "SSL/TLS CT_NUMBER values do not match"
+#  endif
+# endif
+
+/* No longer used as of OpenSSL 1.1.1 */
+# define SSL3_FLAGS_NO_RENEGOTIATE_CIPHERS       0x0001
+
+/* Removed from OpenSSL 1.1.0 */
+# define TLS1_FLAGS_TLS_PADDING_BUG              0x0
+
+# define TLS1_FLAGS_SKIP_CERT_VERIFY             0x0010
+
+/* Set if we encrypt then mac instead of usual mac then encrypt */
+# define TLS1_FLAGS_ENCRYPT_THEN_MAC_READ        0x0100
+# define TLS1_FLAGS_ENCRYPT_THEN_MAC             TLS1_FLAGS_ENCRYPT_THEN_MAC_READ
+
+/* Set if extended master secret extension received from peer */
+# define TLS1_FLAGS_RECEIVED_EXTMS               0x0200
+
+# define TLS1_FLAGS_ENCRYPT_THEN_MAC_WRITE       0x0400
+
+# define TLS1_FLAGS_STATELESS                    0x0800
+
+/* Set if extended master secret extension required on renegotiation */
+# define TLS1_FLAGS_REQUIRED_EXTMS               0x1000
+
+# define SSL3_MT_HELLO_REQUEST                   0
+# define SSL3_MT_CLIENT_HELLO                    1
+# define SSL3_M
