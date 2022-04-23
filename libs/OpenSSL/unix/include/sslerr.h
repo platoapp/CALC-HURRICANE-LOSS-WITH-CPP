@@ -47,4 +47,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_DO_SSL3_WRITE                              104
 # define SSL_F_DTLS1_BUFFER_RECORD                        247
 # define SSL_F_DTLS1_CHECK_TIMEOUT_NUM                    318
-# define SSL_F_DTLS1_HEARTBEAT         
+# define SSL_F_DTLS1_HEARTBEAT                            305
+# define SSL_F_DTLS1_HM_FRAGMENT_NEW                      623
+# define SSL_F_DTLS1_PREPROCESS_FRAGMENT                  288
+# define SSL_F_DTLS1_PROCESS_BUFFERED_RECORDS             424
+# define SSL_F_DTLS1_PROCESS_RECORD                       257
+# define SSL_F_DTLS1_READ_BYTES                           258
+# define SSL_F_DTLS1_READ_FAILED                          339
+# define SSL_F_DTLS1_RETRANSMIT_MESSAGE                   390
+# define SSL_F_DTLS1_WRITE_APP_DATA_BYTES                 268
+# define SSL_F_DTLS1_WRITE_BYTES                          545
+# define SSL_F_DTLSV1_LISTEN                              350
+# define SSL_F_DTLS_CONSTRUCT_CHANGE_CIPHER_SPEC          371
+# define SSL_F_DTLS_CONSTRUCT_HELLO_VERIFY_REQUEST        385
+# define SSL_F_DTLS_GET_REASSEMBLED_MESSAGE               370
+# define SSL_F_DTLS_PROCESS_HELLO_VERIFY                  386
+# define SSL_F_DTLS_RECORD_LAYER_NEW                      635
+# define SSL_F_DTLS_WAIT_FOR_DRY                          592
+# define SSL_F_EARLY_DATA_COUNT_OK                        532
+# define SSL_F_FINAL_EARLY_DATA                           556
+# define SSL_F_FINAL_EC_PT_FORMATS                        485
+# define SSL_F_FINAL_EMS                                  486
+# define SSL_F_FINAL_KEY_SHARE                            503
+# define SSL_F_FINAL_MAXFRAGMENTLEN                       557
+# define SSL_F_FINAL_PSK                                  639
+# define SSL_F_FINAL_RENEGOTIATE                          483
+# define SSL_F_FINAL_SERVER_NAME                          558
+# define SSL_F_FINAL_SIG_ALGS                             497
+# define SSL_F_GET_CERT_VERIFY_TBS_DATA                   588
+# define SSL_F_NSS_KEYLOG_INT                             500
+# define SSL_F_OPENSSL_INIT_SSL                           342
+# define SSL_F_OSSL_STATEM_CLIENT13_READ_TRANSITION       436
+# define SSL_F_OSSL_STATEM_CLIENT13_WRITE_TRANSITION      598
+# define SSL_F_OSSL
