@@ -79,4 +79,35 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_OPENSSL_INIT_SSL                           342
 # define SSL_F_OSSL_STATEM_CLIENT13_READ_TRANSITION       436
 # define SSL_F_OSSL_STATEM_CLIENT13_WRITE_TRANSITION      598
-# define SSL_F_OSSL
+# define SSL_F_OSSL_STATEM_CLIENT_CONSTRUCT_MESSAGE       430
+# define SSL_F_OSSL_STATEM_CLIENT_POST_PROCESS_MESSAGE    593
+# define SSL_F_OSSL_STATEM_CLIENT_PROCESS_MESSAGE         594
+# define SSL_F_OSSL_STATEM_CLIENT_READ_TRANSITION         417
+# define SSL_F_OSSL_STATEM_CLIENT_WRITE_TRANSITION        599
+# define SSL_F_OSSL_STATEM_SERVER13_READ_TRANSITION       437
+# define SSL_F_OSSL_STATEM_SERVER13_WRITE_TRANSITION      600
+# define SSL_F_OSSL_STATEM_SERVER_CONSTRUCT_MESSAGE       431
+# define SSL_F_OSSL_STATEM_SERVER_POST_PROCESS_MESSAGE    601
+# define SSL_F_OSSL_STATEM_SERVER_POST_WORK               602
+# define SSL_F_OSSL_STATEM_SERVER_PRE_WORK                640
+# define SSL_F_OSSL_STATEM_SERVER_PROCESS_MESSAGE         603
+# define SSL_F_OSSL_STATEM_SERVER_READ_TRANSITION         418
+# define SSL_F_OSSL_STATEM_SERVER_WRITE_TRANSITION        604
+# define SSL_F_PARSE_CA_NAMES                             541
+# define SSL_F_PITEM_NEW                                  624
+# define SSL_F_PQUEUE_NEW                                 625
+# define SSL_F_PROCESS_KEY_SHARE_EXT                      439
+# define SSL_F_READ_STATE_MACHINE                         352
+# define SSL_F_SET_CLIENT_CIPHERSUITE                     540
+# define SSL_F_SRP_GENERATE_CLIENT_MASTER_SECRET          595
+# define SSL_F_SRP_GENERATE_SERVER_MASTER_SECRET          589
+# define SSL_F_SRP_VERIFY_SERVER_PARAM                    596
+# define SSL_F_SSL3_CHANGE_CIPHER_STATE                   129
+# define SSL_F_SSL3_CHECK_CERT_AND_ALGORITHM              130
+# define SSL_F_SSL3_CTRL                                  213
+# define SSL_F_SSL3_CTX_CTRL                              133
+# define SSL_F_SSL3_DIGEST_CACHED_RECORDS                 293
+# define SSL_F_SSL3_DO_CHANGE_CIPHER_SPEC                 292
+# define SSL_F_SSL3_ENC                                   608
+# define SSL_F_SSL3_FINAL_FINISH_MAC                      285
+# define SSL_F_SSL3_FINISH_MAC                 
