@@ -110,4 +110,35 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_SSL3_DO_CHANGE_CIPHER_SPEC                 292
 # define SSL_F_SSL3_ENC                                   608
 # define SSL_F_SSL3_FINAL_FINISH_MAC                      285
-# define SSL_F_SSL3_FINISH_MAC                 
+# define SSL_F_SSL3_FINISH_MAC                            587
+# define SSL_F_SSL3_GENERATE_KEY_BLOCK                    238
+# define SSL_F_SSL3_GENERATE_MASTER_SECRET                388
+# define SSL_F_SSL3_GET_RECORD                            143
+# define SSL_F_SSL3_INIT_FINISHED_MAC                     397
+# define SSL_F_SSL3_OUTPUT_CERT_CHAIN                     147
+# define SSL_F_SSL3_READ_BYTES                            148
+# define SSL_F_SSL3_READ_N                                149
+# define SSL_F_SSL3_SETUP_KEY_BLOCK                       157
+# define SSL_F_SSL3_SETUP_READ_BUFFER                     156
+# define SSL_F_SSL3_SETUP_WRITE_BUFFER                    291
+# define SSL_F_SSL3_WRITE_BYTES                           158
+# define SSL_F_SSL3_WRITE_PENDING                         159
+# define SSL_F_SSL_ADD_CERT_CHAIN                         316
+# define SSL_F_SSL_ADD_CERT_TO_BUF                        319
+# define SSL_F_SSL_ADD_CERT_TO_WPACKET                    493
+# define SSL_F_SSL_ADD_CLIENTHELLO_RENEGOTIATE_EXT        298
+# define SSL_F_SSL_ADD_CLIENTHELLO_TLSEXT                 277
+# define SSL_F_SSL_ADD_CLIENTHELLO_USE_SRTP_EXT           307
+# define SSL_F_SSL_ADD_DIR_CERT_SUBJECTS_TO_STACK         215
+# define SSL_F_SSL_ADD_FILE_CERT_SUBJECTS_TO_STACK        216
+# define SSL_F_SSL_ADD_SERVERHELLO_RENEGOTIATE_EXT        299
+# define SSL_F_SSL_ADD_SERVERHELLO_TLSEXT                 278
+# define SSL_F_SSL_ADD_SERVERHELLO_USE_SRTP_EXT           308
+# define SSL_F_SSL_BAD_METHOD                             160
+# define SSL_F_SSL_BUILD_CERT_CHAIN                       332
+# define SSL_F_SSL_BYTES_TO_CIPHER_LIST                   161
+# define SSL_F_SSL_CACHE_CIPHERLIST                       520
+# define SSL_F_SSL_CERT_ADD0_CHAIN_CERT                   346
+# define SSL_F_SSL_CERT_DUP                               221
+# define SSL_F_SSL_CERT_NEW                               162
+# define SSL_F_SSL_CERT_SET0_
