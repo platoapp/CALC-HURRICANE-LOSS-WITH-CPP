@@ -141,4 +141,35 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_SSL_CERT_ADD0_CHAIN_CERT                   346
 # define SSL_F_SSL_CERT_DUP                               221
 # define SSL_F_SSL_CERT_NEW                               162
-# define SSL_F_SSL_CERT_SET0_
+# define SSL_F_SSL_CERT_SET0_CHAIN                        340
+# define SSL_F_SSL_CHECK_PRIVATE_KEY                      163
+# define SSL_F_SSL_CHECK_SERVERHELLO_TLSEXT               280
+# define SSL_F_SSL_CHECK_SRP_EXT_CLIENTHELLO              606
+# define SSL_F_SSL_CHECK_SRVR_ECC_CERT_AND_ALG            279
+# define SSL_F_SSL_CHOOSE_CLIENT_VERSION                  607
+# define SSL_F_SSL_CIPHER_DESCRIPTION                     626
+# define SSL_F_SSL_CIPHER_LIST_TO_BYTES                   425
+# define SSL_F_SSL_CIPHER_PROCESS_RULESTR                 230
+# define SSL_F_SSL_CIPHER_STRENGTH_SORT                   231
+# define SSL_F_SSL_CLEAR                                  164
+# define SSL_F_SSL_CLIENT_HELLO_GET1_EXTENSIONS_PRESENT   627
+# define SSL_F_SSL_COMP_ADD_COMPRESSION_METHOD            165
+# define SSL_F_SSL_CONF_CMD                               334
+# define SSL_F_SSL_CREATE_CIPHER_LIST                     166
+# define SSL_F_SSL_CTRL                                   232
+# define SSL_F_SSL_CTX_CHECK_PRIVATE_KEY                  168
+# define SSL_F_SSL_CTX_ENABLE_CT                          398
+# define SSL_F_SSL_CTX_MAKE_PROFILES                      309
+# define SSL_F_SSL_CTX_NEW                                169
+# define SSL_F_SSL_CTX_SET_ALPN_PROTOS                    343
+# define SSL_F_SSL_CTX_SET_CIPHER_LIST                    269
+# define SSL_F_SSL_CTX_SET_CLIENT_CERT_ENGINE             290
+# define SSL_F_SSL_CTX_SET_CT_VALIDATION_CALLBACK         396
+# define SSL_F_SSL_CTX_SET_SESSION_ID_CONTEXT             219
+# define SSL_F_SSL_CTX_SET_SSL_VERSION                    170
+# define SSL_F_SSL_CTX_SET_TLSEXT_MAX_FRAGMENT_LENGTH     551
+# define SSL_F_SSL_CTX_USE_CERTIFICATE                    171
+# define SSL_F_SSL_CTX_USE_CERTIFICATE_ASN1               172
+# define SSL_F_SSL_CTX_USE_CERTIFICATE_FILE               173
+# define SSL_F_SSL_CTX_USE_PRIVATEKEY                     174
+# define SSL_F_SSL_CTX_USE_PRIVATEKEY_ASN1             
