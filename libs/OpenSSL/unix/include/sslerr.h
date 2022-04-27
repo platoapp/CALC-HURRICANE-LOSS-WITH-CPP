@@ -172,4 +172,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_SSL_CTX_USE_CERTIFICATE_ASN1               172
 # define SSL_F_SSL_CTX_USE_CERTIFICATE_FILE               173
 # define SSL_F_SSL_CTX_USE_PRIVATEKEY                     174
-# define SSL_F_SSL_CTX_USE_PRIVATEKEY_ASN1             
+# define SSL_F_SSL_CTX_USE_PRIVATEKEY_ASN1                175
+# define SSL_F_SSL_CTX_USE_PRIVATEKEY_FILE                176
+# define SSL_F_SSL_CTX_USE_PSK_IDENTITY_HINT              272
+# define SSL_F_SSL_CTX_USE_RSAPRIVATEKEY                  177
+# define SSL_F_SSL_CTX_USE_RSAPRIVATEKEY_ASN1             178
+# define SSL_F_SSL_CTX_USE_RSAPRIVATEKEY_FILE             179
+# define SSL_F_SSL_CTX_USE_SERVERINFO                     336
+# define SSL_F_SSL_CTX_USE_SERVERINFO_EX                  543
+# define SSL_F_SSL_CTX_USE_SERVERINFO_FILE                337
+# define SSL_F_SSL_DANE_DUP                               403
+# define SSL_F_SSL_DANE_ENABLE                            395
+# define SSL_F_SSL_DERIVE                                 590
+# define SSL_F_SSL_DO_CONFIG                              391
+# define SSL_F_SSL_DO_HANDSHAKE                           180
+# define SSL_F_SSL_DUP_CA_LIST                            408
+# define SSL_F_SSL_ENABLE_CT                              402
+# define SSL_F_SSL_GENERATE_PKEY_GROUP                    559
+# define SSL_F_SSL_GENERATE_SESSION_ID                    547
+# define SSL_F_SSL_GET_NEW_SESSION                        181
+# define SSL_F_SSL_GET_PREV_SESSION                       217
+# define SSL_F_SSL_GET_SERVER_CERT_INDEX                  322
+# define SSL_F_SSL_GET_SIGN_PKEY                          183
+# define SSL_F_SSL_HANDSHAKE_HASH                         560
+# define SSL_F_SSL_INIT_WBIO_BUFFER                       184
+# define SSL_F_SSL_KEY_UPDATE                             515
+# define SSL_F_SSL_LOAD_CLIENT_CA_FILE                    185
+# define SSL_F_SSL_LOG_MASTER_SECRET                      498
+# define SSL_F_SSL_LOG_RSA_CLIENT_KEY_EXCHANGE            499
+# define SSL_F_SSL_MODULE_INIT                            392
+# define SSL_F_SSL_NEW                                    186
+# define SSL_F_SSL_NEXT_PROTO_VALIDATE                    565
+# define SSL_F_SSL_PARSE_CLIENTHELLO_RENEGOTIATE_EXT      300
+# define SSL_F_SSL_PARSE_CLIENTHELLO_TLSEXT    
