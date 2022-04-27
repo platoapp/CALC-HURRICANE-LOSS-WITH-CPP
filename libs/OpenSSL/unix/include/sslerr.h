@@ -204,4 +204,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_SSL_NEW                                    186
 # define SSL_F_SSL_NEXT_PROTO_VALIDATE                    565
 # define SSL_F_SSL_PARSE_CLIENTHELLO_RENEGOTIATE_EXT      300
-# define SSL_F_SSL_PARSE_CLIENTHELLO_TLSEXT    
+# define SSL_F_SSL_PARSE_CLIENTHELLO_TLSEXT               302
+# define SSL_F_SSL_PARSE_CLIENTHELLO_USE_SRTP_EXT         310
+# define SSL_F_SSL_PARSE_SERVERHELLO_RENEGOTIATE_EXT      301
+# define SSL_F_SSL_PARSE_SERVERHELLO_TLSEXT               303
+# define SSL_F_SSL_PARSE_SERVERHELLO_USE_SRTP_EXT         311
+# define SSL_F_SSL_PEEK                                   270
+# define SSL_F_SSL_PEEK_EX                                432
+# define SSL_F_SSL_PEEK_INTERNAL                          522
+# define SSL_F_SSL_READ                                   223
+# define SSL_F_SSL_READ_EARLY_DATA                        529
+# define SSL_F_SSL_READ_EX                                434
+# define SSL_F_SSL_READ_INTERNAL                          523
+# define SSL_F_SSL_RENEGOTIATE                            516
+# define SSL_F_SSL_RENEGOTIATE_ABBREVIATED                546
+# define SSL_F_SSL_SCAN_CLIENTHELLO_TLSEXT                320
+# define SSL_F_SSL_SCAN_SERVERHELLO_TLSEXT                321
+# define SSL_F_SSL_SESSION_DUP                            348
+# define SSL_F_SSL_SESSION_NEW                            189
+# define SSL_F_SSL_SESSION_PRINT_FP                       190
+# define SSL_F_SSL_SESSION_SET1_ID                        423
+# define SSL_F_SSL_SESSION_SET1_ID_CONTEXT                312
+# define SSL_F_SSL_SET_ALPN_PROTOS                        344
+# define SSL_F_SSL_SET_CERT                               191
+# define SSL_F_SSL_SET_CERT_AND_KEY                       621
+# define SSL_F_SSL_SET_CIPHER_LIST                        271
+# define SSL_F_SSL_SET_CT_VALIDATION_CALLBACK             399
+# define SSL_F_SSL_SET_FD                                 192
+# define SSL_F_SSL_SET_PKEY                               193
+# define SSL_F_SSL_SET_RFD                                194
+# define SSL_F_SSL_SET_SESSION                            195
+# define SSL_F_SSL_SET_SESSION_ID_CONTEXT                 218
+# define SSL_F_SSL_SET_SESSION_TICKET_EXT                 294
+# define SSL_F_SSL_SET_TLSEXT_MAX_FRAGMENT_LEN
