@@ -236,4 +236,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_SSL_SET_SESSION                            195
 # define SSL_F_SSL_SET_SESSION_ID_CONTEXT                 218
 # define SSL_F_SSL_SET_SESSION_TICKET_EXT                 294
-# define SSL_F_SSL_SET_TLSEXT_MAX_FRAGMENT_LEN
+# define SSL_F_SSL_SET_TLSEXT_MAX_FRAGMENT_LENGTH         550
+# define SSL_F_SSL_SET_WFD                                196
+# define SSL_F_SSL_SHUTDOWN                               224
+# define SSL_F_SSL_SRP_CTX_INIT                           313
+# define SSL_F_SSL_START_ASYNC_JOB                        389
+# define SSL_F_SSL_UNDEFINED_FUNCTION                     197
+# define SSL_F_SSL_UNDEFINED_VOID_FUNCTION                244
+# define SSL_F_SSL_USE_CERTIFICATE                        198
+# define SSL_F_SSL_USE_CERTIFICATE_ASN1                   199
+# define SSL_F_SSL_USE_CERTIFICATE_FILE                   200
+# define SSL_F_SSL_USE_PRIVATEKEY                         201
+# define SSL_F_SSL_USE_PRIVATEKEY_ASN1                    202
+# define SSL_F_SSL_USE_PRIVATEKEY_FILE                    203
+# define SSL_F_SSL_USE_PSK_IDENTITY_HINT                  273
+# define SSL_F_SSL_USE_RSAPRIVATEKEY                      204
+# define SSL_F_SSL_USE_RSAPRIVATEKEY_ASN1                 205
+# define SSL_F_SSL_USE_RSAPRIVATEKEY_FILE                 206
+# define SSL_F_SSL_VALIDATE_CT                            400
+# define SSL_F_SSL_VERIFY_CERT_CHAIN                      207
+# define SSL_F_SSL_VERIFY_CLIENT_POST_HANDSHAKE           616
+# define SSL_F_SSL_WRITE                                  208
+# define SSL_F_SSL_WRITE_EARLY_DATA                       526
+# define SSL_F_SSL_WRITE_EARLY_FINISH                     527
+# define SSL_F_SSL_WRITE_EX                               433
+# define SSL_F_SSL_WRITE_INTERNAL                         524
+# define SSL_F_STATE_MACHINE                              353
+# define SSL_F_TLS12_CHECK_PEER_SIGALG                    333
+# define SSL_F_TLS12_COPY_SIGALGS                         533
+# define SSL_F_TLS13_CHANGE_CIPHER_STATE                  440
+# define SSL_F_TLS13_ENC                                  609
+# define SSL_F_TLS13_FINAL_FINISH_MAC                     605
+# define SSL_F_TLS13_GENERATE_SECRET                      591
+# define SSL_F_TLS13_HKDF_EXPAND                        
