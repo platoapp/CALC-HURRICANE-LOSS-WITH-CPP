@@ -268,4 +268,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_TLS13_ENC                                  609
 # define SSL_F_TLS13_FINAL_FINISH_MAC                     605
 # define SSL_F_TLS13_GENERATE_SECRET                      591
-# define SSL_F_TLS13_HKDF_EXPAND                        
+# define SSL_F_TLS13_HKDF_EXPAND                          561
+# define SSL_F_TLS13_RESTORE_HANDSHAKE_DIGEST_FOR_PHA     617
+# define SSL_F_TLS13_SAVE_HANDSHAKE_DIGEST_FOR_PHA        618
+# define SSL_F_TLS13_SETUP_KEY_BLOCK                      441
+# define SSL_F_TLS1_CHANGE_CIPHER_STATE                   209
+# define SSL_F_TLS1_CHECK_DUPLICATE_EXTENSIONS            341
+# define SSL_F_TLS1_ENC                                   401
+# define SSL_F_TLS1_EXPORT_KEYING_MATERIAL                314
+# define SSL_F_TLS1_GET_CURVELIST                         338
+# define SSL_F_TLS1_PRF                                   284
+# define SSL_F_TLS1_SAVE_U16                              628
+# define SSL_F_TLS1_SETUP_KEY_BLOCK                       211
+# define SSL_F_TLS1_SET_GROUPS                            629
+# define SSL_F_TLS1_SET_RAW_SIGALGS                       630
+# define SSL_F_TLS1_SET_SERVER_SIGALGS                    335
+# define SSL_F_TLS1_SET_SHARED_SIGALGS                    631
+# define SSL_F_TLS1_SET_SIGALGS                           632
+# define SSL_F_TLS_CHOOSE_SIGALG                          513
+# define SSL_F_TLS_CLIENT_KEY_EXCHANGE_POST_WORK          354
+# define SSL_F_TLS_COLLECT_EXTENSIONS                     435
+# define SSL_F_TLS_CONSTRUCT_CERTIFICATE_AUTHORITIES      542
+# define SSL_F_TLS_CONSTRUCT_CERTIFICATE_REQUEST          372
+# define SSL_F_TLS_CONSTRUCT_CERT_STATUS                  429
+# define SSL_F_TLS_CONSTRUCT_CERT_STATUS_BODY             494
+# define SSL_F_TLS_CONSTRUCT_CERT_VERIFY                  496
+# define SSL_F_TLS_CONSTRUCT_CHANGE_CIPHER_SPEC           427
+# define SSL_F_TLS_CONSTRUCT_CKE_DHE                      404
+# define SSL_F_TLS_CONSTRUCT_CKE_ECDHE                    405
+# define SSL_F_TLS_CONSTRUCT_CKE_GOST                     406
+# define SSL_F_TLS_CONSTRUCT_CKE_PSK_PREAMBLE             407
+# define SSL_F_TLS_CONSTRUCT_CKE_RSA                      409
+# define SSL_F_TLS_CONSTRUCT_CKE_SRP                      410
+# define SSL_F_TLS_CONSTRUCT
