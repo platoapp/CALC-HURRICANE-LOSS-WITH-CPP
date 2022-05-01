@@ -300,4 +300,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_TLS_CONSTRUCT_CKE_PSK_PREAMBLE             407
 # define SSL_F_TLS_CONSTRUCT_CKE_RSA                      409
 # define SSL_F_TLS_CONSTRUCT_CKE_SRP                      410
-# define SSL_F_TLS_CONSTRUCT
+# define SSL_F_TLS_CONSTRUCT_CLIENT_CERTIFICATE           484
+# define SSL_F_TLS_CONSTRUCT_CLIENT_HELLO                 487
+# define SSL_F_TLS_CONSTRUCT_CLIENT_KEY_EXCHANGE          488
+# define SSL_F_TLS_CONSTRUCT_CLIENT_VERIFY                489
+# define SSL_F_TLS_CONSTRUCT_CTOS_ALPN                    466
+# define SSL_F_TLS_CONSTRUCT_CTOS_CERTIFICATE             355
+# define SSL_F_TLS_CONSTRUCT_CTOS_COOKIE                  535
+# define SSL_F_TLS_CONSTRUCT_CTOS_EARLY_DATA              530
+# define SSL_F_TLS_CONSTRUCT_CTOS_EC_PT_FORMATS           467
+# define SSL_F_TLS_CONSTRUCT_CTOS_EMS                     468
+# define SSL_F_TLS_CONSTRUCT_CTOS_ETM                     469
+# define SSL_F_TLS_CONSTRUCT_CTOS_HELLO                   356
+# define SSL_F_TLS_CONSTRUCT_CTOS_KEY_EXCHANGE            357
+# define SSL_F_TLS_CONSTRUCT_CTOS_KEY_SHARE               470
+# define SSL_F_TLS_CONSTRUCT_CTOS_MAXFRAGMENTLEN          549
+# define SSL_F_TLS_CONSTRUCT_CTOS_NPN                     471
+# define SSL_F_TLS_CONSTRUCT_CTOS_PADDING                 472
+# define SSL_F_TLS_CONSTRUCT_CTOS_POST_HANDSHAKE_AUTH     619
+# define SSL_F_TLS_CONSTRUCT_CTOS_PSK                     501
+# define SSL_F_TLS_CONSTRUCT_CTOS_PSK_KEX_MODES           509
+# define SSL_F_TLS_CONSTRUCT_CTOS_RENEGOTIATE             473
+# define SSL_F_TLS_CONSTRUCT_CTOS_SCT                     474
+# define SSL_F_TLS_CONSTRUCT_CTOS_SERVER_NAME             475
+# define SSL_F_TLS_CONSTRUCT_CTOS_SESSION_TICKET          476
+# define SSL_F_TLS_CONSTRUCT_CTOS_SIG_ALGS                477
+# define SSL_F_TLS_CONSTRUCT_CTOS_SRP                     478
+# define SSL_F_TLS_CONSTRUCT_CTOS_STATUS_REQUEST          479
+# define SSL_F_TLS_CONSTRUCT_CTOS_SUPPORTED_GROUPS        480
+# define SSL_F_TLS_CONSTRUCT_CTOS_SUPPORTED_VERSIONS      481
+# define SSL_F_TLS_CONSTRUCT_CTOS_USE_SRTP                482
+# define SSL_F_TLS_CONSTRUCT_CTOS_VERIFY                  358
+# define SSL_F_TLS_CONSTRUCT_ENCRYPTED_EXTENSIONS         443
+# define SSL_F_TLS_CONSTRUCT_END_OF_EARLY_DATA  
