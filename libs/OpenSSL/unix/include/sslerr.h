@@ -364,4 +364,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_TLS_CONSTRUCT_STOC_SESSION_TICKET          460
 # define SSL_F_TLS_CONSTRUCT_STOC_STATUS_REQUEST          461
 # define SSL_F_TLS_CONSTRUCT_STOC_SUPPORTED_GROUPS        544
-# define SSL_F_TLS_CONSTRUCT_STOC_SUPPORT
+# define SSL_F_TLS_CONSTRUCT_STOC_SUPPORTED_VERSIONS      611
+# define SSL_F_TLS_CONSTRUCT_STOC_USE_SRTP                462
+# define SSL_F_TLS_EARLY_POST_PROCESS_CLIENT_HELLO        521
+# define SSL_F_TLS_FINISH_HANDSHAKE                       597
+# define SSL_F_TLS_GET_MESSAGE_BODY                       351
+# define SSL_F_TLS_GET_MESSAGE_HEADER                     387
+# define SSL_F_TLS_HANDLE_ALPN                            562
+# define SSL_F_TLS_HANDLE_STATUS_REQUEST                  563
+# define SSL_F_TLS_PARSE_CERTIFICATE_AUTHORITIES          566
+# define SSL_F_TLS_PARSE_CLIENTHELLO_TLSEXT               449
+# define SSL_F_TLS_PARSE_CTOS_ALPN                        567
+# define SSL_F_TLS_PARSE_CTOS_COOKIE                      614
+# define SSL_F_TLS_PARSE_CTOS_EARLY_DATA                  568
+# define SSL_F_TLS_PARSE_CTOS_EC_PT_FORMATS               569
+# define SSL_F_TLS_PARSE_CTOS_EMS                         570
+# define SSL_F_TLS_PARSE_CTOS_KEY_SHARE                   463
+# define SSL_F_TLS_PARSE_CTOS_MAXFRAGMENTLEN              571
+# define SSL_F_TLS_PARSE_CTOS_POST_HANDSHAKE_AUTH         620
+# define SSL_F_TLS_PARSE_CTOS_PSK                         505
+# define SSL_F_TLS_PARSE_CTOS_PSK_KEX_MODES               572
+# define SSL_F_TLS_PARSE_CTOS_RENEGOTIATE                 464
+# define SSL_F_TLS_PARSE_CTOS_SERVER_NAME                 573
+# define SSL_F_TLS_PARSE_CTOS_SESSION_TICKET              574
+# define SSL_F_TLS_PARSE_CTOS_SIG_ALGS                    575
+# define SSL_F_TLS_PARSE_CTOS_SIG_ALGS_CERT               615
+# define SSL_F_TLS_PARSE_CTOS_SRP                         576
+# define SSL_F_TLS_PARSE_CTOS_STATUS_REQUEST              577
+# define SSL_F_TLS_PARSE_CTOS_SUPPORTED_GROUPS            578
+# define SSL_F_TLS_PARSE_CTOS_USE_SRTP                    465
+# define SSL_F_TLS_PARSE_STOC_ALPN                        579
+# define SSL_F_TLS_PARSE_STOC_COOKIE                      534
+# define SSL_F_TLS_PARSE_STOC_EARLY_DATA                  538
+# 
