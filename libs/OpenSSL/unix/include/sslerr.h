@@ -396,4 +396,35 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_TLS_PARSE_STOC_ALPN                        579
 # define SSL_F_TLS_PARSE_STOC_COOKIE                      534
 # define SSL_F_TLS_PARSE_STOC_EARLY_DATA                  538
-# 
+# define SSL_F_TLS_PARSE_STOC_EARLY_DATA_INFO             528
+# define SSL_F_TLS_PARSE_STOC_EC_PT_FORMATS               580
+# define SSL_F_TLS_PARSE_STOC_KEY_SHARE                   445
+# define SSL_F_TLS_PARSE_STOC_MAXFRAGMENTLEN              581
+# define SSL_F_TLS_PARSE_STOC_NPN                         582
+# define SSL_F_TLS_PARSE_STOC_PSK                         502
+# define SSL_F_TLS_PARSE_STOC_RENEGOTIATE                 448
+# define SSL_F_TLS_PARSE_STOC_SCT                         564
+# define SSL_F_TLS_PARSE_STOC_SERVER_NAME                 583
+# define SSL_F_TLS_PARSE_STOC_SESSION_TICKET              584
+# define SSL_F_TLS_PARSE_STOC_STATUS_REQUEST              585
+# define SSL_F_TLS_PARSE_STOC_SUPPORTED_VERSIONS          612
+# define SSL_F_TLS_PARSE_STOC_USE_SRTP                    446
+# define SSL_F_TLS_POST_PROCESS_CLIENT_HELLO              378
+# define SSL_F_TLS_POST_PROCESS_CLIENT_KEY_EXCHANGE       384
+# define SSL_F_TLS_PREPARE_CLIENT_CERTIFICATE             360
+# define SSL_F_TLS_PROCESS_AS_HELLO_RETRY_REQUEST         610
+# define SSL_F_TLS_PROCESS_CERTIFICATE_REQUEST            361
+# define SSL_F_TLS_PROCESS_CERT_STATUS                    362
+# define SSL_F_TLS_PROCESS_CERT_STATUS_BODY               495
+# define SSL_F_TLS_PROCESS_CERT_VERIFY                    379
+# define SSL_F_TLS_PROCESS_CHANGE_CIPHER_SPEC             363
+# define SSL_F_TLS_PROCESS_CKE_DHE                        411
+# define SSL_F_TLS_PROCESS_CKE_ECDHE                      412
+# define SSL_F_TLS_PROCESS_CKE_GOST                       413
+# define SSL_F_TLS_PROCESS_CKE_PSK_PREAMBLE               414
+# define SSL_F_TLS_PROCESS_CKE_RSA                        415
+# define SSL_F_TLS_PROCESS_CKE_SRP                        416
+# define SSL_F_TLS_PROCESS_CLIENT_CERTIFICATE             380
+# define SSL_F_TLS_PROCESS_CLIENT_HELLO                   381
+# define SSL_F_TLS_PROCESS_CLIENT_KEY_EXCHANGE            382
+# define SSL_F_TLS_PROCESS_ENCRYPTED_EXTENSIONS      
