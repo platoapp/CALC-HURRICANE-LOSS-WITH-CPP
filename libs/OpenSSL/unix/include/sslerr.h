@@ -427,4 +427,40 @@ int ERR_load_SSL_strings(void);
 # define SSL_F_TLS_PROCESS_CLIENT_CERTIFICATE             380
 # define SSL_F_TLS_PROCESS_CLIENT_HELLO                   381
 # define SSL_F_TLS_PROCESS_CLIENT_KEY_EXCHANGE            382
-# define SSL_F_TLS_PROCESS_ENCRYPTED_EXTENSIONS      
+# define SSL_F_TLS_PROCESS_ENCRYPTED_EXTENSIONS           444
+# define SSL_F_TLS_PROCESS_END_OF_EARLY_DATA              537
+# define SSL_F_TLS_PROCESS_FINISHED                       364
+# define SSL_F_TLS_PROCESS_HELLO_REQ                      507
+# define SSL_F_TLS_PROCESS_HELLO_RETRY_REQUEST            511
+# define SSL_F_TLS_PROCESS_INITIAL_SERVER_FLIGHT          442
+# define SSL_F_TLS_PROCESS_KEY_EXCHANGE                   365
+# define SSL_F_TLS_PROCESS_KEY_UPDATE                     518
+# define SSL_F_TLS_PROCESS_NEW_SESSION_TICKET             366
+# define SSL_F_TLS_PROCESS_NEXT_PROTO                     383
+# define SSL_F_TLS_PROCESS_SERVER_CERTIFICATE             367
+# define SSL_F_TLS_PROCESS_SERVER_DONE                    368
+# define SSL_F_TLS_PROCESS_SERVER_HELLO                   369
+# define SSL_F_TLS_PROCESS_SKE_DHE                        419
+# define SSL_F_TLS_PROCESS_SKE_ECDHE                      420
+# define SSL_F_TLS_PROCESS_SKE_PSK_PREAMBLE               421
+# define SSL_F_TLS_PROCESS_SKE_SRP                        422
+# define SSL_F_TLS_PSK_DO_BINDER                          506
+# define SSL_F_TLS_SCAN_CLIENTHELLO_TLSEXT                450
+# define SSL_F_TLS_SETUP_HANDSHAKE                        508
+# define SSL_F_USE_CERTIFICATE_CHAIN_FILE                 220
+# define SSL_F_WPACKET_INTERN_INIT_LEN                    633
+# define SSL_F_WPACKET_START_SUB_PACKET_LEN__             634
+# define SSL_F_WRITE_STATE_MACHINE                        586
+
+/*
+ * SSL reason codes.
+ */
+# define SSL_R_APPLICATION_DATA_AFTER_CLOSE_NOTIFY        291
+# define SSL_R_APP_DATA_IN_HANDSHAKE                      100
+# define SSL_R_ATTEMPT_TO_REUSE_SESSION_IN_DIFFERENT_CONTEXT 272
+# define SSL_R_AT_LEAST_TLS_1_0_NEEDED_IN_FIPS_MODE       143
+# define SSL_R_AT_LEAST_TLS_1_2_NEEDED_IN_SUITEB_MODE     158
+# define SSL_R_BAD_CHANGE_CIPHER_SPEC                     103
+# define SSL_R_BAD_CIPHER                                 186
+# define SSL_R_BAD_DATA                                   390
+# defin
