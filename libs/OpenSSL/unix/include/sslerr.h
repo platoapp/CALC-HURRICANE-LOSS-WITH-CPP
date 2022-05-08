@@ -463,4 +463,35 @@ int ERR_load_SSL_strings(void);
 # define SSL_R_BAD_CHANGE_CIPHER_SPEC                     103
 # define SSL_R_BAD_CIPHER                                 186
 # define SSL_R_BAD_DATA                                   390
-# defin
+# define SSL_R_BAD_DATA_RETURNED_BY_CALLBACK              106
+# define SSL_R_BAD_DECOMPRESSION                          107
+# define SSL_R_BAD_DH_VALUE                               102
+# define SSL_R_BAD_DIGEST_LENGTH                          111
+# define SSL_R_BAD_EARLY_DATA                             233
+# define SSL_R_BAD_ECC_CERT                               304
+# define SSL_R_BAD_ECPOINT                                306
+# define SSL_R_BAD_EXTENSION                              110
+# define SSL_R_BAD_HANDSHAKE_LENGTH                       332
+# define SSL_R_BAD_HANDSHAKE_STATE                        236
+# define SSL_R_BAD_HELLO_REQUEST                          105
+# define SSL_R_BAD_HRR_VERSION                            263
+# define SSL_R_BAD_KEY_SHARE                              108
+# define SSL_R_BAD_KEY_UPDATE                             122
+# define SSL_R_BAD_LEGACY_VERSION                         292
+# define SSL_R_BAD_LENGTH                                 271
+# define SSL_R_BAD_PACKET                                 240
+# define SSL_R_BAD_PACKET_LENGTH                          115
+# define SSL_R_BAD_PROTOCOL_VERSION_NUMBER                116
+# define SSL_R_BAD_PSK                                    219
+# define SSL_R_BAD_PSK_IDENTITY                           114
+# define SSL_R_BAD_RECORD_TYPE                            443
+# define SSL_R_BAD_RSA_ENCRYPT                            119
+# define SSL_R_BAD_SIGNATURE                              123
+# define SSL_R_BAD_SRP_A_LENGTH                           347
+# define SSL_R_BAD_SRP_PARAMETERS                         371
+# define SSL_R_BAD_SRTP_MKI_VALUE                         352
+# define SSL_R_BAD_SRTP_PROTECTION_PROFILE_LIST           353
+# define SSL_R_BAD_SSL_FILETYPE                           124
+# define SSL_R_BAD_VALUE                                  384
+# define SSL_R_BAD_WRITE_RETRY                            127
+# define SSL_R_BINDER_DOES_NOT_VE
