@@ -527,4 +527,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_R_DANE_TLSA_BAD_CERTIFICATE                  180
 # define SSL_R_DANE_TLSA_BAD_CERTIFICATE_USAGE            184
 # define SSL_R_DANE_TLSA_BAD_DATA_LENGTH                  189
-# define SS
+# define SSL_R_DANE_TLSA_BAD_DIGEST_LENGTH                192
+# define SSL_R_DANE_TLSA_BAD_MATCHING_TYPE                200
+# define SSL_R_DANE_TLSA_BAD_PUBLIC_KEY                   201
+# define SSL_R_DANE_TLSA_BAD_SELECTOR                     202
+# define SSL_R_DANE_TLSA_NULL_DATA                        203
+# define SSL_R_DATA_BETWEEN_CCS_AND_FINISHED              145
+# define SSL_R_DATA_LENGTH_TOO_LONG                       146
+# define SSL_R_DECRYPTION_FAILED                          147
+# define SSL_R_DECRYPTION_FAILED_OR_BAD_RECORD_MAC        281
+# define SSL_R_DH_KEY_TOO_SMALL                           394
+# define SSL_R_DH_PUBLIC_VALUE_LENGTH_IS_WRONG            148
+# define SSL_R_DIGEST_CHECK_FAILED                        149
+# define SSL_R_DTLS_MESSAGE_TOO_BIG                       334
+# define SSL_R_DUPLICATE_COMPRESSION_ID                   309
+# define SSL_R_ECC_CERT_NOT_FOR_SIGNING                   318
+# define SSL_R_ECDH_REQUIRED_FOR_SUITEB_MODE              374
+# define SSL_R_EE_KEY_TOO_SMALL                           399
+# define SSL_R_EMPTY_SRTP_PROTECTION_PROFILE_LIST         354
+# define SSL_R_ENCRYPTED_LENGTH_TOO_LONG                  150
+# define SSL_R_ERROR_IN_RECEIVED_CIPHER_LIST              151
+# define SSL_R_ERROR_SETTING_TLSA_BASE_DOMAIN             204
+# define SSL_R_EXCEEDS_MAX_FRAGMENT_SIZE                  194
+# define SSL_R_EXCESSIVE_MESSAGE_SIZE                     152
+# define SSL_R_EXTENSION_NOT_RECEIVED                     279
+# define SSL_R_EXTRA_DATA_IN_MESSAGE                      153
+# define SSL_R_EXT_LENGTH_MISMATCH                        163
+# define SSL_R_FAILED_TO_INIT_ASYNC                       405
+# define SSL_R_FRAGMENTED_CLIENT_HELLO                    401
+# define SSL_R_GOT_A_FIN_BEFORE_A_CCS                     154
+# define SSL_R_HTTPS_PROXY_REQUEST                        155
+# define SSL_R_HTTP_REQUEST                               156
+# define SSL_R_ILLEGAL_POINT_COMPRESSION                  162
+# define SSL_R_ILLEGAL_SUITEB_DIGEST         
