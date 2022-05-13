@@ -592,4 +592,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_R_MISSING_DSA_SIGNING_CERT                   165
 # define SSL_R_MISSING_ECDSA_SIGNING_CERT                 381
 # define SSL_R_MISSING_FATAL                              256
-# define 
+# define SSL_R_MISSING_PARAMETERS                         290
+# define SSL_R_MISSING_PSK_KEX_MODES_EXTENSION            310
+# define SSL_R_MISSING_RSA_CERTIFICATE                    168
+# define SSL_R_MISSING_RSA_ENCRYPTING_CERT                169
+# define SSL_R_MISSING_RSA_SIGNING_CERT                   170
+# define SSL_R_MISSING_SIGALGS_EXTENSION                  112
+# define SSL_R_MISSING_SIGNING_CERT                       221
+# define SSL_R_MISSING_SRP_PARAM                          358
+# define SSL_R_MISSING_SUPPORTED_GROUPS_EXTENSION         209
+# define SSL_R_MISSING_TMP_DH_KEY                         171
+# define SSL_R_MISSING_TMP_ECDH_KEY                       311
+# define SSL_R_MIXED_HANDSHAKE_AND_NON_HANDSHAKE_DATA     293
+# define SSL_R_NOT_ON_RECORD_BOUNDARY                     182
+# define SSL_R_NOT_REPLACING_CERTIFICATE                  289
+# define SSL_R_NOT_SERVER                                 284
+# define SSL_R_NO_APPLICATION_PROTOCOL                    235
+# define SSL_R_NO_CERTIFICATES_RETURNED                   176
+# define SSL_R_NO_CERTIFICATE_ASSIGNED                    177
+# define SSL_R_NO_CERTIFICATE_SET                         179
+# define SSL_R_NO_CHANGE_FOLLOWING_HRR                    214
+# define SSL_R_NO_CIPHERS_AVAILABLE                       181
+# define SSL_R_NO_CIPHERS_SPECIFIED                       183
+# define SSL_R_NO_CIPHER_MATCH                            185
+# define SSL_R_NO_CLIENT_CERT_METHOD                      331
+# define SSL_R_NO_COMPRESSION_SPECIFIED                   187
+# define SSL_R_NO_COOKIE_CALLBACK_SET                     287
+# define SSL_R_NO_GOST_CERTIFICATE_SENT_BY_PEER           330
+# define SSL_R_NO_METHOD_SPECIFIED                        188
+# define SSL_R_NO_PEM_EXTENSIONS                          389
+# define SSL_R_NO_PRIVATE_KEY_ASSIGNED                    190
+# define SSL_R_NO_PROTOCOLS_AVAILABLE                     191
+# define SSL_R_NO_RENEGOTIATION                           339
+# define SSL
