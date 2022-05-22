@@ -624,4 +624,35 @@ int ERR_load_SSL_strings(void);
 # define SSL_R_NO_PRIVATE_KEY_ASSIGNED                    190
 # define SSL_R_NO_PROTOCOLS_AVAILABLE                     191
 # define SSL_R_NO_RENEGOTIATION                           339
-# define SSL
+# define SSL_R_NO_REQUIRED_DIGEST                         324
+# define SSL_R_NO_SHARED_CIPHER                           193
+# define SSL_R_NO_SHARED_GROUPS                           410
+# define SSL_R_NO_SHARED_SIGNATURE_ALGORITHMS             376
+# define SSL_R_NO_SRTP_PROFILES                           359
+# define SSL_R_NO_SUITABLE_KEY_SHARE                      101
+# define SSL_R_NO_SUITABLE_SIGNATURE_ALGORITHM            118
+# define SSL_R_NO_VALID_SCTS                              216
+# define SSL_R_NO_VERIFY_COOKIE_CALLBACK                  403
+# define SSL_R_NULL_SSL_CTX                               195
+# define SSL_R_NULL_SSL_METHOD_PASSED                     196
+# define SSL_R_OCSP_CALLBACK_FAILURE                      294
+# define SSL_R_OLD_SESSION_CIPHER_NOT_RETURNED            197
+# define SSL_R_OLD_SESSION_COMPRESSION_ALGORITHM_NOT_RETURNED 344
+# define SSL_R_OVERFLOW_ERROR                             237
+# define SSL_R_PACKET_LENGTH_TOO_LONG                     198
+# define SSL_R_PARSE_TLSEXT                               227
+# define SSL_R_PATH_TOO_LONG                              270
+# define SSL_R_PEER_DID_NOT_RETURN_A_CERTIFICATE          199
+# define SSL_R_PEM_NAME_BAD_PREFIX                        391
+# define SSL_R_PEM_NAME_TOO_SHORT                         392
+# define SSL_R_PIPELINE_FAILURE                           406
+# define SSL_R_POST_HANDSHAKE_AUTH_ENCODING_ERR           278
+# define SSL_R_PRIVATE_KEY_MISMATCH                       288
+# define SSL_R_PROTOCOL_IS_SHUTDOWN                       207
+# define SSL_R_PSK_IDENTITY_NOT_FOUND                     223
+# define SSL_R_PSK_NO_CLIENT_CB                           224
+# define SSL_R_PSK_NO_SERVER_CB                           225
+# define SSL_R_READ_BIO_NOT_SET                           211
+# define SSL_R_READ_TIMEOUT_EXPIRED                       312
+# define SSL_R_RECORD_LENGTH_MISMATCH                     213
+# define SSL_R_RECORD_TOO_SMAL
