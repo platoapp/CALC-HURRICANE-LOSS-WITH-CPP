@@ -655,4 +655,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_R_READ_BIO_NOT_SET                           211
 # define SSL_R_READ_TIMEOUT_EXPIRED                       312
 # define SSL_R_RECORD_LENGTH_MISMATCH                     213
-# define SSL_R_RECORD_TOO_SMAL
+# define SSL_R_RECORD_TOO_SMALL                           298
+# define SSL_R_RENEGOTIATE_EXT_TOO_LONG                   335
+# define SSL_R_RENEGOTIATION_ENCODING_ERR                 336
+# define SSL_R_RENEGOTIATION_MISMATCH                     337
+# define SSL_R_REQUEST_PENDING                            285
+# define SSL_R_REQUEST_SENT                               286
+# define SSL_R_REQUIRED_CIPHER_MISSING                    215
+# define SSL_R_REQUIRED_COMPRESSION_ALGORITHM_MISSING     342
+# define SSL_R_SCSV_RECEIVED_WHEN_RENEGOTIATING           345
+# define SSL_R_SCT_VERIFICATION_FAILED                    208
+# define SSL_R_SERVERHELLO_TLSEXT                         275
+# define SSL_R_SESSION_ID_CONTEXT_UNINITIALIZED           277
+# define SSL_R_SHUTDOWN_WHILE_IN_INIT                     407
+# define SSL_R_SIGNATURE_ALGORITHMS_ERROR                 360
+# define SSL_R_SIGNATURE_FOR_NON_SIGNING_CERTIFICATE      220
+# define SSL_R_SRP_A_CALC                                 361
+# define SSL_R_SRTP_COULD_NOT_ALLOCATE_PROFILES           362
+# define SSL_R_SRTP_PROTECTION_PROFILE_LIST_TOO_LONG      363
+# define SSL_R_SRTP_UNKNOWN_PROTECTION_PROFILE            364
+# define SSL_R_SSL3_EXT_INVALID_MAX_FRAGMENT_LENGTH       232
+# define SSL_R_SSL3_EXT_INVALID_SERVERNAME                319
+# define SSL_R_SSL3_EXT_INVALID_SERVERNAME_TYPE           320
+# define SSL_R_SSL3_SESSION_ID_TOO_LONG                   300
+# define SSL_R_SSLV3_ALERT_BAD_CERTIFICATE                1042
+# define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC                 1020
+# define SSL_R_SSLV3_ALERT_CERTIFICATE_EXPIRED            1045
+# define SSL_R_SSLV3_ALERT_CERTIFICATE_REVOKED            1044
+# define SSL_R_SSLV3_ALERT_CERTIFICATE_UNKNOWN            1046
+# define SSL_R_SSLV3_ALERT_DECOMPRESSION_FAILURE          1030
+# define SSL_R_SSLV3_ALERT_HANDSHAKE_FAILURE              1040
+# define SSL_R_SSLV3_ALERT_ILLEGAL_PARAMETER              1047
+# define SSL_R_SSLV3_ALERT_NO_CERTIFICATE                 1041
+# define SSL_R_SSLV3_AL
