@@ -687,4 +687,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_R_SSLV3_ALERT_HANDSHAKE_FAILURE              1040
 # define SSL_R_SSLV3_ALERT_ILLEGAL_PARAMETER              1047
 # define SSL_R_SSLV3_ALERT_NO_CERTIFICATE                 1041
-# define SSL_R_SSLV3_AL
+# define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE             1010
+# define SSL_R_SSLV3_ALERT_UNSUPPORTED_CERTIFICATE        1043
+# define SSL_R_SSL_COMMAND_SECTION_EMPTY                  117
+# define SSL_R_SSL_COMMAND_SECTION_NOT_FOUND              125
+# define SSL_R_SSL_CTX_HAS_NO_DEFAULT_SSL_VERSION         228
+# define SSL_R_SSL_HANDSHAKE_FAILURE                      229
+# define SSL_R_SSL_LIBRARY_HAS_NO_CIPHERS                 230
+# define SSL_R_SSL_NEGATIVE_LENGTH                        372
+# define SSL_R_SSL_SECTION_EMPTY                          126
+# define SSL_R_SSL_SECTION_NOT_FOUND                      136
+# define SSL_R_SSL_SESSION_ID_CALLBACK_FAILED             301
+# define SSL_R_SSL_SESSION_ID_CONFLICT                    302
+# define SSL_R_SSL_SESSION_ID_CONTEXT_TOO_LONG            273
+# define SSL_R_SSL_SESSION_ID_HAS_BAD_LENGTH              303
+# define SSL_R_SSL_SESSION_ID_TOO_LONG                    408
+# define SSL_R_SSL_SESSION_VERSION_MISMATCH               210
+# define SSL_R_STILL_IN_INIT                              121
+# define SSL_R_TLSV13_ALERT_CERTIFICATE_REQUIRED          1116
+# define SSL_R_TLSV13_ALERT_MISSING_EXTENSION             1109
+# define SSL_R_TLSV1_ALERT_ACCESS_DENIED                  1049
+# define SSL_R_TLSV1_ALERT_DECODE_ERROR                   1050
+# define SSL_R_TLSV1_ALERT_DECRYPTION_FAILED              1021
+# define SSL_R_TLSV1_ALERT_DECRYPT_ERROR                  1051
+# define SSL_R_TLSV1_ALERT_EXPORT_RESTRICTION             1060
+# define SSL_R_TLSV1_ALERT_INAPPROPRIATE_FALLBACK         1086
+# define SSL_R_TLSV1_ALERT_INSUFFICIENT_SECURITY          1071
+# define SSL_R_TLSV1_ALERT_INTERNAL_ERROR                 1080
+# define SSL_R_TLSV1_ALERT_NO_RENEGOTIATION               1100
+# define SSL_R_TLSV1_ALERT_PROTOCOL_VERSION               1070
+# define SSL_R_TLSV1_ALERT_RECORD_OVERFLOW                1022
+# define SSL_R_TLSV1_ALERT_UNKNOWN_CA                     1048
+# define SSL_R_TLSV1_ALERT_USER_CANCELLED                 1090
+# define SSL_R_TLSV1_BAD_CE
