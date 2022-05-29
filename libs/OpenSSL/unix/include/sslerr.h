@@ -751,4 +751,26 @@ int ERR_load_SSL_strings(void);
 # define SSL_R_UNKNOWN_PKEY_TYPE                          251
 # define SSL_R_UNKNOWN_PROTOCOL                           252
 # define SSL_R_UNKNOWN_SSL_VERSION                        254
-# d
+# define SSL_R_UNKNOWN_STATE                              255
+# define SSL_R_UNSAFE_LEGACY_RENEGOTIATION_DISABLED       338
+# define SSL_R_UNSOLICITED_EXTENSION                      217
+# define SSL_R_UNSUPPORTED_COMPRESSION_ALGORITHM          257
+# define SSL_R_UNSUPPORTED_ELLIPTIC_CURVE                 315
+# define SSL_R_UNSUPPORTED_PROTOCOL                       258
+# define SSL_R_UNSUPPORTED_SSL_VERSION                    259
+# define SSL_R_UNSUPPORTED_STATUS_TYPE                    329
+# define SSL_R_USE_SRTP_NOT_NEGOTIATED                    369
+# define SSL_R_VERSION_TOO_HIGH                           166
+# define SSL_R_VERSION_TOO_LOW                            396
+# define SSL_R_WRONG_CERTIFICATE_TYPE                     383
+# define SSL_R_WRONG_CIPHER_RETURNED                      261
+# define SSL_R_WRONG_CURVE                                378
+# define SSL_R_WRONG_SIGNATURE_LENGTH                     264
+# define SSL_R_WRONG_SIGNATURE_SIZE                       265
+# define SSL_R_WRONG_SIGNATURE_TYPE                       370
+# define SSL_R_WRONG_SSL_VERSION                          266
+# define SSL_R_WRONG_VERSION_NUMBER                       267
+# define SSL_R_X509_LIB                                   268
+# define SSL_R_X509_VERIFICATION_SETUP_PROBLEMS           269
+
+#endif
