@@ -719,4 +719,36 @@ int ERR_load_SSL_strings(void);
 # define SSL_R_TLSV1_ALERT_RECORD_OVERFLOW                1022
 # define SSL_R_TLSV1_ALERT_UNKNOWN_CA                     1048
 # define SSL_R_TLSV1_ALERT_USER_CANCELLED                 1090
-# define SSL_R_TLSV1_BAD_CE
+# define SSL_R_TLSV1_BAD_CERTIFICATE_HASH_VALUE           1114
+# define SSL_R_TLSV1_BAD_CERTIFICATE_STATUS_RESPONSE      1113
+# define SSL_R_TLSV1_CERTIFICATE_UNOBTAINABLE             1111
+# define SSL_R_TLSV1_UNRECOGNIZED_NAME                    1112
+# define SSL_R_TLSV1_UNSUPPORTED_EXTENSION                1110
+# define SSL_R_TLS_HEARTBEAT_PEER_DOESNT_ACCEPT           365
+# define SSL_R_TLS_HEARTBEAT_PENDING                      366
+# define SSL_R_TLS_ILLEGAL_EXPORTER_LABEL                 367
+# define SSL_R_TLS_INVALID_ECPOINTFORMAT_LIST             157
+# define SSL_R_TOO_MANY_KEY_UPDATES                       132
+# define SSL_R_TOO_MANY_WARN_ALERTS                       409
+# define SSL_R_TOO_MUCH_EARLY_DATA                        164
+# define SSL_R_UNABLE_TO_FIND_ECDH_PARAMETERS             314
+# define SSL_R_UNABLE_TO_FIND_PUBLIC_KEY_PARAMETERS       239
+# define SSL_R_UNABLE_TO_LOAD_SSL3_MD5_ROUTINES           242
+# define SSL_R_UNABLE_TO_LOAD_SSL3_SHA1_ROUTINES          243
+# define SSL_R_UNEXPECTED_CCS_MESSAGE                     262
+# define SSL_R_UNEXPECTED_END_OF_EARLY_DATA               178
+# define SSL_R_UNEXPECTED_MESSAGE                         244
+# define SSL_R_UNEXPECTED_RECORD                          245
+# define SSL_R_UNINITIALIZED                              276
+# define SSL_R_UNKNOWN_ALERT_TYPE                         246
+# define SSL_R_UNKNOWN_CERTIFICATE_TYPE                   247
+# define SSL_R_UNKNOWN_CIPHER_RETURNED                    248
+# define SSL_R_UNKNOWN_CIPHER_TYPE                        249
+# define SSL_R_UNKNOWN_CMD_NAME                           386
+# define SSL_R_UNKNOWN_COMMAND                            139
+# define SSL_R_UNKNOWN_DIGEST                             368
+# define SSL_R_UNKNOWN_KEY_EXCHANGE_TYPE                  250
+# define SSL_R_UNKNOWN_PKEY_TYPE                          251
+# define SSL_R_UNKNOWN_PROTOCOL                           252
+# define SSL_R_UNKNOWN_SSL_VERSION                        254
+# d
