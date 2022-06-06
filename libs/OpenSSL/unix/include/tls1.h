@@ -224,4 +224,48 @@ __owur int SSL_get_servername_type(const SSL *s);
  */
 __owur int SSL_export_keying_material(SSL *s, unsigned char *out, size_t olen,
                                       const char *label, size_t llen,
-          
+                                      const unsigned char *context,
+                                      size_t contextlen, int use_context);
+
+/*
+ * SSL_export_keying_material_early exports a value derived from the
+ * early exporter master secret, as specified in
+ * https://tools.ietf.org/html/draft-ietf-tls-tls13-23. It writes
+ * |olen| bytes to |out| given a label and optional context. It
+ * returns 1 on success and 0 otherwise.
+ */
+__owur int SSL_export_keying_material_early(SSL *s, unsigned char *out,
+                                            size_t olen, const char *label,
+                                            size_t llen,
+                                            const unsigned char *context,
+                                            size_t contextlen);
+
+int SSL_get_peer_signature_type_nid(const SSL *s, int *pnid);
+int SSL_get_signature_type_nid(const SSL *s, int *pnid);
+
+int SSL_get_sigalgs(SSL *s, int idx,
+                    int *psign, int *phash, int *psignandhash,
+                    unsigned char *rsig, unsigned char *rhash);
+
+int SSL_get_shared_sigalgs(SSL *s, int idx,
+                           int *psign, int *phash, int *psignandhash,
+                           unsigned char *rsig, unsigned char *rhash);
+
+__owur int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);
+
+# define SSL_set_tlsext_host_name(s,name) \
+        SSL_ctrl(s,SSL_CTRL_SET_TLSEXT_HOSTNAME,TLSEXT_NAMETYPE_host_name,\
+                (void *)name)
+
+# define SSL_set_tlsext_debug_callback(ssl, cb) \
+        SSL_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_CB,\
+                (void (*)(void))cb)
+
+# define SSL_set_tlsext_debug_arg(ssl, arg) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_ARG,0,arg)
+
+# define SSL_get_tlsext_status_type(ssl) \
+        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
+
+# define SSL_set_tlsext_status_type(ssl, type) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,N
