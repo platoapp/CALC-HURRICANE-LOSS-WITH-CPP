@@ -159,4 +159,52 @@ void ESS_SIGNING_CERT_free(ESS_SIGNING_CERT *a);
 int i2d_ESS_SIGNING_CERT(const ESS_SIGNING_CERT *a, unsigned char **pp);
 ESS_SIGNING_CERT *d2i_ESS_SIGNING_CERT(ESS_SIGNING_CERT **a,
                                        const unsigned char **pp, long length);
-ESS_SIGNING_CERT *ESS_SIGNING_CERT_dup(ES
+ESS_SIGNING_CERT *ESS_SIGNING_CERT_dup(ESS_SIGNING_CERT *a);
+
+ESS_CERT_ID_V2 *ESS_CERT_ID_V2_new(void);
+void ESS_CERT_ID_V2_free(ESS_CERT_ID_V2 *a);
+int i2d_ESS_CERT_ID_V2(const ESS_CERT_ID_V2 *a, unsigned char **pp);
+ESS_CERT_ID_V2 *d2i_ESS_CERT_ID_V2(ESS_CERT_ID_V2 **a,
+                                   const unsigned char **pp, long length);
+ESS_CERT_ID_V2 *ESS_CERT_ID_V2_dup(ESS_CERT_ID_V2 *a);
+
+ESS_SIGNING_CERT_V2 *ESS_SIGNING_CERT_V2_new(void);
+void ESS_SIGNING_CERT_V2_free(ESS_SIGNING_CERT_V2 *a);
+int i2d_ESS_SIGNING_CERT_V2(const ESS_SIGNING_CERT_V2 *a, unsigned char **pp);
+ESS_SIGNING_CERT_V2 *d2i_ESS_SIGNING_CERT_V2(ESS_SIGNING_CERT_V2 **a,
+                                             const unsigned char **pp,
+                                             long length);
+ESS_SIGNING_CERT_V2 *ESS_SIGNING_CERT_V2_dup(ESS_SIGNING_CERT_V2 *a);
+
+int TS_REQ_set_version(TS_REQ *a, long version);
+long TS_REQ_get_version(const TS_REQ *a);
+
+int TS_STATUS_INFO_set_status(TS_STATUS_INFO *a, int i);
+const ASN1_INTEGER *TS_STATUS_INFO_get0_status(const TS_STATUS_INFO *a);
+
+const STACK_OF(ASN1_UTF8STRING) *
+TS_STATUS_INFO_get0_text(const TS_STATUS_INFO *a);
+
+const ASN1_BIT_STRING *
+TS_STATUS_INFO_get0_failure_info(const TS_STATUS_INFO *a);
+
+int TS_REQ_set_msg_imprint(TS_REQ *a, TS_MSG_IMPRINT *msg_imprint);
+TS_MSG_IMPRINT *TS_REQ_get_msg_imprint(TS_REQ *a);
+
+int TS_MSG_IMPRINT_set_algo(TS_MSG_IMPRINT *a, X509_ALGOR *alg);
+X509_ALGOR *TS_MSG_IMPRINT_get_algo(TS_MSG_IMPRINT *a);
+
+int TS_MSG_IMPRINT_set_msg(TS_MSG_IMPRINT *a, unsigned char *d, int len);
+ASN1_OCTET_STRING *TS_MSG_IMPRINT_get_msg(TS_MSG_IMPRINT *a);
+
+int TS_REQ_set_policy_id(TS_REQ *a, const ASN1_OBJECT *policy);
+ASN1_OBJECT *TS_REQ_get_policy_id(TS_REQ *a);
+
+int TS_REQ_set_nonce(TS_REQ *a, const ASN1_INTEGER *nonce);
+const ASN1_INTEGER *TS_REQ_get_nonce(const TS_REQ *a);
+
+int TS_REQ_set_cert_req(TS_REQ *a, int cert_req);
+int TS_REQ_get_cert_req(const TS_REQ *a);
+
+STACK_OF(X509_EXTENSION) *TS_REQ_get_exts(TS_REQ *a);
+void TS_REQ_ext_free(TS_REQ 
