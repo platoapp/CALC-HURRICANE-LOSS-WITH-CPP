@@ -116,4 +116,47 @@ void TS_STATUS_INFO_free(TS_STATUS_INFO *a);
 int i2d_TS_STATUS_INFO(const TS_STATUS_INFO *a, unsigned char **pp);
 TS_STATUS_INFO *d2i_TS_STATUS_INFO(TS_STATUS_INFO **a,
                                    const unsigned char **pp, long length);
-TS_STATUS_INFO
+TS_STATUS_INFO *TS_STATUS_INFO_dup(TS_STATUS_INFO *a);
+
+TS_TST_INFO *TS_TST_INFO_new(void);
+void TS_TST_INFO_free(TS_TST_INFO *a);
+int i2d_TS_TST_INFO(const TS_TST_INFO *a, unsigned char **pp);
+TS_TST_INFO *d2i_TS_TST_INFO(TS_TST_INFO **a, const unsigned char **pp,
+                             long length);
+TS_TST_INFO *TS_TST_INFO_dup(TS_TST_INFO *a);
+
+#ifndef OPENSSL_NO_STDIO
+TS_TST_INFO *d2i_TS_TST_INFO_fp(FILE *fp, TS_TST_INFO **a);
+int i2d_TS_TST_INFO_fp(FILE *fp, TS_TST_INFO *a);
+#endif
+TS_TST_INFO *d2i_TS_TST_INFO_bio(BIO *bio, TS_TST_INFO **a);
+int i2d_TS_TST_INFO_bio(BIO *bio, TS_TST_INFO *a);
+
+TS_ACCURACY *TS_ACCURACY_new(void);
+void TS_ACCURACY_free(TS_ACCURACY *a);
+int i2d_TS_ACCURACY(const TS_ACCURACY *a, unsigned char **pp);
+TS_ACCURACY *d2i_TS_ACCURACY(TS_ACCURACY **a, const unsigned char **pp,
+                             long length);
+TS_ACCURACY *TS_ACCURACY_dup(TS_ACCURACY *a);
+
+ESS_ISSUER_SERIAL *ESS_ISSUER_SERIAL_new(void);
+void ESS_ISSUER_SERIAL_free(ESS_ISSUER_SERIAL *a);
+int i2d_ESS_ISSUER_SERIAL(const ESS_ISSUER_SERIAL *a, unsigned char **pp);
+ESS_ISSUER_SERIAL *d2i_ESS_ISSUER_SERIAL(ESS_ISSUER_SERIAL **a,
+                                         const unsigned char **pp,
+                                         long length);
+ESS_ISSUER_SERIAL *ESS_ISSUER_SERIAL_dup(ESS_ISSUER_SERIAL *a);
+
+ESS_CERT_ID *ESS_CERT_ID_new(void);
+void ESS_CERT_ID_free(ESS_CERT_ID *a);
+int i2d_ESS_CERT_ID(const ESS_CERT_ID *a, unsigned char **pp);
+ESS_CERT_ID *d2i_ESS_CERT_ID(ESS_CERT_ID **a, const unsigned char **pp,
+                             long length);
+ESS_CERT_ID *ESS_CERT_ID_dup(ESS_CERT_ID *a);
+
+ESS_SIGNING_CERT *ESS_SIGNING_CERT_new(void);
+void ESS_SIGNING_CERT_free(ESS_SIGNING_CERT *a);
+int i2d_ESS_SIGNING_CERT(const ESS_SIGNING_CERT *a, unsigned char **pp);
+ESS_SIGNING_CERT *d2i_ESS_SIGNING_CERT(ESS_SIGNING_CERT **a,
+                                       const unsigned char **pp, long length);
+ESS_SIGNING_CERT *ESS_SIGNING_CERT_dup(ES
