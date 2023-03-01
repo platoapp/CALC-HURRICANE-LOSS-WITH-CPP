@@ -457,4 +457,50 @@ int TS_RESP_verify_signature(PKCS7 *token, STACK_OF(X509) *certs,
                                  | TS_VFY_VERSION       \
                                  | TS_VFY_POLICY        \
                                  | TS_VFY_DATA          \
-                      
+                                 | TS_VFY_NONCE         \
+                                 | TS_VFY_SIGNER        \
+                                 | TS_VFY_TSA_NAME)
+
+typedef struct TS_verify_ctx TS_VERIFY_CTX;
+
+int TS_RESP_verify_response(TS_VERIFY_CTX *ctx, TS_RESP *response);
+int TS_RESP_verify_token(TS_VERIFY_CTX *ctx, PKCS7 *token);
+
+/*
+ * Declarations related to response verification context,
+ */
+TS_VERIFY_CTX *TS_VERIFY_CTX_new(void);
+void TS_VERIFY_CTX_init(TS_VERIFY_CTX *ctx);
+void TS_VERIFY_CTX_free(TS_VERIFY_CTX *ctx);
+void TS_VERIFY_CTX_cleanup(TS_VERIFY_CTX *ctx);
+int TS_VERIFY_CTX_set_flags(TS_VERIFY_CTX *ctx, int f);
+int TS_VERIFY_CTX_add_flags(TS_VERIFY_CTX *ctx, int f);
+BIO *TS_VERIFY_CTX_set_data(TS_VERIFY_CTX *ctx, BIO *b);
+unsigned char *TS_VERIFY_CTX_set_imprint(TS_VERIFY_CTX *ctx,
+                                         unsigned char *hexstr, long len);
+X509_STORE *TS_VERIFY_CTX_set_store(TS_VERIFY_CTX *ctx, X509_STORE *s);
+STACK_OF(X509) *TS_VERIFY_CTS_set_certs(TS_VERIFY_CTX *ctx, STACK_OF(X509) *certs);
+
+/*-
+ * If ctx is NULL, it allocates and returns a new object, otherwise
+ * it returns ctx. It initialises all the members as follows:
+ * flags = TS_VFY_ALL_IMPRINT & ~(TS_VFY_TSA_NAME | TS_VFY_SIGNATURE)
+ * certs = NULL
+ * store = NULL
+ * policy = policy from the request or NULL if absent (in this case
+ *      TS_VFY_POLICY is cleared from flags as well)
+ * md_alg = MD algorithm from request
+ * imprint, imprint_len = imprint from request
+ * data = NULL
+ * nonce, nonce_len = nonce from the request or NULL if absent (in this case
+ *      TS_VFY_NONCE is cleared from flags as well)
+ * tsa_name = NULL
+ * Important: after calling this method TS_VFY_SIGNATURE should be added!
+ */
+TS_VERIFY_CTX *TS_REQ_to_TS_VERIFY_CTX(TS_REQ *req, TS_VERIFY_CTX *ctx);
+
+/* Function declarations for TS_RESP defined in ts/ts_resp_print.c */
+
+int TS_RESP_print_bio(BIO *bio, TS_RESP *a);
+int TS_STATUS_INFO_print_bio(BIO *bio, TS_STATUS_INFO *a);
+int TS_TST_INFO_p
