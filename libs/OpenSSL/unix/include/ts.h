@@ -253,4 +253,56 @@ int TS_ACCURACY_set_seconds(TS_ACCURACY *a, const ASN1_INTEGER *seconds);
 const ASN1_INTEGER *TS_ACCURACY_get_seconds(const TS_ACCURACY *a);
 
 int TS_ACCURACY_set_millis(TS_ACCURACY *a, const ASN1_INTEGER *millis);
-const 
+const ASN1_INTEGER *TS_ACCURACY_get_millis(const TS_ACCURACY *a);
+
+int TS_ACCURACY_set_micros(TS_ACCURACY *a, const ASN1_INTEGER *micros);
+const ASN1_INTEGER *TS_ACCURACY_get_micros(const TS_ACCURACY *a);
+
+int TS_TST_INFO_set_ordering(TS_TST_INFO *a, int ordering);
+int TS_TST_INFO_get_ordering(const TS_TST_INFO *a);
+
+int TS_TST_INFO_set_nonce(TS_TST_INFO *a, const ASN1_INTEGER *nonce);
+const ASN1_INTEGER *TS_TST_INFO_get_nonce(const TS_TST_INFO *a);
+
+int TS_TST_INFO_set_tsa(TS_TST_INFO *a, GENERAL_NAME *tsa);
+GENERAL_NAME *TS_TST_INFO_get_tsa(TS_TST_INFO *a);
+
+STACK_OF(X509_EXTENSION) *TS_TST_INFO_get_exts(TS_TST_INFO *a);
+void TS_TST_INFO_ext_free(TS_TST_INFO *a);
+int TS_TST_INFO_get_ext_count(TS_TST_INFO *a);
+int TS_TST_INFO_get_ext_by_NID(TS_TST_INFO *a, int nid, int lastpos);
+int TS_TST_INFO_get_ext_by_OBJ(TS_TST_INFO *a, const ASN1_OBJECT *obj,
+                               int lastpos);
+int TS_TST_INFO_get_ext_by_critical(TS_TST_INFO *a, int crit, int lastpos);
+X509_EXTENSION *TS_TST_INFO_get_ext(TS_TST_INFO *a, int loc);
+X509_EXTENSION *TS_TST_INFO_delete_ext(TS_TST_INFO *a, int loc);
+int TS_TST_INFO_add_ext(TS_TST_INFO *a, X509_EXTENSION *ex, int loc);
+void *TS_TST_INFO_get_ext_d2i(TS_TST_INFO *a, int nid, int *crit, int *idx);
+
+/*
+ * Declarations related to response generation, defined in ts/ts_resp_sign.c.
+ */
+
+/* Optional flags for response generation. */
+
+/* Don't include the TSA name in response. */
+# define TS_TSA_NAME             0x01
+
+/* Set ordering to true in response. */
+# define TS_ORDERING             0x02
+
+/*
+ * Include the signer certificate and the other specified certificates in
+ * the ESS signing certificate attribute beside the PKCS7 signed data.
+ * Only the signer certificates is included by default.
+ */
+# define TS_ESS_CERT_ID_CHAIN    0x04
+
+/* Forward declaration. */
+struct TS_resp_ctx;
+
+/* This must return a unique number less than 160 bits long. */
+typedef ASN1_INTEGER *(*TS_serial_cb) (struct TS_resp_ctx *, void *);
+
+/*
+ * This must return the seconds a
