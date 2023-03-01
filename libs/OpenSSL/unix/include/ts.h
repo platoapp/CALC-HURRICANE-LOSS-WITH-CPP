@@ -207,4 +207,50 @@ int TS_REQ_set_cert_req(TS_REQ *a, int cert_req);
 int TS_REQ_get_cert_req(const TS_REQ *a);
 
 STACK_OF(X509_EXTENSION) *TS_REQ_get_exts(TS_REQ *a);
-void TS_REQ_ext_free(TS_REQ 
+void TS_REQ_ext_free(TS_REQ *a);
+int TS_REQ_get_ext_count(TS_REQ *a);
+int TS_REQ_get_ext_by_NID(TS_REQ *a, int nid, int lastpos);
+int TS_REQ_get_ext_by_OBJ(TS_REQ *a, const ASN1_OBJECT *obj, int lastpos);
+int TS_REQ_get_ext_by_critical(TS_REQ *a, int crit, int lastpos);
+X509_EXTENSION *TS_REQ_get_ext(TS_REQ *a, int loc);
+X509_EXTENSION *TS_REQ_delete_ext(TS_REQ *a, int loc);
+int TS_REQ_add_ext(TS_REQ *a, X509_EXTENSION *ex, int loc);
+void *TS_REQ_get_ext_d2i(TS_REQ *a, int nid, int *crit, int *idx);
+
+/* Function declarations for TS_REQ defined in ts/ts_req_print.c */
+
+int TS_REQ_print_bio(BIO *bio, TS_REQ *a);
+
+/* Function declarations for TS_RESP defined in ts/ts_resp_utils.c */
+
+int TS_RESP_set_status_info(TS_RESP *a, TS_STATUS_INFO *info);
+TS_STATUS_INFO *TS_RESP_get_status_info(TS_RESP *a);
+
+/* Caller loses ownership of PKCS7 and TS_TST_INFO objects. */
+void TS_RESP_set_tst_info(TS_RESP *a, PKCS7 *p7, TS_TST_INFO *tst_info);
+PKCS7 *TS_RESP_get_token(TS_RESP *a);
+TS_TST_INFO *TS_RESP_get_tst_info(TS_RESP *a);
+
+int TS_TST_INFO_set_version(TS_TST_INFO *a, long version);
+long TS_TST_INFO_get_version(const TS_TST_INFO *a);
+
+int TS_TST_INFO_set_policy_id(TS_TST_INFO *a, ASN1_OBJECT *policy_id);
+ASN1_OBJECT *TS_TST_INFO_get_policy_id(TS_TST_INFO *a);
+
+int TS_TST_INFO_set_msg_imprint(TS_TST_INFO *a, TS_MSG_IMPRINT *msg_imprint);
+TS_MSG_IMPRINT *TS_TST_INFO_get_msg_imprint(TS_TST_INFO *a);
+
+int TS_TST_INFO_set_serial(TS_TST_INFO *a, const ASN1_INTEGER *serial);
+const ASN1_INTEGER *TS_TST_INFO_get_serial(const TS_TST_INFO *a);
+
+int TS_TST_INFO_set_time(TS_TST_INFO *a, const ASN1_GENERALIZEDTIME *gtime);
+const ASN1_GENERALIZEDTIME *TS_TST_INFO_get_time(const TS_TST_INFO *a);
+
+int TS_TST_INFO_set_accuracy(TS_TST_INFO *a, TS_ACCURACY *accuracy);
+TS_ACCURACY *TS_TST_INFO_get_accuracy(TS_TST_INFO *a);
+
+int TS_ACCURACY_set_seconds(TS_ACCURACY *a, const ASN1_INTEGER *seconds);
+const ASN1_INTEGER *TS_ACCURACY_get_seconds(const TS_ACCURACY *a);
+
+int TS_ACCURACY_set_millis(TS_ACCURACY *a, const ASN1_INTEGER *millis);
+const 
