@@ -410,3 +410,51 @@ TS_TST_INFO *TS_RESP_CTX_get_tst_info(TS_RESP_CTX *ctx);
  * Returns NULL only in case of memory allocation/fatal error.
  */
 TS_RESP *TS_RESP_create_response(TS_RESP_CTX *ctx, BIO *req_bio);
+
+/*
+ * Declarations related to response verification,
+ * they are defined in ts/ts_resp_verify.c.
+ */
+
+int TS_RESP_verify_signature(PKCS7 *token, STACK_OF(X509) *certs,
+                             X509_STORE *store, X509 **signer_out);
+
+/* Context structure for the generic verify method. */
+
+/* Verify the signer's certificate and the signature of the response. */
+# define TS_VFY_SIGNATURE        (1u << 0)
+/* Verify the version number of the response. */
+# define TS_VFY_VERSION          (1u << 1)
+/* Verify if the policy supplied by the user matches the policy of the TSA. */
+# define TS_VFY_POLICY           (1u << 2)
+/*
+ * Verify the message imprint provided by the user. This flag should not be
+ * specified with TS_VFY_DATA.
+ */
+# define TS_VFY_IMPRINT          (1u << 3)
+/*
+ * Verify the message imprint computed by the verify method from the user
+ * provided data and the MD algorithm of the response. This flag should not
+ * be specified with TS_VFY_IMPRINT.
+ */
+# define TS_VFY_DATA             (1u << 4)
+/* Verify the nonce value. */
+# define TS_VFY_NONCE            (1u << 5)
+/* Verify if the TSA name field matches the signer certificate. */
+# define TS_VFY_SIGNER           (1u << 6)
+/* Verify if the TSA name field equals to the user provided name. */
+# define TS_VFY_TSA_NAME         (1u << 7)
+
+/* You can use the following convenience constants. */
+# define TS_VFY_ALL_IMPRINT      (TS_VFY_SIGNATURE       \
+                                 | TS_VFY_VERSION       \
+                                 | TS_VFY_POLICY        \
+                                 | TS_VFY_IMPRINT       \
+                                 | TS_VFY_NONCE         \
+                                 | TS_VFY_SIGNER        \
+                                 | TS_VFY_TSA_NAME)
+# define TS_VFY_ALL_DATA         (TS_VFY_SIGNATURE       \
+                                 | TS_VFY_VERSION       \
+                                 | TS_VFY_POLICY        \
+                                 | TS_VFY_DATA          \
+                      
