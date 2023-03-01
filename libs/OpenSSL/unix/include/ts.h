@@ -503,4 +503,44 @@ TS_VERIFY_CTX *TS_REQ_to_TS_VERIFY_CTX(TS_REQ *req, TS_VERIFY_CTX *ctx);
 
 int TS_RESP_print_bio(BIO *bio, TS_RESP *a);
 int TS_STATUS_INFO_print_bio(BIO *bio, TS_STATUS_INFO *a);
-int TS_TST_INFO_p
+int TS_TST_INFO_print_bio(BIO *bio, TS_TST_INFO *a);
+
+/* Common utility functions defined in ts/ts_lib.c */
+
+int TS_ASN1_INTEGER_print_bio(BIO *bio, const ASN1_INTEGER *num);
+int TS_OBJ_print_bio(BIO *bio, const ASN1_OBJECT *obj);
+int TS_ext_print_bio(BIO *bio, const STACK_OF(X509_EXTENSION) *extensions);
+int TS_X509_ALGOR_print_bio(BIO *bio, const X509_ALGOR *alg);
+int TS_MSG_IMPRINT_print_bio(BIO *bio, TS_MSG_IMPRINT *msg);
+
+/*
+ * Function declarations for handling configuration options, defined in
+ * ts/ts_conf.c
+ */
+
+X509 *TS_CONF_load_cert(const char *file);
+STACK_OF(X509) *TS_CONF_load_certs(const char *file);
+EVP_PKEY *TS_CONF_load_key(const char *file, const char *pass);
+const char *TS_CONF_get_tsa_section(CONF *conf, const char *section);
+int TS_CONF_set_serial(CONF *conf, const char *section, TS_serial_cb cb,
+                       TS_RESP_CTX *ctx);
+#ifndef OPENSSL_NO_ENGINE
+int TS_CONF_set_crypto_device(CONF *conf, const char *section,
+                              const char *device);
+int TS_CONF_set_default_engine(const char *name);
+#endif
+int TS_CONF_set_signer_cert(CONF *conf, const char *section,
+                            const char *cert, TS_RESP_CTX *ctx);
+int TS_CONF_set_certs(CONF *conf, const char *section, const char *certs,
+                      TS_RESP_CTX *ctx);
+int TS_CONF_set_signer_key(CONF *conf, const char *section,
+                           const char *key, const char *pass,
+                           TS_RESP_CTX *ctx);
+int TS_CONF_set_signer_digest(CONF *conf, const char *section,
+                               const char *md, TS_RESP_CTX *ctx);
+int TS_CONF_set_def_policy(CONF *conf, const char *section,
+                           const char *policy, TS_RESP_CTX *ctx);
+int TS_CONF_set_policies(CONF *conf, const char *section, TS_RESP_CTX *ctx);
+int TS_CONF_set_digests(CONF *conf, const char *section, TS_RESP_CTX *ctx);
+int TS_CONF_set_accuracy(CONF *conf, const char *section, TS_RESP_CTX *ctx);
+int TS_CONF_set_clock_precision_digits(CONF 
