@@ -305,4 +305,60 @@ struct TS_resp_ctx;
 typedef ASN1_INTEGER *(*TS_serial_cb) (struct TS_resp_ctx *, void *);
 
 /*
- * This must return the seconds a
+ * This must return the seconds and microseconds since Jan 1, 1970 in the sec
+ * and usec variables allocated by the caller. Return non-zero for success
+ * and zero for failure.
+ */
+typedef int (*TS_time_cb) (struct TS_resp_ctx *, void *, long *sec,
+                           long *usec);
+
+/*
+ * This must process the given extension. It can modify the TS_TST_INFO
+ * object of the context. Return values: !0 (processed), 0 (error, it must
+ * set the status info/failure info of the response).
+ */
+typedef int (*TS_extension_cb) (struct TS_resp_ctx *, X509_EXTENSION *,
+                                void *);
+
+typedef struct TS_resp_ctx TS_RESP_CTX;
+
+DEFINE_STACK_OF_CONST(EVP_MD)
+
+/* Creates a response context that can be used for generating responses. */
+TS_RESP_CTX *TS_RESP_CTX_new(void);
+void TS_RESP_CTX_free(TS_RESP_CTX *ctx);
+
+/* This parameter must be set. */
+int TS_RESP_CTX_set_signer_cert(TS_RESP_CTX *ctx, X509 *signer);
+
+/* This parameter must be set. */
+int TS_RESP_CTX_set_signer_key(TS_RESP_CTX *ctx, EVP_PKEY *key);
+
+int TS_RESP_CTX_set_signer_digest(TS_RESP_CTX *ctx,
+                                  const EVP_MD *signer_digest);
+int TS_RESP_CTX_set_ess_cert_id_digest(TS_RESP_CTX *ctx, const EVP_MD *md);
+
+/* This parameter must be set. */
+int TS_RESP_CTX_set_def_policy(TS_RESP_CTX *ctx, const ASN1_OBJECT *def_policy);
+
+/* No additional certs are included in the response by default. */
+int TS_RESP_CTX_set_certs(TS_RESP_CTX *ctx, STACK_OF(X509) *certs);
+
+/*
+ * Adds a new acceptable policy, only the default policy is accepted by
+ * default.
+ */
+int TS_RESP_CTX_add_policy(TS_RESP_CTX *ctx, const ASN1_OBJECT *policy);
+
+/*
+ * Adds a new acceptable message digest. Note that no message digests are
+ * accepted by default. The md argument is shared with the caller.
+ */
+int TS_RESP_CTX_add_md(TS_RESP_CTX *ctx, const EVP_MD *md);
+
+/* Accuracy is not included by default. */
+int TS_RESP_CTX_set_accuracy(TS_RESP_CTX *ctx,
+                             int secs, int millis, int micros);
+
+/*
+ * Clock precision digits, i.e. the n
