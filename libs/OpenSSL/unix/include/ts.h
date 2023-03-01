@@ -361,4 +361,52 @@ int TS_RESP_CTX_set_accuracy(TS_RESP_CTX *ctx,
                              int secs, int millis, int micros);
 
 /*
- * Clock precision digits, i.e. the n
+ * Clock precision digits, i.e. the number of decimal digits: '0' means sec,
+ * '3' msec, '6' usec, and so on. Default is 0.
+ */
+int TS_RESP_CTX_set_clock_precision_digits(TS_RESP_CTX *ctx,
+                                           unsigned clock_precision_digits);
+/* At most we accept usec precision. */
+# define TS_MAX_CLOCK_PRECISION_DIGITS   6
+
+/* Maximum status message length */
+# define TS_MAX_STATUS_LENGTH   (1024 * 1024)
+
+/* No flags are set by default. */
+void TS_RESP_CTX_add_flags(TS_RESP_CTX *ctx, int flags);
+
+/* Default callback always returns a constant. */
+void TS_RESP_CTX_set_serial_cb(TS_RESP_CTX *ctx, TS_serial_cb cb, void *data);
+
+/* Default callback uses the gettimeofday() and gmtime() system calls. */
+void TS_RESP_CTX_set_time_cb(TS_RESP_CTX *ctx, TS_time_cb cb, void *data);
+
+/*
+ * Default callback rejects all extensions. The extension callback is called
+ * when the TS_TST_INFO object is already set up and not signed yet.
+ */
+/* FIXME: extension handling is not tested yet. */
+void TS_RESP_CTX_set_extension_cb(TS_RESP_CTX *ctx,
+                                  TS_extension_cb cb, void *data);
+
+/* The following methods can be used in the callbacks. */
+int TS_RESP_CTX_set_status_info(TS_RESP_CTX *ctx,
+                                int status, const char *text);
+
+/* Sets the status info only if it is still TS_STATUS_GRANTED. */
+int TS_RESP_CTX_set_status_info_cond(TS_RESP_CTX *ctx,
+                                     int status, const char *text);
+
+int TS_RESP_CTX_add_failure_info(TS_RESP_CTX *ctx, int failure);
+
+/* The get methods below can be used in the extension callback. */
+TS_REQ *TS_RESP_CTX_get_request(TS_RESP_CTX *ctx);
+
+TS_TST_INFO *TS_RESP_CTX_get_tst_info(TS_RESP_CTX *ctx);
+
+/*
+ * Creates the signed TS_TST_INFO and puts it in TS_RESP.
+ * In case of errors it sets the status info properly.
+ * Returns NULL only in case of memory allocation/fatal error.
+ */
+TS_RESP *TS_RESP_create_response(TS_RESP_CTX *ctx, BIO *req_bio);
