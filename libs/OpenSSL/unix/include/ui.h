@@ -76,4 +76,37 @@ void UI_free(UI *ui);
    The boolean input functions take an action description string (which should
    be safe to ignore if the expected user action is obvious, for example with
    a dialog box with an OK button and a Cancel button), a string of acceptable
-   charac
+   characters to mean OK and to mean Cancel.  The two last strings are checked
+   to make sure they don't have common characters.  Additionally, the same
+   flag argument as for the string input is taken, as well as a result buffer.
+   The result buffer is required to be at least one byte long.  Depending on
+   the answer, the first character from the OK or the Cancel character strings
+   will be stored in the first byte of the result buffer.  No NUL will be
+   added, so the result is *not* a string.
+
+   On success, the all return an index of the added information.  That index
+   is useful when retrieving results with UI_get0_result(). */
+int UI_add_input_string(UI *ui, const char *prompt, int flags,
+                        char *result_buf, int minsize, int maxsize);
+int UI_dup_input_string(UI *ui, const char *prompt, int flags,
+                        char *result_buf, int minsize, int maxsize);
+int UI_add_verify_string(UI *ui, const char *prompt, int flags,
+                         char *result_buf, int minsize, int maxsize,
+                         const char *test_buf);
+int UI_dup_verify_string(UI *ui, const char *prompt, int flags,
+                         char *result_buf, int minsize, int maxsize,
+                         const char *test_buf);
+int UI_add_input_boolean(UI *ui, const char *prompt, const char *action_desc,
+                         const char *ok_chars, const char *cancel_chars,
+                         int flags, char *result_buf);
+int UI_dup_input_boolean(UI *ui, const char *prompt, const char *action_desc,
+                         const char *ok_chars, const char *cancel_chars,
+                         int flags, char *result_buf);
+int UI_add_info_string(UI *ui, const char *text);
+int UI_dup_info_string(UI *ui, const char *text);
+int UI_add_error_string(UI *ui, const char *text);
+int UI_dup_error_string(UI *ui, const char *text);
+
+/* These are the possible flags.  They can be or'ed together. */
+/* Use to have echoing of input */
+# define UI_I
