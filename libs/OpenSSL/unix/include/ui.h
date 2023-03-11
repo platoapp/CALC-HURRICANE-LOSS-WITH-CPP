@@ -158,4 +158,58 @@ char *UI_construct_prompt(UI *ui_method,
  *
  * For callback purposes, this function makes a lot more sense than using
  * ex_data, since the latter requires that different parts of OpenSSL or
- * applications share the
+ * applications share the same ex_data index.
+ *
+ * Note that the UI_OpenSSL() method completely ignores the user data. Other
+ * methods may not, however.
+ */
+void *UI_add_user_data(UI *ui, void *user_data);
+/*
+ * Alternatively, this function is used to duplicate the user data.
+ * This uses the duplicator method function.  The destroy function will
+ * be used to free the user data in this case.
+ */
+int UI_dup_user_data(UI *ui, void *user_data);
+/* We need a user data retrieving function as well.  */
+void *UI_get0_user_data(UI *ui);
+
+/* Return the result associated with a prompt given with the index i. */
+const char *UI_get0_result(UI *ui, int i);
+int UI_get_result_length(UI *ui, int i);
+
+/* When all strings have been added, process the whole thing. */
+int UI_process(UI *ui);
+
+/*
+ * Give a user interface parameterised control commands.  This can be used to
+ * send down an integer, a data pointer or a function pointer, as well as be
+ * used to get information from a UI.
+ */
+int UI_ctrl(UI *ui, int cmd, long i, void *p, void (*f) (void));
+
+/* The commands */
+/*
+ * Use UI_CONTROL_PRINT_ERRORS with the value 1 to have UI_process print the
+ * OpenSSL error stack before printing any info or added error messages and
+ * before any prompting.
+ */
+# define UI_CTRL_PRINT_ERRORS            1
+/*
+ * Check if a UI_process() is possible to do again with the same instance of
+ * a user interface.  This makes UI_ctrl() return 1 if it is redoable, and 0
+ * if not.
+ */
+# define UI_CTRL_IS_REDOABLE             2
+
+/* Some methods may use extra data */
+# define UI_set_app_data(s,arg)         UI_set_ex_data(s,0,arg)
+# define UI_get_app_data(s)             UI_get_ex_data(s,0)
+
+# define UI_get_ex_new_index(l, p, newf, dupf, freef) \
+    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_UI, l, p, newf, dupf, freef)
+int UI_set_ex_data(UI *r, int idx, void *arg);
+void *UI_get_ex_data(UI *r, int idx);
+
+/* Use specific methods instead of the built-in one */
+void UI_set_default_method(const UI_METHOD *meth);
+const UI_METHOD *UI_get_default_met
