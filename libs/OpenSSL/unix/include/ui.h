@@ -340,4 +340,29 @@ const char *UI_get0_output_string(UI_STRING *uis);
  */
 const char *UI_get0_action_string(UI_STRING *uis);
 /* Return the result of a prompt */
-const char *UI_get0_result_string(U
+const char *UI_get0_result_string(UI_STRING *uis);
+int UI_get_result_string_length(UI_STRING *uis);
+/*
+ * Return the string to test the result against.  Only useful with verifies.
+ */
+const char *UI_get0_test_string(UI_STRING *uis);
+/* Return the required minimum size of the result */
+int UI_get_result_minsize(UI_STRING *uis);
+/* Return the required maximum size of the result */
+int UI_get_result_maxsize(UI_STRING *uis);
+/* Set the result of a UI_STRING. */
+int UI_set_result(UI *ui, UI_STRING *uis, const char *result);
+int UI_set_result_ex(UI *ui, UI_STRING *uis, const char *result, int len);
+
+/* A couple of popular utility functions */
+int UI_UTIL_read_pw_string(char *buf, int length, const char *prompt,
+                           int verify);
+int UI_UTIL_read_pw(char *buf, char *buff, int size, const char *prompt,
+                    int verify);
+UI_METHOD *UI_UTIL_wrap_read_pem_callback(pem_password_cb *cb, int rwflag);
+
+
+# ifdef  __cplusplus
+}
+# endif
+#endif
