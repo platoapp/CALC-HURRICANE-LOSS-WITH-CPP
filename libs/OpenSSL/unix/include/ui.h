@@ -259,4 +259,48 @@ const UI_METHOD *UI_null(void);
                 only checked when returned by the flusher or the reader.
 
    The way this is used, the opener is first called, then the writer for all
-   strings, then the flusher, then the reader for all s
+   strings, then the flusher, then the reader for all strings and finally the
+   closer.  Note that if you want to prompt from a terminal or other command
+   line interface, the best is to have the reader also write the prompts
+   instead of having the writer do it.  If you want to prompt from a dialog
+   box, the writer can be used to build up the contents of the box, and the
+   flusher to actually display the box and run the event loop until all data
+   has been given, after which the reader only grabs the given data and puts
+   them back into the UI strings.
+
+   All method functions take a UI as argument.  Additionally, the writer and
+   the reader take a UI_STRING.
+*/
+
+/*
+ * The UI_STRING type is the data structure that contains all the needed info
+ * about a string or a prompt, including test data for a verification prompt.
+ */
+typedef struct ui_string_st UI_STRING;
+DEFINE_STACK_OF(UI_STRING)
+
+/*
+ * The different types of strings that are currently supported. This is only
+ * needed by method authors.
+ */
+enum UI_string_types {
+    UIT_NONE = 0,
+    UIT_PROMPT,                 /* Prompt for a string */
+    UIT_VERIFY,                 /* Prompt for a string and verify */
+    UIT_BOOLEAN,                /* Prompt for a yes/no response */
+    UIT_INFO,                   /* Send info to the user */
+    UIT_ERROR                   /* Send an error message to the user */
+};
+
+/* Create and manipulate methods */
+UI_METHOD *UI_create_method(const char *name);
+void UI_destroy_method(UI_METHOD *ui_method);
+int UI_method_set_opener(UI_METHOD *method, int (*opener) (UI *ui));
+int UI_method_set_writer(UI_METHOD *method,
+                         int (*writer) (UI *ui, UI_STRING *uis));
+int UI_method_set_flusher(UI_METHOD *method, int (*flusher) (UI *ui));
+int UI_method_set_reader(UI_METHOD *method,
+                         int (*reader) (UI *ui, UI_STRING *uis));
+int UI_method_set_closer(UI_METHOD *method, int (*closer) (UI *ui));
+int UI_method_set_data_duplicator(UI_METHOD *method,
+      
