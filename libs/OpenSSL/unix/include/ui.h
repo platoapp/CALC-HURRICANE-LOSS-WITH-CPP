@@ -303,4 +303,41 @@ int UI_method_set_reader(UI_METHOD *method,
                          int (*reader) (UI *ui, UI_STRING *uis));
 int UI_method_set_closer(UI_METHOD *method, int (*closer) (UI *ui));
 int UI_method_set_data_duplicator(UI_METHOD *method,
-      
+                                  void *(*duplicator) (UI *ui, void *ui_data),
+                                  void (*destructor)(UI *ui, void *ui_data));
+int UI_method_set_prompt_constructor(UI_METHOD *method,
+                                     char *(*prompt_constructor) (UI *ui,
+                                                                  const char
+                                                                  *object_desc,
+                                                                  const char
+                                                                  *object_name));
+int UI_method_set_ex_data(UI_METHOD *method, int idx, void *data);
+int (*UI_method_get_opener(const UI_METHOD *method)) (UI *);
+int (*UI_method_get_writer(const UI_METHOD *method)) (UI *, UI_STRING *);
+int (*UI_method_get_flusher(const UI_METHOD *method)) (UI *);
+int (*UI_method_get_reader(const UI_METHOD *method)) (UI *, UI_STRING *);
+int (*UI_method_get_closer(const UI_METHOD *method)) (UI *);
+char *(*UI_method_get_prompt_constructor(const UI_METHOD *method))
+    (UI *, const char *, const char *);
+void *(*UI_method_get_data_duplicator(const UI_METHOD *method)) (UI *, void *);
+void (*UI_method_get_data_destructor(const UI_METHOD *method)) (UI *, void *);
+const void *UI_method_get_ex_data(const UI_METHOD *method, int idx);
+
+/*
+ * The following functions are helpers for method writers to access relevant
+ * data from a UI_STRING.
+ */
+
+/* Return type of the UI_STRING */
+enum UI_string_types UI_get_string_type(UI_STRING *uis);
+/* Return input flags of the UI_STRING */
+int UI_get_input_flags(UI_STRING *uis);
+/* Return the actual string to output (the prompt, info or error) */
+const char *UI_get0_output_string(UI_STRING *uis);
+/*
+ * Return the optional action string to output (the boolean prompt
+ * instruction)
+ */
+const char *UI_get0_action_string(UI_STRING *uis);
+/* Return the result of a prompt */
+const char *UI_get0_result_string(U
