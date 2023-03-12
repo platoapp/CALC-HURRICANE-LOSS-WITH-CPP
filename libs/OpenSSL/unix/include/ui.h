@@ -212,4 +212,51 @@ void *UI_get_ex_data(UI *r, int idx);
 
 /* Use specific methods instead of the built-in one */
 void UI_set_default_method(const UI_METHOD *meth);
-const UI_METHOD *UI_get_default_met
+const UI_METHOD *UI_get_default_method(void);
+const UI_METHOD *UI_get_method(UI *ui);
+const UI_METHOD *UI_set_method(UI *ui, const UI_METHOD *meth);
+
+# ifndef OPENSSL_NO_UI_CONSOLE
+
+/* The method with all the built-in thingies */
+UI_METHOD *UI_OpenSSL(void);
+
+# endif
+
+/*
+ * NULL method.  Literally does nothing, but may serve as a placeholder
+ * to avoid internal default.
+ */
+const UI_METHOD *UI_null(void);
+
+/* ---------- For method writers ---------- */
+/*-
+   A method contains a number of functions that implement the low level
+   of the User Interface.  The functions are:
+
+        an opener       This function starts a session, maybe by opening
+                        a channel to a tty, or by opening a window.
+        a writer        This function is called to write a given string,
+                        maybe to the tty, maybe as a field label in a
+                        window.
+        a flusher       This function is called to flush everything that
+                        has been output so far.  It can be used to actually
+                        display a dialog box after it has been built.
+        a reader        This function is called to read a given prompt,
+                        maybe from the tty, maybe from a field in a
+                        window.  Note that it's called with all string
+                        structures, not only the prompt ones, so it must
+                        check such things itself.
+        a closer        This function closes the session, maybe by closing
+                        the channel to the tty, or closing the window.
+
+   All these functions are expected to return:
+
+        0       on error.
+        1       on success.
+        -1      on out-of-band events, for example if some prompting has
+                been canceled (by pressing Ctrl-C, for example).  This is
+                only checked when returned by the flusher or the reader.
+
+   The way this is used, the opener is first called, then the writer for all
+   strings, then the flusher, then the reader for all s
