@@ -69,4 +69,62 @@ bool QSimpleCrypto::QX509Store::setDepth(X509_STORE* store, const int& depth)
 bool QSimpleCrypto::QX509Store::setFlag(X509_STORE* store, const unsigned long& flag)
 {
     if (!X509_STORE_set_flags(store, flag)) {
-        QSimpleCrypto::Q
+        QSimpleCrypto::QX509Store::error.setError(1, "Couldn't set flag for X509_STORE. X509_STORE_set_flags(). Error: " + QByteArray(ERR_error_string(ERR_get_error(), nullptr)));
+        return false;
+    }
+
+    return true;
+}
+
+///
+/// \brief QSimpleCrypto::QX509Store::setFlag
+/// \param store - OpenSSL X509_STORE.
+/// \param purpose - Verification purpose in param to purpose. Example: X509_PURPOSE_ANY.
+/// \return Returns 'true' on success and 'false', if error happened.
+///
+bool QSimpleCrypto::QX509Store::setPurpose(X509_STORE* store, const int& purpose)
+{
+    if (!X509_STORE_set_purpose(store, purpose)) {
+        QSimpleCrypto::QX509Store::error.setError(1, "Couldn't set purpose for X509_STORE. X509_STORE_set_purpose(). Error: " + QByteArray(ERR_error_string(ERR_get_error(), nullptr)));
+        return false;
+    }
+
+    return true;
+}
+
+///
+/// \brief QSimpleCrypto::QX509Store::setTrust
+/// \param store - OpenSSL X509_STORE.
+/// \param trust - Trust Level. Example: X509_TRUST_SSL_SERVER.
+/// \return Returns 'true' on success and 'false', if error happened.
+///
+bool QSimpleCrypto::QX509Store::setTrust(X509_STORE* store, const int& trust)
+{
+    if (!X509_STORE_set_trust(store, trust)) {
+        QSimpleCrypto::QX509Store::error.setError(1, "Couldn't set trust for X509_STORE. X509_STORE_set_trust(). Error: " + QByteArray(ERR_error_string(ERR_get_error(), nullptr)));
+        return false;
+    }
+
+    return true;
+}
+
+///
+/// \brief QSimpleCrypto::QX509Store::setDefaultPaths
+/// \param store - OpenSSL X509_STORE.
+/// \return Returns 'true' on success and 'false', if error happened.
+///
+bool QSimpleCrypto::QX509Store::setDefaultPaths(X509_STORE* store)
+{
+    if (!X509_STORE_set_default_paths(store)) {
+        QSimpleCrypto::QX509Store::error.setError(1, "Couldn't set default paths for X509_STORE. X509_STORE_set_default_paths(). Error: " + QByteArray(ERR_error_string(ERR_get_error(), nullptr)));
+        return false;
+    }
+
+    return true;
+}
+
+///
+/// \brief QSimpleCrypto::QX509Store::loadLocations
+/// \param store - OpenSSL X509_STORE.
+/// \param fileName - File name. Example: "caCertificate.pem".
+/// \param dirPath - Path to file
