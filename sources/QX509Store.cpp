@@ -127,4 +127,50 @@ bool QSimpleCrypto::QX509Store::setDefaultPaths(X509_STORE* store)
 /// \brief QSimpleCrypto::QX509Store::loadLocations
 /// \param store - OpenSSL X509_STORE.
 /// \param fileName - File name. Example: "caCertificate.pem".
-/// \param dirPath - Path to file
+/// \param dirPath - Path to file. Example: "path/To/File".
+/// \return Returns 'true' on success and 'false', if error happened.
+///
+bool QSimpleCrypto::QX509Store::loadLocations(X509_STORE* store, const QByteArray& fileName, const QByteArray& dirPath)
+{
+    if (!X509_STORE_load_locations(store, fileName, dirPath)) {
+        QSimpleCrypto::QX509Store::error.setError(1, "Couldn't load locations for X509_STORE. X509_STORE_load_locations(). Error: " + QByteArray(ERR_error_string(ERR_get_error(), nullptr)));
+        return false;
+    }
+
+    return true;
+}
+
+///
+/// \brief QSimpleCrypto::QX509Store::loadLocations
+/// \param store - OpenSSL X509_STORE.
+/// \param file - Qt QFile that will be loaded.
+/// \return Returns 'true' on success and 'false', if error happened.
+///
+bool QSimpleCrypto::QX509Store::loadLocations(X509_STORE* store, const QFile& file)
+{
+    /* Initialize QFileInfo to read information about file */
+    QFileInfo info(file);
+
+    if (!X509_STORE_load_locations(store, info.fileName().toLocal8Bit(), info.absoluteDir().path().toLocal8Bit())) {
+        QSimpleCrypto::QX509Store::error.setError(1, "Couldn't load locations for X509_STORE. X509_STORE_load_locations(). Error: " + QByteArray(ERR_error_string(ERR_get_error(), nullptr)));
+        return false;
+    }
+
+    return true;
+}
+
+///
+/// \brief QSimpleCrypto::QX509Store::loadLocations
+/// \param store - OpenSSL X509_STORE.
+/// \param fileInfo - Qt QFileInfo.
+/// \return Returns 'true' on success and 'false', if error happened.
+///
+bool QSimpleCrypto::QX509Store::loadLocations(X509_STORE* store, const QFileInfo& fileInfo)
+{
+    if (!X509_STORE_load_locations(store, fileInfo.fileName().toLocal8Bit(), fileInfo.absoluteDir().path().toLocal8Bit())) {
+        QSimpleCrypto::QX509Store::error.setError(1, "Couldn't load locations for X509_STORE. X509_STORE_load_locations(). Error: " + QByteArray(ERR_error_string(ERR_get_error(), nullptr)));
+        return false;
+    }
+
+    return true;
+}
