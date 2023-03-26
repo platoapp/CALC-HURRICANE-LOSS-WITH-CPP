@@ -566,3 +566,68 @@ void X509_VERIFY_PARAM_set_hostflags(X509_VERIFY_PARAM *param,
 unsigned int X509_VERIFY_PARAM_get_hostflags(const X509_VERIFY_PARAM *param);
 char *X509_VERIFY_PARAM_get0_peername(X509_VERIFY_PARAM *);
 void X509_VERIFY_PARAM_move_peername(X509_VERIFY_PARAM *, X509_VERIFY_PARAM *);
+int X509_VERIFY_PARAM_set1_email(X509_VERIFY_PARAM *param,
+                                 const char *email, size_t emaillen);
+int X509_VERIFY_PARAM_set1_ip(X509_VERIFY_PARAM *param,
+                              const unsigned char *ip, size_t iplen);
+int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param,
+                                  const char *ipasc);
+
+int X509_VERIFY_PARAM_get_depth(const X509_VERIFY_PARAM *param);
+int X509_VERIFY_PARAM_get_auth_level(const X509_VERIFY_PARAM *param);
+const char *X509_VERIFY_PARAM_get0_name(const X509_VERIFY_PARAM *param);
+
+int X509_VERIFY_PARAM_add0_table(X509_VERIFY_PARAM *param);
+int X509_VERIFY_PARAM_get_count(void);
+const X509_VERIFY_PARAM *X509_VERIFY_PARAM_get0(int id);
+const X509_VERIFY_PARAM *X509_VERIFY_PARAM_lookup(const char *name);
+void X509_VERIFY_PARAM_table_cleanup(void);
+
+/* Non positive return values are errors */
+#define X509_PCY_TREE_FAILURE  -2 /* Failure to satisfy explicit policy */
+#define X509_PCY_TREE_INVALID  -1 /* Inconsistent or invalid extensions */
+#define X509_PCY_TREE_INTERNAL  0 /* Internal error, most likely malloc */
+
+/*
+ * Positive return values form a bit mask, all but the first are internal to
+ * the library and don't appear in results from X509_policy_check().
+ */
+#define X509_PCY_TREE_VALID     1 /* The policy tree is valid */
+#define X509_PCY_TREE_EMPTY     2 /* The policy tree is empty */
+#define X509_PCY_TREE_EXPLICIT  4 /* Explicit policy required */
+
+int X509_policy_check(X509_POLICY_TREE **ptree, int *pexplicit_policy,
+                      STACK_OF(X509) *certs,
+                      STACK_OF(ASN1_OBJECT) *policy_oids, unsigned int flags);
+
+void X509_policy_tree_free(X509_POLICY_TREE *tree);
+
+int X509_policy_tree_level_count(const X509_POLICY_TREE *tree);
+X509_POLICY_LEVEL *X509_policy_tree_get0_level(const X509_POLICY_TREE *tree,
+                                               int i);
+
+STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_policies(const
+                                                           X509_POLICY_TREE
+                                                           *tree);
+
+STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_user_policies(const
+                                                                X509_POLICY_TREE
+                                                                *tree);
+
+int X509_policy_level_node_count(X509_POLICY_LEVEL *level);
+
+X509_POLICY_NODE *X509_policy_level_get0_node(X509_POLICY_LEVEL *level,
+                                              int i);
+
+const ASN1_OBJECT *X509_policy_node_get0_policy(const X509_POLICY_NODE *node);
+
+STACK_OF(POLICYQUALINFO) *X509_policy_node_get0_qualifiers(const
+                                                           X509_POLICY_NODE
+                                                           *node);
+const X509_POLICY_NODE *X509_policy_node_get0_parent(const X509_POLICY_NODE
+                                                     *node);
+
+#ifdef  __cplusplus
+}
+#endif
+#endif
